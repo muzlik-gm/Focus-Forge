@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum SubscriptionTier {
+  FREE
+  PRO
+  TEAM
+}
+
+enum TaskStatus {
+  BACKLOG
+  IN_PROGRESS
+  DONE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// Models
+model User {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  email            String           @unique
+  name             String
+  passwordHash     String
+  subscriptionTier SubscriptionTier @default(FREE)
+  workspaceId      String?          @db.ObjectId
+  workspace        Workspace?       @relation(fields: [workspaceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tasks            Task[]
+  focusSessions    FocusSession[]
+  weeklyReviews    WeeklyReview[]
+  apiKeys          ApiKey[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model Workspace {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  ownerId   String   @db.ObjectId
+  members   User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String?
+  status           TaskStatus   @default(BACKLOG)
+  priority         TaskPriority @default(MEDIUM)
+  estimatedMinutes Int?
+  tags             String[]
+  order            Int          @default(0)
+  userId           String       @db.ObjectId
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  completedAt      DateTime?
+}
+
+model FocusSession {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String    @db.ObjectId
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  startTime        DateTime  @default(now())
+  endTime          DateTime?
+  durationMinutes  Int
+  pausedMinutes    Int       @default(0)
+  distractionCount Int       @default(0)
+  distractions     Json      @default("[]")
+  notes            String?
+  completed        Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+}
+
+model WeeklyReview {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId              String   @db.ObjectId
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weekStartDate       DateTime
+  totalFocusMinutes   Int
+  tasksCompleted      Int
+  averageDistractions Float
+  reflection          String?
+  aiSummary           String?
+  createdAt           DateTime @default(now())
+
+  @@unique([userId, weekStartDate])
+}
+
+model ApiKey {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String    @db.ObjectId
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  keyHash   String    @unique
+  lastUsed  DateTime?
+  createdAt DateTime  @default(now())
+}
