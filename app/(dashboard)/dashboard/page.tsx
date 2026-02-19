@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Play } from 'lucide-react';
+import { Play, Loader2 } from 'lucide-react';
+import { get } from '@/lib/api-client';
 
 interface DashboardData {
   todayFocusHours: number;
@@ -18,7 +19,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/analytics/dashboard')
+    get('/api/analytics/dashboard')
       .then(res => res.ok ? res.json() : null)
       .then(d => {
         if (d) {
@@ -41,10 +42,8 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto p-6">
-        <div className="h-8 w-48 bg-zinc-800 rounded mb-2 animate-pulse" />
-        <div className="h-4 w-64 bg-zinc-800 rounded mb-8 animate-pulse" />
-        <div className="grid grid-cols-4 gap-4 mb-8">
-          {[1,2,3,4].map(i => <div key={i} className="h-24 bg-zinc-800 rounded animate-pulse" />)}
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="w-8 h-8 text-zinc-600 animate-spin" />
         </div>
       </div>
     );

@@ -88,23 +88,23 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white">
+    <div className="min-h-screen bg-[#0f0f10] text-white">
       {/* Navigation */}
-      <nav className="border-b border-white/5">
+      <nav className="border-b border-zinc-800">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-7 h-7 bg-white rounded-sm"></div>
+              <img src="/logo.png" alt="FocusForge" className="w-8 h-8" />
               <span className="text-base font-semibold tracking-tight">FocusForge</span>
             </Link>
             <div className="flex items-center gap-8">
-              <Link href="/" className="text-sm text-gray-400 hover:text-white transition">
+              <Link href="/" className="text-sm text-zinc-400 hover:text-white transition">
                 Home
               </Link>
-              <Link href="/login" className="text-sm text-gray-400 hover:text-white transition">
+              <Link href="/login" className="text-sm text-zinc-400 hover:text-white transition">
                 Sign in
               </Link>
-              <Link href="/register" className="px-4 py-2 bg-white text-black text-sm font-medium rounded-md hover:bg-gray-100 transition">
+              <Link href="/register" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">
                 Get started
               </Link>
             </div>

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar, TrendingUp, Target, Award, Sparkles } from 'lucide-react';
+import { Calendar, TrendingUp, Target, Award, Sparkles, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { get, post } from '@/lib/api-client';
 
 interface WeeklyReview {
   weekStart: string;
@@ -28,7 +29,7 @@ export default function ReviewPage() {
   const fetchWeeklyReview = async () => {
     try {
       const weekStart = getWeekStart();
-      const res = await fetch(`/api/reviews/${weekStart}`);
+      const res = await get(`/api/reviews/${weekStart}`);
       
       if (res.ok) {
         const data = await res.json();
@@ -52,13 +53,9 @@ export default function ReviewPage() {
 
   const saveReflection = async () => {
     try {
-      await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          weekStart: getWeekStart(),
-          reflection,
-        }),
+      await post('/api/reviews', {
+        weekStart: getWeekStart(),
+        reflection,
       });
     } catch (error) {
       console.error('Error saving reflection:', error);
@@ -68,9 +65,7 @@ export default function ReviewPage() {
   const generateAISummary = async () => {
     setGenerating(true);
     try {
-      const res = await fetch(`/api/reviews/${review?.weekStart}/generate-summary`, {
-        method: 'POST',
-      });
+      const res = await post(`/api/reviews/${review?.weekStart}/generate-summary`, {});
       
       if (res.ok) {
         const data = await res.json();
@@ -154,7 +149,7 @@ export default function ReviewPage() {
           <ul className="space-y-2">
             {review?.topAchievements.map((achievement, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                <span className="text-green-500 mt-1">✓</span>
+                <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                 {achievement}
               </li>
             ))}

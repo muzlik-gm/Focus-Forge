@@ -2,6 +2,7 @@
 
 import { Task, TaskPriority, TaskStatus } from '@prisma/client';
 import Link from 'next/link';
+import { Check, ArrowRight, Circle } from 'lucide-react';
 
 interface TodayTasksListProps {
   tasks: Task[];
@@ -33,13 +34,13 @@ export function TodayTasksList({ tasks }: TodayTasksListProps) {
   const getStatusIcon = (status: TaskStatus) => {
     switch (status) {
       case TaskStatus.DONE:
-        return '✓';
+        return <Check className="w-4 h-4" />;
       case TaskStatus.IN_PROGRESS:
-        return '→';
+        return <ArrowRight className="w-4 h-4" />;
       case TaskStatus.BACKLOG:
-        return '○';
+        return <Circle className="w-4 h-4" />;
       default:
-        return '○';
+        return <Circle className="w-4 h-4" />;
     }
   };
 

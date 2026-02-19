@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, Loader2 } from 'lucide-react';
+import { get } from '@/lib/api-client';
 
 interface TeamMember {
   id: string;
@@ -22,7 +23,7 @@ export default function TeamPage() {
 
   const fetchTeamMembers = async () => {
     try {
-      const res = await fetch('/api/team/members');
+      const res = await get('/api/team/members');
       if (res.ok) {
         const data = await res.json();
         setMembers(data.members || []);
@@ -66,30 +67,9 @@ export default function TeamPage() {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight mb-2">Team</h1>
-            <p className="text-sm text-gray-400">Collaborate with your team and track progress.</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2 bg-white/5 border border-white/10 rounded-lg p-6">
-            <div className="h-8 w-40 bg-white/10 rounded mb-6 animate-pulse"></div>
-            <div className="space-y-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-16 bg-white/5 rounded animate-pulse"></div>
-              ))}
-            </div>
-          </div>
-          <div className="bg-white/5 border border-white/10 rounded-lg p-6">
-            <div className="h-8 w-32 bg-white/10 rounded mb-6 animate-pulse"></div>
-            <div className="space-y-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-12 bg-white/5 rounded animate-pulse"></div>
-              ))}
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="w-8 h-8 text-zinc-600 animate-spin" />
         </div>
       </div>
     );
@@ -97,18 +77,16 @@ export default function TeamPage() {
 
   if (error) {
     return (
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight mb-2">Team</h1>
-            <p className="text-sm text-gray-400">Collaborate with your team and track progress.</p>
-          </div>
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold mb-1">Team</h1>
+          <p className="text-zinc-400 text-sm">Collaborate with your team</p>
         </div>
-        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6 text-center">
-          <p className="text-red-400">{error}</p>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 text-center">
+          <p className="text-zinc-400 mb-4">{error}</p>
           <button 
             onClick={fetchTeamMembers}
-            className="mt-4 px-4 py-2 bg-white/10 text-sm font-medium rounded-md hover:bg-white/20 transition"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
           >
             Retry
           </button>
@@ -118,37 +96,35 @@ export default function TeamPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      {/* Header */}
+    <div className="max-w-7xl mx-auto p-6">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight mb-2">Team</h1>
-          <p className="text-sm text-gray-400">Collaborate with your team and track progress.</p>
+          <h1 className="text-2xl font-semibold mb-1">Team</h1>
+          <p className="text-zinc-400 text-sm">Collaborate with your team</p>
         </div>
-        <button className="px-4 py-2 bg-white text-black text-sm font-medium rounded-md hover:bg-gray-100 transition flex items-center gap-2">
+        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
           <Plus className="w-4 h-4" />
           Invite member
         </button>
       </div>
 
       <div className="grid grid-cols-3 gap-6">
-        {/* Leaderboard */}
-        <div className="col-span-2 bg-white/5 border border-white/10 rounded-lg p-6">
-          <h2 className="text-base font-semibold mb-6">Weekly leaderboard</h2>
+        <div className="col-span-2 bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+          <h2 className="font-medium mb-6">Weekly Leaderboard</h2>
           {sortedMembers.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-4">No team members yet</p>
+            <p className="text-sm text-zinc-500 text-center py-8">No team members yet</p>
           ) : (
             <div className="space-y-1">
               {sortedMembers.map((member, i) => (
-                <div key={member.id} className="flex items-center justify-between py-4 border-b border-white/5 last:border-0">
+                <div key={member.id} className="flex items-center justify-between py-4 border-b border-zinc-800 last:border-0">
                   <div className="flex items-center gap-4">
-                    <div className="text-sm text-gray-500 w-8">{i + 1}</div>
-                    <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+                    <div className="text-sm text-zinc-500 w-8">{i + 1}</div>
+                    <div className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center">
                       <span className="text-sm font-medium">{member.name.charAt(0)}</span>
                     </div>
                     <div>
                       <div className="text-sm font-medium">{member.name}</div>
-                      <div className="text-xs text-gray-500">{member.email}</div>
+                      <div className="text-xs text-zinc-500">{member.email}</div>
                     </div>
                   </div>
                   <div className="text-sm font-semibold">{formatFocusTime(member.totalFocusMinutes)}</div>
@@ -158,17 +134,16 @@ export default function TeamPage() {
           )}
         </div>
 
-        {/* Team Status */}
-        <div className="bg-white/5 border border-white/10 rounded-lg p-6">
-          <h2 className="text-base font-semibold mb-6">Team status</h2>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+          <h2 className="font-medium mb-6">Team Status</h2>
           {sortedMembers.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-4">No team members</p>
+            <p className="text-sm text-zinc-500 text-center py-8">No team members</p>
           ) : (
             <div className="space-y-4">
               {sortedMembers.map((member) => (
                 <div key={member.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-zinc-800 rounded-full flex items-center justify-center">
                       <span className="text-xs">{member.name.charAt(0)}</span>
                     </div>
                     <span className="text-sm">{member.name.split(' ')[0]}</span>

@@ -174,13 +174,10 @@ export function StreakBadge({ streak, showLabel = true, size = 'md' }: StreakBad
         ${sizeClasses[size]}
       `}
     >
-      <span className="fire-emoji">🔥</span>
+      <Sparkles className={iconSizes[size]} />
       <span className="font-semibold">{streak}</span>
       {showLabel && (
         <span className="text-xs opacity-70">days</span>
-      )}
-      {isMilestone && (
-        <Sparkles className={iconSizes[size]} />
       )}
     </div>
   );

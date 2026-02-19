@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { post } from '@/lib/api-client';
+import { Check, Pause } from 'lucide-react';
 
 /**
  * FocusTimer Component
@@ -148,7 +149,7 @@ export function FocusTimer({
 
     // Send browser notification
     if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('Focus Session Complete! 🎉', {
+      new Notification('Focus Session Complete!', {
         body: `Great work! You completed ${duration} minutes with ${distractionCount} distraction${distractionCount !== 1 ? 's' : ''}.`,
         icon: '/icon.png',
       });
@@ -296,14 +297,16 @@ export function FocusTimer({
         )}
 
         {state === 'paused' && (
-          <div className="mt-2 text-yellow-400 text-sm font-medium">
-            ⏸ Paused
+          <div className="mt-2 text-yellow-400 text-sm font-medium flex items-center gap-1">
+            <Pause className="w-4 h-4" />
+            Paused
           </div>
         )}
 
         {state === 'completed' && (
-          <div className="mt-2 text-green-400 text-sm font-medium">
-            ✓ Completed!
+          <div className="mt-2 text-green-400 text-sm font-medium flex items-center gap-1">
+            <Check className="w-4 h-4" />
+            Completed!
           </div>
         )}
       </div>
@@ -473,7 +476,7 @@ export function FocusTimer({
       {showNotification && state === 'completed' && (
         <div className="mt-6 p-4 bg-green-900/20 border border-green-800 rounded-lg">
           <h3 className="text-green-400 font-medium mb-2">
-            🎉 Focus Session Complete!
+            Focus Session Complete!
           </h3>
           <p className="text-gray-300 text-sm">
             Great work! You completed {duration} minutes with {distractionCount} distraction{distractionCount !== 1 ? 's' : ''}.

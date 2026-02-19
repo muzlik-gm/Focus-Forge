@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Insight } from '@/lib/insights';
+import { TrendingUp, Target, Flame, Clock, Lightbulb } from 'lucide-react';
 
 /**
  * InsightsBox Component
@@ -43,15 +44,15 @@ export function InsightsBox() {
   const getInsightIcon = (type: Insight['type']) => {
     switch (type) {
       case 'productivity':
-        return '📊';
+        return TrendingUp;
       case 'distraction':
-        return '🎯';
+        return Target;
       case 'streak':
-        return '🔥';
+        return Flame;
       case 'time-of-day':
-        return '⏰';
+        return Clock;
       default:
-        return '💡';
+        return Lightbulb;
     }
   };
 
@@ -59,8 +60,8 @@ export function InsightsBox() {
     return (
       <div className="rounded-2xl bg-gray-900/50 border border-gray-800 p-6">
         <div className="flex items-center space-x-3 mb-4">
-          <span className="text-2xl">💡</span>
-          <h2 className="text-xl font-bold text-white">AI Insights</h2>
+          <Lightbulb className="w-6 h-6 text-blue-500" />
+          <h2 className="text-xl font-bold text-white">Insights</h2>
         </div>
         <div className="text-gray-400">Analyzing your productivity patterns...</div>
       </div>
@@ -71,8 +72,8 @@ export function InsightsBox() {
     return (
       <div className="rounded-2xl bg-gray-900/50 border border-gray-800 p-6">
         <div className="flex items-center space-x-3 mb-4">
-          <span className="text-2xl">💡</span>
-          <h2 className="text-xl font-bold text-white">AI Insights</h2>
+          <Lightbulb className="w-6 h-6 text-blue-500" />
+          <h2 className="text-xl font-bold text-white">Insights</h2>
         </div>
         <div className="text-red-400">Error loading insights: {error}</div>
       </div>
@@ -83,8 +84,8 @@ export function InsightsBox() {
     return (
       <div className="rounded-2xl bg-gray-900/50 border border-gray-800 p-6">
         <div className="flex items-center space-x-3 mb-4">
-          <span className="text-2xl">💡</span>
-          <h2 className="text-xl font-bold text-white">AI Insights</h2>
+          <Lightbulb className="w-6 h-6 text-blue-500" />
+          <h2 className="text-xl font-bold text-white">Insights</h2>
         </div>
         <div className="text-gray-400">
           Complete more focus sessions to unlock personalized insights.
@@ -95,61 +96,60 @@ export function InsightsBox() {
 
   return (
     <div className="rounded-2xl bg-gray-900/50 border border-gray-800 p-6">
-      {/* Header */}
       <div className="flex items-center space-x-3 mb-6">
-        <span className="text-2xl">💡</span>
-        <h2 className="text-xl font-bold text-white">AI Insights</h2>
+        <Lightbulb className="w-6 h-6 text-blue-500" />
+        <h2 className="text-xl font-bold text-white">Insights</h2>
       </div>
 
-      {/* Insights List */}
       <div className="space-y-4">
-        {insights.map((insight) => (
-          <div
-            key={insight.id}
-            className={`rounded-xl p-4 border transition-all ${
-              insight.actionable
-                ? 'bg-blue-900/20 border-blue-800/50 hover:border-blue-700'
-                : 'bg-gray-800/30 border-gray-700/50'
-            }`}
-          >
-            <div className="flex items-start space-x-3">
-              <span className="text-xl flex-shrink-0 mt-0.5">
-                {getInsightIcon(insight.type)}
-              </span>
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base font-semibold text-white mb-1">
-                  {insight.title}
-                </h3>
-                <p className="text-sm text-gray-300 leading-relaxed">
-                  {insight.message}
-                </p>
-                {insight.actionable && (
-                  <div className="mt-2">
-                    <span className="inline-flex items-center text-xs font-medium text-blue-400">
-                      <svg
-                        className="w-3 h-3 mr-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 7l5 5m0 0l-5 5m5-5H6"
-                        />
-                      </svg>
-                      Actionable
-                    </span>
-                  </div>
-                )}
+        {insights.map((insight) => {
+          const Icon = getInsightIcon(insight.type);
+          
+          return (
+            <div
+              key={insight.id}
+              className={`rounded-xl p-4 border transition-all ${
+                insight.actionable
+                  ? 'bg-blue-900/20 border-blue-800/50 hover:border-blue-700'
+                  : 'bg-gray-800/30 border-gray-700/50'
+              }`}
+            >
+              <div className="flex items-start space-x-3">
+                <Icon className="w-5 h-5 flex-shrink-0 mt-0.5 text-blue-400" />
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base font-semibold text-white mb-1">
+                    {insight.title}
+                  </h3>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    {insight.message}
+                  </p>
+                  {insight.actionable && (
+                    <div className="mt-2">
+                      <span className="inline-flex items-center text-xs font-medium text-blue-400">
+                        <svg
+                          className="w-3 h-3 mr-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"
+                          />
+                        </svg>
+                        Actionable
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Footer Note */}
       <div className="mt-6 pt-4 border-t border-gray-800">
         <p className="text-xs text-gray-500">
           Insights are generated based on your last 30 days of focus sessions.

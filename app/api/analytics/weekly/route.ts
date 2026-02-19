@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { calculateWeeklyAnalytics } from '@/lib/analytics';
+import { calculateWeeklyAnalytics, calculateStreak } from '@/lib/analytics';
+import { prisma } from '@/lib/prisma';
 
 /**
  * GET /api/analytics/weekly
@@ -68,7 +69,41 @@ export async function GET(request: NextRequest) {
     // Calculate weekly analytics
     const analytics = await calculateWeeklyAnalytics(session.user.id, weekStartDate);
 
-    return NextResponse.json(analytics, { status: 200 });
+    // Calculate additional metrics
+    const sessions = await prisma.focusSession.findMany({
+      where: {
+        userId: session.user.id,
+        completed: true,
+        startTime: {
+          gte: weekStartDate,
+          lte: new Date(weekStartDate.getTime() + 7 * 24 * 60 * 60 * 1000),
+        },
+      },
+    });
+
+    const totalSessions = sessions.length;
+    const avgSessionMinutes = totalSessions > 0 
+      ? Math.round(analytics.totalFocusMinutes / totalSessions) 
+      : 0;
+
+    // Calculate streak
+    const streak = await calculateStreak(session.user.id);
+
+    // Transform focusByTimeOfDay to include percentage
+    const maxMinutes = Math.max(...analytics.focusByTimeOfDay.map(h => h.minutes), 1);
+    const focusByTimeOfDay = analytics.focusByTimeOfDay.map(h => ({
+      hour: h.hour,
+      percentage: Math.round((h.minutes / maxMinutes) * 100),
+    }));
+
+    return NextResponse.json({
+      totalFocusMinutes: analytics.totalFocusMinutes,
+      avgSessionMinutes,
+      totalSessions,
+      dailyBreakdown: analytics.dailyBreakdown,
+      focusByTimeOfDay,
+      streak,
+    }, { status: 200 });
   } catch (error) {
     console.error('Error fetching weekly analytics:', error);
     return NextResponse.json(

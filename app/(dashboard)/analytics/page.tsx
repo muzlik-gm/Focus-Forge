@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, Clock, Target, Zap, Calendar } from 'lucide-react';
-import { PageHeader } from '@/components/ui/PageHeader';
-import { StatCard } from '@/components/ui/StatCard';
+import { TrendingUp, Clock, Target, Zap, Loader2 } from 'lucide-react';
+import { get } from '@/lib/api-client';
 
 interface AnalyticsData {
   totalFocusMinutes: number;
@@ -32,7 +31,7 @@ export default function AnalyticsPage() {
       const monday = new Date(now.setDate(diff));
       const weekStartDate = monday.toISOString().split('T')[0];
 
-      const res = await fetch(`/api/analytics/weekly?weekStartDate=${weekStartDate}`);
+      const res = await get(`/api/analytics/weekly?weekStartDate=${weekStartDate}`);
       if (res.ok) {
         const data = await res.json();
         setAnalytics({
@@ -74,15 +73,9 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="w-full max-w-7xl mx-auto space-y-6">
-        <div className="mb-8">
-          <div className="h-10 w-64 bg-[var(--surface)] rounded-lg animate-pulse mb-3"></div>
-          <div className="h-5 w-96 bg-[var(--surface)] rounded animate-pulse"></div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-[var(--surface)] rounded-2xl p-6 h-40 animate-pulse"></div>
-          ))}
+      <div className="w-full max-w-7xl mx-auto p-6">
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="w-8 h-8 text-zinc-600 animate-spin" />
         </div>
       </div>
     );
@@ -92,58 +85,38 @@ export default function AnalyticsPage() {
   const maxHourly = Math.max(...(analytics?.focusByTimeOfDay.map(d => d.percentage) || [1]), 1);
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6">
-      <PageHeader
-        title="Analytics"
-        description="Deep insights into your productivity patterns and focus trends"
-      />
-
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Total Focus Time"
-          value={formatTime(analytics?.totalFocusMinutes || 0)}
-          subtitle={`${analytics?.totalSessions || 0} sessions completed`}
-          icon={Clock}
-          color="indigo"
-        />
-        <StatCard
-          title="Average Session"
-          value={formatTime(analytics?.avgSessionMinutes || 0)}
-          subtitle="Per session"
-          icon={Target}
-          color="emerald"
-        />
-        <StatCard
-          title="Peak Hours"
-          value={getPeakHour()}
-          subtitle="Most productive time"
-          icon={TrendingUp}
-          color="orange"
-        />
-        <StatCard
-          title="Current Streak"
-          value={`${analytics?.streak || 0}d`}
-          subtitle="Keep it going!"
-          icon={Zap}
-          color="rose"
-        />
+    <div className="w-full max-w-7xl mx-auto p-6">
+      <div className="mb-8">
+        <h1 className="text-2xl font-semibold mb-1">Analytics</h1>
+        <p className="text-zinc-400 text-sm">Understand your productivity patterns</p>
       </div>
 
-      {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Weekly Breakdown */}
-        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-xl font-bold mb-1">Weekly Breakdown</h2>
-              <p className="text-sm text-[var(--text-secondary)]">
-                Focus time by day
-              </p>
-            </div>
-            <Calendar className="w-5 h-5 text-[var(--text-tertiary)]" />
-          </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+          <div className="text-zinc-400 text-xs mb-1">TOTAL FOCUS</div>
+          <div className="text-2xl font-bold">{formatTime(analytics?.totalFocusMinutes || 0)}</div>
+          <div className="text-zinc-500 text-xs">{analytics?.totalSessions || 0} sessions</div>
+        </div>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+          <div className="text-zinc-400 text-xs mb-1">AVG SESSION</div>
+          <div className="text-2xl font-bold">{formatTime(analytics?.avgSessionMinutes || 0)}</div>
+          <div className="text-zinc-500 text-xs">Per session</div>
+        </div>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+          <div className="text-zinc-400 text-xs mb-1">PEAK HOUR</div>
+          <div className="text-2xl font-bold">{getPeakHour()}</div>
+          <div className="text-zinc-500 text-xs">Most productive</div>
+        </div>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+          <div className="text-zinc-400 text-xs mb-1">STREAK</div>
+          <div className="text-2xl font-bold">{analytics?.streak || 0}d</div>
+          <div className="text-zinc-500 text-xs">Keep it going</div>
+        </div>
+      </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+          <h2 className="font-medium mb-6">Weekly Breakdown</h2>
           <div className="flex items-end justify-between gap-3 h-64 px-2">
             {analytics?.dailyBreakdown && analytics.dailyBreakdown.length > 0 ? (
               analytics.dailyBreakdown.map((day, i) => {
@@ -153,54 +126,39 @@ export default function AnalyticsPage() {
                 return (
                   <div
                     key={i}
-                    className="flex-1 flex flex-col items-center gap-3 group"
+                    className="flex-1 flex flex-col items-center gap-3"
                     onMouseEnter={() => setHoveredDay(i)}
                     onMouseLeave={() => setHoveredDay(null)}
                   >
                     <div className="relative w-full">
                       {isHovered && (
-                        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[var(--surface-elevated)] border border-[var(--border)] px-3 py-2 rounded-xl shadow-xl z-10 whitespace-nowrap">
-                          <div className="text-xs text-[var(--text-secondary)] mb-0.5">{getDayLabel(i)}</div>
+                        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-zinc-800 border border-zinc-700 px-3 py-2 rounded-lg shadow-xl z-10 whitespace-nowrap">
+                          <div className="text-xs text-zinc-400 mb-0.5">{getDayLabel(i)}</div>
                           <div className="text-sm font-bold">{formatTime(day.minutes)}</div>
                         </div>
                       )}
-
                       <div
-                        className="w-full bg-gradient-to-t from-indigo-500 to-indigo-400 rounded-t-xl transition-all duration-300 cursor-pointer relative overflow-hidden"
+                        className="w-full bg-blue-600 rounded-t-lg transition-opacity cursor-pointer"
                         style={{
                           height: `${Math.max(heightPercent, 4)}%`,
                           opacity: isHovered ? 1 : 0.8,
                         }}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/20"></div>
-                      </div>
+                      />
                     </div>
-                    <span className={`text-xs font-medium transition-colors ${isHovered ? 'text-white' : 'text-[var(--text-tertiary)]'}`}>
-                      {getDayLabel(i)}
-                    </span>
+                    <span className="text-xs text-zinc-500">{getDayLabel(i)}</span>
                   </div>
                 );
               })
             ) : (
-              <div className="flex-1 flex items-center justify-center text-[var(--text-secondary)]">
+              <div className="flex-1 flex items-center justify-center text-zinc-500">
                 No data available
               </div>
             )}
           </div>
         </div>
 
-        {/* Time of Day */}
-        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-xl font-bold mb-1">Focus by Hour</h2>
-              <p className="text-sm text-[var(--text-secondary)]">
-                Productivity throughout the day
-              </p>
-            </div>
-            <Clock className="w-5 h-5 text-[var(--text-tertiary)]" />
-          </div>
-
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+          <h2 className="font-medium mb-6">Focus by Hour</h2>
           <div className="flex items-end justify-between gap-1 h-64">
             {analytics?.focusByTimeOfDay && analytics.focusByTimeOfDay.length > 0 ? (
               analytics.focusByTimeOfDay.map((item, i) => {
@@ -212,34 +170,33 @@ export default function AnalyticsPage() {
                 return (
                   <div
                     key={i}
-                    className="flex-1 flex flex-col items-center gap-2 group"
+                    className="flex-1 flex flex-col items-center gap-2"
                     onMouseEnter={() => setHoveredHour(i)}
                     onMouseLeave={() => setHoveredHour(null)}
                   >
                     <div className="relative w-full">
                       {isHovered && (
-                        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[var(--surface-elevated)] border border-[var(--border)] px-3 py-2 rounded-xl shadow-xl z-10 whitespace-nowrap">
-                          <div className="text-xs text-[var(--text-secondary)] mb-0.5">{hourLabel}</div>
+                        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-zinc-800 border border-zinc-700 px-3 py-2 rounded-lg shadow-xl z-10 whitespace-nowrap">
+                          <div className="text-xs text-zinc-400 mb-0.5">{hourLabel}</div>
                           <div className="text-sm font-bold">{item.percentage.toFixed(0)}%</div>
                         </div>
                       )}
-
                       <div
-                        className="w-full bg-gradient-to-t from-emerald-500 to-emerald-400 rounded-t-md transition-all duration-300 cursor-pointer"
+                        className="w-full bg-blue-600 rounded-t-md transition-opacity cursor-pointer"
                         style={{
                           height: `${Math.max(heightPercent, 4)}%`,
                           opacity: isHovered ? 1 : 0.7,
                         }}
-                      ></div>
+                      />
                     </div>
                     {i % 3 === 0 && (
-                      <span className="text-[10px] text-[var(--text-tertiary)]">{hourLabel}</span>
+                      <span className="text-[10px] text-zinc-500">{hourLabel}</span>
                     )}
                   </div>
                 );
               })
             ) : (
-              <div className="flex-1 flex items-center justify-center text-[var(--text-secondary)]">
+              <div className="flex-1 flex items-center justify-center text-zinc-500">
                 No data available
               </div>
             )}
@@ -247,26 +204,21 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      {/* Insights */}
-      <div className="bg-gradient-to-br from-indigo-500/10 to-transparent border border-indigo-500/20 rounded-2xl p-6">
+      <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Zap className="w-6 h-6 text-indigo-400" />
+          <div className="w-12 h-12 bg-zinc-800 rounded-lg flex items-center justify-center flex-shrink-0">
+            <Zap className="w-6 h-6 text-blue-500" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold mb-2">Productivity Insights</h3>
-            <div className="space-y-2 text-sm text-[var(--text-secondary)]">
+            <h3 className="font-medium mb-2">Insights</h3>
+            <div className="space-y-2 text-sm text-zinc-400">
               {analytics?.streak && analytics.streak > 0 ? (
-                <p>
-                  You&apos;ve maintained a {analytics.streak}-day streak. Consistency is building your focus muscle.
-                </p>
+                <p>{analytics.streak}-day streak maintained</p>
               ) : (
-                <p>Start your focus journey today and build a streak!</p>
+                <p>Start your focus journey today</p>
               )}
               {analytics?.totalFocusMinutes && analytics.totalFocusMinutes > 0 && (
-                <p>
-                  Your peak productivity is around {getPeakHour()}. Schedule deep work during these hours for maximum impact.
-                </p>
+                <p>Peak productivity around {getPeakHour()}</p>
               )}
             </div>
           </div>

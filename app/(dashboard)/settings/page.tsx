@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { User, Building, Bell, CreditCard, Key, Plug } from 'lucide-react';
+import { User, Building, Bell, CreditCard, Key, Plug, MessageSquare, Calendar, FileText, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/Button';
 import { Skeleton } from '@/components/ui/Skeleton';
+import { get, post, patch, del } from '@/lib/api-client';
 
 interface UserSettings {
   name: string;
@@ -49,7 +50,7 @@ export default function SettingsPage() {
 
   const fetchSettings = async () => {
     try {
-      const response = await fetch('/api/settings');
+      const response = await get('/api/settings');
       if (response.ok) {
         const data = await response.json();
         setUserSettings(data.settings);
@@ -130,11 +131,7 @@ function ProfileTab({ userSettings, onUpdate }: ProfileTabProps) {
     setMessage(null);
     
     try {
-      const response = await fetch('/api/settings/profile', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password: password || undefined }),
-      });
+      const response = await patch('/api/settings/profile', { name, email, password: password || undefined });
 
       if (response.ok) {
         setMessage({ type: 'success', text: 'Profile updated successfully' });
@@ -230,13 +227,9 @@ function WorkspaceTab({ userSettings, onUpdate }: WorkspaceTabProps) {
     setMessage(null);
     
     try {
-      const response = await fetch('/api/settings/workspace', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          name: workspaceName,
-          defaultFocusDuration: parseInt(defaultDuration),
-        }),
+      const response = await patch('/api/settings/workspace', { 
+        name: workspaceName,
+        defaultFocusDuration: parseInt(defaultDuration),
       });
 
       if (response.ok) {
@@ -324,11 +317,7 @@ function NotificationsTab({ preferences, onUpdate }: NotificationsTabProps) {
     setMessage(null);
     
     try {
-      const response = await fetch('/api/settings/notifications', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(notifs),
-      });
+      const response = await patch('/api/settings/notifications', notifs);
 
       if (response.ok) {
         setMessage({ type: 'success', text: 'Notification preferences updated' });
@@ -402,11 +391,7 @@ function BillingTab({ userSettings }: BillingTabProps) {
   const handleManageSubscription = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/billing/portal', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ returnUrl: window.location.href }),
-      });
+      const response = await post('/api/billing/portal', { returnUrl: window.location.href });
 
       if (response.ok) {
         const data = await response.json();
@@ -486,7 +471,7 @@ function APITab({ subscriptionTier }: APITabProps) {
 
   const fetchApiKeys = async () => {
     try {
-      const response = await fetch('/api/settings/api-keys');
+      const response = await get('/api/settings/api-keys');
       if (response.ok) {
         const data = await response.json();
         setApiKeys(data.apiKeys || []);
@@ -504,11 +489,7 @@ function APITab({ subscriptionTier }: APITabProps) {
 
     setGenerating(true);
     try {
-      const response = await fetch('/api/settings/api-keys', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
-      });
+      const response = await post('/api/settings/api-keys', { name });
 
       if (response.ok) {
         const data = await response.json();
@@ -528,9 +509,7 @@ function APITab({ subscriptionTier }: APITabProps) {
     }
 
     try {
-      const response = await fetch(`/api/settings/api-keys/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await del(`/api/settings/api-keys/${id}`);
 
       if (response.ok) {
         fetchApiKeys();
@@ -604,10 +583,10 @@ function APITab({ subscriptionTier }: APITabProps) {
 
 function IntegrationsTab() {
   const integrations = [
-    { name: 'Slack', desc: 'Get notifications in Slack', connected: false, icon: '💬' },
-    { name: 'Google Calendar', desc: 'Sync focus sessions', connected: false, icon: '📅' },
-    { name: 'Notion', desc: 'Export tasks to Notion', connected: false, icon: '📝' },
-    { name: 'GitHub', desc: 'Track commits during focus', connected: false, icon: '🐙' },
+    { name: 'Slack', desc: 'Get notifications in Slack', connected: false, icon: MessageSquare },
+    { name: 'Google Calendar', desc: 'Sync focus sessions', connected: false, icon: Calendar },
+    { name: 'Notion', desc: 'Export tasks to Notion', connected: false, icon: FileText },
+    { name: 'GitHub', desc: 'Track commits during focus', connected: false, icon: Github },
   ];
 
   const [connected, setConnected] = useState<Record<string, boolean>>({});
@@ -629,23 +608,28 @@ function IntegrationsTab() {
       </div>
 
       <div className="grid gap-4">
-        {integrations.map((integration) => (
-          <div key={integration.name} className="flex items-center justify-between p-4 bg-white/[0.02] border border-white/5 rounded-lg">
-            <div className="flex items-center gap-4">
-              <span className="text-2xl">{integration.icon}</span>
-              <div>
-                <p className="font-medium">{integration.name}</p>
-                <p className="text-sm text-gray-500">{integration.desc}</p>
+        {integrations.map((integration) => {
+          const Icon = integration.icon;
+          return (
+            <div key={integration.name} className="flex items-center justify-between p-4 bg-white/[0.02] border border-white/5 rounded-lg">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-zinc-400" />
+                </div>
+                <div>
+                  <p className="font-medium">{integration.name}</p>
+                  <p className="text-sm text-gray-500">{integration.desc}</p>
+                </div>
               </div>
+              <Button
+                variant={connected[integration.name] ? 'outline' : 'default'}
+                onClick={() => toggleIntegration(integration.name)}
+              >
+                {connected[integration.name] ? 'Disconnect' : 'Connect'}
+              </Button>
             </div>
-            <Button
-              variant={connected[integration.name] ? 'outline' : 'default'}
-              onClick={() => toggleIntegration(integration.name)}
-            >
-              {connected[integration.name] ? 'Disconnect' : 'Connect'}
-            </Button>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </motion.div>
   );

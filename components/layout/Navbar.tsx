@@ -33,9 +33,7 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           {/* Logo */}
           <Link href="/dashboard" className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/25">
-              <span className="text-white font-bold text-base">FF</span>
-            </div>
+            <img src="/logo.png" alt="FocusForge" className="w-9 h-9" />
             <span className="font-bold text-lg">FocusForge</span>
           </Link>
         </div>

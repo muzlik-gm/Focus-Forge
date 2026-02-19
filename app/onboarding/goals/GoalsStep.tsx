@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Zap, Target, ListTodo, Users, Scale, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
@@ -26,7 +26,7 @@ interface GoalOption {
   id: OnboardingGoal;
   title: string;
   description: string;
-  icon: string;
+  icon: typeof Zap;
 }
 
 const GOAL_OPTIONS: GoalOption[] = [
@@ -34,37 +34,37 @@ const GOAL_OPTIONS: GoalOption[] = [
     id: 'productivity',
     title: 'Boost Productivity',
     description: 'Get more done in less time',
-    icon: '⚡',
+    icon: Zap,
   },
   {
     id: 'focus',
     title: 'Improve Focus',
     description: 'Reduce distractions and stay on task',
-    icon: '🎯',
+    icon: Target,
   },
   {
     id: 'task_management',
     title: 'Better Task Management',
     description: 'Organize and prioritize effectively',
-    icon: '📋',
+    icon: ListTodo,
   },
   {
     id: 'team_collaboration',
     title: 'Team Collaboration',
     description: 'Work better with your team',
-    icon: '👥',
+    icon: Users,
   },
   {
     id: 'work_life_balance',
     title: 'Work-Life Balance',
     description: 'Maintain healthy boundaries',
-    icon: '⚖️',
+    icon: Scale,
   },
   {
     id: 'goal_tracking',
     title: 'Track Goals',
     description: 'Monitor progress on objectives',
-    icon: '📈',
+    icon: TrendingUp,
   },
 ];
 
@@ -121,6 +121,7 @@ export function GoalsStep() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
           {GOAL_OPTIONS.map((goal) => {
             const isSelected = selectedGoals.includes(goal.id);
+            const Icon = goal.icon;
             
             return (
               <button
@@ -135,7 +136,7 @@ export function GoalsStep() {
                 )}
               >
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl">{goal.icon}</span>
+                  <Icon className="w-6 h-6 text-blue-500 flex-shrink-0" />
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <h3 className={cn(

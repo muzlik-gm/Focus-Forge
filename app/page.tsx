@@ -28,18 +28,18 @@ export default function LandingPage() {
       </div>
 
       {/* Navigation */}
-      <nav className="relative border-b border-white/5">
+      <nav className="relative border-b border-zinc-800">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <div className="w-7 h-7 bg-white rounded-sm"></div>
+              <img src="/logo.png" alt="FocusForge" className="w-8 h-8" />
               <span className="text-base font-semibold tracking-tight">FocusForge</span>
             </div>
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm text-gray-400 hover:text-white transition">Features</a>
-              <a href="#pricing" className="text-sm text-gray-400 hover:text-white transition">Pricing</a>
-              <Link href="/login" className="text-sm text-gray-400 hover:text-white transition">Sign in</Link>
-              <Link href="/register" className="px-4 py-2 bg-white text-black text-sm font-medium rounded-md hover:bg-gray-100 transition">
+              <a href="#features" className="text-sm text-zinc-400 hover:text-white transition">Features</a>
+              <a href="#pricing" className="text-sm text-zinc-400 hover:text-white transition">Pricing</a>
+              <Link href="/login" className="text-sm text-zinc-400 hover:text-white transition">Sign in</Link>
+              <Link href="/register" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">
                 Get started
               </Link>
             </div>
@@ -428,24 +428,24 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-white/5">
+      <footer className="relative border-t border-zinc-800">
         <div className="max-w-[1200px] mx-auto px-8 py-16">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-7 h-7 bg-white rounded-sm"></div>
+                <img src="/logo.png" alt="FocusForge" className="w-8 h-8" />
                 <span className="text-base font-semibold tracking-tight">FocusForge</span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-zinc-500">
                 Deep work command center for developers.
               </p>
             </div>
             <div>
               <h4 className="text-sm font-medium mb-4">Product</h4>
               <ul className="space-y-3 text-sm">
-                <li><a href="#features" className="text-gray-600 hover:text-white transition">Features</a></li>
-                <li><Link href="/pricing" className="text-gray-600 hover:text-white transition">Pricing</Link></li>
-                <li><Link href="/dashboard" className="text-gray-600 hover:text-white transition">Demo</Link></li>
+                <li><a href="#features" className="text-zinc-500 hover:text-white transition">Features</a></li>
+                <li><Link href="/pricing" className="text-zinc-500 hover:text-white transition">Pricing</Link></li>
+                <li><Link href="/dashboard" className="text-zinc-500 hover:text-white transition">Demo</Link></li>
               </ul>
             </div>
             <div>
