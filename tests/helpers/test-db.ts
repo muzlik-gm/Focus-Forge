@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { clearAllRateLimits as clearRateLimits } from '@/lib/rate-limit';
 
 /**
  * Test database helper
@@ -27,4 +28,11 @@ export async function cleanupTestDatabase() {
  */
 export function generateTestEmail(prefix: string = 'test'): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).substring(7)}@test.com`;
+}
+
+/**
+ * Clear all rate limits - useful for testing
+ */
+export function clearAllRateLimits() {
+  clearRateLimits();
 }

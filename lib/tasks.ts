@@ -45,13 +45,24 @@ export interface GetTasksFilters {
  * 
  * Automatically assigns the task to the end of its status column by
  * finding the maximum order value for that status and incrementing it.
+ * Validates that the userId references an existing user.
  * 
  * @param input - Task creation data
  * @returns The created task
  * 
- * Requirements: 4.1
+ * Requirements: 4.1, 11.3
  */
 export async function createTask(input: CreateTaskInput): Promise<Task> {
+  // Validate foreign key - user must exist
+  const userExists = await prisma.user.findUnique({
+    where: { id: input.userId },
+    select: { id: true },
+  });
+
+  if (!userExists) {
+    throw new Error('Foreign key constraint violation: userId does not exist');
+  }
+
   const status = input.status || TaskStatus.BACKLOG;
   
   // Find the maximum order value for this user and status

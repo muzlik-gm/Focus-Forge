@@ -45,13 +45,24 @@ export interface LogDistractionInput {
  * 
  * Creates a new focus session with the specified duration.
  * The session starts immediately with startTime set to now.
+ * Validates that the userId references an existing user.
  * 
  * @param input - Session creation data
  * @returns The created focus session
  * 
- * Requirements: 3.1
+ * Requirements: 3.1, 11.3
  */
 export async function startSession(input: StartSessionInput): Promise<FocusSession> {
+  // Validate foreign key - user must exist
+  const userExists = await prisma.user.findUnique({
+    where: { id: input.userId },
+    select: { id: true },
+  });
+
+  if (!userExists) {
+    throw new Error('Foreign key constraint violation: userId does not exist');
+  }
+
   const session = await prisma.focusSession.create({
     data: {
       userId: input.userId,

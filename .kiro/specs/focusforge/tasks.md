@@ -33,7 +33,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Set up foreign key relationships with cascade delete
     - _Requirements: 11.3, 11.5_
   
-  - [ ]* 2.2 Write property test for foreign key integrity
+  - [x]* 2.2 Write property test for foreign key integrity
     - **Property 27: Foreign Key Integrity**
     - **Validates: Requirements 11.3**
   
@@ -57,11 +57,11 @@ Each task builds on previous work, ensuring the application remains functional a
     - Create user record in database
     - _Requirements: 1.1, 13.1_
   
-  - [ ]* 3.3 Write property test for password encryption
+  - [x]* 3.3 Write property test for password encryption
     - **Property 1: Password Encryption**
     - **Validates: Requirements 1.1, 13.1**
   
-  - [ ]* 3.4 Write property test for session creation
+  - [x]* 3.4 Write property test for session creation
     - **Property 2: Session Creation on Login**
     - **Validates: Requirements 1.2, 13.2**
   
@@ -71,7 +71,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Clear cookies
     - _Requirements: 1.4_
   
-  - [ ]* 3.6 Write property test for session invalidation
+  - [x]* 3.6 Write property test for session invalidation
     - **Property 3: Session Invalidation on Logout**
     - **Validates: Requirements 1.4**
   
@@ -80,7 +80,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Add middleware to protect authenticated routes
     - _Requirements: 1.5_
   
-  - [ ]* 3.8 Write property test for CSRF protection
+  - [x]* 3.8 Write property test for CSRF protection
     - **Property 4: CSRF Protection**
     - **Validates: Requirements 1.5**
   
@@ -90,7 +90,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Return 429 status when limit exceeded
     - _Requirements: 1.6_
   
-  - [ ]* 3.10 Write property test for rate limiting
+  - [x]* 3.10 Write property test for rate limiting
     - **Property 5: Rate Limiting**
     - **Validates: Requirements 1.6**
 
@@ -351,7 +351,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - **Property 35: Reflection Persistence Round Trip**
     - **Validates: Requirements 7.4, 44**
   
-  - [ ] 10.4 Build weekly review page
+  - [x] 10.4 Build weekly review page
     - Display total focus hours for the week
     - Show top achievements (completed tasks, streak milestones)
     - Show missed goals vs targets
@@ -359,7 +359,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Add button to generate AI summary
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 44_
 
-- [ ] 11. Checkpoint - Ensure analytics and team tests pass
+- [~] 11. Checkpoint - Ensure analytics and team tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [x] 12. Implement subscription and billing
@@ -425,7 +425,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - **Property 32: Notification Preferences**
     - **Validates: Requirements 8.3**
   
-  - [ ] 13.5 Build settings page with tabs
+  - [x] 13.5 Build settings page with tabs
     - Create tabbed interface: Profile, Workspace, Notifications, Billing, API, Integrations
     - Profile tab: name, email, password change
     - Workspace tab: workspace name, member management
@@ -453,14 +453,14 @@ Each task builds on previous work, ensuring the application remains functional a
     - Handle Escape key and overlay click to close
     - _Requirements: 20_
   
-  - [ ] 14.4 Build navigation layout
+  - [x] 14.4 Build navigation layout
     - Create sidebar with navigation links
     - Add active state styling (blue left border)
     - Implement collapsed sidebar mode
     - Create top navbar with logo, search, notifications, profile dropdown
     - _Requirements: 17_
   
-  - [ ] 14.5 Create profile dropdown menu
+  - [x] 14.5 Create profile dropdown menu
     - Display user avatar and name
     - Add menu items: Settings, Billing, API Keys, Logout
     - Handle navigation and logout
@@ -495,30 +495,30 @@ Each task builds on previous work, ensuring the application remains functional a
     - Implement animated gradient background
     - _Requirements: 14.1, 35.1, 35.2_
   
-  - [ ] 15.2 Create features section
+  - [x] 15.2 Create features section
     - Display 3-column layout with feature cards
     - Add icons for each feature
     - Describe key capabilities
     - _Requirements: 14.2, 35.3_
   
-  - [ ] 15.3 Create analytics preview section
+  - [x] 15.3 Create analytics preview section
     - Display screenshot mock of analytics dashboard
     - Highlight key metrics
     - _Requirements: 14.3, 35.4_
   
-  - [ ] 15.4 Create testimonials section
+  - [x] 15.4 Create testimonials section
     - Display user avatars with quotes
     - Add carousel or grid layout
     - _Requirements: 14.4, 35.5_
   
-  - [ ] 15.5 Create footer
+  - [x] 15.5 Create footer
     - Add navigation links
     - Add social media icons
     - Add legal links (Privacy, Terms)
     - Add newsletter signup input
     - _Requirements: 14.6, 35.7_
   
-  - [ ] 15.6 Optimize landing page for SEO
+  - [x] 15.6 Optimize landing page for SEO
     - Add meta tags for title, description, OG tags
     - Optimize images with next/image
     - Add structured data markup
@@ -571,7 +571,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - _Requirements: 21.7, 40_
 
 - [ ] 18. Implement data persistence properties
-  - [ ]* 18.1 Write property test for general persistence round trip
+  - [x]* 18.1 Write property test for general persistence round trip
     - **Property 26: General Persistence Round Trip**
     - **Validates: Requirements 11.1**
   
@@ -600,7 +600,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Exclude sensitive data (passwords)
     - _Requirements: 34_
 
-- [ ] 21. Final checkpoint - Run full test suite
+- [~] 21. Final checkpoint - Run full test suite
   - Run all unit tests and property tests
   - Verify all 35 correctness properties pass
   - Check test coverage meets requirements (80%+ for API, 90%+ for services)
@@ -608,21 +608,21 @@ Each task builds on previous work, ensuring the application remains functional a
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 22. Polish and accessibility
-  - [ ] 22.1 Audit accessibility
+  - [x] 22.1 Audit accessibility
     - Verify WCAG contrast ratios
     - Test keyboard navigation on all pages
     - Add missing ARIA labels
     - Test with screen reader
     - _Requirements: 10.1, 10.2, 10.3, 10.4_
   
-  - [ ] 22.2 Optimize performance
+  - [x] 22.2 Optimize performance
     - Run Lighthouse audit
     - Optimize images
     - Minimize bundle size
     - Add loading states
     - _Requirements: 12.1, 12.3, 12.4, 12.5_
   
-  - [ ] 22.3 Test responsive design
+  - [x] 22.3 Test responsive design
     - Test on mobile devices
     - Test on tablet
     - Test on desktop and wide screens
@@ -630,14 +630,14 @@ Each task builds on previous work, ensuring the application remains functional a
     - _Requirements: 10.5, 10.6, 22_
 
 - [ ] 23. Deployment preparation
-  - [ ] 23.1 Configure production environment
+  - [x] 23.1 Configure production environment
     - Set up production database
     - Configure environment variables in Vercel
     - Set up Stripe production keys
     - Configure domain and SSL
     - _Requirements: 33_
   
-  - [ ] 23.2 Deploy to Vercel
+  - [x] 23.2 Deploy to Vercel
     - Connect GitHub repository
     - Configure build settings
     - Deploy to production
