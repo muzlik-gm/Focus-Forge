@@ -120,7 +120,6 @@ export function WelcomeStep() {
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button
-              size="lg"
               onClick={handleGetStarted}
               disabled={isLoading}
               className="gap-2"
@@ -135,8 +134,7 @@ export function WelcomeStep() {
               )}
             </Button>
             <Button
-              variant="outline"
-              size="lg"
+              variant="secondary"
               onClick={handleSkip}
               disabled={isLoading}
             >

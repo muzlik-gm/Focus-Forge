@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { User, Building, Bell, CreditCard, Key, Plug, MessageSquare, Calendar, FileText, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/Button';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { get, post, patch, del } from '@/lib/api-client';
@@ -441,7 +440,7 @@ function BillingTab({ userSettings }: BillingTabProps) {
       <div>
         <h3 className="font-semibold mb-4">Billing History</h3>
         <p className="text-sm text-gray-400">View and download invoices from the Stripe portal.</p>
-        <Button variant="outline" onClick={handleManageSubscription} disabled={loading} className="mt-4">
+        <Button variant="secondary" onClick={handleManageSubscription} disabled={loading} className="mt-4">
           View Billing History
         </Button>
       </div>
@@ -543,7 +542,7 @@ function APITab({ subscriptionTier }: APITabProps) {
             <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
               <p className="text-sm text-green-400 font-medium mb-2">API Key Generated (copy now, won't be shown again):</p>
               <code className="block p-3 bg-black/50 rounded text-sm font-mono break-all">{newKey}</code>
-              <Button variant="ghost" size="sm" onClick={() => setNewKey(null)} className="mt-2">
+              <Button variant="ghost" onClick={() => setNewKey(null)} className="mt-2">
                 Dismiss
               </Button>
             </div>
@@ -564,7 +563,7 @@ function APITab({ subscriptionTier }: APITabProps) {
                       <p className="text-xs text-gray-500">Last used: {new Date(key.lastUsed).toLocaleDateString()}</p>
                     )}
                   </div>
-                  <Button variant="danger" size="sm" onClick={() => revokeKey(key.id)}>
+                  <Button variant="ghost" onClick={() => revokeKey(key.id)}>
                     Revoke
                   </Button>
                 </div>
@@ -622,7 +621,7 @@ function IntegrationsTab() {
                 </div>
               </div>
               <Button
-                variant={connected[integration.name] ? 'outline' : 'default'}
+                variant={connected[integration.name] ? 'secondary' : 'primary'}
                 onClick={() => toggleIntegration(integration.name)}
               >
                 {connected[integration.name] ? 'Disconnect' : 'Connect'}

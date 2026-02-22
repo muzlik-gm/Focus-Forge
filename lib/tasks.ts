@@ -147,6 +147,25 @@ export async function getTasks(filters: GetTasksFilters): Promise<Task[]> {
 }
 
 /**
+ * Get a single task by ID
+ * 
+ * @param taskId - ID of the task
+ * @param userId - ID of the user (for authorization)
+ * @returns The task, or null if not found or unauthorized
+ */
+export async function getTaskById(
+  taskId: string,
+  userId: string
+): Promise<Task | null> {
+  return await prisma.task.findFirst({
+    where: {
+      id: taskId,
+      userId,
+    },
+  });
+}
+
+/**
  * Update a task
  * 
  * Updates one or more fields of an existing task.

@@ -135,7 +135,7 @@ export default function BillingPage() {
             </ul>
             <Button
               className="w-full"
-              variant={currentTier === 'PRO' ? 'outline' : 'default'}
+              variant={currentTier === 'PRO' ? 'secondary' : 'primary'}
               onClick={() => handleUpgrade('price_pro_monthly')}
               disabled={upgrading !== null || currentTier === 'PRO'}
             >
@@ -159,7 +159,7 @@ export default function BillingPage() {
             </ul>
             <Button
               className="w-full"
-              variant={currentTier === 'TEAM' ? 'outline' : 'default'}
+              variant={currentTier === 'TEAM' ? 'secondary' : 'primary'}
               onClick={() => handleUpgrade('price_team_monthly')}
               disabled={upgrading !== null || currentTier === 'TEAM'}
             >

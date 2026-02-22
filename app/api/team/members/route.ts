@@ -39,17 +39,23 @@ export async function GET() {
       );
     }
 
-    // Check if user belongs to a workspace
-    if (!session.user.workspaceId) {
+    // Check if user has TEAM plan
+    if (session.user.subscriptionTier !== 'TEAM') {
       return NextResponse.json(
         {
           error: {
-            code: 'NO_WORKSPACE',
-            message: 'You must belong to a workspace to view team members',
+            code: 'INSUFFICIENT_PLAN',
+            message: 'Team features require a Team plan subscription',
           },
         },
-        { status: 400 }
+        { status: 403 }
       );
+    }
+
+    // If user doesn't have a workspace yet, return empty members list
+    // This allows TEAM users to access the page even without a workspace
+    if (!session.user.workspaceId) {
+      return NextResponse.json({ members: [] });
     }
 
     // Get team members with status

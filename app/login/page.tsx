@@ -61,9 +61,9 @@ export default function LoginPage() {
         {/* Form Card */}
         <div className="skeuo-card p-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-semibold mb-2 tracking-tight embossed-text">Sign in</h1>
+            <h1 className="text-3xl font-semibold mb-2 tracking-tight embossed-text">Welcome back</h1>
             <p className="text-sm text-zinc-400">
-              Don&apos;t have an account?{' '}
+              Don't have an account?{' '}
               <Link href="/register" className="text-blue-500 hover:text-blue-400">
                 Sign up
               </Link>
@@ -73,7 +73,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-[20px] text-sm text-red-400">
-                {typeof error === 'string' ? error : 'An error occurred'}
+                {error}
               </div>
             )}
 

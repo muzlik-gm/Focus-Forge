@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Modal } from './Modal';
 import { Button } from './Button';
+import { Lightbulb } from 'lucide-react';
 
 /**
  * Modal Component Examples
@@ -210,9 +211,10 @@ export function ModalExamples() {
               </select>
             </div>
             <div className="bg-electric-blue/10 border border-electric-blue/30 rounded-lg p-3">
-              <p className="text-sm">
-                💡 <strong>Tip:</strong> Focus sessions work best in 25-45 minute intervals.
-                Take a 5-minute break between sessions.
+              <p className="text-sm flex items-start gap-2">
+                <Lightbulb className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span><strong>Tip:</strong> Focus sessions work best in 25-45 minute intervals.
+                Take a 5-minute break between sessions.</span>
               </p>
             </div>
             <div className="flex gap-3 justify-end pt-2">

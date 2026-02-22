@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { stopSession } from '@/lib/sessions';
+import { notifySessionComplete } from '@/lib/notifications';
 import { z } from 'zod';
 
 /**
@@ -61,6 +62,18 @@ export async function POST(
         { error: { code: 'NOT_FOUND', message: 'Session not found or already completed' } },
         { status: 404 }
       );
+    }
+
+    // Create notification for session completion
+    try {
+      await notifySessionComplete(
+        session.user.id,
+        stoppedSession.durationMinutes,
+        stoppedSession.distractionCount
+      );
+    } catch (error) {
+      console.error('Error creating notification:', error);
+      // Don't fail the request if notification creation fails
     }
 
     return NextResponse.json({ session: stoppedSession });

@@ -127,7 +127,7 @@ export function StreakCelebration({ streak, onClose }: StreakCelebrationProps) {
             )}
 
             {/* CTA button */}
-            <Button onClick={handleClose} className="mt-6 w-full" size="lg">
+            <Button onClick={handleClose} className="mt-6 w-full">
               Awesome!
             </Button>
           </div>

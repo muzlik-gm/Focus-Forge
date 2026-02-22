@@ -68,12 +68,23 @@ export async function PATCH(request: NextRequest) {
 
     const preferences = validationResult.data;
 
-    // In a real app, you'd store these in a separate preferences table
-    // For now, we'll just return success
-    console.log('Notification preferences updated for user:', session.user.id, preferences);
+    // Upsert notification preferences in database
+    const updatedPreferences = await prisma.notificationPreferences.upsert({
+      where: { userId: session.user.id },
+      update: preferences,
+      create: {
+        userId: session.user.id,
+        ...preferences,
+      },
+    });
 
     return NextResponse.json({
-      preferences,
+      preferences: {
+        emailNotifications: updatedPreferences.emailNotifications,
+        browserNotifications: updatedPreferences.browserNotifications,
+        weeklySummary: updatedPreferences.weeklySummary,
+        teamUpdates: updatedPreferences.teamUpdates,
+      },
       message: 'Notification preferences updated successfully',
     });
   } catch (error) {
@@ -114,14 +125,25 @@ export async function GET() {
       );
     }
 
-    // Return default preferences
-    // In a real app, you'd retrieve these from the database
-    const preferences = {
-      emailNotifications: true,
-      browserNotifications: true,
-      weeklySummary: true,
-      teamUpdates: true,
-    };
+    // Retrieve preferences from database
+    const userPreferences = await prisma.notificationPreferences.findUnique({
+      where: { userId: session.user.id },
+    });
+
+    // Return preferences or defaults if not set
+    const preferences = userPreferences
+      ? {
+          emailNotifications: userPreferences.emailNotifications,
+          browserNotifications: userPreferences.browserNotifications,
+          weeklySummary: userPreferences.weeklySummary,
+          teamUpdates: userPreferences.teamUpdates,
+        }
+      : {
+          emailNotifications: true,
+          browserNotifications: true,
+          weeklySummary: true,
+          teamUpdates: true,
+        };
 
     return NextResponse.json({ preferences });
   } catch (error) {

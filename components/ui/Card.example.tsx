@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from './Card';
 import { Button } from './Button';
+import { Flame } from 'lucide-react';
 
 /**
  * Card Component Examples
@@ -68,7 +69,7 @@ export function CardExamples() {
               <div className="text-5xl font-bold text-white">7</div>
               <div className="text-sm text-gray-300">Day Streak</div>
               <div className="flex items-center gap-1 text-xs text-soft-purple">
-                <span>🔥</span>
+                <Flame className="w-4 h-4" />
                 <span>Keep it up!</span>
               </div>
             </div>

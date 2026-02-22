@@ -18,20 +18,50 @@ export default function FocusPage() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [autoDetectDistractions, setAutoDetectDistractions] = useState(true);
 
   useEffect(() => {
     fetchSessions();
   }, []);
 
+  // Timer countdown
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isRunning && time > 0) {
       interval = setInterval(() => {
         setTime(t => t - 1);
       }, 1000);
+    } else if (time === 0 && isRunning) {
+      // Session completed
+      stopSession();
     }
     return () => clearInterval(interval);
   }, [isRunning, time]);
+
+  // Automatic focus loss detection
+  useEffect(() => {
+    if (!isRunning || !autoDetectDistractions) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // User switched away from the tab
+        logDistraction();
+      }
+    };
+
+    const handleBlur = () => {
+      // User switched to another window/app
+      logDistraction();
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleBlur);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleBlur);
+    };
+  }, [isRunning, autoDetectDistractions, sessionId]);
 
   const fetchSessions = async () => {
     try {
@@ -163,6 +193,18 @@ export default function FocusPage() {
                 <Plus className="w-4 h-4" />
                 Log
               </button>
+            </div>
+
+            <div className="mt-8 pt-8 border-t border-zinc-800">
+              <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={autoDetectDistractions}
+                  onChange={(e) => setAutoDetectDistractions(e.target.checked)}
+                  className="w-4 h-4 rounded border-zinc-700 bg-zinc-800 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                />
+                Auto-detect focus loss (tab/window switches)
+              </label>
             </div>
           </div>
         </div>

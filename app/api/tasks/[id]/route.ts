@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from '@/lib/auth';
 import { authOptions } from '@/lib/auth';
-import { updateTask, deleteTask } from '@/lib/tasks';
+import { updateTask, deleteTask, getTaskById } from '@/lib/tasks';
+import { notifyTaskComplete } from '@/lib/notifications';
 import { TaskStatus, TaskPriority } from '@prisma/client';
 
 /**
@@ -72,6 +73,9 @@ export async function PATCH(
 
     const updateData = validationResult.data;
 
+    // Get the task before updating to check status change
+    const oldTask = await getTaskById(taskId, session.user.id);
+
     // Update task using data access layer
     const task = await updateTask(taskId, session.user.id, {
       title: updateData.title,
@@ -93,6 +97,16 @@ export async function PATCH(
         },
         { status: 404 }
       );
+    }
+
+    // Create notification if task was just completed
+    if (oldTask && oldTask.status !== 'DONE' && task.status === 'DONE') {
+      try {
+        await notifyTaskComplete(session.user.id, task.title);
+      } catch (error) {
+        console.error('Error creating notification:', error);
+        // Don't fail the request if notification creation fails
+      }
     }
 
     return NextResponse.json({ task });

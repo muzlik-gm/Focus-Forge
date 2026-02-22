@@ -32,19 +32,21 @@ enum TaskPriority {
 
 // Models
 model User {
-  id               String           @id @default(auto()) @map("_id") @db.ObjectId
-  email            String           @unique
-  name             String
-  passwordHash     String
-  subscriptionTier SubscriptionTier @default(FREE)
-  workspaceId      String?          @db.ObjectId
-  workspace        Workspace?       @relation(fields: [workspaceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tasks            Task[]
-  focusSessions    FocusSession[]
-  weeklyReviews    WeeklyReview[]
-  apiKeys          ApiKey[]
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  id                      String                   @id @default(auto()) @map("_id") @db.ObjectId
+  email                   String                   @unique
+  name                    String
+  passwordHash            String
+  subscriptionTier        SubscriptionTier         @default(FREE)
+  nextBillingDate         DateTime?
+  workspaceId             String?                  @db.ObjectId
+  workspace               Workspace?               @relation(fields: [workspaceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tasks                   Task[]
+  focusSessions           FocusSession[]
+  weeklyReviews           WeeklyReview[]
+  apiKeys                 ApiKey[]
+  notificationPreferences NotificationPreferences?
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
 }
 
 model Workspace {
@@ -110,4 +112,54 @@ model ApiKey {
   keyHash   String    @unique
   lastUsed  DateTime?
   createdAt DateTime  @default(now())
+}
+
+model NotificationPreferences {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId               String   @unique @db.ObjectId
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailNotifications   Boolean  @default(true)
+  browserNotifications Boolean  @default(true)
+  weeklySummary        Boolean  @default(true)
+  teamUpdates          Boolean  @default(true)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  type      String
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+  @@index([userId, createdAt])
+}
+
+model BlogPost {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  category    String
+  readTime    String
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, publishedAt])
+}
+
+model PressRelease {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  content     String
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
 }

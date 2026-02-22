@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Bell, Check, X, Clock, CheckSquare, Trophy } from 'lucide-react';
+import { Bell, Check, X, Clock, CheckSquare, Trophy, Users } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
+import { get, patch, del } from '@/lib/api-client';
 
 /**
  * Notification System Component
@@ -23,53 +24,23 @@ interface Notification {
   title: string;
   message: string;
   read: boolean;
-  createdAt: Date;
+  createdAt: string;
   link?: string;
 }
 
-// Mock notifications for demo
-const MOCK_NOTIFICATIONS: Notification[] = [
-  {
-    id: '1',
-    type: 'session_complete',
-    title: 'Focus Session Complete',
-    message: 'Great job! You completed a 45-minute focus session.',
-    read: false,
-    createdAt: new Date(Date.now() - 1000 * 60 * 30), // 30 minutes ago
-  },
-  {
-    id: '2',
-    type: 'task_complete',
-    title: 'Task Completed',
-    message: 'You completed "Review weekly goals"',
-    read: false,
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
-  },
-  {
-    id: '3',
-    type: 'streak',
-    title: 'Streak Milestone!',
-    message: 'You\'ve maintained a 7-day focus streak!',
-    read: true,
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
-  },
-  {
-    id: '4',
-    type: 'team',
-    title: 'Team Update',
-    message: 'Alex joined your workspace',
-    read: true,
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 48), // 2 days ago
-  },
-];
-
 export function NotificationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>(MOCK_NOTIFICATIONS);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [loading, setLoading] = useState(true);
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
+
+  // Fetch notifications
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
   // Request browser notification permission
   useEffect(() => {
@@ -90,6 +61,20 @@ export function NotificationDropdown() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const fetchNotifications = async () => {
+    try {
+      const res = await get('/api/notifications?limit=20');
+      if (res.ok) {
+        const data = await res.json();
+        setNotifications(data.notifications || []);
+      }
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Request notification permission
   const requestPermission = async () => {
     if ('Notification' in window) {
@@ -98,27 +83,47 @@ export function NotificationDropdown() {
     }
   };
 
-
-
   // Mark notification as read
-  const markAsRead = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-    );
+  const markAsRead = async (id: string) => {
+    try {
+      const res = await patch(`/api/notifications/${id}`, {});
+      if (res.ok) {
+        setNotifications((prev) =>
+          prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+        );
+      }
+    } catch (error) {
+      console.error('Error marking notification as read:', error);
+    }
   };
 
   // Mark all as read
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  const markAllAsRead = async () => {
+    try {
+      const res = await patch('/api/notifications', {});
+      if (res.ok) {
+        setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+      }
+    } catch (error) {
+      console.error('Error marking all notifications as read:', error);
+    }
   };
 
   // Delete notification
-  const deleteNotification = (id: string) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  const deleteNotification = async (id: string) => {
+    try {
+      const res = await del(`/api/notifications/${id}`);
+      if (res.ok) {
+        setNotifications((prev) => prev.filter((n) => n.id !== id));
+      }
+    } catch (error) {
+      console.error('Error deleting notification:', error);
+    }
   };
 
   // Format relative time
-  const formatRelativeTime = (date: Date) => {
+  const formatRelativeTime = (dateString: string) => {
+    const date = new Date(dateString);
     const now = new Date();
     const diff = now.getTime() - date.getTime();
     const minutes = Math.floor(diff / 1000 / 60);
@@ -141,7 +146,7 @@ export function NotificationDropdown() {
       case 'streak':
         return <Trophy className="w-4 h-4 text-yellow-500" />;
       case 'team':
-        return <Bell className="w-4 h-4 text-purple-500" />;
+        return <Users className="w-4 h-4 text-purple-500" />;
       default:
         return <Bell className="w-4 h-4 text-gray-500" />;
     }
@@ -152,7 +157,6 @@ export function NotificationDropdown() {
       {/* Notification bell button */}
       <Button
         variant="ghost"
-        size="sm"
         onClick={() => setIsOpen(!isOpen)}
         className="relative"
       >
@@ -188,7 +192,7 @@ export function NotificationDropdown() {
               <p className="text-sm text-muted-foreground mb-2">
                 Enable browser notifications to stay updated
               </p>
-              <Button size="sm" onClick={requestPermission}>
+              <Button onClick={requestPermission}>
                 Enable Notifications
               </Button>
             </div>
@@ -196,7 +200,11 @@ export function NotificationDropdown() {
 
           {/* Notification list */}
           <div className="max-h-96 overflow-y-auto">
-            {notifications.length === 0 ? (
+            {loading ? (
+              <div className="px-4 py-8 text-center text-muted-foreground">
+                <p className="text-sm">Loading notifications...</p>
+              </div>
+            ) : notifications.length === 0 ? (
               <div className="px-4 py-8 text-center text-muted-foreground">
                 <Bell className="w-8 h-8 mx-auto mb-2 opacity-50" />
                 <p className="text-sm">No notifications yet</p>

@@ -45,7 +45,27 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user belongs to a workspace
-    if (!session.user.workspaceId) {
+    let workspaceId = session.user.workspaceId;
+    
+    // If user has TEAM plan but no workspace, create one automatically
+    if (!workspaceId && session.user.subscriptionTier === 'TEAM') {
+      const workspace = await prisma.workspace.create({
+        data: {
+          name: `${session.user.name}'s Workspace`,
+          ownerId: session.user.id,
+        },
+      });
+      
+      // Update user with workspace
+      await prisma.user.update({
+        where: { id: session.user.id },
+        data: { workspaceId: workspace.id },
+      });
+      
+      workspaceId = workspace.id;
+    }
+    
+    if (!workspaceId) {
       return NextResponse.json(
         {
           error: {
@@ -60,7 +80,7 @@ export async function POST(request: NextRequest) {
     // Verify user is the workspace owner
     const workspace = await prisma.workspace.findUnique({
       where: {
-        id: session.user.workspaceId,
+        id: workspaceId,
       },
     });
 
@@ -111,7 +131,7 @@ export async function POST(request: NextRequest) {
     const existingUser = await prisma.user.findFirst({
       where: {
         email: email.toLowerCase(),
-        workspaceId: session.user.workspaceId,
+        workspaceId: workspaceId,
       },
     });
 
@@ -128,7 +148,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create invitation
-    const invitation = await createInvitation(session.user.workspaceId, email);
+    const invitation = await createInvitation(workspaceId, email);
     const invitationLink = getInvitationLink(invitation.token);
 
     // In a production app, you would send an email here

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, Clock, Target, Zap, Loader2 } from 'lucide-react';
+import { Zap, Loader2 } from 'lucide-react';
 import { get } from '@/lib/api-client';
 
 interface AnalyticsData {

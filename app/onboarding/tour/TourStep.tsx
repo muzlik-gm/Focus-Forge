@@ -138,8 +138,7 @@ export function TourStep() {
         {/* Navigation buttons */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button
-            variant="outline"
-            size="lg"
+            variant="secondary"
             onClick={handleBack}
             disabled={isLoading}
             className="gap-2"
@@ -148,7 +147,6 @@ export function TourStep() {
             Back
           </Button>
           <Button
-            size="lg"
             onClick={handleNext}
             disabled={isLoading}
             className="gap-2"

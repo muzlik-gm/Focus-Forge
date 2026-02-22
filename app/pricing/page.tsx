@@ -3,56 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Check, ArrowRight, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-
-const PLANS = [
-  {
-    id: 'free',
-    name: 'Free',
-    price: 0,
-    description: 'For individuals getting started',
-    features: [
-      'Unlimited focus sessions',
-      'Basic task management',
-      'Weekly analytics',
-      '1 workspace',
-    ],
-    priceId: null,
-    popular: false,
-  },
-  {
-    id: 'pro',
-    name: 'Pro',
-    price: 9,
-    description: 'For power users who want more',
-    features: [
-      'Everything in Free',
-      'Advanced analytics',
-      'AI-powered insights',
-      'Priority support',
-      'Export data',
-      'Unlimited workspaces',
-    ],
-    priceId: 'price_pro_monthly',
-    popular: true,
-  },
-  {
-    id: 'team',
-    name: 'Team',
-    price: 19,
-    description: 'For teams collaborating on goals',
-    features: [
-      'Everything in Pro',
-      'Team collaboration',
-      'Leaderboards',
-      'Admin controls',
-      'SSO',
-      'Advanced permissions',
-    ],
-    priceId: 'price_team_monthly',
-    popular: false,
-  },
-];
+import { Footer } from '@/components/layout/Footer';
 
 export default function PricingPage() {
   const [loading, setLoading] = useState<string | null>(null);
@@ -96,7 +47,7 @@ export default function PricingPage() {
       </div>
 
       {/* Navigation */}
-      <nav className="glass-nav relative z-50">
+      <nav className="fixed top-0 left-0 right-0 glass-nav z-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
@@ -118,9 +69,9 @@ export default function PricingPage() {
         </div>
       </nav>
 
-      <div className="relative z-10">
+      <div className="relative z-20">
         {/* Hero */}
-        <section className="pt-32 pb-24 px-6">
+        <section className="pt-40 pb-24 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-semibold mb-6 tracking-tight embossed-text">
               Simple, transparent pricing
@@ -132,9 +83,9 @@ export default function PricingPage() {
         </section>
 
         {/* Pricing Cards */}
-        <section className="py-12 px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
+        <section className="py-12 px-6 overflow-visible">
+          <div className="max-w-6xl mx-auto overflow-visible">
+            <div className="grid md:grid-cols-3 gap-8 pt-8 overflow-visible">
               {/* Free */}
               <div className="notch-card p-8">
                 <div className="text-xl font-semibold mb-2 embossed-text">Free</div>
@@ -160,9 +111,9 @@ export default function PricingPage() {
               </div>
 
               {/* Pro */}
-              <div className="pricing-featured p-8 md:scale-105">
-                <div className="absolute top-4 right-4 px-3 py-1 bg-white/20 text-white text-xs font-medium rounded-full backdrop-blur-sm">
-                  Popular
+              <div className="pricing-featured p-8 md:scale-105 relative mt-8">
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900 text-xs font-bold rounded-full shadow-lg z-10 whitespace-nowrap">
+                  Most Popular
                 </div>
                 <div className="text-xl font-semibold mb-2">Pro</div>
                 <div className="mb-8">
@@ -268,6 +219,8 @@ export default function PricingPage() {
           </div>
         </section>
       </div>
+
+      <Footer />
     </div>
   );
 }

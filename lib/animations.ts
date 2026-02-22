@@ -144,12 +144,12 @@ export const counterConfig = {
  */
 export const streakMilestones = {
   milestones: [
-    { days: 3, label: 'Getting Started', emoji: '🌟' },
-    { days: 7, label: 'Week Warrior', emoji: '🔥' },
-    { days: 14, label: 'Two Week Wonder', emoji: '⚡' },
-    { days: 30, label: 'Monthly Master', emoji: '🏆' },
-    { days: 50, label: 'Half Century', emoji: '💎' },
-    { days: 100, label: 'Century Club', emoji: '👑' },
+    { days: 3, label: 'Getting Started', icon: 'Sparkles' },
+    { days: 7, label: 'Week Warrior', icon: 'Flame' },
+    { days: 14, label: 'Two Week Wonder', icon: 'Zap' },
+    { days: 30, label: 'Monthly Master', icon: 'Trophy' },
+    { days: 50, label: 'Half Century', icon: 'Gem' },
+    { days: 100, label: 'Century Club', icon: 'Crown' },
   ],
   
   // Celebration animation config
@@ -193,7 +193,7 @@ export function getCelebrationConfig(days: number) {
   
   return {
     ...streakMilestones.celebration,
-    title: `${milestone.emoji} ${milestone.label}!`,
+    title: `${milestone.label}!`,
     message: `You've maintained a ${days}-day focus streak!`,
   };
 }

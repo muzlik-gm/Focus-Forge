@@ -359,7 +359,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Add button to generate AI summary
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 44_
 
-- [~] 11. Checkpoint - Ensure analytics and team tests pass
+- [ ] 11. Checkpoint - Ensure analytics and team tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [x] 12. Implement subscription and billing
@@ -600,7 +600,7 @@ Each task builds on previous work, ensuring the application remains functional a
     - Exclude sensitive data (passwords)
     - _Requirements: 34_
 
-- [~] 21. Final checkpoint - Run full test suite
+- [ ] 21. Final checkpoint - Run full test suite
   - Run all unit tests and property tests
   - Verify all 35 correctness properties pass
   - Check test coverage meets requirements (80%+ for API, 90%+ for services)

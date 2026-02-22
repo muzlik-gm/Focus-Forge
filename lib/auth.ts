@@ -135,11 +135,43 @@ export const authOptions: NextAuthOptions = {
     // Session callback - called when session is checked
     async session({ session, token }) {
       if (token && session.user) {
-        session.user.id = token.id as string;
-        session.user.email = token.email as string;
-        session.user.name = token.name as string;
-        session.user.subscriptionTier = token.subscriptionTier as string;
-        session.user.workspaceId = token.workspaceId as string | null;
+        // Fetch fresh user data from database to get latest subscription tier
+        // This ensures the session always has the most up-to-date information
+        try {
+          const user = await prisma.user.findUnique({
+            where: { id: token.id as string },
+            select: {
+              id: true,
+              email: true,
+              name: true,
+              subscriptionTier: true,
+              workspaceId: true,
+            },
+          });
+
+          if (user) {
+            session.user.id = user.id;
+            session.user.email = user.email;
+            session.user.name = user.name;
+            session.user.subscriptionTier = user.subscriptionTier;
+            session.user.workspaceId = user.workspaceId;
+          } else {
+            // Fallback to token data if user not found
+            session.user.id = token.id as string;
+            session.user.email = token.email as string;
+            session.user.name = token.name as string;
+            session.user.subscriptionTier = token.subscriptionTier as string;
+            session.user.workspaceId = token.workspaceId as string | null;
+          }
+        } catch (error) {
+          console.error('Error fetching user in session callback:', error);
+          // Fallback to token data
+          session.user.id = token.id as string;
+          session.user.email = token.email as string;
+          session.user.name = token.name as string;
+          session.user.subscriptionTier = token.subscriptionTier as string;
+          session.user.workspaceId = token.workspaceId as string | null;
+        }
       }
 
       return session;

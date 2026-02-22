@@ -162,8 +162,7 @@ export function GoalsStep() {
         {/* Navigation buttons */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button
-            variant="outline"
-            size="lg"
+            variant="secondary"
             onClick={handleBack}
             disabled={isLoading}
             className="gap-2"
@@ -172,7 +171,6 @@ export function GoalsStep() {
             Back
           </Button>
           <Button
-            size="lg"
             onClick={handleContinue}
             disabled={isLoading || selectedGoals.length === 0}
             className="gap-2"

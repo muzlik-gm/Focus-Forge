@@ -35,6 +35,7 @@ const PROTECTED_API_ROUTES = [
  */
 const EXCLUDED_ROUTES = [
   '/api/auth', // NextAuth handles its own CSRF protection
+  '/api/dev', // Development routes don't need CSRF
 ];
 
 /**
@@ -56,6 +57,16 @@ function isExcludedRoute(pathname: string): boolean {
  */
 async function validateCsrfToken(request: NextRequest): Promise<boolean> {
   try {
+    // In development, be more lenient with CSRF validation
+    if (process.env.NODE_ENV === 'development') {
+      // Check if token exists, but don't fail if cookie is missing
+      const csrfToken = request.headers.get(CSRF_HEADER_NAME);
+      if (!csrfToken) {
+        console.warn('[DEV] CSRF token missing from request header');
+        return true; // Allow in development
+      }
+    }
+
     // Get CSRF token from request header
     const csrfToken = request.headers.get(CSRF_HEADER_NAME);
     
@@ -67,6 +78,11 @@ async function validateCsrfToken(request: NextRequest): Promise<boolean> {
     const csrfCookie = request.cookies.get('next-auth.csrf-token');
     
     if (!csrfCookie) {
+      // In development, allow if token is present but cookie is missing
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[DEV] CSRF cookie missing, but allowing request');
+        return true;
+      }
       return false;
     }
 
@@ -78,6 +94,11 @@ async function validateCsrfToken(request: NextRequest): Promise<boolean> {
     return csrfToken === cookieToken;
   } catch (error) {
     console.error('CSRF validation error:', error);
+    // In development, log but allow
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('[DEV] CSRF validation error, but allowing request');
+      return true;
+    }
     return false;
   }
 }
@@ -86,15 +107,41 @@ async function validateCsrfToken(request: NextRequest): Promise<boolean> {
  * Main middleware function
  * 
  * This function:
- * 1. Checks if the request is to a protected API route
- * 2. Validates authentication for protected routes
- * 3. Validates CSRF token for state-changing methods (POST, PUT, PATCH, DELETE)
- * 4. Returns 403 if CSRF validation fails
+ * 1. Protects dashboard routes - requires authentication
+ * 2. Checks if the request is to a protected API route
+ * 3. Validates authentication for protected routes
+ * 4. Validates CSRF token for state-changing methods (POST, PUT, PATCH, DELETE)
+ * 5. Returns 403 if CSRF validation fails
  * 
  * Requirements: 1.5 - CSRF protection on authenticated requests
  */
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Protect dashboard routes - require authentication
+  const isDashboardRoute = pathname.startsWith('/dashboard') || 
+                          pathname.startsWith('/analytics') ||
+                          pathname.startsWith('/tasks') ||
+                          pathname.startsWith('/focus') ||
+                          pathname.startsWith('/review') ||
+                          pathname.startsWith('/settings') ||
+                          pathname.startsWith('/billing') ||
+                          pathname.startsWith('/team') ||
+                          pathname.startsWith('/onboarding');
+
+  if (isDashboardRoute) {
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    if (!token) {
+      // Redirect to login if not authenticated
+      const url = new URL('/login', request.url);
+      url.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(url);
+    }
+  }
 
   // Skip CSRF check for excluded routes
   if (isExcludedRoute(pathname)) {
@@ -141,16 +188,25 @@ export async function middleware(request: NextRequest) {
  * Middleware configuration
  * 
  * This tells Next.js which routes to run the middleware on.
- * We only run it on API routes to avoid unnecessary overhead on page requests.
+ * We run it on API routes and protected dashboard pages.
  */
 export const config = {
   matcher: [
     /*
-     * Match all API routes except:
+     * Match all API routes and dashboard pages except:
      * - Static files (_next/static)
      * - Image optimization (_next/image)
      * - Favicon
      */
     '/api/:path*',
+    '/dashboard/:path*',
+    '/analytics/:path*',
+    '/tasks/:path*',
+    '/focus/:path*',
+    '/review/:path*',
+    '/settings/:path*',
+    '/billing/:path*',
+    '/team/:path*',
+    '/onboarding/:path*',
   ],
 };

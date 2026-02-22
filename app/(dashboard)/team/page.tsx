@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { Plus, Loader2, Users } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { get } from '@/lib/api-client';
+import { InviteMemberModal } from '@/components/team/InviteMemberModal';
 
 interface TeamMember {
   id: string;
@@ -13,9 +16,11 @@ interface TeamMember {
 }
 
 export default function TeamPage() {
+  const { data: session } = useSession();
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showInviteModal, setShowInviteModal] = useState(false);
 
   useEffect(() => {
     fetchTeamMembers();
@@ -27,8 +32,10 @@ export default function TeamPage() {
       if (res.ok) {
         const data = await res.json();
         setMembers(data.members || []);
+        setError(null);
       } else {
-        setError('Failed to load team members');
+        const data = await res.json();
+        setError(data.error?.message || 'Failed to load team members');
       }
     } catch {
       setError('Error loading team members');
@@ -65,6 +72,9 @@ export default function TeamPage() {
   // Sort by focus time (descending)
   const sortedMembers = [...members].sort((a, b) => b.totalFocusMinutes - a.totalFocusMinutes);
 
+  // Check if user has TEAM plan
+  const hasTeamPlan = session?.user?.subscriptionTier === 'TEAM';
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto p-6">
@@ -75,6 +85,34 @@ export default function TeamPage() {
     );
   }
 
+  // Show upgrade prompt only if user doesn't have TEAM plan
+  if (!hasTeamPlan) {
+    return (
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold mb-1">Team</h1>
+          <p className="text-zinc-400 text-sm">Collaborate with your team</p>
+        </div>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8 text-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-zinc-800 rounded-full flex items-center justify-center">
+            <Users className="w-8 h-8 text-zinc-500" />
+          </div>
+          <h3 className="text-lg font-semibold mb-2">Team Collaboration Not Available</h3>
+          <p className="text-zinc-400 mb-6 max-w-md mx-auto">
+            Upgrade to the Team plan to enable collaboration features and work with your team.
+          </p>
+          <Link 
+            href="/pricing"
+            className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
+          >
+            View Pricing
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state if there's an error loading members (but user has TEAM plan)
   if (error) {
     return (
       <div className="max-w-7xl mx-auto p-6">
@@ -82,11 +120,15 @@ export default function TeamPage() {
           <h1 className="text-2xl font-semibold mb-1">Team</h1>
           <p className="text-zinc-400 text-sm">Collaborate with your team</p>
         </div>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 text-center">
-          <p className="text-zinc-400 mb-4">{error}</p>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8 text-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-zinc-800 rounded-full flex items-center justify-center">
+            <Users className="w-8 h-8 text-zinc-500" />
+          </div>
+          <h3 className="text-lg font-semibold mb-2">Unable to Load Team Members</h3>
+          <p className="text-zinc-400 mb-6 max-w-md mx-auto">{error}</p>
           <button 
             onClick={fetchTeamMembers}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-sm font-medium transition-colors"
           >
             Retry
           </button>
@@ -102,11 +144,20 @@ export default function TeamPage() {
           <h1 className="text-2xl font-semibold mb-1">Team</h1>
           <p className="text-zinc-400 text-sm">Collaborate with your team</p>
         </div>
-        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+        <button 
+          onClick={() => setShowInviteModal(true)}
+          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+        >
           <Plus className="w-4 h-4" />
           Invite member
         </button>
       </div>
+
+      <InviteMemberModal
+        isOpen={showInviteModal}
+        onClose={() => setShowInviteModal(false)}
+        onSuccess={() => fetchTeamMembers()}
+      />
 
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-2 bg-zinc-900 border border-zinc-800 rounded-lg p-6">

@@ -25,6 +25,7 @@ import { WorkspaceSelector } from './WorkspaceSelector';
 export function Navbar() {
   const { data: session } = useSession();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const isDev = process.env.NODE_ENV === 'development';
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-[var(--surface)]/80 backdrop-blur-xl border-b border-[var(--border)] z-50">
@@ -36,6 +37,17 @@ export function Navbar() {
             <img src="/logo.png" alt="FocusForge" className="w-9 h-9" />
             <span className="font-bold text-lg">FocusForge</span>
           </Link>
+          
+          {/* Dev Mode Indicator */}
+          {isDev && (
+            <Link 
+              href="/dev/change-plan"
+              className="px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded text-xs font-medium text-yellow-500 hover:bg-yellow-500/20 transition-colors"
+              title="Development Plan Changer"
+            >
+              DEV
+            </Link>
+          )}
         </div>
 
         {/* Right: Actions */}
