@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { Task, TaskStatus, TaskPriority, Prisma } from '@prisma/client';
+import { Task, TaskPriority, Prisma } from '@prisma/client';
 
 /**
  * Task Data Access Layer
@@ -20,13 +20,13 @@ export interface CreateTaskInput {
   estimatedMinutes?: number;
   tags?: string[];
   userId: string;
-  status?: TaskStatus;
+  status?: string;
 }
 
 export interface UpdateTaskInput {
   title?: string;
   description?: string;
-  status?: TaskStatus;
+  status?: string;
   priority?: TaskPriority;
   estimatedMinutes?: number;
   tags?: string[];
@@ -35,7 +35,7 @@ export interface UpdateTaskInput {
 
 export interface GetTasksFilters {
   userId: string;
-  status?: TaskStatus;
+  status?: string;
   priority?: TaskPriority;
   tags?: string[];
 }
@@ -63,13 +63,13 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
     throw new Error('Foreign key constraint violation: userId does not exist');
   }
 
-  const status = input.status || TaskStatus.BACKLOG;
-  
+  const status = input.status || 'BACKLOG';
+
   // Find the maximum order value for this user and status
   const maxOrderTask = await prisma.task.findFirst({
     where: {
       userId: input.userId,
-      status,
+      status: status as any,
     },
     orderBy: {
       order: 'desc',
@@ -90,7 +90,7 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
       estimatedMinutes: input.estimatedMinutes,
       tags: input.tags || [],
       userId: input.userId,
-      status,
+      status: status as any,
       order: nextOrder,
     },
   });
@@ -120,7 +120,7 @@ export async function getTasks(filters: GetTasksFilters): Promise<Task[]> {
 
   // Apply status filter
   if (filters.status) {
-    where.status = filters.status;
+    where.status = filters.status as any;
   }
 
   // Apply priority filter
@@ -200,16 +200,16 @@ export async function updateTask(
 
   if (input.title !== undefined) updateData.title = input.title;
   if (input.description !== undefined) updateData.description = input.description;
-  if (input.status !== undefined) updateData.status = input.status;
+  if (input.status !== undefined) updateData.status = input.status as any;
   if (input.priority !== undefined) updateData.priority = input.priority;
   if (input.estimatedMinutes !== undefined) updateData.estimatedMinutes = input.estimatedMinutes;
   if (input.tags !== undefined) updateData.tags = input.tags;
   if (input.order !== undefined) updateData.order = input.order;
 
   // Update completedAt timestamp when status changes to DONE
-  if (input.status === TaskStatus.DONE && existingTask.status !== TaskStatus.DONE) {
+  if (input.status === 'DONE' && existingTask.status !== 'DONE') {
     updateData.completedAt = new Date();
-  } else if (input.status && input.status !== TaskStatus.DONE && existingTask.status === TaskStatus.DONE) {
+  } else if (input.status && input.status !== 'DONE' && existingTask.status === 'DONE') {
     // Clear completedAt if moving away from DONE
     updateData.completedAt = null;
   }

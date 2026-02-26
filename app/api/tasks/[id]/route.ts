@@ -4,7 +4,7 @@ import { getServerSession } from '@/lib/auth';
 import { authOptions } from '@/lib/auth';
 import { updateTask, deleteTask, getTaskById } from '@/lib/tasks';
 import { notifyTaskComplete } from '@/lib/notifications';
-import { TaskStatus, TaskPriority } from '@prisma/client';
+import { TaskPriority } from '@prisma/client';
 
 /**
  * Task Update and Delete API endpoints
@@ -19,7 +19,7 @@ import { TaskStatus, TaskPriority } from '@prisma/client';
 const updateTaskSchema = z.object({
   title: z.string().min(1, 'Title cannot be empty').max(200, 'Title is too long').optional(),
   description: z.string().max(2000, 'Description is too long').optional().nullable(),
-  status: z.enum(['BACKLOG', 'IN_PROGRESS', 'DONE']).optional(),
+  status: z.string().optional(),
   priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'URGENT']).optional(),
   estimatedMinutes: z.number().int().positive('Estimated minutes must be positive').optional().nullable(),
   tags: z.array(z.string().max(50)).max(10, 'Maximum 10 tags allowed').optional(),
@@ -39,7 +39,7 @@ export async function PATCH(
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session || !session.user) {
       return NextResponse.json(
         {
@@ -80,7 +80,7 @@ export async function PATCH(
     const task = await updateTask(taskId, session.user.id, {
       title: updateData.title,
       description: updateData.description === null ? undefined : updateData.description,
-      status: updateData.status as TaskStatus | undefined,
+      status: updateData.status,
       priority: updateData.priority as TaskPriority | undefined,
       estimatedMinutes: updateData.estimatedMinutes === null ? undefined : updateData.estimatedMinutes,
       tags: updateData.tags,
@@ -138,7 +138,7 @@ export async function DELETE(
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session || !session.user) {
       return NextResponse.json(
         {

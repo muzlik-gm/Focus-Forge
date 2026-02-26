@@ -17,11 +17,7 @@ enum SubscriptionTier {
   TEAM
 }
 
-enum TaskStatus {
-  BACKLOG
-  IN_PROGRESS
-  DONE
-}
+
 
 enum TaskPriority {
   LOW
@@ -45,6 +41,7 @@ model User {
   weeklyReviews           WeeklyReview[]
   apiKeys                 ApiKey[]
   notificationPreferences NotificationPreferences?
+  taskStates              String[]                 @default(["BACKLOG", "IN_PROGRESS", "DONE"])
   createdAt               DateTime                 @default(now())
   updatedAt               DateTime                 @updatedAt
 }
@@ -62,7 +59,7 @@ model Task {
   id               String       @id @default(auto()) @map("_id") @db.ObjectId
   title            String
   description      String?
-  status           TaskStatus   @default(BACKLOG)
+  status           String       @default("BACKLOG")
   priority         TaskPriority @default(MEDIUM)
   estimatedMinutes Int?
   tags             String[]

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { getServerSession } from '@/lib/auth';
 import { authOptions } from '@/lib/auth';
 import { createTask, getTasks } from '@/lib/tasks';
-import { TaskStatus, TaskPriority } from '@prisma/client';
+import { TaskPriority } from '@prisma/client';
 
 /**
  * Task API endpoints
@@ -21,7 +21,7 @@ const createTaskSchema = z.object({
   priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'URGENT']),
   estimatedMinutes: z.number().int().positive('Estimated minutes must be positive').optional(),
   tags: z.array(z.string().max(50)).max(10, 'Maximum 10 tags allowed').optional(),
-  status: z.enum(['BACKLOG', 'IN_PROGRESS', 'DONE']).optional(),
+  status: z.string().optional(),
 });
 
 /**
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session || !session.user) {
       return NextResponse.json(
         {
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       priority: priority as TaskPriority,
       estimatedMinutes,
       tags,
-      status: status as TaskStatus | undefined,
+      status: status,
       userId: session.user.id,
     });
 
@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session || !session.user) {
       return NextResponse.json(
         {
@@ -130,19 +130,7 @@ export async function GET(request: NextRequest) {
     const priority = searchParams.get('priority');
     const tagsParam = searchParams.get('tags');
 
-    // Validate status if provided
-    if (status && !['BACKLOG', 'IN_PROGRESS', 'DONE'].includes(status)) {
-      return NextResponse.json(
-        {
-          error: {
-            code: 'VALIDATION_ERROR',
-            message: 'Invalid status value',
-            details: { status: ['Must be BACKLOG, IN_PROGRESS, or DONE'] },
-          },
-        },
-        { status: 400 }
-      );
-    }
+
 
     // Validate priority if provided
     if (priority && !['LOW', 'MEDIUM', 'HIGH', 'URGENT'].includes(priority)) {
@@ -164,7 +152,7 @@ export async function GET(request: NextRequest) {
     // Get tasks using data access layer
     const tasks = await getTasks({
       userId: session.user.id,
-      status: status as TaskStatus | undefined,
+      status: status || undefined,
       priority: priority as TaskPriority | undefined,
       tags,
     });
