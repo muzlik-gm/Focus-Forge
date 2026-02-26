@@ -281,3 +281,15 @@ The application features deep OS integration, browser extension connectivity, an
 3. THE Desktop_App SHALL provide a diagnostic tool that checks system permissions, browser extension connectivity, and database integrity
 4. THE Desktop_App SHALL include a "Report Bug" feature that collects relevant diagnostic information (with user consent)
 5. IF the Local_Database becomes corrupted, THEN THE Desktop_App SHALL attempt automatic recovery and notify the user of the outcome
+
+### Requirement 21: Smart Work Profiles & Dynamic Categorization
+
+**User Story:** As a user, I want to select a specific type of work (e.g., Game Dev, Web Dev, Art) and have the app automatically discover installed/running applications, mapping them to my productive profile using global free APIs, while intelligently understanding when I am idle.
+
+#### Acceptance Criteria
+
+1. THE Desktop_App SHALL provide a UI to select a "Work Profile" (e.g., Game Dev, Web Dev, Content Creation, Art, Writing) before starting a Focus Session.
+2. WHEN a Work Profile is selected, THE Desktop_App and Monitoring_System SHALL utilize an automatic categorization engine to map currently running applications to their appropriate categories.
+3. THE Categorization Engine SHALL attempt to identify the nature of unrecognized applications using a global free API endpoint (such as Wikidata SPARQL or a public directory lookup) and caching the result locally.
+4. THE Monitoring_System SHALL track "idle" states within applications (e.g., no mouse/keyboard input for X minutes) and differentiate "active productive time" from "idle time" in the Activity Logs.
+5. THE Desktop_App SHALL allow the user to review the automatically assigned application categories and override them manually if the global API's classification is incorrect.

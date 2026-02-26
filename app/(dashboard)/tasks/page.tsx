@@ -167,9 +167,10 @@ export default function TasksPage() {
           return (
             <div
               key={status}
-              className={`skeuo-panel p-6 transition-colors duration-300 ${dragOverStatus === status ? 'bg-white/[0.03] border-blue-500/30 ring-1 ring-blue-500/20' : ''
+              className={`skeuo-panel p-6 border transition-colors duration-200 ${dragOverStatus === status ? 'bg-white/[0.03] border-blue-500/30 ring-1 ring-blue-500/20' : 'border-white/[0.02]'
                 }`}
               onDragOver={(e) => handleDragOver(e, status)}
+              onDragEnter={(e) => e.preventDefault()}
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, status)}
             >
@@ -205,7 +206,7 @@ export default function TasksPage() {
                         draggable
                         onDragStart={(e) => handleDragStart(e, task.id)}
                         onDragEnd={handleDragEnd}
-                        className={`skeuo-card p-5 cursor-grab active:cursor-grabbing transition-all ${isDragging ? 'opacity-40 scale-95 shadow-none' : 'skeuo-card-hover hover:scale-[1.02] active:scale-[0.98]'
+                        className={`skeuo-card p-5 cursor-grab active:cursor-grabbing border transition-colors duration-200 ${isDragging ? 'opacity-50 shadow-none border-blue-500/30 bg-blue-500/5' : 'hover:border-white/10 hover:bg-white/[0.03] border-transparent'
                           }`}
                       >
                         <p className="text-base font-medium mb-3 text-zinc-100">{task.title}</p>
