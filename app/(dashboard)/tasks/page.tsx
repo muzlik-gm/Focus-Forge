@@ -32,6 +32,8 @@ export default function TasksPage() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskPriority, setNewTaskPriority] = useState<'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT'>('MEDIUM');
   const [creating, setCreating] = useState(false);
+  const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
+  const [dragOverStatus, setDragOverStatus] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTasks();
@@ -75,13 +77,53 @@ export default function TasksPage() {
   };
 
   const updateTaskStatus = async (taskId: string, newStatus: 'BACKLOG' | 'IN_PROGRESS' | 'DONE') => {
+    // Optimistic update
+    const previousTasks = [...tasks];
+    setTasks(prev => prev.map(t => t.id === taskId ? { ...t, status: newStatus } : t));
+
     try {
       const res = await patch(`/api/tasks/${taskId}`, { status: newStatus });
-      if (res.ok) {
+      if (!res.ok) {
+        setTasks(previousTasks); // Revert on failure
         fetchTasks();
       }
     } catch (error) {
       console.error('Error updating task:', error);
+      setTasks(previousTasks); // Revert on error
+    }
+  };
+
+  const handleDragStart = (e: React.DragEvent, taskId: string) => {
+    setDraggedTaskId(taskId);
+    e.dataTransfer.setData('text/plain', taskId);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragEnd = () => {
+    setDraggedTaskId(null);
+    setDragOverStatus(null);
+  };
+
+  const handleDragOver = (e: React.DragEvent, status: string) => {
+    e.preventDefault(); // Necessary to allow dropping
+    e.dataTransfer.dropEffect = 'move';
+    if (dragOverStatus !== status) {
+      setDragOverStatus(status);
+    }
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOverStatus(null);
+  };
+
+  const handleDrop = (e: React.DragEvent, status: string) => {
+    e.preventDefault();
+    setDragOverStatus(null);
+    setDraggedTaskId(null);
+    const taskId = e.dataTransfer.getData('text/plain');
+    if (taskId) {
+      updateTaskStatus(taskId, status as any);
     }
   };
 
@@ -123,7 +165,14 @@ export default function TasksPage() {
           const StatusIcon = status === 'DONE' ? CheckCircle2 : status === 'IN_PROGRESS' ? Clock : Circle;
 
           return (
-            <div key={status} className="skeuo-panel p-6">
+            <div
+              key={status}
+              className={`skeuo-panel p-6 transition-colors duration-300 ${dragOverStatus === status ? 'bg-white/[0.03] border-blue-500/30 ring-1 ring-blue-500/20' : ''
+                }`}
+              onDragOver={(e) => handleDragOver(e, status)}
+              onDragLeave={handleDragLeave}
+              onDrop={(e) => handleDrop(e, status)}
+            >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
@@ -138,19 +187,26 @@ export default function TasksPage() {
 
               <div className="space-y-3 min-h-[400px]">
                 {items.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <StatusIcon className="w-12 h-12 text-zinc-700 mb-4" />
-                    <p className="text-sm text-zinc-500">No tasks here</p>
+                  <div className="flex flex-col items-center justify-center py-12 text-center pointer-events-none">
+                    <StatusIcon className={`w-12 h-12 mb-4 transition-colors ${dragOverStatus === status ? 'text-blue-500/50' : 'text-zinc-700'}`} />
+                    <p className={`text-sm transition-colors ${dragOverStatus === status ? 'text-blue-400' : 'text-zinc-500'}`}>
+                      {dragOverStatus === status ? 'Drop task here' : 'No tasks here'}
+                    </p>
                   </div>
                 ) : (
                   items.map((task) => {
                     const priorityInfo = priorityConfig[task.priority];
                     const PriorityIcon = priorityInfo.icon;
+                    const isDragging = draggedTaskId === task.id;
 
                     return (
                       <div
                         key={task.id}
-                        className="skeuo-card p-5 skeuo-card-hover cursor-pointer"
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, task.id)}
+                        onDragEnd={handleDragEnd}
+                        className={`skeuo-card p-5 cursor-grab active:cursor-grabbing transition-all ${isDragging ? 'opacity-40 scale-95 shadow-none' : 'skeuo-card-hover hover:scale-[1.02] active:scale-[0.98]'
+                          }`}
                       >
                         <p className="text-base font-medium mb-3 text-zinc-100">{task.title}</p>
                         <span className="skeuo-chip">
@@ -160,6 +216,10 @@ export default function TasksPage() {
                       </div>
                     );
                   })
+                )}
+                {/* Visual placeholder for drop zone */}
+                {dragOverStatus === status && items.length > 0 && (
+                  <div className="h-24 rounded-2xl border-2 border-dashed border-blue-500/30 bg-blue-500/5 animate-pulse" />
                 )}
               </div>
             </div>

@@ -287,22 +287,22 @@ export function DesktopFocusSession() {
 
       {/* Main Session Display */}
       {!currentSession ? (
-        <div className="skeuo-panel p-12 text-center max-w-2xl mx-auto">
-          <div className="skeuo-avatar w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-            <Play className="w-10 h-10 text-white ml-2" />
+        <div className="flex flex-col items-center justify-center p-16 max-w-2xl mx-auto rounded-3xl skeuo-panel">
+          <div className="w-24 h-24 mb-8 skeuo-avatar flex items-center justify-center bg-gradient-to-b from-zinc-800 to-zinc-900 shadow-[inset_0_2px_10px_rgba(255,255,255,0.05),0_10px_30px_rgba(0,0,0,0.5)] transition-transform hover:scale-105 duration-300">
+            <Play className="w-10 h-10 text-zinc-300 ml-1.5" fill="currentColor" strokeWidth={1} style={{ opacity: 0.9 }} />
           </div>
-          <h2 className="text-3xl font-bold mb-4 embossed-text">
+          <h2 className="text-4xl font-extrabold mb-4 text-white tracking-tight drop-shadow-md">
             Ready to Focus?
           </h2>
-          <p className="text-zinc-300 text-lg mb-8 max-w-md mx-auto">
-            Start a focus session with automatic distraction detection in our tactile environment
+          <p className="text-zinc-400 text-lg mb-10 max-w-sm text-center font-medium leading-relaxed">
+            Start a focus session with automatic distraction detection in a calm, tactile environment.
           </p>
           <button
             onClick={() => setShowStartDialog(true)}
-            className="skeuo-button inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg"
+            className="skeuo-button inline-flex items-center justify-center gap-3 px-10 py-4 text-white font-bold text-lg min-w-[260px] shadow-xl hover:-translate-y-0.5 transition-all duration-200"
           >
-            <Play className="w-5 h-5" />
-            Start Focus Session
+            <Play className="w-5 h-5 fill-current" strokeWidth={0} />
+            Start Session
           </button>
         </div>
       ) : (
