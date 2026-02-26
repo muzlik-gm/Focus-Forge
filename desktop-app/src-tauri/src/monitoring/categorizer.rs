@@ -33,7 +33,7 @@ impl CategorizerService {
         let mut description = format!("Auto-categorized metadata for {}", app_name);
 
         // Core categorization logic mimicking a smart engine fallback
-        if app_lower.contains("code") || app_lower.contains("studio") || app_lower.contains("idea") || app_lower.contains("builder") {
+        if app_lower.contains("code") || app_lower.contains("studio") || app_lower.contains("idea") || app_lower.contains("builder") || app_lower.contains("ide") || app_lower.contains("antigravity") {
             tags.push("ide".to_string());
             tags.push("programming".to_string());
             description = format!("Software Development Kit or IDE for {}", app_name);

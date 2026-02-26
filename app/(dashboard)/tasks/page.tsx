@@ -105,7 +105,8 @@ export default function TasksPage() {
   };
 
   const handleDragOver = (e: React.DragEvent, status: string) => {
-    e.preventDefault(); // Necessary to allow dropping
+    e.preventDefault();
+    e.stopPropagation();
     e.dataTransfer.dropEffect = 'move';
     if (dragOverStatus !== status) {
       setDragOverStatus(status);
@@ -119,9 +120,14 @@ export default function TasksPage() {
 
   const handleDrop = (e: React.DragEvent, status: string) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    // Fallback to React state if dataTransfer is empty in this cycle
+    const taskId = e.dataTransfer.getData('text/plain') || draggedTaskId;
+
     setDragOverStatus(null);
     setDraggedTaskId(null);
-    const taskId = e.dataTransfer.getData('text/plain');
+
     if (taskId) {
       updateTaskStatus(taskId, status as any);
     }
@@ -170,7 +176,7 @@ export default function TasksPage() {
               className={`skeuo-panel p-6 border transition-colors duration-200 ${dragOverStatus === status ? 'bg-white/[0.03] border-blue-500/30 ring-1 ring-blue-500/20' : 'border-white/[0.02]'
                 }`}
               onDragOver={(e) => handleDragOver(e, status)}
-              onDragEnter={(e) => e.preventDefault()}
+              onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); }}
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, status)}
             >

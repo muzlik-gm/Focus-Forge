@@ -66,8 +66,17 @@ export function DesktopFocusSession() {
     if (currentSession?.status === 'Active') {
       const interval = setInterval(() => {
         const now = Date.now(); // milliseconds
-        const elapsed = Math.floor((now - currentSession.startTime) / 1000); // convert to seconds for display
-        setElapsedTime(elapsed);
+        const elapsed = Math.floor((now - currentSession.startTime) / 1000);
+
+        // Retrieve duration from local storage (set during session start)
+        const storedDuration = localStorage.getItem(`session_duration_${currentSession.id}`);
+        if (storedDuration) {
+          const durationSeconds = parseInt(storedDuration) * 60;
+          const remaining = Math.max(0, durationSeconds - elapsed);
+          setElapsedTime(remaining);
+        } else {
+          setElapsedTime(elapsed);
+        }
       }, 1000);
       return () => clearInterval(interval);
     }
@@ -103,9 +112,16 @@ export function DesktopFocusSession() {
       const session = await tauriApi.focusSessions.getCurrent();
       if (session) {
         setCurrentSession(session);
-        const now = Date.now(); // milliseconds
-        const elapsed = Math.floor((now - session.startTime) / 1000); // convert to seconds for display
-        setElapsedTime(elapsed);
+        const now = Date.now();
+        const elapsed = Math.floor((now - session.startTime) / 1000);
+
+        const storedDuration = localStorage.getItem(`session_duration_${session.id}`);
+        if (storedDuration) {
+          const durationSeconds = parseInt(storedDuration) * 60;
+          setElapsedTime(Math.max(0, durationSeconds - elapsed));
+        } else {
+          setElapsedTime(elapsed);
+        }
       }
     } catch (err) {
       console.error('Error checking active session:', err);
@@ -135,7 +151,10 @@ export function DesktopFocusSession() {
       const session = await tauriApi.focusSessions.getById(sessionId);
       setCurrentSession(session);
       setShowStartDialog(false);
-      setElapsedTime(0);
+
+      // Store the requested duration locally for countdown interface
+      localStorage.setItem(`session_duration_${sessionId}`, durationMinutes.toString());
+      setElapsedTime(durationMinutes * 60);
 
       // Start monitoring if not already running
       try {
@@ -217,8 +236,8 @@ export function DesktopFocusSession() {
 
       // Get activity logs for the session period (convert to seconds for API)
       const logs = await tauriApi.activityLogs.getLogs(
-        Math.floor(session.startTime / 1000),
-        Math.floor(session.endTime / 1000)
+        session.startTime,
+        session.endTime
       );
 
       // Calculate application breakdown
