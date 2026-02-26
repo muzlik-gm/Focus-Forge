@@ -8,7 +8,7 @@ interface Task {
   id: string;
   title: string;
   priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
-  status: 'BACKLOG' | 'IN_PROGRESS' | 'DONE';
+  status: string;
   createdAt: Date;
 }
 
@@ -19,10 +19,8 @@ const priorityConfig = {
   LOW: { color: 'gray', icon: Circle, label: 'Low' },
 };
 
-const statusConfig = {
-  BACKLOG: { label: 'Backlog', color: 'gray', count: 0 },
-  IN_PROGRESS: { label: 'In Progress', color: 'blue', count: 0 },
-  DONE: { label: 'Done', color: 'emerald', count: 0 },
+const getStatusLabel = (status: string) => {
+  return status.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
 };
 
 export default function TasksPage() {
@@ -35,21 +33,58 @@ export default function TasksPage() {
   const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
   const [dragOverStatus, setDragOverStatus] = useState<string | null>(null);
 
+  const [taskStates, setTaskStates] = useState<string[]>(['BACKLOG', 'IN_PROGRESS', 'DONE']);
+  const [isAddingState, setIsAddingState] = useState(false);
+  const [newStateName, setNewStateName] = useState('');
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
   const fetchTasks = async () => {
     try {
-      const res = await get('/api/tasks');
-      if (res.ok) {
-        const data = await res.json();
+      const [tasksRes, statesRes] = await Promise.all([
+        get('/api/tasks'),
+        get('/api/tasks/states').catch(() => null)
+      ]);
+      if (tasksRes.ok) {
+        const data = await tasksRes.json();
         setTasks(data.tasks || []);
+      }
+      if (statesRes?.ok) {
+        const data = await statesRes.json();
+        if (data.states && data.states.length > 0) {
+          setTaskStates(data.states);
+        }
       }
     } catch (error) {
       console.error('Error loading tasks:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAddState = async () => {
+    if (!newStateName.trim()) {
+      setIsAddingState(false);
+      return;
+    }
+
+    // Convert to uppercase format with underscores
+    const statusId = newStateName.trim().toUpperCase().replace(/\s+/g, '_');
+    if (taskStates.includes(statusId)) return;
+
+    const updatedStates = [...taskStates, statusId];
+    setTaskStates(updatedStates);
+    setIsAddingState(false);
+    setNewStateName('');
+
+    try {
+      await patch('/api/tasks/states', { states: updatedStates });
+      // We will also use POST if it's the required endpoint for task states actually:
+      await post('/api/tasks/states', { states: updatedStates });
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -76,7 +111,7 @@ export default function TasksPage() {
     }
   };
 
-  const updateTaskStatus = async (taskId: string, newStatus: 'BACKLOG' | 'IN_PROGRESS' | 'DONE') => {
+  const updateTaskStatus = async (taskId: string, newStatus: string) => {
     // Optimistic update
     const previousTasks = [...tasks];
     setTasks(prev => prev.map(t => t.id === taskId ? { ...t, status: newStatus } : t));
@@ -127,11 +162,10 @@ export default function TasksPage() {
     }
   };
 
-  const tasksByStatus = {
-    BACKLOG: tasks.filter(t => t.status === 'BACKLOG'),
-    IN_PROGRESS: tasks.filter(t => t.status === 'IN_PROGRESS'),
-    DONE: tasks.filter(t => t.status === 'DONE'),
-  };
+  const tasksByStatus = taskStates.reduce((acc, status) => {
+    acc[status] = tasks.filter(t => t.status === status);
+    return acc;
+  }, {} as Record<string, Task[]>);
 
   if (loading) {
     return (
@@ -159,15 +193,14 @@ export default function TasksPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="flex gap-6 overflow-x-auto pb-6 snap-x w-full" style={{ paddingBottom: '2rem' }}>
         {Object.entries(tasksByStatus).map(([status, items]) => {
-          const config = statusConfig[status as keyof typeof statusConfig];
           const StatusIcon = status === 'DONE' ? CheckCircle2 : status === 'IN_PROGRESS' ? Clock : Circle;
 
           return (
             <div
               key={status}
-              className={`skeuo-panel p-6 border transition-colors duration-200 ${dragOverStatus === status ? 'bg-white/[0.03] border-blue-500/30 ring-1 ring-blue-500/20' : 'border-white/[0.02]'
+              className={`skeuo-panel p-6 border transition-colors duration-200 min-w-[320px] max-w-[320px] shrink-0 h-fit ${dragOverStatus === status ? 'bg-white/[0.03] border-blue-500/30 ring-1 ring-blue-500/20' : 'border-white/[0.02]'
                 }`}
               onDragOver={(e) => handleDragOver(e, status)}
               onDragEnter={(e) => { e.preventDefault(); }}
@@ -178,7 +211,7 @@ export default function TasksPage() {
                   <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
                     <StatusIcon className="w-5 h-5 text-zinc-400" />
                   </div>
-                  <h2 className="font-bold text-lg embossed-text">{config.label}</h2>
+                  <h2 className="font-bold text-lg embossed-text">{getStatusLabel(status)}</h2>
                 </div>
                 <span className="skeuo-badge">
                   {items.length}
@@ -225,6 +258,39 @@ export default function TasksPage() {
             </div>
           );
         })}
+
+        {/* Add State Column */}
+        <div className="min-w-[320px] max-w-[320px] shrink-0">
+          {isAddingState ? (
+            <div className="skeuo-panel p-4 border border-blue-500/30 bg-blue-500/5">
+              <input
+                type="text"
+                autoFocus
+                value={newStateName}
+                onChange={(e) => setNewStateName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleAddState();
+                  if (e.key === 'Escape') setIsAddingState(false);
+                }}
+                onBlur={handleAddState}
+                placeholder="List name (e.g. Design)"
+                className="w-full bg-transparent text-white focus:outline-none mb-3"
+              />
+              <div className="flex justify-end gap-2 text-xs font-medium">
+                <button onMouseDown={() => setIsAddingState(false)} className="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">Cancel</button>
+                <button onMouseDown={handleAddState} className="px-3 py-1.5 rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors">Add</button>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsAddingState(true)}
+              className="w-full skeuo-panel border-dashed border-2 border-white/10 hover:border-white/20 p-6 flex flex-col items-center justify-center gap-3 text-zinc-400 hover:text-white transition-all cursor-pointer h-[120px]"
+            >
+              <Plus className="w-6 h-6" />
+              <span className="font-medium text-sm">Add custom list</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Create Task Modal */}
