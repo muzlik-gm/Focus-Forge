@@ -15,7 +15,7 @@ import { FocusSession } from '@prisma/client';
  */
 
 interface Distraction {
-  timestamp: string;
+  timestamp: string | Date;
   note?: string;
 }
 
@@ -87,7 +87,7 @@ export function SessionHistory({ onRefresh }: SessionHistoryProps) {
     }
   };
 
-  const formatTimestamp = (timestamp: string): string => {
+  const formatTimestamp = (timestamp: string | Date): string => {
     const d = new Date(timestamp);
     return d.toLocaleTimeString('en-US', { 
       hour: '2-digit', 
@@ -165,7 +165,19 @@ export function SessionHistory({ onRefresh }: SessionHistoryProps) {
       ) : (
         <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
           {sessions.map((session) => {
-            const distractions = (session.distractions as unknown as Distraction[]) || [];
+            // Parse distractions from JSON string or use empty array
+            let distractions: Distraction[] = [];
+            if (session.distractions) {
+              if (typeof session.distractions === 'string') {
+                try {
+                  distractions = JSON.parse(session.distractions);
+                } catch (e) {
+                  distractions = [];
+                }
+              } else if (Array.isArray(session.distractions)) {
+                distractions = session.distractions;
+              }
+            }
             const isExpanded = expandedSessionId === session.id;
             const hasDistractions = distractions.length > 0;
 

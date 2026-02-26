@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -21,6 +22,12 @@ export function AnimatedModal({
   size = 'md',
   animation = 'scale',
 }: AnimatedModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -67,7 +74,7 @@ export function AnimatedModal({
     },
   };
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
         <div
@@ -118,4 +125,8 @@ export function AnimatedModal({
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(modalContent, document.body);
 }

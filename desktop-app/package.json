@@ -1,0 +1,23 @@
+{
+  "name": "focusforge-desktop",
+  "version": "0.1.0",
+  "description": "FocusForge Desktop - Native focus tracking application",
+  "private": true,
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "jest",
+    "tauri:icon": "tauri icon"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.5.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.9",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.0"
+  }
+}

@@ -1,21 +1,39 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { isDesktop } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const savedEmail = localStorage.getItem('focusforge_remembered_email');
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setRememberMe(true);
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+
     setError('');
     setLoading(true);
+
+    console.log('[Login] Form submitted');
+    console.log('[Login] Environment:', isDesktop ? 'Desktop' : 'Web');
+    console.log('[Login] Using cloud authentication (NextAuth + MongoDB)');
+    console.log('[Login] Email:', email);
 
     try {
       const result = await signIn('credentials', {
@@ -24,21 +42,32 @@ export default function LoginPage() {
         redirect: false,
       });
 
+      console.log('[Login] NextAuth result:', result);
+
       if (result?.error) {
-        // Handle specific NextAuth errors with user-friendly messages
+        console.error('[Login] Authentication failed:', result.error);
         const errorMessages: Record<string, string> = {
-          CredentialsSignin: 'Invalid email or password. Please check your credentials and try again.',
-          SessionRequired: 'Please sign in to access this page.',
+          CredentialsSignin: 'Invalid email or password',
+          SessionRequired: 'Please sign in to access this page',
         };
-        
-        const errorCode = result.error;
-        setError(errorMessages[errorCode] || 'Sign in failed. Please check your credentials and try again.');
-      } else {
-        router.push('/dashboard');
+
+        setError(errorMessages[result.error] || 'Sign in failed. Please try again.');
+        setLoading(false);
+        return;
       }
-    } catch {
-      setError('An error occurred. Please try again.');
-    } finally {
+
+      console.log('[Login] Authentication successful, redirecting to dashboard...');
+
+      if (rememberMe) {
+        localStorage.setItem('focusforge_remembered_email', email);
+      } else {
+        localStorage.removeItem('focusforge_remembered_email');
+      }
+
+      router.push('/dashboard');
+    } catch (err: any) {
+      console.error('[Login] Unexpected error:', err);
+      setError('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
   };
@@ -53,10 +82,12 @@ export default function LoginPage() {
 
       <div className="w-full max-w-[440px] relative z-10">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 mb-12">
+        <div className="flex items-center gap-3 mb-12">
           <img src="/logo.png" alt="FocusForge" className="w-8 h-8" />
-          <span className="text-base font-semibold tracking-tight embossed-text">FocusForge</span>
-        </Link>
+          <span className="text-base font-semibold tracking-tight embossed-text">
+            FocusForge {isDesktop && '(Desktop)'}
+          </span>
+        </div>
 
         {/* Form Card */}
         <div className="skeuo-card p-8">
@@ -89,6 +120,7 @@ export default function LoginPage() {
                 className="skeuo-input w-full px-4 py-2.5 text-sm focus:outline-none transition"
                 placeholder="you@example.com"
                 required
+                disabled={loading}
               />
             </div>
 
@@ -104,7 +136,22 @@ export default function LoginPage() {
                 className="skeuo-input w-full px-4 py-2.5 text-sm focus:outline-none transition"
                 placeholder="••••••••"
                 required
+                disabled={loading}
               />
+            </div>
+
+            <div className="flex items-center">
+              <input
+                id="remember_me"
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="w-4 h-4 rounded bg-[#1a1a1c] border-zinc-800 text-blue-500 focus:ring-blue-500/50"
+                disabled={loading}
+              />
+              <label htmlFor="remember_me" className="ml-2 text-sm text-zinc-400">
+                Remember Me
+              </label>
             </div>
 
             <button

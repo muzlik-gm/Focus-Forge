@@ -88,22 +88,22 @@ export default function TeamPage() {
   // Show upgrade prompt only if user doesn't have TEAM plan
   if (!hasTeamPlan) {
     return (
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="mb-8">
-          <h1 className="text-2xl font-semibold mb-1">Team</h1>
-          <p className="text-zinc-400 text-sm">Collaborate with your team</p>
+      <div className="max-w-7xl mx-auto p-8">
+        <div className="mb-10">
+          <h1 className="text-3xl font-bold mb-2 embossed-text tracking-tight">Team</h1>
+          <p className="text-zinc-300 text-lg">Collaborate with your team</p>
         </div>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8 text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-zinc-800 rounded-full flex items-center justify-center">
-            <Users className="w-8 h-8 text-zinc-500" />
+        <div className="skeuo-panel p-12 text-center max-w-2xl mx-auto">
+          <div className="skeuo-avatar w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+            <Users className="w-10 h-10 text-zinc-400" />
           </div>
-          <h3 className="text-lg font-semibold mb-2">Team Collaboration Not Available</h3>
-          <p className="text-zinc-400 mb-6 max-w-md mx-auto">
+          <h3 className="text-2xl font-bold mb-4 embossed-text">Team Collaboration Not Available</h3>
+          <p className="text-zinc-300 text-lg mb-8 max-w-md mx-auto">
             Upgrade to the Team plan to enable collaboration features and work with your team.
           </p>
-          <Link 
+          <Link
             href="/pricing"
-            className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
+            className="skeuo-button inline-block px-8 py-4 text-white font-medium text-lg transition-all shadow-lg"
           >
             View Pricing
           </Link>
@@ -115,20 +115,20 @@ export default function TeamPage() {
   // Show error state if there's an error loading members (but user has TEAM plan)
   if (error) {
     return (
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="mb-8">
-          <h1 className="text-2xl font-semibold mb-1">Team</h1>
-          <p className="text-zinc-400 text-sm">Collaborate with your team</p>
+      <div className="max-w-7xl mx-auto p-8">
+        <div className="mb-10">
+          <h1 className="text-3xl font-bold mb-2 embossed-text tracking-tight">Team</h1>
+          <p className="text-zinc-300 text-lg">Collaborate with your team</p>
         </div>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8 text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-zinc-800 rounded-full flex items-center justify-center">
-            <Users className="w-8 h-8 text-zinc-500" />
+        <div className="skeuo-panel p-12 text-center max-w-2xl mx-auto">
+          <div className="skeuo-avatar w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+            <Users className="w-10 h-10 text-zinc-400" />
           </div>
-          <h3 className="text-lg font-semibold mb-2">Unable to Load Team Members</h3>
-          <p className="text-zinc-400 mb-6 max-w-md mx-auto">{error}</p>
-          <button 
+          <h3 className="text-2xl font-bold mb-4 embossed-text tracking-tight">Unable to Load Team Members</h3>
+          <p className="text-zinc-300 text-lg mb-8 max-w-md mx-auto">{error}</p>
+          <button
             onClick={fetchTeamMembers}
-            className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-sm font-medium transition-colors"
+            className="skeuo-card hover:bg-zinc-800 inline-block px-8 py-4 text-white font-medium text-lg transition-all"
           >
             Retry
           </button>
@@ -138,17 +138,17 @@ export default function TeamPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-8">
+    <div className="max-w-7xl mx-auto p-8">
+      <div className="flex items-center justify-between mb-10">
         <div>
-          <h1 className="text-2xl font-semibold mb-1">Team</h1>
-          <p className="text-zinc-400 text-sm">Collaborate with your team</p>
+          <h1 className="text-3xl font-bold mb-2 embossed-text tracking-tight">Team</h1>
+          <p className="text-zinc-300 text-lg">Collaborate with your team</p>
         </div>
-        <button 
+        <button
           onClick={() => setShowInviteModal(true)}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+          className="skeuo-button inline-flex items-center gap-2 px-6 py-3 text-white font-medium shadow-lg transition-all"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-5 h-5" />
           Invite member
         </button>
       </div>
@@ -159,47 +159,47 @@ export default function TeamPage() {
         onSuccess={() => fetchTeamMembers()}
       />
 
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2 bg-zinc-900 border border-zinc-800 rounded-lg p-6">
-          <h2 className="font-medium mb-6">Weekly Leaderboard</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="col-span-2 skeuo-panel p-8">
+          <h2 className="text-xl font-bold mb-8 embossed-text">Weekly Leaderboard</h2>
           {sortedMembers.length === 0 ? (
             <p className="text-sm text-zinc-500 text-center py-8">No team members yet</p>
           ) : (
-            <div className="space-y-1">
+            <div className="space-y-4">
               {sortedMembers.map((member, i) => (
-                <div key={member.id} className="flex items-center justify-between py-4 border-b border-zinc-800 last:border-0">
+                <div key={member.id} className="skeuo-card p-5 flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="text-sm text-zinc-500 w-8">{i + 1}</div>
-                    <div className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center">
-                      <span className="text-sm font-medium">{member.name.charAt(0)}</span>
+                    <div className="text-sm font-bold text-zinc-500 w-6 text-center">{i + 1}</div>
+                    <div className="skeuo-avatar w-12 h-12 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center font-bold text-lg embossed-text">
+                      {member.name.charAt(0)}
                     </div>
                     <div>
-                      <div className="text-sm font-medium">{member.name}</div>
-                      <div className="text-xs text-zinc-500">{member.email}</div>
+                      <div className="text-base font-medium text-white">{member.name}</div>
+                      <div className="text-xs text-zinc-400 mt-1">{member.email}</div>
                     </div>
                   </div>
-                  <div className="text-sm font-semibold">{formatFocusTime(member.totalFocusMinutes)}</div>
+                  <div className="text-lg font-bold embossed-text">{formatFocusTime(member.totalFocusMinutes)}</div>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
-          <h2 className="font-medium mb-6">Team Status</h2>
+        <div className="skeuo-panel p-8">
+          <h2 className="text-xl font-bold mb-8 embossed-text">Team Status</h2>
           {sortedMembers.length === 0 ? (
             <p className="text-sm text-zinc-500 text-center py-8">No team members</p>
           ) : (
             <div className="space-y-4">
               {sortedMembers.map((member) => (
-                <div key={member.id} className="flex items-center justify-between">
+                <div key={member.id} className="skeuo-card p-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-zinc-800 rounded-full flex items-center justify-center">
-                      <span className="text-xs">{member.name.charAt(0)}</span>
+                    <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center font-bold text-base embossed-text">
+                      {member.name.charAt(0)}
                     </div>
-                    <span className="text-sm">{member.name.split(' ')[0]}</span>
+                    <span className="text-base font-medium">{member.name.split(' ')[0]}</span>
                   </div>
-                  <span className={`text-xs px-2 py-1 rounded ${getStatusColor(member.status)}`}>
+                  <span className={`skeuo-badge ${getStatusColor(member.status)}`}>
                     {getStatusLabel(member.status)}
                   </span>
                 </div>

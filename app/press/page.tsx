@@ -17,7 +17,7 @@ export default function PressPage() {
         });
         if (res.ok) {
           const data = await res.json();
-          setReleases(data);
+          setReleases(data.releases || []);
         }
       } catch (error) {
         console.error('Failed to fetch press releases:', error);

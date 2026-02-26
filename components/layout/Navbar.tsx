@@ -1,13 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronDown, LogOut, Settings, CreditCard, Key } from 'lucide-react';
+import { ChevronDown, LogOut, Settings, CreditCard, Key, CloudCog } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { signOut, useSession } from 'next-auth/react';
 import { CommandPalette } from './CommandPalette';
 import { NotificationDropdown } from './NotificationDropdown';
 import { WorkspaceSelector } from './WorkspaceSelector';
+import { useAuth } from '@/contexts/AuthContext';
+import type { SyncStatus } from '@/lib/cloud-sync';
 
 /**
  * Responsive Navbar Component
@@ -23,9 +24,18 @@ import { WorkspaceSelector } from './WorkspaceSelector';
  */
 
 export function Navbar() {
-  const { data: session } = useSession();
+  const { user, signOut: handleSignOut } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const isDev = process.env.NODE_ENV === 'development';
+  const [syncStatus, setSyncStatus] = useState<SyncStatus | null>(null);
+
+  useEffect(() => {
+    let unsub: (() => void) | null = null;
+    import('@/lib/cloud-sync').then(({ cloudSync }) => {
+      unsub = cloudSync.subscribe(setSyncStatus);
+    });
+    return () => { unsub?.(); };
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-[var(--surface)]/80 backdrop-blur-xl border-b border-[var(--border)] z-50">
@@ -37,10 +47,10 @@ export function Navbar() {
             <img src="/logo.png" alt="FocusForge" className="w-9 h-9" />
             <span className="font-bold text-lg">FocusForge</span>
           </Link>
-          
+
           {/* Dev Mode Indicator */}
           {isDev && (
-            <Link 
+            <Link
               href="/dev/change-plan"
               className="px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded text-xs font-medium text-yellow-500 hover:bg-yellow-500/20 transition-colors"
               title="Development Plan Changer"
@@ -61,6 +71,20 @@ export function Navbar() {
           {/* Notifications */}
           <NotificationDropdown />
 
+          {/* Cloud Sync Indicator */}
+          {syncStatus?.authenticated && (
+            <Link
+              href="/settings?tab=cloud-sync"
+              title={syncStatus.isSyncing ? 'Syncing...' : `Last synced: ${syncStatus.lastSyncAt ? new Date(syncStatus.lastSyncAt).toLocaleTimeString() : 'Never'}`}
+              className="relative flex items-center justify-center w-9 h-9 rounded-xl hover:bg-[var(--surface-elevated)] transition-colors"
+            >
+              <CloudCog className={`w-4 h-4 ${syncStatus.isSyncing ? 'text-blue-400 animate-pulse' : 'text-zinc-400'}`} />
+              {!syncStatus.isSyncing && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+              )}
+            </Link>
+          )}
+
           {/* Profile Menu */}
           <div className="relative">
             <button
@@ -68,7 +92,7 @@ export function Navbar() {
               className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-[var(--surface-elevated)] transition-colors"
             >
               <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white text-sm font-semibold shadow-lg shadow-indigo-500/20">
-                {session?.user?.name?.charAt(0) || 'U'}
+                {user?.name?.charAt(0) || 'U'}
               </div>
               <ChevronDown className="hidden sm:block w-4 h-4 text-[var(--text-secondary)]" />
             </button>
@@ -87,9 +111,9 @@ export function Navbar() {
                     className="absolute right-0 mt-2 w-64 bg-[var(--surface)] border border-[var(--border)] rounded-xl shadow-2xl overflow-hidden z-[70]"
                   >
                     <div className="p-4 border-b border-[var(--border)]">
-                      <p className="font-semibold truncate">{session?.user?.name || 'User'}</p>
+                      <p className="font-semibold truncate">{user?.name || 'User'}</p>
                       <p className="text-sm text-[var(--text-secondary)] truncate">
-                        {session?.user?.email || 'user@example.com'}
+                        {user?.email || 'user@example.com'}
                       </p>
                     </div>
 
@@ -122,7 +146,7 @@ export function Navbar() {
 
                     <div className="p-2 border-t border-[var(--border)]">
                       <button
-                        onClick={() => signOut()}
+                        onClick={() => handleSignOut()}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-500/10 transition-colors text-sm text-red-400 hover:text-red-300 w-full"
                       >
                         <LogOut className="w-4 h-4" />

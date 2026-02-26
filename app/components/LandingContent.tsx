@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Rocket, Clock, BarChart3, Users, Sparkles, Star, Target } from 'lucide-react';
 import { MarketingNav } from '@/components/layout/MarketingNav';
+import { Footer } from '@/components/layout/Footer';
 import { useEffect, useRef } from 'react';
 
 export function LandingContent() {
@@ -529,7 +530,7 @@ export function LandingContent() {
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto pt-8 overflow-visible">
               {/* Free Plan */}
-              <div className="notch-card p-10 flex flex-col h-full">
+              <div className="notch-card p-10 flex flex-col h-full mt-8">
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold mb-2 embossed-text">Free</h3>
                   <p className="text-zinc-400 text-sm mb-6">Perfect for getting started</p>
@@ -540,10 +541,10 @@ export function LandingContent() {
                   <p className="text-sm text-zinc-500">Forever free, no credit card required</p>
                 </div>
                 <div className="space-y-4 mb-10 flex-grow">
-                  {['Unlimited focus sessions', 'Basic analytics dashboard', 'Task management', 'Mobile app access', 'Community support'].map((feature, i) => (
+                  {['Up to 3-hour focus sessions', 'Basic session history', 'Manual distraction logging', 'Simple task list', 'Community support'].map((feature, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="skeuo-avatar w-6 h-6 flex-shrink-0 mt-0.5">
-                        <svg className="w-3 h-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div className="w-5 h-5 flex-shrink-0 mt-0.5 rounded-full bg-blue-500/20 flex items-center justify-center">
+                        <svg className="w-3.5 h-3.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
@@ -557,7 +558,7 @@ export function LandingContent() {
               </div>
 
               {/* Pro Plan - Featured */}
-              <div className="notch-card p-10 flex flex-col h-full relative mt-8">
+              <div className="notch-card p-10 flex flex-col h-full relative -mt-4">
                 <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 z-10">
                   <div className="px-5 py-2.5 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 text-white text-sm font-bold rounded-full shadow-[0_8px_24px_rgba(59,130,246,0.4)] flex items-center gap-2 whitespace-nowrap border border-blue-400/30">
                     <Star className="w-4 h-4 fill-white" />
@@ -574,10 +575,10 @@ export function LandingContent() {
                   <p className="text-sm text-zinc-500">14-day free trial included</p>
                 </div>
                 <div className="space-y-4 mb-10 flex-grow">
-                  {['Everything in Free', 'Advanced analytics & insights', 'Weekly review reports', 'Priority email support', 'Data export capabilities', 'Custom focus durations', 'Distraction pattern analysis'].map((feature, i) => (
+                  {['Everything in Free', 'Unlimited session durations', 'Advanced analytics & productivity insights', 'AI-powered focus recommendations', 'Automatic distraction detection', 'Weekly & monthly performance reports', 'Priority email support', 'Export all your data (CSV/JSON)'].map((feature, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="skeuo-avatar w-6 h-6 flex-shrink-0 mt-0.5 bg-gradient-to-br from-yellow-400 to-orange-400">
-                        <svg className="w-3 h-3 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div className="w-5 h-5 flex-shrink-0 mt-0.5 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center">
+                        <svg className="w-3.5 h-3.5 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
@@ -591,7 +592,7 @@ export function LandingContent() {
               </div>
 
               {/* Team Plan */}
-              <div className="notch-card p-10 flex flex-col h-full">
+              <div className="notch-card p-10 flex flex-col h-full mt-8">
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold mb-2 embossed-text">Team</h3>
                   <p className="text-zinc-400 text-sm mb-6">For teams that focus together</p>
@@ -602,10 +603,10 @@ export function LandingContent() {
                   <p className="text-sm text-zinc-500">Per team, up to 10 members</p>
                 </div>
                 <div className="space-y-4 mb-10 flex-grow">
-                  {['Everything in Pro', 'Up to 10 team members', 'Team analytics dashboard', 'API access', 'Custom integrations', 'Admin controls', 'SSO support', 'Advanced permissions'].map((feature, i) => (
+                  {['Everything in Pro', 'Up to 10 team members', 'Team productivity dashboard', 'Shared focus goals & challenges', 'Team leaderboards & accountability', 'Admin controls & permissions', 'Full API access for integrations', 'SSO & advanced security'].map((feature, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="skeuo-avatar w-6 h-6 flex-shrink-0 mt-0.5">
-                        <svg className="w-3 h-3 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div className="w-5 h-5 flex-shrink-0 mt-0.5 rounded-full bg-purple-500/20 flex items-center justify-center">
+                        <svg className="w-3.5 h-3.5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
@@ -624,194 +625,7 @@ export function LandingContent() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="skeuo-panel p-12 mb-12">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h2 className="text-3xl font-bold mb-6 embossed-text tracking-tight">Ready to transform your productivity?</h2>
-                  <p className="text-xl text-zinc-300 mb-8">
-                    Join 50,000+ developers who have mastered deep focus with our signature experience.
-                  </p>
-                  <Link 
-                    href="/register" 
-                    className="skeuo-button inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg"
-                  >
-                    <span>Start your free trial</span>
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </Link>
-                </div>
-                <div className="grid grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <div className="skeuo-avatar w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-gradient-to-br from-blue-500 to-cyan-400">
-                      <Rocket className="w-8 h-8 text-white" />
-                    </div>
-                    <div className="text-2xl font-bold mb-1">50K+</div>
-                    <div className="text-sm text-zinc-400">Active Users</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="skeuo-avatar w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-gradient-to-br from-yellow-500 to-orange-400">
-                      <Star className="w-8 h-8 text-white" />
-                    </div>
-                    <div className="text-2xl font-bold mb-1">4.9</div>
-                    <div className="text-sm text-zinc-400">Rating</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="skeuo-avatar w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-400">
-                      <Clock className="w-8 h-8 text-white" />
-                    </div>
-                    <div className="text-2xl font-bold mb-1">2M+</div>
-                    <div className="text-sm text-zinc-400">Sessions</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-5 gap-10 mb-12">
-              <div className="md:col-span-2">
-                <div className="flex items-center gap-3 mb-6">
-                  <img src="/logo.png" alt="FocusForge" className="w-12 h-12" />
-                  <div>
-                    <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
-                    <p className="text-sm text-zinc-400 mt-1">Deep Work Productivity</p>
-                  </div>
-                </div>
-                <p className="text-zinc-300 leading-relaxed">
-                  Master deep focus and build lasting productivity habits through our tactile interface that feels as real as it looks.
-                </p>
-                <div className="flex gap-4 mt-6">
-                <a href="https://twitter.com/focusforge" target="_blank" rel="noopener noreferrer" className="skeuo-chip">
-                  <span className="text-sm">Twitter</span>
-                </a>
-                <a href="https://github.com/focusforge" target="_blank" rel="noopener noreferrer" className="skeuo-chip">
-                  <span className="text-sm">GitHub</span>
-                </a>
-                <a href="https://discord.gg/focusforge" target="_blank" rel="noopener noreferrer" className="skeuo-chip">
-                  <span className="text-sm">Discord</span>
-                </a>
-                <a href="https://linkedin.com/company/focusforge" target="_blank" rel="noopener noreferrer" className="skeuo-chip">
-                  <span className="text-sm">LinkedIn</span>
-                </a>
-              </div>
-              </div>
-              
-              <div>
-                <h4 className="font-bold text-lg mb-6 embossed-text">Product</h4>
-                <ul className="space-y-3">
-                  <li>
-                    <Link href="/features" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Features</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/pricing" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Pricing</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/analytics-page" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Analytics</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/integrations" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Integrations</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/mobile" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Mobile App</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-bold text-lg mb-6 embossed-text">Company</h4>
-                <ul className="space-y-3">
-                  <li>
-                    <Link href="/about" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">About</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/blog" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Blog</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/careers" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Careers</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/press" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Press</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/contact" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Contact</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-bold text-lg mb-6 embossed-text">Resources</h4>
-                <ul className="space-y-3">
-                  <li>
-                    <Link href="/docs" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Documentation</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/docs/api" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">API Reference</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/help" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Help Center</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/community" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Community</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/status" className="skeuo-chip inline-block">
-                      <span className="text-sm text-zinc-300">Status</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="skeuo-divider" />
-
-            <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-              <div className="text-sm text-zinc-400">
-                © 2024 FocusForge. All rights reserved. Experience the depth of our design.
-              </div>
-              <div className="flex gap-6 text-sm text-zinc-400">
-                <Link href="/privacy" className="skeuo-chip">
-                  <span className="text-xs">Privacy Policy</span>
-                </Link>
-                <Link href="/terms" className="skeuo-chip">
-                  <span className="text-xs">Terms of Service</span>
-                </Link>
-                <Link href="/security" className="skeuo-chip">
-                  <span className="text-xs">Security</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </footer>
+      <Footer />
       </div>
     </div>
   );

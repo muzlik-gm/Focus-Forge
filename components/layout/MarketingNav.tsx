@@ -33,7 +33,7 @@ export function MarketingNav() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-3 skeuo-card-hover p-3 rounded-2xl">
+          <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
             <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
             <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
           </Link>

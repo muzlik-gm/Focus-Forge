@@ -23,10 +23,10 @@ export default function HelpCenterPage() {
         <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
       </div>
 
-      <nav className="fixed top-0 left-0 right-0 z-50 skeuo-panel" style={{ borderRadius: '0 0 32px 32px' }}>
+      <nav className="marketing-nav-fixed">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 skeuo-card-hover p-3 rounded-2xl">
+            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
               <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
               <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
             </Link>

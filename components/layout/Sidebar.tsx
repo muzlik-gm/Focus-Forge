@@ -13,9 +13,11 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  Monitor,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { tauriApi } from '@/lib/tauri-api';
 
 /**
  * Responsive Sidebar Component
@@ -29,7 +31,7 @@ import { cn } from '@/lib/utils';
  * Requirements: 17, 47
  */
 
-const navigation = [
+const baseNavigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Focus Sessions', href: '/focus', icon: Clock },
   { name: 'Tasks', href: '/tasks', icon: CheckSquare },
@@ -39,9 +41,22 @@ const navigation = [
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
+const desktopOnlyNavigation = [
+  { name: 'Desktop Monitor', href: '/desktop-monitor', icon: Monitor, desktopOnly: true },
+];
+
 export function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    setIsDesktop(tauriApi.isTauriEnvironment());
+  }, []);
+
+  const navigation = isDesktop 
+    ? [...baseNavigation.slice(0, 1), ...desktopOnlyNavigation, ...baseNavigation.slice(1)]
+    : baseNavigation;
 
   return (
     <>

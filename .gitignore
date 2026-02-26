@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+/desktop-app/node_modules
+/desktop-app/src-tauri/target
+/desktop-app/dist
 
 # testing
 /coverage

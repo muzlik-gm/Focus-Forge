@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { Search, ArrowRight, Calendar, CheckSquare, BarChart2, Users, Settings, LogOut } from 'lucide-react';
 
@@ -26,6 +27,11 @@ export function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Sign out function
   const signOut = useCallback(async () => {
@@ -160,9 +166,104 @@ export function CommandPalette() {
     setIsOpen(false);
   }, []);
 
+  const modalContent = isOpen && mounted ? createPortal(
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh]">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Modal content */}
+      <div className="relative z-[110] w-full max-w-2xl mx-4 bg-[#0f0f10] border border-white/10 rounded-2xl shadow-2xl overflow-hidden skeuo-panel p-0">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+          <h2 className="text-lg font-bold embossed-text tracking-tight text-white">Command Palette</h2>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="text-zinc-400 hover:text-white transition-colors p-1 hover:bg-white/5 rounded-lg"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Search input */}
+        <div className="flex items-center gap-3 px-6 py-4 border-b border-white/5 bg-black/20">
+          <Search className="w-5 h-5 text-blue-500 flex-shrink-0" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Type a command or search..."
+            className="flex-1 bg-transparent border-0 outline-none text-white placeholder:text-zinc-600 font-medium"
+            autoFocus
+          />
+        </div>
+
+        {/* Command list */}
+        <div className="max-h-[50vh] overflow-y-auto py-2">
+          {Object.entries(groupedCommands).map(([category, commands]) => (
+            <div key={category} className="mb-3 last:mb-0">
+              <div className="px-6 py-2 text-xs font-bold text-zinc-500 uppercase tracking-widest">
+                {category}
+              </div>
+              {commands.map((command) => {
+                const globalIndex = filteredCommands.indexOf(command);
+                const isSelected = globalIndex === selectedIndex;
+
+                return (
+                  <button
+                    key={command.id}
+                    onClick={() => handleCommandClick(command)}
+                    className={`w-full flex items-center gap-4 px-6 py-3 text-left transition-all ${isSelected
+                        ? 'bg-blue-500/20 text-white border-l-2 border-blue-500'
+                        : 'hover:bg-white/5 text-zinc-400 hover:text-white border-l-2 border-transparent'
+                      }`}
+                  >
+                    <div className={`${isSelected ? 'text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)]' : ''}`}>
+                      {command.icon}
+                    </div>
+                    <span className="flex-1 font-medium text-sm tracking-wide">{command.label}</span>
+                    {isSelected && (
+                      <ArrowRight className="w-4 h-4 text-blue-400" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+
+          {filteredCommands.length === 0 && (
+            <div className="px-6 py-12 text-center text-zinc-600 font-medium">
+              No commands found for &quot;{query}&quot;
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center gap-6 px-6 py-4 border-t border-white/5 bg-black/40 text-xs font-medium text-zinc-500">
+          <span className="flex items-center gap-2">
+            <kbd className="px-2 py-1 bg-zinc-900 rounded-[6px] border border-zinc-800 text-zinc-400 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)]">↑↓</kbd>
+            Navigate
+          </span>
+          <span className="flex items-center gap-2">
+            <kbd className="px-2 py-1 bg-zinc-900 rounded-[6px] border border-zinc-800 text-zinc-400 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)]">↵</kbd>
+            Select
+          </span>
+          <span className="flex items-center gap-2">
+            <kbd className="px-2 py-1 bg-zinc-900 rounded-[6px] border border-zinc-800 text-zinc-400 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)]">esc</kbd>
+            Close
+          </span>
+        </div>
+      </div>
+    </div>,
+    document.body
+  ) : null;
+
   return (
     <>
-      {/* Keyboard shortcut hint */}
       <button
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 px-3 py-2 text-sm text-[var(--text-secondary)] bg-[var(--surface-elevated)] hover:bg-[var(--border)] rounded-xl transition-all border border-[var(--border)]"
@@ -174,102 +275,7 @@ export function CommandPalette() {
         </kbd>
       </button>
 
-      {/* Command palette modal */}
-      {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh]">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setIsOpen(false)}
-          />
-
-          {/* Modal content */}
-          <div className="relative z-[110] w-full max-w-2xl mx-4 bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl overflow-hidden">
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border)]">
-              <h2 className="text-lg font-semibold">Command Palette</h2>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-[var(--text-secondary)] hover:text-white transition-colors p-1 hover:bg-[var(--surface-elevated)] rounded-lg"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Search input */}
-            <div className="flex items-center gap-3 px-6 py-4 border-b border-[var(--border)]">
-              <Search className="w-5 h-5 text-[var(--text-secondary)] flex-shrink-0" />
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Type a command or search..."
-                className="flex-1 bg-transparent border-0 outline-none text-white placeholder:text-[var(--text-tertiary)]"
-                autoFocus
-              />
-            </div>
-
-            {/* Command list */}
-            <div className="max-h-96 overflow-y-auto py-2">
-              {Object.entries(groupedCommands).map(([category, commands]) => (
-                <div key={category} className="mb-3 last:mb-0">
-                  <div className="px-6 py-2 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
-                    {category}
-                  </div>
-                  {commands.map((command) => {
-                    const globalIndex = filteredCommands.indexOf(command);
-                    const isSelected = globalIndex === selectedIndex;
-
-                    return (
-                      <button
-                        key={command.id}
-                        onClick={() => handleCommandClick(command)}
-                        className={`w-full flex items-center gap-3 px-6 py-3 text-left transition-all ${
-                          isSelected
-                            ? 'bg-indigo-500/10 text-white border-l-2 border-indigo-500'
-                            : 'hover:bg-[var(--surface-elevated)] text-[var(--text-secondary)] hover:text-white border-l-2 border-transparent'
-                        }`}
-                      >
-                        <div className={`${isSelected ? 'text-indigo-400' : ''}`}>
-                          {command.icon}
-                        </div>
-                        <span className="flex-1 font-medium">{command.label}</span>
-                        {isSelected && (
-                          <ArrowRight className="w-4 h-4 text-indigo-400" />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              ))}
-
-              {filteredCommands.length === 0 && (
-                <div className="px-6 py-12 text-center text-[var(--text-secondary)]">
-                  No commands found for &quot;{query}&quot;
-                </div>
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center gap-6 px-6 py-3 border-t border-[var(--border)] bg-[var(--surface-elevated)] text-xs text-[var(--text-tertiary)]">
-              <span className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-[var(--surface)] rounded border border-[var(--border)]">↑↓</kbd>
-                Navigate
-              </span>
-              <span className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-[var(--surface)] rounded border border-[var(--border)]">↵</kbd>
-                Select
-              </span>
-              <span className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-[var(--surface)] rounded border border-[var(--border)]">esc</kbd>
-                Close
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
+      {modalContent}
     </>
   );
 }

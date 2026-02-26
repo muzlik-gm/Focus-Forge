@@ -3,10 +3,12 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { post } from '@/lib/api-client';
+import { signIn } from 'next-auth/react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { isDesktop } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,31 +17,63 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+    
     setError('');
     setLoading(true);
 
+    console.log('[Register] Form submitted');
+    console.log('[Register] Environment:', isDesktop ? 'Desktop' : 'Web');
+    console.log('[Register] Using cloud authentication (NextAuth + MongoDB)');
+    console.log('[Register] Email:', email);
+
     try {
-      const response = await post('/api/auth/register', { name, email, password });
+      // Call registration API
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
 
       if (!response.ok) {
-        const data = await response.json();
-        // Handle specific error codes with user-friendly messages
+        console.error('[Register] Registration failed:', data);
+        
         const errorMessages: Record<string, string> = {
-          USER_EXISTS: 'An account with this email already exists. Please sign in instead.',
-          VALIDATION_ERROR: 'Please check your input and try again.',
-          RATE_LIMIT_EXCEEDED: 'Too many attempts. Please wait a moment before trying again.',
-          INTERNAL_ERROR: 'Something went wrong on our end. Please try again in a few moments.',
+          USER_EXISTS: 'An account with this email already exists',
+          VALIDATION_ERROR: 'Please check your input and try again',
+          RATE_LIMIT_EXCEEDED: 'Too many attempts. Please wait a moment',
+          INTERNAL_ERROR: 'Something went wrong. Please try again',
         };
         
         const errorCode = data.error?.code;
         setError(errorMessages[errorCode] || data.error?.message || 'Registration failed');
+        setLoading(false);
         return;
       }
 
+      console.log('[Register] Registration successful, logging in...');
+
+      // Auto-login after registration
+      const loginResult = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (loginResult?.error) {
+        console.error('[Register] Auto-login failed:', loginResult.error);
+        setError('Account created but login failed. Please try logging in manually.');
+        setLoading(false);
+        return;
+      }
+
+      console.log('[Register] Auto-login successful, redirecting...');
       router.push('/onboarding');
-    } catch {
-      setError('An error occurred. Please try again.');
-    } finally {
+    } catch (err: any) {
+      console.error('[Register] Unexpected error:', err);
+      setError('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
   };
@@ -54,10 +88,12 @@ export default function RegisterPage() {
 
       <div className="w-full max-w-[440px] relative z-10">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 mb-12">
+        <div className="flex items-center gap-3 mb-12">
           <img src="/logo.png" alt="FocusForge" className="w-8 h-8" />
-          <span className="text-base font-semibold tracking-tight embossed-text">FocusForge</span>
-        </Link>
+          <span className="text-base font-semibold tracking-tight embossed-text">
+            FocusForge {isDesktop && '(Desktop)'}
+          </span>
+        </div>
 
         {/* Form Card */}
         <div className="skeuo-card p-8">
@@ -74,7 +110,7 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-[20px] text-sm text-red-400">
-                {typeof error === 'string' ? error : 'An error occurred'}
+                {error}
               </div>
             )}
 
@@ -90,6 +126,7 @@ export default function RegisterPage() {
                 className="skeuo-input w-full px-4 py-2.5 text-sm focus:outline-none transition"
                 placeholder="John Doe"
                 required
+                disabled={loading}
               />
             </div>
 
@@ -105,6 +142,7 @@ export default function RegisterPage() {
                 className="skeuo-input w-full px-4 py-2.5 text-sm focus:outline-none transition"
                 placeholder="you@example.com"
                 required
+                disabled={loading}
               />
             </div>
 
@@ -121,6 +159,7 @@ export default function RegisterPage() {
                 placeholder="••••••••"
                 required
                 minLength={8}
+                disabled={loading}
               />
               <p className="mt-1.5 text-xs text-zinc-500">Must be at least 8 characters</p>
             </div>

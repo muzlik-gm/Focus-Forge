@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { startSession } from '@/lib/sessions';
+import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
 /**
@@ -41,6 +42,37 @@ export async function POST(request: NextRequest) {
           },
         },
         { status: 400 }
+      );
+    }
+
+    // Get user's subscription tier
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { subscriptionTier: true },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: { code: 'USER_NOT_FOUND', message: 'User not found' } },
+        { status: 404 }
+      );
+    }
+
+    // Enforce duration limits based on subscription tier
+    const maxDurationMinutes = user.subscriptionTier === 'FREE' ? 180 : 480; // 3 hours for free, 8 hours for paid
+    
+    if (validation.data.durationMinutes > maxDurationMinutes) {
+      return NextResponse.json(
+        {
+          error: {
+            code: 'DURATION_LIMIT_EXCEEDED',
+            message: user.subscriptionTier === 'FREE' 
+              ? 'Free plan is limited to 3-hour sessions. Upgrade to Pro for unlimited session durations.'
+              : 'Maximum session duration is 8 hours',
+            maxDurationMinutes,
+          },
+        },
+        { status: 403 }
       );
     }
 

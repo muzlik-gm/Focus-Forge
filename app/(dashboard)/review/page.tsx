@@ -30,7 +30,7 @@ export default function ReviewPage() {
     try {
       const weekStart = getWeekStart();
       const res = await get(`/api/reviews/${weekStart}`);
-      
+
       if (res.ok) {
         const data = await res.json();
         setReview(data);
@@ -66,7 +66,7 @@ export default function ReviewPage() {
     setGenerating(true);
     try {
       const res = await post(`/api/reviews/${review?.weekStart}/generate-summary`, {});
-      
+
       if (res.ok) {
         const data = await res.json();
         setReview({ ...review!, aiSummary: data.summary });
@@ -87,11 +87,11 @@ export default function ReviewPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-10 p-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold mb-2">Weekly Review</h1>
-        <p className="text-gray-400">Reflect on your progress and plan ahead</p>
+        <h1 className="text-3xl font-bold mb-2 embossed-text tracking-tight">Weekly Review</h1>
+        <p className="text-zinc-300 text-lg">Reflect on your progress and plan ahead</p>
       </div>
 
       {/* Stats Overview */}
@@ -99,57 +99,65 @@ export default function ReviewPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white/[0.02] border border-white/10 rounded-lg p-6"
+          className="skeuo-panel p-8"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <Calendar className="w-5 h-5 text-blue-500" />
-            <span className="text-sm text-gray-400">Total Focus Hours</span>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-blue-400" />
+            </div>
+            <span className="text-base font-medium text-zinc-400">Total Focus Hours</span>
           </div>
-          <p className="text-3xl font-bold">{review?.totalFocusHours.toFixed(1) || '0.0'}h</p>
+          <p className="text-4xl font-bold embossed-text text-white mt-4 tracking-tight">{review?.totalFocusHours.toFixed(1) || '0.0'}h</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white/[0.02] border border-white/10 rounded-lg p-6"
+          className="skeuo-panel p-8"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <Target className="w-5 h-5 text-green-500" />
-            <span className="text-sm text-gray-400">Tasks Completed</span>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+              <Target className="w-5 h-5 text-green-400" />
+            </div>
+            <span className="text-base font-medium text-zinc-400">Tasks Completed</span>
           </div>
-          <p className="text-3xl font-bold">{review?.tasksCompleted || 0}</p>
+          <p className="text-4xl font-bold embossed-text text-white mt-4 tracking-tight">{review?.tasksCompleted || 0}</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white/[0.02] border border-white/10 rounded-lg p-6"
+          className="skeuo-panel p-8"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <Award className="w-5 h-5 text-yellow-500" />
-            <span className="text-sm text-gray-400">Current Streak</span>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+              <Award className="w-5 h-5 text-yellow-400" />
+            </div>
+            <span className="text-base font-medium text-zinc-400">Current Streak</span>
           </div>
-          <p className="text-3xl font-bold">{review?.streak || 0} days</p>
+          <p className="text-4xl font-bold embossed-text text-white mt-4 tracking-tight">{review?.streak || 0} days</p>
         </motion.div>
       </div>
 
       {/* Achievements & Goals */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white/[0.02] border border-white/10 rounded-lg p-6"
+          className="skeuo-panel p-8"
         >
-          <div className="flex items-center gap-2 mb-4">
-            <TrendingUp className="w-5 h-5 text-green-500" />
-            <h2 className="text-lg font-semibold">Top Achievements</h2>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-green-400" />
+            </div>
+            <h2 className="text-xl font-bold embossed-text">Top Achievements</h2>
           </div>
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {review?.topAchievements.map((achievement, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <li key={i} className="flex items-start gap-3 text-base text-zinc-300">
+                <Check className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                 {achievement}
               </li>
             ))}
@@ -159,16 +167,18 @@ export default function ReviewPage() {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white/[0.02] border border-white/10 rounded-lg p-6"
+          className="skeuo-panel p-8"
         >
-          <div className="flex items-center gap-2 mb-4">
-            <Target className="w-5 h-5 text-orange-500" />
-            <h2 className="text-lg font-semibold">Missed Goals</h2>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+              <Target className="w-5 h-5 text-orange-400" />
+            </div>
+            <h2 className="text-xl font-bold embossed-text">Missed Goals</h2>
           </div>
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {review?.missedGoals.map((goal, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                <span className="text-orange-500 mt-1">○</span>
+              <li key={i} className="flex items-start gap-3 text-base text-zinc-300">
+                <span className="text-orange-400 mt-1 font-bold">○</span>
                 {goal}
               </li>
             ))}
@@ -180,43 +190,45 @@ export default function ReviewPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/[0.02] border border-white/10 rounded-lg p-6"
+        className="skeuo-panel p-8"
       >
-        <h2 className="text-lg font-semibold mb-4">Your Reflection</h2>
+        <h2 className="text-xl font-bold mb-6 embossed-text">Your Reflection</h2>
         <textarea
           value={reflection}
           onChange={(e) => setReflection(e.target.value)}
           onBlur={saveReflection}
           placeholder="What went well this week? What could be improved?"
-          className="w-full h-32 px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none"
+          className="skeuo-input w-full h-32 px-5 py-4 text-white focus:outline-none resize-none"
         />
-        <p className="text-xs text-gray-500 mt-2">Auto-saves as you type</p>
+        <p className="text-sm text-zinc-500 mb-0">Auto-saves as you type</p>
       </motion.div>
 
       {/* AI Summary */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-lg p-6"
+        className="skeuo-panel p-8 !border-t-2 !border-t-blue-500"
       >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-blue-400" />
-            <h2 className="text-lg font-semibold">AI-Generated Summary</h2>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+            <h2 className="text-xl font-bold embossed-text">AI-Generated Summary</h2>
           </div>
           <button
             onClick={generateAISummary}
             disabled={generating}
-            className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
+            className="skeuo-button px-6 py-3 text-white font-medium shadow-lg transition-all disabled:opacity-50 flex items-center gap-2"
           >
             {generating ? 'Generating...' : 'Generate Summary'}
           </button>
         </div>
-        
+
         {review?.aiSummary ? (
-          <p className="text-gray-300 leading-relaxed">{review.aiSummary}</p>
+          <p className="text-zinc-300 leading-relaxed text-lg bg-zinc-800/20 p-6 rounded-lg border border-zinc-800/50">{review.aiSummary}</p>
         ) : (
-          <p className="text-gray-500 italic">Click &quot;Generate Summary&quot; to get AI-powered insights about your week</p>
+          <p className="text-zinc-500 italic text-lg p-6 flex justify-center border border-dashed border-zinc-700 rounded-lg">Click &quot;Generate Summary&quot; to get AI-powered insights about your week</p>
         )}
       </motion.div>
     </div>

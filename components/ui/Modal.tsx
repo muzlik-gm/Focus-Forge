@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './Button';
 
@@ -19,6 +20,13 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   className = '',
 }) => {
+  // Handle client-side mounting for Portal
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Handle Escape key press
   const handleEscape = useCallback(
     (event: KeyboardEvent) => {
@@ -98,7 +106,7 @@ export const Modal: React.FC<ModalProps> = ({
     };
   }, [isOpen]);
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center">
@@ -118,7 +126,7 @@ export const Modal: React.FC<ModalProps> = ({
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            className={`relative z-[110] w-full max-w-md mx-4 bg-[#1a1a1a]/95 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl overflow-hidden ${className}`}
+            className={`relative z-[110] w-full max-w-xl mx-4 skeuo-modal ${className}`}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -128,16 +136,14 @@ export const Modal: React.FC<ModalProps> = ({
             <div className="flex items-center justify-between p-6 pb-4">
               <h2
                 id="modal-title"
-                className="text-xl font-bold text-white"
+                className="text-xl font-bold text-white embossed-text"
               >
                 {title}
               </h2>
-              <Button
-                variant="icon"
-                size="sm"
+              <button
                 onClick={onClose}
                 aria-label="Close modal"
-                className="text-gray-400 hover:text-white"
+                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -151,11 +157,11 @@ export const Modal: React.FC<ModalProps> = ({
                     clipRule="evenodd"
                   />
                 </svg>
-              </Button>
+              </button>
             </div>
 
             {/* Modal content */}
-            <div className="text-gray-200">
+            <div className="text-gray-200 px-8 pb-8">
               {children}
             </div>
           </motion.div>
@@ -163,6 +169,10 @@ export const Modal: React.FC<ModalProps> = ({
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(modalContent, document.body);
 };
 
 Modal.displayName = 'Modal';

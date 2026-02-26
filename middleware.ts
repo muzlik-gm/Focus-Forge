@@ -58,13 +58,10 @@ function isExcludedRoute(pathname: string): boolean {
 async function validateCsrfToken(request: NextRequest): Promise<boolean> {
   try {
     // In development, be more lenient with CSRF validation
+    // This allows the desktop app to work without complex CSRF setup
     if (process.env.NODE_ENV === 'development') {
-      // Check if token exists, but don't fail if cookie is missing
-      const csrfToken = request.headers.get(CSRF_HEADER_NAME);
-      if (!csrfToken) {
-        console.warn('[DEV] CSRF token missing from request header');
-        return true; // Allow in development
-      }
+      console.log('[DEV] CSRF validation skipped in development mode');
+      return true; // Allow all requests in development
     }
 
     // Get CSRF token from request header
@@ -78,11 +75,6 @@ async function validateCsrfToken(request: NextRequest): Promise<boolean> {
     const csrfCookie = request.cookies.get('next-auth.csrf-token');
     
     if (!csrfCookie) {
-      // In development, allow if token is present but cookie is missing
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('[DEV] CSRF cookie missing, but allowing request');
-        return true;
-      }
       return false;
     }
 
