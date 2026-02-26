@@ -34,7 +34,16 @@ export function DesktopFocusSession() {
   const [showSummary, setShowSummary] = useState(false);
   const [sessionSummary, setSessionSummary] = useState<SessionSummary | null>(null);
 
+  const WORK_PROFILES = [
+    { id: 'dev_web', name: 'Web Dev', icon: '💻', productive: ['Productive', 'programming', 'ide', 'web browser', 'terminal', 'utility'] },
+    { id: 'dev_game', name: 'Game Dev', icon: '🎮', productive: ['Productive', 'game engine', '3d modeling', 'programming', 'ide', 'graphics editor', 'utility'] },
+    { id: 'art_design', name: 'Art & Design', icon: '🎨', productive: ['Productive', 'graphics editor', 'vector graphics', '3d modeling', 'design', 'utility'] },
+    { id: 'writing', name: 'Writing', icon: '📝', productive: ['Productive', 'word processor', 'writing', 'web browser', 'utility'] },
+    { id: 'custom', name: 'Custom', icon: '⚙️', productive: ['Productive'] },
+  ];
+
   // Start dialog state
+  const [selectedProfile, setSelectedProfile] = useState(WORK_PROFILES[0]);
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(['Productive']);
   const [sessionGoal, setSessionGoal] = useState('');
@@ -433,41 +442,65 @@ export function DesktopFocusSession() {
             />
           </div>
 
-          {/* Category Selection */}
+          {/* Smart Work Profile Selection */}
           <div>
             <label className="block text-sm font-bold text-zinc-300 mb-2 embossed-text">
-              Productive Categories
+              What are you working on? (Smart Profile)
             </label>
             <p className="text-sm text-zinc-400 mb-4">
-              Select which application categories count as productive for this session
+              Select a work profile to automatically categorize your productive applications.
             </p>
-            <div className="space-y-3">
-              {categories.map(category => (
-                <label
-                  key={category}
-                  className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${selectedCategories.includes(category)
-                    ? 'bg-blue-500/10 border-blue-500/30 border shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+              {WORK_PROFILES.map(profile => (
+                <div
+                  key={profile.id}
+                  onClick={() => {
+                    setSelectedProfile(profile);
+                    if (profile.id !== 'custom') {
+                      setSelectedCategories(Array.from(new Set([...categories, ...profile.productive])));
+                    }
+                  }}
+                  className={`flex flex-col items-center justify-center p-4 rounded-xl cursor-pointer transition-all ${selectedProfile.id === profile.id
+                    ? 'bg-blue-500/10 border-blue-500/50 border shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'
                     : 'skeuo-card hover:bg-white/5 border border-transparent'
                     }`}
                 >
-                  <div className={`w-5 h-5 rounded flex items-center justify-center transition-all ${selectedCategories.includes(category)
-                    ? 'bg-blue-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]'
-                    : 'bg-black/40 shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]'
-                    }`}>
-                    {selectedCategories.includes(category) && <CheckCircle className="w-3 h-3 text-white" />}
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={selectedCategories.includes(category)}
-                    onChange={() => toggleCategory(category)}
-                    className="sr-only"
-                  />
-                  <span className={`font-medium ${selectedCategories.includes(category) ? 'text-white embossed-text' : 'text-zinc-400'}`}>
-                    {category}
+                  <span className="text-3xl mb-2">{profile.icon}</span>
+                  <span className={`font-semibold text-sm ${selectedProfile.id === profile.id ? 'text-white embossed-text' : 'text-zinc-400'}`}>
+                    {profile.name}
                   </span>
-                </label>
+                </div>
               ))}
             </div>
+
+            {/* Custom Category Selection Overlay */}
+            {selectedProfile.id === 'custom' && (
+              <div className="space-y-3 mt-4 p-4 border border-zinc-700/50 rounded-xl bg-black/20">
+                <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 block">MANUAL CATEGORIES</span>
+                {categories.map(category => (
+                  <label
+                    key={category}
+                    className="flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all skeuo-card hover:bg-white/5"
+                  >
+                    <div className={`w-5 h-5 rounded flex items-center justify-center transition-all ${selectedCategories.includes(category)
+                      ? 'bg-blue-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]'
+                      : 'bg-black/40 shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]'
+                      }`}>
+                      {selectedCategories.includes(category) && <CheckCircle className="w-3 h-3 text-white" />}
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={selectedCategories.includes(category)}
+                      onChange={() => toggleCategory(category)}
+                      className="sr-only"
+                    />
+                    <span className={`font-medium ${selectedCategories.includes(category) ? 'text-white embossed-text' : 'text-zinc-400'}`}>
+                      {category}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Action Buttons */}

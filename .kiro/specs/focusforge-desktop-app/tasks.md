@@ -504,16 +504,16 @@ Desktop App (Tauri) → HTTP Requests → Next.js Server → MongoDB
     - Build RPM package for Fedora/RHEL
     - _Requirements: 11.5_
 
-- [ ] 22. Implement Smart Work Profiles & Dynamic Categorization (Requirement 21)
-  - [ ] 22.1 Create WorkProfile data model
+- [x] 22. Implement Smart Work Profiles & Dynamic Categorization (Requirement 21)
+  - [x] 22.1 Create WorkProfile data model
     - Define default profiles (Web Dev, Game Dev, Art, Writing, etc.)
     - Map specific application categories to each profile
     - Provide a UI for profile selection before session start
-  - [ ] 22.2 Implement AppCategorization Engine
+  - [x] 22.2 Implement AppCategorization Engine
     - Create a Rust service that queries Wikidata SPARQL or alternative REST API for unknown application names
     - Cache categorization results in the SQLite database to avoid API limits
     - Parse API response to map to internal tags (e.g. IDE, Utility, Browse, Game)
-  - [ ] 22.3 Implement Idle Detection & Tracking
+  - [x] 22.3 Implement Idle Detection & Tracking
     - Use platform APIs (e.g., GetLastInputInfo on Windows) to track user idle time
     - Differentiate between active productive time and idle time in FocusSession logging
     - Pause distraction warnings if user is purely idle
