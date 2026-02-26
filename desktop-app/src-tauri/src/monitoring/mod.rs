@@ -7,6 +7,7 @@ pub mod idle_detector;
 pub mod focus_analyzer;
 pub mod platform;
 pub mod service;
+pub mod categorizer;
 
 // Re-export platform abstraction types for convenience
 pub use platform::{ApplicationInfo, FocusEvent, PlatformMonitor, create_platform_monitor};
