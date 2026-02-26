@@ -53,7 +53,10 @@
       },
       "fs": {
         "all": true,
-        "scope": ["$APPDATA/*", "$APPDATA/**"]
+        "scope": [
+          "$APPDATA/*",
+          "$APPDATA/**"
+        ]
       }
     },
     "bundle": {
@@ -69,25 +72,33 @@
       "dangerousRemoteDomainIpcAccess": [
         {
           "domain": "localhost:3000",
-          "windows": ["main"],
+          "windows": [
+            "main"
+          ],
           "enableTauriAPI": true,
           "plugins": []
         },
         {
           "domain": "localhost",
-          "windows": ["main"],
+          "windows": [
+            "main"
+          ],
           "enableTauriAPI": true,
           "plugins": []
         },
         {
           "domain": "127.0.0.1:3000",
-          "windows": ["main"],
+          "windows": [
+            "main"
+          ],
           "enableTauriAPI": true,
           "plugins": []
         },
         {
           "domain": "127.0.0.1",
-          "windows": ["main"],
+          "windows": [
+            "main"
+          ],
           "enableTauriAPI": true,
           "plugins": []
         }
@@ -95,6 +106,7 @@
     },
     "windows": [
       {
+        "fileDropEnabled": false,
         "fullscreen": false,
         "resizable": true,
         "title": "FocusForge",

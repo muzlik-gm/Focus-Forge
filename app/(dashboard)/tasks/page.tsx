@@ -107,6 +107,7 @@ export default function TasksPage() {
 
   const handleDragOver = (e: React.DragEvent, status: string) => {
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
     if (dragOverStatus !== status) {
       setDragOverStatus(status);
     }
@@ -204,7 +205,7 @@ export default function TasksPage() {
                         draggable
                         onDragStart={(e) => handleDragStart(e, task.id)}
                         onDragEnd={handleDragEnd}
-                        className={`skeuo-card p-5 border transition-colors duration-200 ${isDragging ? 'opacity-50 shadow-none border-blue-500/30 bg-blue-500/5 cursor-grabbing' : 'hover:border-white/10 hover:bg-white/[0.03] border-transparent cursor-grab'}
+                        className={`skeuo-card select-none p-5 border transition-colors duration-200 ${isDragging ? 'opacity-50 shadow-none border-blue-500/30 bg-blue-500/5 cursor-grabbing' : 'hover:border-white/10 hover:bg-white/[0.03] border-transparent cursor-grab'}
                           `}
                       >
                         <p className="text-base font-medium mb-3 text-zinc-100">{task.title}</p>
