@@ -94,7 +94,8 @@ export default function TasksPage() {
   };
 
   const handleDragStart = (e: React.DragEvent, taskId: string) => {
-    setDraggedTaskId(taskId);
+    // Delay setting visual state so browser captures the ghost image correctly
+    setTimeout(() => setDraggedTaskId(taskId), 0);
     e.dataTransfer.setData('text/plain', taskId);
     e.dataTransfer.effectAllowed = 'move';
   };
@@ -106,15 +107,9 @@ export default function TasksPage() {
 
   const handleDragOver = (e: React.DragEvent, status: string) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
     if (dragOverStatus !== status) {
       setDragOverStatus(status);
     }
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setDragOverStatus(null);
   };
 
   const handleDrop = (e: React.DragEvent, status: string) => {
@@ -174,8 +169,7 @@ export default function TasksPage() {
               className={`skeuo-panel p-6 border transition-colors duration-200 ${dragOverStatus === status ? 'bg-white/[0.03] border-blue-500/30 ring-1 ring-blue-500/20' : 'border-white/[0.02]'
                 }`}
               onDragOver={(e) => handleDragOver(e, status)}
-              onDragEnter={(e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }}
-              onDragLeave={handleDragLeave}
+              onDragEnter={(e) => { e.preventDefault(); }}
               onDrop={(e) => handleDrop(e, status)}
             >
               <div className="flex items-center justify-between mb-6">
@@ -210,8 +204,8 @@ export default function TasksPage() {
                         draggable
                         onDragStart={(e) => handleDragStart(e, task.id)}
                         onDragEnd={handleDragEnd}
-                        className={`skeuo-card p-5 cursor-grab active:cursor-grabbing border transition-colors duration-200 ${isDragging ? 'opacity-50 shadow-none border-blue-500/30 bg-blue-500/5' : 'hover:border-white/10 hover:bg-white/[0.03] border-transparent'
-                          }`}
+                        className={`skeuo-card p-5 border transition-colors duration-200 ${isDragging ? 'opacity-50 shadow-none border-blue-500/30 bg-blue-500/5 cursor-grabbing' : 'hover:border-white/10 hover:bg-white/[0.03] border-transparent cursor-grab'}
+                          `}
                       >
                         <p className="text-base font-medium mb-3 text-zinc-100">{task.title}</p>
                         <span className="skeuo-chip">
