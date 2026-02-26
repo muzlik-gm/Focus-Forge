@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Play, Pause, Square, Settings, CheckCircle } from 'lucide-react';
+import { Play, Pause, Square, Settings, CheckCircle, Code2, Gamepad2, Palette, PenTool } from 'lucide-react';
 import { tauriApi } from '@/lib/tauri-api';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
@@ -35,11 +35,11 @@ export function DesktopFocusSession() {
   const [sessionSummary, setSessionSummary] = useState<SessionSummary | null>(null);
 
   const WORK_PROFILES = [
-    { id: 'dev_web', name: 'Web Dev', icon: '💻', productive: ['Productive', 'programming', 'ide', 'web browser', 'terminal', 'utility'] },
-    { id: 'dev_game', name: 'Game Dev', icon: '🎮', productive: ['Productive', 'game engine', '3d modeling', 'programming', 'ide', 'graphics editor', 'utility'] },
-    { id: 'art_design', name: 'Art & Design', icon: '🎨', productive: ['Productive', 'graphics editor', 'vector graphics', '3d modeling', 'design', 'utility'] },
-    { id: 'writing', name: 'Writing', icon: '📝', productive: ['Productive', 'word processor', 'writing', 'web browser', 'utility'] },
-    { id: 'custom', name: 'Custom', icon: '⚙️', productive: ['Productive'] },
+    { id: 'dev_web', name: 'Web Dev', icon: Code2, productive: ['Productive', 'programming', 'ide', 'web browser', 'terminal', 'utility'] },
+    { id: 'dev_game', name: 'Game Dev', icon: Gamepad2, productive: ['Productive', 'game engine', '3d modeling', 'programming', 'ide', 'graphics editor', 'utility'] },
+    { id: 'art_design', name: 'Art & Design', icon: Palette, productive: ['Productive', 'graphics editor', 'vector graphics', '3d modeling', 'design', 'utility'] },
+    { id: 'writing', name: 'Writing', icon: PenTool, productive: ['Productive', 'word processor', 'writing', 'web browser', 'utility'] },
+    { id: 'custom', name: 'Custom', icon: Settings, productive: ['Productive'] },
   ];
 
   // Start dialog state
@@ -229,8 +229,12 @@ export function DesktopFocusSession() {
       for (const log of logs) {
         breakdown[log.application] = (breakdown[log.application] || 0) + log.duration;
 
-        const category = await tauriApi.categories.getCategoryWithFallback(log.application);
-        if (session.productiveCategories.includes(category)) {
+        const categoryStr = await tauriApi.categories.getCategoryWithFallback(log.application);
+        const logCategories = categoryStr.split(',').map(c => c.trim());
+
+        const isProductive = logCategories.some(c => session.productiveCategories.includes(c));
+
+        if (isProductive) {
           focusTime += log.duration;
         } else {
           distractionCount++;
@@ -461,11 +465,11 @@ export function DesktopFocusSession() {
                     }
                   }}
                   className={`flex flex-col items-center justify-center p-4 rounded-xl cursor-pointer transition-all ${selectedProfile.id === profile.id
-                    ? 'bg-blue-500/10 border-blue-500/50 border shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'
-                    : 'skeuo-card hover:bg-white/5 border border-transparent'
+                    ? 'bg-blue-500/10 border-blue-500/50 border shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)] text-blue-400'
+                    : 'skeuo-card hover:bg-white/5 border border-transparent text-zinc-400'
                     }`}
                 >
-                  <span className="text-3xl mb-2">{profile.icon}</span>
+                  <profile.icon className="w-8 h-8 mb-2 drop-shadow-md" strokeWidth={1.5} />
                   <span className={`font-semibold text-sm ${selectedProfile.id === profile.id ? 'text-white embossed-text' : 'text-zinc-400'}`}>
                     {profile.name}
                   </span>

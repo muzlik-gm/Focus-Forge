@@ -197,7 +197,8 @@ impl FocusSessionManager {
         
         // Check if the category is in the productive list
         let productive_categories = session.get_productive_categories();
-        let is_productive = productive_categories.contains(&category);
+        let is_productive = category.split(',')
+            .any(|c| productive_categories.contains(&c.trim().to_string()));
         
         Ok(!is_productive)
     }
@@ -297,7 +298,10 @@ impl FocusSessionManager {
             ).await.unwrap_or_else(|_| "Neutral".to_string());
             
             // If the category is not in the productive list, it's distraction time
-            if !productive_categories.contains(&category) {
+            let is_productive = category.split(',')
+                .any(|c| productive_categories.contains(&c.trim().to_string()));
+                
+            if !is_productive {
                 distraction_time += duration_seconds;
             }
         }

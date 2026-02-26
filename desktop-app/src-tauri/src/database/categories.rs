@@ -117,7 +117,16 @@ pub async fn get_category_with_fallback(
 ) -> Result<String> {
     match get_by_application(pool, application).await? {
         Some(cat) => Ok(cat.category),
-        None => Ok("Neutral".to_string()),
+        None => {
+            // Smart profile categorization fallback
+            let categorizer = crate::monitoring::categorizer::CategorizerService::new();
+            if let Ok(metadata) = categorizer.fetch_app_metadata(application).await {
+                if !metadata.tags.is_empty() {
+                    return Ok(metadata.tags.join(","));
+                }
+            }
+            Ok("Neutral".to_string())
+        }
     }
 }
 
