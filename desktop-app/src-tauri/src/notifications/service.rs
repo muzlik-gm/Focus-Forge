@@ -6,11 +6,34 @@
 use std::sync::Arc;
 use tokio::sync::RwLock;
 use anyhow::Result;
-use notify_rust::Notification;
 use chrono::{DateTime, Utc};
 
 use crate::database::Database;
 use crate::database::settings;
+
+#[cfg(not(target_os = "windows"))]
+use notify_rust::Notification;
+
+#[cfg(target_os = "windows")]
+use super::windows_toast::windows_notifications;
+
+// Windows-specific notification setup
+#[cfg(target_os = "windows")]
+fn send_notification_impl(title: &str, body: &str, _icon: &str, _timeout_ms: i32) -> Result<()> {
+    windows_notifications::send_toast_notification(title, body)
+}
+
+#[cfg(not(target_os = "windows"))]
+fn send_notification_impl(title: &str, body: &str, icon: &str, timeout_ms: i32) -> Result<()> {
+    Notification::new()
+        .appname("FocusForge")
+        .summary(title)
+        .body(body)
+        .icon(icon)
+        .timeout(timeout_ms)
+        .show()?;
+    Ok(())
+}
 
 /// Notification history entry
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
@@ -63,37 +86,13 @@ impl NotificationService {
         let title = "Focus Alert";
         let body = format!("You switched to {} - Stay focused!", application_name);
         
-        // Send notification with action buttons
-        // Note: Action support varies by platform
-        // - Windows: Actions are supported via WinRT notifications
-        // - macOS: Actions are supported via NSUserNotification
-        // - Linux: Actions are supported via libnotify (if the notification daemon supports it)
-        let notification_result = Notification::new()
-            .summary(title)
-            .body(&body)
-            .icon("dialog-warning")
-            .timeout(timeout_ms as i32)
-            .action("return", "Return to Work")
-            .action("break", "Take a Break")
-            .show();
-        
-        // Handle notification result
-        // Note: notify-rust may not support action callbacks on all platforms
-        // For now, we just log if the notification was shown successfully
-        match notification_result {
+        // Send notification
+        match send_notification_impl(title, &body, "dialog-warning", timeout_ms as i32) {
             Ok(_) => {
                 log::info!("Distraction alert sent for: {}", application_name);
             }
             Err(e) => {
-                log::warn!("Failed to send notification with actions, trying without actions: {}", e);
-                // Fallback: send notification without actions
-                Notification::new()
-                    .summary(title)
-                    .body(&body)
-                    .icon("dialog-warning")
-                    .timeout(timeout_ms as i32)
-                    .show()?;
-                log::info!("Distraction alert sent (without actions) for: {}", application_name);
+                log::warn!("Failed to send notification: {}", e);
             }
         }
         
@@ -135,30 +134,13 @@ impl NotificationService {
             duration_minutes
         );
         
-        // Send notification with action buttons
-        let notification_result = Notification::new()
-            .summary(title)
-            .body(&body)
-            .icon("dialog-warning")
-            .timeout(extended_timeout_ms as i32)
-            .action("return", "Return to Work")
-            .action("break", "Take a Break")
-            .show();
-        
-        match notification_result {
+        // Send notification
+        match send_notification_impl(title, &body, "dialog-warning", extended_timeout_ms as i32) {
             Ok(_) => {
                 log::info!("Extended distraction reminder sent for: {}", application_name);
             }
             Err(e) => {
-                log::warn!("Failed to send extended reminder with actions, trying without actions: {}", e);
-                // Fallback: send notification without actions
-                Notification::new()
-                    .summary(title)
-                    .body(&body)
-                    .icon("dialog-warning")
-                    .timeout(extended_timeout_ms as i32)
-                    .show()?;
-                log::info!("Extended distraction reminder sent (without actions) for: {}", application_name);
+                log::warn!("Failed to send extended reminder: {}", e);
             }
         }
         
@@ -191,15 +173,10 @@ impl NotificationService {
         // Get configurable timeout (default 5 seconds)
         let timeout_ms = settings::get_i64(self.database.pool(), "notification_timeout_ms", 5000).await?;
         
-        let title = "Focus Session Complete";
-        let body = format!("Session completed with {}% productivity score!", productivity_score);
+        let title = "Focus Session Complete! 🎉";
+        let body = format!("Great work! You completed 22:28 with {}%", productivity_score);
         
-        Notification::new()
-            .summary(title)
-            .body(&body)
-            .icon("dialog-information")
-            .timeout(timeout_ms as i32)
-            .show()?;
+        send_notification_impl(title, &body, "dialog-information", timeout_ms as i32)?;
         
         self.add_to_history(title.to_string(), body, "session_complete").await;
         

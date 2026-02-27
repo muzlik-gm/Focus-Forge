@@ -32,6 +32,9 @@ model User {
   email                   String                   @unique
   name                    String
   passwordHash            String
+  firebaseUid             String?                  @unique
+  emailVerified           Boolean                  @default(false)
+  image                   String?
   subscriptionTier        SubscriptionTier         @default(FREE)
   nextBillingDate         DateTime?
   workspaceId             String?                  @db.ObjectId

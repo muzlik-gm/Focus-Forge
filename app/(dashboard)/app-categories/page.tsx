@@ -375,7 +375,7 @@ export default function AppCategoriesPage() {
                 <div className="flex items-center gap-4 flex-1">
                   <Monitor className="w-5 h-5 text-zinc-500" />
                   <div className="flex-1">
-                    <p className="font-medium">{cat.application}</p>
+                    <p className="font-medium">{String(cat.application)}</p>
                     {cat.custom && (
                       <span className="text-xs text-zinc-500">Custom category</span>
                     )}
@@ -411,7 +411,7 @@ export default function AppCategoriesPage() {
                     <span className={`px-3 py-1 rounded-lg text-sm font-medium border ${
                       CATEGORY_COLORS[cat.category as keyof typeof CATEGORY_COLORS] || CATEGORY_COLORS.Neutral
                     }`}>
-                      {cat.category}
+                      {String(cat.category)}
                     </span>
                     <button
                       onClick={() => handleEditStart(cat.application, cat.category)}

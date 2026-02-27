@@ -37,7 +37,6 @@ const baseNavigation = [
   { name: 'Tasks', href: '/tasks', icon: CheckSquare },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Team', href: '/team', icon: Users },
-  { name: 'Weekly Review', href: '/review', icon: FileText },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 

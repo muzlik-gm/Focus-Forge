@@ -241,7 +241,7 @@ export function CloudSyncTab() {
                             disabled={status.isSyncing}
                             className="flex flex-col items-center gap-3 p-6 skeuo-card text-zinc-300 hover:text-white disabled:opacity-40 transition-all hover:bg-white/5 group"
                         >
-                            <Download className="w-7 h-7 group-hover:translate-y-1 transition-transform" strokeWidth={1.5} />
+                            <Download className="w-7 h-7 transition-transform" strokeWidth={1.5} />
                             <div className="text-center">
                                 <p className="font-bold text-sm">Pull Cloud</p>
                                 <p className="text-xs font-medium text-zinc-500">Download to device</p>

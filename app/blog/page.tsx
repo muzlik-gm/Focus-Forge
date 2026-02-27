@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Calendar, Clock, BookOpen } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { MarketingNav } from '@/components/layout/MarketingNav';
+import { toSafeString } from '@/lib/render-safe';
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -73,7 +74,7 @@ export default function BlogPage() {
                 <article key={post.id} className="skeuo-panel p-8 skeuo-card-hover">
                   <div className="flex items-center gap-4 mb-4">
                     <span className="skeuo-badge text-blue-400">
-                      {post.category}
+                      {toSafeString(post.category)}
                     </span>
                     <div className="flex items-center gap-4 text-sm text-zinc-400">
                       <span className="flex items-center gap-2">
@@ -86,12 +87,12 @@ export default function BlogPage() {
                       </span>
                       <span className="flex items-center gap-2">
                         <Clock className="w-4 h-4" />
-                        {post.readTime}
+                        {toSafeString(post.readTime)}
                       </span>
                     </div>
                   </div>
-                  <h2 className="text-2xl font-bold mb-3 embossed-text">{post.title}</h2>
-                  <p className="text-zinc-300 mb-6 leading-relaxed">{post.excerpt}</p>
+                  <h2 className="text-2xl font-bold mb-3 embossed-text">{toSafeString(post.title)}</h2>
+                  <p className="text-zinc-300 mb-6 leading-relaxed">{toSafeString(post.excerpt)}</p>
                   <Link 
                     href={`/blog/${post.slug}`} 
                     className="skeuo-button inline-flex items-center gap-2 px-6 py-3 text-white font-medium"

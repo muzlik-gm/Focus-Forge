@@ -5,6 +5,7 @@ import { Bell, Check, X, Clock, CheckSquare, Trophy, Users } from 'lucide-react'
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { get, patch, del } from '@/lib/api-client';
+import { toSafeString } from '@/lib/render-safe';
 
 /**
  * Notification System Component
@@ -227,14 +228,14 @@ export function NotificationDropdown() {
                         'text-sm',
                         !notification.read && 'font-medium'
                       )}>
-                        {notification.title}
+                        {toSafeString(notification.title)}
                       </p>
                       {!notification.read && (
                         <span className="w-2 h-2 bg-primary rounded-full" />
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground truncate">
-                      {notification.message}
+                      {toSafeString(notification.message)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
                       {formatRelativeTime(notification.createdAt)}

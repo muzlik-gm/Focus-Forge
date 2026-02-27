@@ -3,6 +3,7 @@
 import { Task } from '@prisma/client';
 import { Reorder } from 'framer-motion';
 import { useState } from 'react';
+import { toSafeString } from '@/lib/render-safe';
 
 /**
  * TaskCard Component
@@ -90,7 +91,7 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
 
           {/* Task Title */}
           <h4 className={`flex-1 text-white font-medium ${isCompleted ? 'line-through' : ''}`}>
-            {task.title}
+            {toSafeString(task.title)}
           </h4>
 
           {/* Drag Handle */}
@@ -117,7 +118,7 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
         {/* Task Description */}
         {task.description && (
           <p className="text-gray-400 text-sm mb-3 line-clamp-2 ml-7">
-            {task.description}
+            {toSafeString(task.description)}
           </p>
         )}
 
@@ -159,7 +160,7 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
                 className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs
                   border border-gray-700 hover:border-gray-600 transition-colors"
               >
-                #{tag}
+                #{toSafeString(tag)}
               </span>
             ))}
           </div>

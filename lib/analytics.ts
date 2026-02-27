@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { FocusSession, TaskStatus } from '@prisma/client';
+import { FocusSession } from '@prisma/client';
 
 /**
  * Analytics Calculation Service
@@ -67,15 +67,28 @@ export async function calculateDashboardMetrics(userId: string): Promise<Dashboa
     },
   });
 
+  console.log('[Analytics] Found today sessions:', todaySessions.length);
+  todaySessions.forEach(s => {
+    console.log('[Analytics]   Session:', {
+      id: s.id,
+      startTime: s.startTime.toISOString(),
+      durationMinutes: s.durationMinutes,
+      distractionCount: s.distractionCount,
+      completed: s.completed,
+    });
+  });
+
   const todayFocusMinutes = todaySessions.reduce((total, session) => {
     return total + session.durationMinutes;
   }, 0);
+
+  console.log('[Analytics] Total focus minutes:', todayFocusMinutes);
 
   // Calculate today's tasks completed
   const todayTasksCompleted = await prisma.task.count({
     where: {
       userId,
-      status: TaskStatus.DONE,
+      status: 'DONE',
       completedAt: {
         gte: todayStart,
         lte: todayEnd,
@@ -184,7 +197,7 @@ export async function calculateMonthlyAnalytics(
 ): Promise<MonthlyAnalytics> {
   // Parse month string (YYYY-MM)
   const [year, monthNum] = month.split('-').map(Number);
-  
+
   // Calculate current month date range
   const currentMonthStart = new Date(year, monthNum - 1, 1, 0, 0, 0, 0);
   const currentMonthEnd = new Date(year, monthNum, 0, 23, 59, 59, 999);
@@ -316,7 +329,7 @@ async function calculateLast7DaysFocus(
 
   // Group by date
   const dailyMinutes: Record<string, number> = {};
-  
+
   for (let i = 0; i < 7; i++) {
     const date = new Date(sevenDaysAgo);
     date.setDate(date.getDate() + i);
@@ -378,7 +391,7 @@ function calculateDistractionHeatmap(
 
   // Initialize heatmap for all days and hours
   const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  
+
   for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
     for (let hour = 0; hour < 24; hour++) {
       heatmap.push({

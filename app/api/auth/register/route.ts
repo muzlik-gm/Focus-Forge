@@ -25,14 +25,9 @@ import {
 // Validation schema for registration input
 const registerSchema = z.object({
   email: z.string().email('Invalid email address'),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters')
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      'Password must contain at least one uppercase letter, one lowercase letter, and one number'
-    ),
+  password: z.string().min(8, 'Password must be at least 8 characters').optional(),
   name: z.string().min(1, 'Name is required').max(100, 'Name is too long'),
+  firebaseUid: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -83,7 +78,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email, password, name } = validationResult.data;
+    const { email, password, name, firebaseUid } = validationResult.data;
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -102,15 +97,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Hash password with bcrypt (salt rounds: 12)
-    const passwordHash = await bcrypt.hash(password, 12);
+    // For Firebase OAuth users, don't hash password (they don't have one)
+    let passwordHash = '';
+    if (password && !firebaseUid) {
+      // Regular email/password registration
+      passwordHash = await bcrypt.hash(password, 12);
+    }
 
     // Create user record in database
     const user = await prisma.user.create({
       data: {
         email,
         name,
-        passwordHash,
+        passwordHash: passwordHash || undefined,
+        firebaseUid: firebaseUid || undefined,
+        emailVerified: !!firebaseUid, // Firebase users are pre-verified
         subscriptionTier: 'FREE', // Default tier
       },
       select: {

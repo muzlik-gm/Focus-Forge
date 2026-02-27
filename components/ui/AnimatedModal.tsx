@@ -111,7 +111,7 @@ export function AnimatedModal({
                   className="p-2 rounded-lg hover:bg-white/10 transition-all hover:rotate-90 duration-300 group"
                   aria-label="Close modal"
                 >
-                  <X className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <X className="w-5 h-5 transition-transform" />
                 </button>
               </div>
             )}

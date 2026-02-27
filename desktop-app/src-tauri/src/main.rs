@@ -225,8 +225,17 @@ fn main() {
                 .expect("Failed to create tokio runtime");
             
             let app_state = runtime.block_on(async {
-                AppState::new().await
-                    .expect("Failed to initialize application state")
+                let state = AppState::new().await
+                    .expect("Failed to initialize application state");
+                
+                // Initialize default categories on first run
+                if let Err(e) = database::categories::insert_defaults(state.database().pool()).await {
+                    log::warn!("Failed to initialize default categories (may already exist): {}", e);
+                } else {
+                    log::info!("Default categories initialized successfully");
+                }
+                
+                state
             });
 
             app.manage(app_state);
@@ -330,6 +339,7 @@ fn main() {
             commands::vacuum_database,
             commands::cleanup_old_backups,
             commands::get_database_recovery_info,
+            commands::test_categorization,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

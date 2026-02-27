@@ -305,9 +305,12 @@ impl MonitoringService {
         }
         
         // Create new activity log for the focused application
+        // Convert timestamp from milliseconds to seconds for database storage
+        let timestamp_seconds = event.timestamp / 1000;
+        
         let mut log = ActivityLog::new(
             event.application.name.clone(),
-            event.timestamp,
+            timestamp_seconds,
         );
         
         log.process_id = Some(event.application.process_id as i32);

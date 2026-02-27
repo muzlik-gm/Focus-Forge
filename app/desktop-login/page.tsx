@@ -2,10 +2,15 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { signInWithGoogleDesktop } from '@/lib/desktop-oauth';
+import { forceRefreshSession, isDesktopApp } from '@/lib/desktop-session';
+import toast from 'react-hot-toast';
 
 export default function DesktopLoginPage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -15,48 +20,114 @@ export default function DesktopLoginPage() {
 
   useEffect(() => {
     // Check if running in Tauri
-    if (typeof window !== 'undefined' && (window as any).__TAURI__) {
-      setIsDesktop(true);
-    }
+    setIsDesktop(isDesktopApp());
+    
     const savedEmail = localStorage.getItem('focusforge_desktop_remembered_email');
+    const savedPassword = localStorage.getItem('focusforge_desktop_remembered_password');
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
     }
+    if (savedPassword) {
+      setPassword(atob(savedPassword)); // Decode from base64
+    }
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Redirect if already logged in
+  useEffect(() => {
+    if (status === 'authenticated' && session) {
+      console.log('[Desktop Login] User already authenticated, redirecting to dashboard');
+      router.push('/dashboard');
+    }
+  }, [status, session, router]);
+
+  const handleGoogleSignIn = async () => {
     setError('');
     setLoading(true);
 
     try {
-      // For desktop app, we'll use a simple local authentication
-      // In a real app, you might want to validate against a local database
-      // or use Tauri's secure storage
+      console.log('[Desktop Login] Google OAuth initiated (browser-based)');
+      
+      // Use desktop OAuth flow that opens system browser
+      const userData = await signInWithGoogleDesktop();
+      
+      console.log('[Desktop Login] OAuth successful:', userData.email);
 
-      // For now, just check if fields are filled and redirect to dashboard
-      if (email && password) {
-        // Store session in localStorage (in production, use Tauri's secure storage)
-        localStorage.setItem('desktop_session', JSON.stringify({
-          email,
-          loggedIn: true,
-          timestamp: Date.now()
-        }));
+      // Sign in with NextAuth using just the email (no password needed for OAuth users)
+      const loginResult = await signIn('credentials', {
+        email: userData.email,
+        password: 'firebase-oauth-user', // Placeholder - not used for OAuth users
+        redirect: false,
+      });
 
-        if (rememberMe) {
-          localStorage.setItem('focusforge_desktop_remembered_email', email);
-        } else {
-          localStorage.removeItem('focusforge_desktop_remembered_email');
-        }
-
-        router.push('/dashboard');
-      } else {
-        setError('Please enter both email and password');
+      if (loginResult?.error) {
+        console.error('[Desktop Login] NextAuth sign-in failed:', loginResult.error);
+        throw new Error('Failed to complete sign-in');
       }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
-    } finally {
+
+      console.log('[Desktop Login] NextAuth sign-in successful');
+      toast.success('Welcome back!');
+      
+      // Force refresh session for desktop app
+      forceRefreshSession();
+      
+      router.push('/dashboard');
+    } catch (err: any) {
+      console.error('[Desktop Login] Google sign-in error:', err);
+      setError(err.message || 'Failed to sign in with Google');
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    setError('');
+    setLoading(true);
+
+    console.log('[Desktop Login] Form submitted');
+    console.log('[Desktop Login] Using cloud authentication (NextAuth + MongoDB)');
+    console.log('[Desktop Login] Email:', email);
+
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      console.log('[Desktop Login] NextAuth result:', result);
+
+      if (result?.error) {
+        console.error('[Desktop Login] Authentication failed:', result.error);
+        const errorMessages: Record<string, string> = {
+          CredentialsSignin: 'Invalid email or password',
+          SessionRequired: 'Please sign in to access this page',
+        };
+
+        setError(errorMessages[result.error] || 'Sign in failed. Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      console.log('[Desktop Login] Authentication successful, redirecting to dashboard...');
+
+      if (rememberMe) {
+        localStorage.setItem('focusforge_desktop_remembered_email', email);
+        localStorage.setItem('focusforge_desktop_remembered_password', btoa(password));
+      } else {
+        localStorage.removeItem('focusforge_desktop_remembered_email');
+        localStorage.removeItem('focusforge_desktop_remembered_password');
+      }
+
+      // Force refresh session for desktop app
+      forceRefreshSession();
+
+      router.push('/dashboard');
+    } catch (err: any) {
+      console.error('[Desktop Login] Unexpected error:', err);
+      setError('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
   };
@@ -97,6 +168,31 @@ export default function DesktopLoginPage() {
             <p className="text-sm text-zinc-400">
               Sign in to your desktop app
             </p>
+          </div>
+
+          {/* Google Sign In */}
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className="w-full mb-6 px-4 py-3 bg-white text-gray-900 rounded-[20px] font-medium text-sm flex items-center justify-center gap-3 hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Continue with Google
+          </button>
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-zinc-800"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-[#1a1a1d] text-zinc-500">Or continue with email</span>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -161,7 +257,7 @@ export default function DesktopLoginPage() {
 
           <div className="mt-6 text-center">
             <p className="text-xs text-zinc-500">
-              Desktop app uses local authentication
+              Desktop app uses cloud authentication (NextAuth + MongoDB)
             </p>
           </div>
         </div>

@@ -28,7 +28,7 @@ export function PageHeader({ title, description, action }: PageHeaderProps) {
         action.href ? (
           <Link
             href={action.href}
-            className="flex items-center gap-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/25"
+            className="flex items-center gap-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-medium transition-all hover:shadow-lg hover:shadow-indigo-500/25"
           >
             {ActionIcon && <ActionIcon className="w-5 h-5" />}
             {action.label}
@@ -36,7 +36,7 @@ export function PageHeader({ title, description, action }: PageHeaderProps) {
         ) : (
           <button
             onClick={action.onClick}
-            className="flex items-center gap-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/25"
+            className="flex items-center gap-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-medium transition-all hover:shadow-lg hover:shadow-indigo-500/25"
           >
             {ActionIcon && <ActionIcon className="w-5 h-5" />}
             {action.label}

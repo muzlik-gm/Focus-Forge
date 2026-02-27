@@ -82,7 +82,6 @@ html {
 }
 
 .skeuo-card-hover:hover {
-  transform: translateY(-2px);
   box-shadow: 
     25px 25px 70px #0a0a0b,
     -25px -25px 70px #1e1e1f,
@@ -95,7 +94,7 @@ html {
   background: linear-gradient(145deg, #3d7ee8, #2e5fb8);
   box-shadow: 
     8px 8px 16px #0a0a0b,
-    -8px -8px 16px rgba(59, 130, 246, 0.1),
+    -8px -8px 16px #1e1e1f,
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
@@ -117,7 +116,7 @@ html {
   background: linear-gradient(145deg, #4a8bff, #3b7ee8);
   box-shadow: 
     10px 10px 20px #0a0a0b,
-    -10px -10px 20px rgba(59, 130, 246, 0.15),
+    -10px -10px 20px #1e1e1f,
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
@@ -208,27 +207,7 @@ html {
   will-change: transform;
 }
 
-/* Floating Animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-20px) rotate(2deg);
-  }
-  66% {
-    transform: translateY(10px) rotate(-2deg);
-  }
-}
-
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float 10s ease-in-out infinite;
-  animation-delay: -2s;
-}
+/* Floating Animation - Removed transform animations from non-buttons */
 
 /* Gradient Orbs */
 .gradient-orb {
@@ -355,7 +334,7 @@ html {
 }
 
 .skeuo-toggle.active::before {
-  transform: translateX(28px);
+  left: 30px;
 }
 
 /* Skeuomorphic Slider */
@@ -504,7 +483,7 @@ html {
   position: absolute;
   bottom: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  margin-left: -50%;
   padding: 8px 12px;
   border-radius: 12px;
   background: linear-gradient(145deg, #1a1a1d, #141416);
@@ -559,7 +538,7 @@ html {
     4px 4px 8px #0a0a0b,
     -4px -4px 8px #1e1e1f,
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -585,7 +564,6 @@ html {
 }
 
 .skeuo-chip:hover {
-  transform: translateY(-1px);
   box-shadow: 
     3px 3px 6px #0a0a0b,
     -3px -3px 6px #1e1e1f,
@@ -636,7 +614,6 @@ html {
 }
 
 .skeuo-breadcrumb-item:hover {
-  transform: translateY(-1px);
   box-shadow: 
     3px 3px 6px #0a0a0b,
     -3px -3px 6px #1e1e1f;
@@ -667,7 +644,6 @@ html {
 }
 
 .skeuo-pagination-item:hover {
-  transform: translateY(-1px);
   box-shadow: 
     3px 3px 6px #0a0a0b,
     -3px -3px 6px #1e1e1f;
@@ -703,14 +679,12 @@ html {
   z-index: 1000;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .skeuo-dropdown:hover .skeuo-dropdown-content {
   opacity: 1;
   pointer-events: all;
-  transform: translateY(0);
 }
 
 .skeuo-dropdown-item {
@@ -722,4 +696,229 @@ html {
 
 .skeuo-dropdown-item:hover {
   background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   DESKTOP APP SPECIFIC STYLES
+   ============================================ */
+
+/* Desktop App Body Class - Applied when running in Tauri */
+.desktop-app {
+  /* Force skeuomorphic design variables */
+  --card-bg: linear-gradient(145deg, #1a1a1d, #141416);
+  --card-shadow: 30px 30px 80px #0a0a0b, -30px -30px 80px #242428;
+  --card-border: 1px solid rgba(255, 255, 255, 0.03);
+  --button-shadow: 15px 15px 35px #1a3a7a, -15px -15px 35px #4a8bff;
+}
+
+/* Desktop-specific overrides for glassmorphism components */
+.desktop-app .glass-card,
+.desktop-app [class*="glass"] {
+  /* Convert glassmorphism to skeuomorphism in desktop */
+  background: linear-gradient(145deg, #1a1a1d, #141416) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 
+    30px 30px 80px #0a0a0b,
+    -30px -30px 80px #242428,
+    inset 0 1px 2px rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Desktop app uses deeper shadows and more pronounced 3D effects */
+.desktop-app .skeuo-panel,
+.desktop-app .skeuo-card {
+  box-shadow: 
+    30px 30px 80px #0a0a0b,
+    -30px -30px 80px #242428,
+    inset 0 1px 2px rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Desktop app buttons have more tactile feel */
+.desktop-app .skeuo-button {
+  box-shadow: 
+    15px 15px 35px #0a0a0b,
+    -15px -15px 35px #242428,
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.desktop-app .skeuo-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    20px 20px 45px #0a0a0b,
+    -20px -20px 45px #242428,
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+.desktop-app .skeuo-button:active {
+  transform: translateY(0);
+  box-shadow: 
+    inset 10px 10px 20px #2e5fb8,
+    inset -10px -10px 20px #4a8bff;
+}
+
+/* Desktop app input fields */
+.desktop-app .skeuo-input,
+.desktop-app input[type="text"],
+.desktop-app input[type="email"],
+.desktop-app input[type="password"],
+.desktop-app textarea,
+.desktop-app select {
+  background: linear-gradient(145deg, #141416, #1a1a1d);
+  box-shadow: 
+    inset 8px 8px 16px #0a0a0b,
+    inset -8px -8px 16px #1e1e1f;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+}
+
+.desktop-app .skeuo-input:focus,
+.desktop-app input:focus,
+.desktop-app textarea:focus,
+.desktop-app select:focus {
+  box-shadow: 
+    inset 8px 8px 16px #0a0a0b,
+    inset -8px -8px 16px #1e1e1f,
+    0 0 0 2px rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+/* Desktop app progress bars */
+.desktop-app .skeuo-progress {
+  background: linear-gradient(145deg, #141416, #1a1a1d);
+  box-shadow: 
+    inset 4px 4px 8px #0a0a0b,
+    inset -4px -4px 8px #1e1e1f;
+}
+
+.desktop-app .skeuo-progress-bar {
+  box-shadow: 
+    4px 4px 8px rgba(0, 0, 0, 0.3),
+    -2px -2px 6px rgba(255, 255, 255, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Desktop app avatars/icons */
+.desktop-app .skeuo-avatar {
+  box-shadow: 
+    12px 12px 24px rgba(0, 0, 0, 0.4),
+    -12px -12px 24px rgba(255, 255, 255, 0.02),
+    inset 0 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+/* Desktop app badges */
+.desktop-app .skeuo-badge {
+  box-shadow: 
+    4px 4px 8px rgba(0, 0, 0, 0.3),
+    -2px -2px 6px rgba(255, 255, 255, 0.03),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Desktop app chips */
+.desktop-app .skeuo-chip {
+  background: linear-gradient(145deg, #1a1a1d, #141416);
+  box-shadow: 
+    8px 8px 16px #0a0a0b,
+    -8px -8px 16px #1e1e1f;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.desktop-app .skeuo-chip:hover {
+  box-shadow: 
+    12px 12px 24px #0a0a0b,
+    -12px -12px 24px #1e1e1f,
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Desktop app modals */
+.desktop-app .modal-content,
+.desktop-app [role="dialog"] {
+  background: linear-gradient(145deg, #1a1a1d, #141416);
+  box-shadow: 
+    40px 40px 100px #0a0a0b,
+    -40px -40px 100px #242428,
+    inset 0 1px 2px rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
+}
+
+/* Desktop app scrollbars */
+.desktop-app ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.desktop-app ::-webkit-scrollbar-track {
+  background: linear-gradient(145deg, #141416, #1a1a1d);
+  box-shadow: inset 2px 2px 4px #0a0a0b;
+  border-radius: 10px;
+}
+
+.desktop-app ::-webkit-scrollbar-thumb {
+  background: linear-gradient(145deg, #2a2a2d, #1e1e1f);
+  box-shadow: 
+    2px 2px 4px #0a0a0b,
+    -2px -2px 4px #242428;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.desktop-app ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(145deg, #3a3a3d, #2e2e2f);
+}
+
+/* Desktop app window controls area (if needed) */
+.desktop-app .window-controls {
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+.desktop-app .window-controls button {
+  -webkit-app-region: no-drag;
+}
+
+/* Desktop app specific animations - more subtle */
+.desktop-app * {
+  /* Reduce motion for desktop app for more native feel */
+  animation-duration: 0.2s !important;
+  transition-duration: 0.2s !important;
+}
+
+.desktop-app .animate-spin {
+  animation-duration: 1s !important;
+}
+
+/* Desktop app removes web-specific effects */
+.desktop-app .hover\:scale-105:hover {
+  transform: translateY(-2px) !important;
+  /* Convert scale to subtle lift for desktop */
+}
+
+/* Desktop app text rendering */
+.desktop-app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Desktop app selection */
+.desktop-app ::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: #ffffff;
+}
+
+/* Desktop app focus outlines */
+.desktop-app *:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Desktop app removes backdrop blur fallbacks */
+.desktop-app [style*="backdrop-filter"],
+.desktop-app [style*="backdropFilter"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }

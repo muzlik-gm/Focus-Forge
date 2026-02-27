@@ -169,10 +169,10 @@ export default function FocusPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-8">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold mb-2 embossed-text tracking-tight">Focus Session</h1>
-        <p className="text-zinc-300 text-lg">
+    <div className="max-w-7xl mx-auto p-4 md:p-6">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold mb-1 embossed-text tracking-tight">Focus Session</h1>
+        <p className="text-zinc-300 text-sm">
           {isDesktop ? 'Desktop focus session with automatic distraction detection' : 'Start a deep work session in our tactile environment'}
         </p>
       </div>
@@ -181,19 +181,19 @@ export default function FocusPage() {
       {isDesktop ? (
         <DesktopFocusSession />
       ) : (
-        <div className="grid grid-cols-3 gap-8">
-          <div className="col-span-2 skeuo-panel p-12">
+        <div className="grid grid-cols-3 gap-6">
+          <div className="col-span-2 skeuo-panel p-8">
             <div className="max-w-md mx-auto text-center">
-              <div className="text-7xl font-bold mb-8 embossed-text tabular-nums">{formatTime(time)}</div>
+              <div className="text-6xl font-bold mb-6 embossed-text tabular-nums">{formatTime(time)}</div>
 
               {!isRunning && (
-                <div className="mb-8">
-                  <label className="block text-sm text-zinc-400 mb-3">Session Duration</label>
-                  <div className="flex items-center gap-3 justify-center mb-4">
+                <div className="mb-6">
+                  <label className="block text-xs text-zinc-400 mb-2">Session Duration</label>
+                  <div className="flex items-center gap-3 justify-center mb-3">
                     <select
                       value={selectedDuration}
                       onChange={(e) => setSelectedDuration(Number(e.target.value))}
-                      className="skeuo-input px-4 py-3 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                      className="skeuo-input px-4 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-blue-500 w-48 appearance-none bg-zinc-900 bg-no-repeat bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[position:right_1rem_center]"
                     >
                       <option value={25}>25 minutes</option>
                       <option value={50}>50 minutes</option>
@@ -221,62 +221,62 @@ export default function FocusPage() {
                     )}
                   </div>
                   {error && (
-                    <div className="mb-4 skeuo-alert text-sm text-red-400 border-red-500/20">
+                    <div className="mb-3 skeuo-alert text-xs text-red-400 border-red-500/20 p-3">
                       {error}
                     </div>
                   )}
                 </div>
               )}
 
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+              <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
                 {!isRunning ? (
                   <button
                     onClick={startSession}
-                    className="skeuo-button inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg transition-all"
+                    className="skeuo-button inline-flex items-center gap-2 px-6 py-2.5 text-white font-medium text-sm transition-all"
                   >
-                    <Play className="w-5 h-5" />
+                    <Play className="w-4 h-4" />
                     Start Session
                   </button>
                 ) : (
                   <>
                     <button
                       onClick={() => setIsRunning(false)}
-                      className="skeuo-card hover:bg-zinc-800 inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg transition-colors cursor-pointer"
+                      className="skeuo-card hover:bg-zinc-800 inline-flex items-center gap-2 px-6 py-2.5 text-white font-medium text-sm transition-colors cursor-pointer"
                     >
-                      <Pause className="w-5 h-5" />
+                      <Pause className="w-4 h-4" />
                       Pause
                     </button>
                     <button
                       onClick={stopSession}
-                      className="skeuo-button inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg transition-all"
+                      className="skeuo-button inline-flex items-center gap-2 px-6 py-2.5 text-white font-medium text-sm transition-all"
                       style={{ background: 'linear-gradient(145deg, #e83d3d, #b82e2e)' }}
                     >
-                      <Square className="w-5 h-5" />
+                      <Square className="w-4 h-4" />
                       Stop
                     </button>
                   </>
                 )}
               </div>
 
-              <div className="flex items-center justify-center gap-8 text-sm">
-                <div className="skeuo-card px-8 py-6 flex items-center justify-between gap-6 w-full max-w-sm mx-auto">
+              <div className="flex items-center justify-center gap-6 text-sm">
+                <div className="skeuo-card px-5 py-4 flex items-center justify-between gap-4 w-full max-w-sm mx-auto">
                   <div className="text-left">
-                    <div className="text-3xl font-bold mb-1 embossed-text">{distractions}</div>
-                    <div className="text-zinc-400 text-sm">Distractions</div>
+                    <div className="text-2xl font-bold mb-0.5 embossed-text">{distractions}</div>
+                    <div className="text-zinc-400 text-xs">Distractions</div>
                   </div>
                   <button
                     onClick={logDistraction}
                     disabled={!isRunning}
-                    className="skeuo-chip py-3 px-6 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="skeuo-chip py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-xs"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3.5 h-3.5" />
                     Log
                   </button>
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 flex items-center justify-center">
-                <label className="flex items-center gap-4 text-sm text-zinc-300 font-medium cursor-pointer skeuo-card px-6 py-4 w-full max-w-sm">
+              <div className="mt-6 pt-6 flex items-center justify-center">
+                <label className="flex items-center gap-3 text-xs text-zinc-300 font-medium cursor-pointer skeuo-card px-4 py-3 w-full max-w-sm">
                   <div
                     onClick={() => setAutoDetectDistractions(!autoDetectDistractions)}
                     className={`skeuo-toggle shrink-0 ${autoDetectDistractions ? 'active' : ''}`}
@@ -289,23 +289,23 @@ export default function FocusPage() {
             </div>
           </div>
 
-          <div className="skeuo-panel p-8">
-            <h2 className="text-xl font-bold mb-6 embossed-text">Recent Sessions</h2>
+          <div className="skeuo-panel p-6">
+            <h2 className="text-lg font-bold mb-4 embossed-text">Recent Sessions</h2>
             {loading ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 text-zinc-600 animate-spin" />
+              <div className="flex items-center justify-center py-6">
+                <Loader2 className="w-5 h-5 text-zinc-600 animate-spin" />
               </div>
             ) : sessions.length === 0 ? (
-              <p className="text-sm text-zinc-500 text-center py-8">No sessions yet</p>
+              <p className="text-xs text-zinc-500 text-center py-6">No sessions yet</p>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {sessions.map((session) => (
-                  <div key={session.id} className="skeuo-card p-5">
-                    <div className="flex items-center justify-between mb-2">
+                  <div key={session.id} className="skeuo-card p-4">
+                    <div className="flex items-center justify-between mb-1.5">
                       <span className="text-sm font-semibold text-zinc-200">{formatSessionDuration(session.durationMinutes)}</span>
                       <span className="text-xs text-zinc-500">{formatRelativeTime(session.createdAt)}</span>
                     </div>
-                    <div className="text-xs text-zinc-400 bg-black/20 inline-block px-2 py-1 rounded">
+                    <div className="text-xs text-zinc-400 bg-black/20 inline-block px-2 py-0.5 rounded">
                       {session.distractionCount} distraction{session.distractionCount !== 1 ? 's' : ''}
                     </div>
                   </div>

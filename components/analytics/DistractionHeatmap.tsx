@@ -88,7 +88,7 @@ export function DistractionHeatmap({ data }: DistractionHeatmapProps) {
                   return (
                     <div
                       key={hour}
-                      className={`flex-1 aspect-square rounded ${getColor(count)} transition-all hover:scale-110 cursor-pointer group relative`}
+                      className={`flex-1 aspect-square rounded ${getColor(count)} transition-all cursor-pointer group relative`}
                       title={`${day} ${formatHour(hour)}: ${count} distractions`}
                     >
                       {/* Tooltip */}

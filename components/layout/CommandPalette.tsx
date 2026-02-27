@@ -49,6 +49,13 @@ export function CommandPalette() {
       category: 'Navigation',
     },
     {
+      id: 'goto-focus',
+      label: 'Go to Focus Sessions',
+      icon: <Clock className="w-4 h-4" />,
+      action: () => router.push('/focus'),
+      category: 'Navigation',
+    },
+    {
       id: 'goto-tasks',
       label: 'Go to Tasks',
       icon: <CheckSquare className="w-4 h-4" />,
@@ -70,13 +77,6 @@ export function CommandPalette() {
       category: 'Navigation',
     },
     {
-      id: 'goto-review',
-      label: 'Go to Weekly Review',
-      icon: <Calendar className="w-4 h-4" />,
-      action: () => router.push('/review'),
-      category: 'Navigation',
-    },
-    {
       id: 'goto-settings',
       label: 'Go to Settings',
       icon: <Settings className="w-4 h-4" />,
@@ -93,7 +93,7 @@ export function CommandPalette() {
     {
       id: 'start-focus',
       label: 'Start Focus Session',
-      icon: <BarChart2 className="w-4 h-4" />,
+      icon: <Clock className="w-4 h-4" />,
       action: () => router.push('/focus'),
       category: 'Actions',
     },

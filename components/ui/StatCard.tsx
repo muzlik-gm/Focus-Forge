@@ -50,11 +50,11 @@ export function StatCard({ title, value, subtitle, icon: Icon, color = 'indigo',
   const colors = colorClasses[color];
   
   return (
-    <div className={`group relative bg-[var(--surface)] hover:bg-[var(--surface-elevated)] border border-[var(--border)] hover:${colors.border} rounded-2xl p-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer`}>
+    <div className={`group relative bg-[var(--surface)] hover:bg-[var(--surface-elevated)] border border-[var(--border)] hover:${colors.border} rounded-2xl p-6 transition-all duration-300 cursor-pointer`}>
       <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity`}></div>
       <div className="relative">
         <div className="flex items-center justify-between mb-4">
-          <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
+          <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center transition-transform`}>
             <Icon className={`w-6 h-6 ${colors.icon}`} />
           </div>
           {trend && (

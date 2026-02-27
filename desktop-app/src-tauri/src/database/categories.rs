@@ -111,6 +111,10 @@ pub async fn delete(pool: &SqlitePool, application: &str) -> Result<()> {
 }
 
 /// Get category for an application with fallback to Neutral
+/// 
+/// Returns a comma-separated list of categories. If the application is in the database,
+/// returns its stored category. Otherwise, uses the categorizer to determine the primary
+/// category and fine-grained tags, returning them as "Primary,tag1,tag2,..."
 pub async fn get_category_with_fallback(
     pool: &SqlitePool,
     application: &str,
@@ -118,12 +122,20 @@ pub async fn get_category_with_fallback(
     match get_by_application(pool, application).await? {
         Some(cat) => Ok(cat.category),
         None => {
-            // Smart profile categorization fallback
+            // Smart profile categorization fallback using the categorizer
             let categorizer = crate::monitoring::categorizer::CategorizerService::new();
             if let Ok(metadata) = categorizer.fetch_app_metadata(application).await {
-                if !metadata.tags.is_empty() {
-                    return Ok(metadata.tags.join(","));
+                // Combine primary category with fine-grained tags
+                // Remove "type:" prefix from tags for cleaner matching
+                let mut all_categories = vec![metadata.category.clone()];
+                for tag in metadata.tags {
+                    if let Some(tag_name) = tag.strip_prefix("type:") {
+                        all_categories.push(tag_name.to_string());
+                    } else {
+                        all_categories.push(tag);
+                    }
                 }
+                return Ok(all_categories.join(","));
             }
             Ok("Neutral".to_string())
         }
@@ -145,6 +157,12 @@ pub async fn insert_defaults(pool: &SqlitePool) -> Result<()> {
 /// Get comprehensive default category mappings
 fn get_default_categories() -> Vec<(&'static str, &'static str)> {
     vec![
+        // Modern AI IDEs
+        ("Antigravity", "Productive"),
+        ("Kiro", "Productive"),
+        ("Cursor", "Productive"),
+        ("Windsurf", "Productive"),
+        ("Zed", "Productive"),
         // IDEs and Code Editors - Productive
         ("Visual Studio Code", "Productive"),
         ("VSCode", "Productive"),

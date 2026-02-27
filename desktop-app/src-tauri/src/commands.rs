@@ -712,6 +712,49 @@ pub async fn get_session_summary(
 }
 
 
+/// Test command to verify categorization
+#[tauri::command]
+pub async fn test_categorization(
+    state: State<'_, AppState>,
+    application: String,
+) -> Result<String, String> {
+    log::info!("Command: test_categorization - app: {}", application);
+    
+    // Check database first
+    let db_category = categories::get_by_application(state.database().pool(), &application).await
+        .map_err(|e| format!("Failed to get category from DB: {}", e))?;
+    
+    let mut result = format!("Testing categorization for: {}\n\n", application);
+    
+    if let Some(cat) = db_category {
+        result.push_str(&format!("Database category: {}\n", cat.category));
+        result.push_str(&format!("Custom: {}\n\n", cat.custom));
+    } else {
+        result.push_str("Not found in database\n\n");
+    }
+    
+    // Test categorizer fallback
+    let categorizer = crate::monitoring::categorizer::CategorizerService::new();
+    match categorizer.fetch_app_metadata(&application).await {
+        Ok(metadata) => {
+            result.push_str(&format!("Categorizer result:\n"));
+            result.push_str(&format!("  Primary category: {}\n", metadata.category));
+            result.push_str(&format!("  Tags: {}\n", metadata.tags.join(", ")));
+        }
+        Err(e) => {
+            result.push_str(&format!("Categorizer error: {}\n", e));
+        }
+    }
+    
+    // Test get_category_with_fallback
+    let final_category = categories::get_category_with_fallback(state.database().pool(), &application).await
+        .map_err(|e| format!("Failed to get category with fallback: {}", e))?;
+    
+    result.push_str(&format!("\nFinal result (get_category_with_fallback): {}\n", final_category));
+    
+    Ok(result)
+}
+
 // ============================================================================
 // Authentication Commands
 // ============================================================================

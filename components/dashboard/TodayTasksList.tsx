@@ -1,8 +1,9 @@
 'use client';
 
-import { Task, TaskPriority, TaskStatus } from '@prisma/client';
+import { Task, TaskPriority } from '@prisma/client';
 import Link from 'next/link';
 import { Check, ArrowRight, Circle } from 'lucide-react';
+import { toSafeString } from '@/lib/render-safe';
 
 interface TodayTasksListProps {
   tasks: Task[];
@@ -31,27 +32,23 @@ export function TodayTasksList({ tasks }: TodayTasksListProps) {
     }
   };
 
-  const getStatusIcon = (status: TaskStatus) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
-      case TaskStatus.DONE:
+      case 'DONE':
         return <Check className="w-4 h-4" />;
-      case TaskStatus.IN_PROGRESS:
+      case 'IN_PROGRESS':
         return <ArrowRight className="w-4 h-4" />;
-      case TaskStatus.BACKLOG:
-        return <Circle className="w-4 h-4" />;
       default:
         return <Circle className="w-4 h-4" />;
     }
   };
 
-  const getStatusColor = (status: TaskStatus) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
-      case TaskStatus.DONE:
+      case 'DONE':
         return 'text-green-400';
-      case TaskStatus.IN_PROGRESS:
+      case 'IN_PROGRESS':
         return 'text-blue-400';
-      case TaskStatus.BACKLOG:
-        return 'text-gray-400';
       default:
         return 'text-gray-400';
     }
@@ -63,7 +60,7 @@ export function TodayTasksList({ tasks }: TodayTasksListProps) {
         <h2 className="text-xl font-semibold text-white">
           Today&apos;s Tasks
         </h2>
-        <Link 
+        <Link
           href="/tasks"
           className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
         >
@@ -96,11 +93,11 @@ export function TodayTasksList({ tasks }: TodayTasksListProps) {
               {/* Task Info */}
               <div className="flex-1 min-w-0">
                 <h3 className="text-white font-medium truncate">
-                  {task.title}
+                  {toSafeString(task.title)}
                 </h3>
                 {task.description && (
                   <p className="text-sm text-gray-400 truncate">
-                    {task.description}
+                    {toSafeString(task.description)}
                   </p>
                 )}
               </div>

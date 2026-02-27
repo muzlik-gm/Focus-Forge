@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useOptimistic, useMemo } from 'react';
-import { Task, TaskStatus } from '@prisma/client';
+import { Task } from '@prisma/client';
 import { Reorder } from 'framer-motion';
 import { TaskCard } from './TaskCard';
 import { TaskFilters, FilterState } from './TaskFilters';
@@ -28,9 +28,9 @@ interface TasksByStatus {
 }
 
 const COLUMN_CONFIG = [
-  { status: 'BACKLOG' as TaskStatus, title: 'Backlog', color: 'bg-gray-700' },
-  { status: 'IN_PROGRESS' as TaskStatus, title: 'In Progress', color: 'bg-blue-700' },
-  { status: 'DONE' as TaskStatus, title: 'Done', color: 'bg-green-700' },
+  { status: 'BACKLOG', title: 'Backlog', color: 'bg-gray-700' },
+  { status: 'IN_PROGRESS', title: 'In Progress', color: 'bg-blue-700' },
+  { status: 'DONE', title: 'Done', color: 'bg-green-700' },
 ];
 
 export function TaskBoard({ initialTasks }: TaskBoardProps) {
@@ -98,12 +98,12 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
     const task = tasks.find(t => t.id === taskId);
     if (!task) return;
 
-    const newStatus: TaskStatus = completed ? 'DONE' : 'IN_PROGRESS';
-    
+    const newStatus: string = completed ? 'DONE' : 'IN_PROGRESS';
+
     // Optimistic update
     const updatedTasks = tasks.map(t =>
-      t.id === taskId ? { ...t, status: newStatus, completedAt: completed ? new Date() : null } : t
-    );
+      t.id === taskId ? { ...t, status: newStatus as any, completedAt: completed ? new Date() : null } : t
+    ) as Task[];
     setOptimisticTasks(updatedTasks);
 
     try {
@@ -113,7 +113,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           status: newStatus,
           completedAt: completed ? new Date().toISOString() : null,
         }),
@@ -124,7 +124,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
       }
 
       const { task: updatedTask } = await response.json();
-      
+
       // Update with server response
       setTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
     } catch (error) {
@@ -140,14 +140,14 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
    * 
    * Requirements: 4.2, 24
    */
-  const handleTaskStatusChange = async (taskId: string, newStatus: TaskStatus) => {
+  const handleTaskStatusChange = async (taskId: string, newStatus: string) => {
     const task = tasks.find(t => t.id === taskId);
     if (!task || task.status === newStatus) return;
 
     // Optimistic update
     const updatedTasks = tasks.map(t =>
-      t.id === taskId ? { ...t, status: newStatus } : t
-    );
+      t.id === taskId ? { ...t, status: newStatus as any } : t
+    ) as Task[];
     setOptimisticTasks(updatedTasks);
 
     try {
@@ -165,7 +165,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
       }
 
       const { task: updatedTask } = await response.json();
-      
+
       // Update with server response
       setTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
     } catch (error) {
@@ -180,7 +180,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
    * 
    * Requirements: 24
    */
-  const handleReorder = async (status: TaskStatus, newOrder: Task[]) => {
+  const handleReorder = async (status: string, newOrder: Task[]) => {
     // Optimistic update
     const otherTasks = tasks.filter(t => t.status !== status);
     const reorderedTasks = newOrder.map((task, index) => ({
@@ -188,7 +188,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
       order: index,
     }));
     const updatedTasks = [...otherTasks, ...reorderedTasks];
-    
+
     setOptimisticTasks(updatedTasks);
 
     try {
@@ -216,7 +216,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
   return (
     <div className="space-y-6">
       {/* Filter Panel */}
-      <TaskFilters 
+      <TaskFilters
         availableTags={availableTags}
         onFilterChange={setFilters}
       />
@@ -229,7 +229,7 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
             status={status}
             title={title}
             color={color}
-            tasks={tasksByStatus[status]}
+            tasks={tasksByStatus[status as keyof typeof tasksByStatus]}
             onTaskDrop={handleTaskStatusChange}
             onReorder={handleReorder}
             onToggleComplete={handleToggleComplete}
@@ -248,12 +248,12 @@ export function TaskBoard({ initialTasks }: TaskBoardProps) {
  */
 
 interface TaskColumnProps {
-  status: TaskStatus;
+  status: string;
   title: string;
   color: string;
   tasks: Task[];
-  onTaskDrop: (taskId: string, newStatus: TaskStatus) => void;
-  onReorder: (status: TaskStatus, newOrder: Task[]) => void;
+  onTaskDrop: (taskId: string, newStatus: string) => void;
+  onReorder: (status: string, newOrder: Task[]) => void;
   onToggleComplete: (taskId: string, completed: boolean) => void;
 }
 
@@ -283,9 +283,8 @@ function TaskColumn({ status, title, color, tasks, onTaskDrop, onReorder, onTogg
 
   return (
     <div
-      className={`flex flex-col rounded-lg bg-gray-800 p-4 min-h-[500px] ${
-        isDragOver ? 'ring-2 ring-blue-500' : ''
-      }`}
+      className={`flex flex-col rounded-lg bg-gray-800 p-4 min-h-[500px] ${isDragOver ? 'ring-2 ring-blue-500' : ''
+        }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -305,9 +304,9 @@ function TaskColumn({ status, title, color, tasks, onTaskDrop, onReorder, onTogg
         className="flex flex-col gap-3 flex-1"
       >
         {tasks.map((task) => (
-          <TaskCard 
-            key={task.id} 
-            task={task} 
+          <TaskCard
+            key={task.id}
+            task={task}
             onToggleComplete={onToggleComplete}
           />
         ))}

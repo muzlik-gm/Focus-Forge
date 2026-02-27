@@ -44,52 +44,16 @@ export const Modal: React.FC<ModalProps> = ({
     }
   };
 
-  // Trap focus within modal
+  // Handle keyboard events
   useEffect(() => {
     if (!isOpen) return;
 
     // Add escape key listener
     document.addEventListener('keydown', handleEscape);
 
-    // Get all focusable elements within the modal
-    const modal = document.querySelector('[role="dialog"]');
-    if (!modal) return;
-
-    const focusableElements = modal.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    // Focus first element when modal opens
-    firstElement?.focus();
-
-    // Trap focus within modal
-    const handleTabKey = (event: KeyboardEvent) => {
-      if (event.key !== 'Tab') return;
-
-      if (event.shiftKey) {
-        // Shift + Tab
-        if (document.activeElement === firstElement) {
-          event.preventDefault();
-          lastElement?.focus();
-        }
-      } else {
-        // Tab
-        if (document.activeElement === lastElement) {
-          event.preventDefault();
-          firstElement?.focus();
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleTabKey);
-
     // Cleanup
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('keydown', handleTabKey);
     };
   }, [isOpen, handleEscape]);
 
@@ -131,9 +95,10 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Header with title and close button */}
-            <div className="flex items-center justify-between p-6 pb-4">
+            <div className="flex items-center justify-between p-6 pb-4 flex-shrink-0">
               <h2
                 id="modal-title"
                 className="text-xl font-bold text-white embossed-text"
@@ -161,7 +126,7 @@ export const Modal: React.FC<ModalProps> = ({
             </div>
 
             {/* Modal content */}
-            <div className="text-gray-200 px-8 pb-8">
+            <div className="text-gray-200 px-8 pb-8 overflow-y-auto">
               {children}
             </div>
           </motion.div>

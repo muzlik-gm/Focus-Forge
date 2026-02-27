@@ -64,17 +64,17 @@ export default function BillingPage() {
   const currentTier = subscription?.tier || 'FREE';
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto p-6">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight mb-2">Billing</h1>
-        <p className="text-sm text-gray-400">Manage your subscription and billing.</p>
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight mb-1">Billing</h1>
+        <p className="text-xs text-gray-400">Manage your subscription and billing.</p>
       </div>
 
-      <div className="max-w-4xl space-y-6">
+      <div className="max-w-4xl space-y-4">
         {/* Current Plan */}
-        <div className="bg-white/5 border border-white/10 rounded-lg p-6">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-white/5 border border-white/10 rounded-lg p-5">
+          <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-base font-semibold mb-1">Current plan</h2>
               {loading ? (

@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // Update session every 24 hours
   },
 
   // Configure authentication providers
@@ -65,11 +66,28 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         });
 
-        if (!user || !user.passwordHash) {
+        if (!user) {
           throw new Error('Invalid email or password');
         }
 
-        // Verify password
+        // Check if this is a Firebase OAuth user (no password hash)
+        if (user.firebaseUid && !user.passwordHash) {
+          // For Firebase users, we don't verify password
+          // They should have already been authenticated via Firebase
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            subscriptionTier: user.subscriptionTier,
+            workspaceId: user.workspaceId,
+          };
+        }
+
+        // For regular users, verify password
+        if (!user.passwordHash) {
+          throw new Error('Invalid email or password');
+        }
+
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
           user.passwordHash
@@ -101,6 +119,23 @@ export const authOptions: NextAuthOptions = {
         path: '/',
         secure: process.env.NODE_ENV === 'production', // HTTPS only in production
         maxAge: 30 * 24 * 60 * 60, // 30 days - CRITICAL for session persistence
+      },
+    },
+    callbackUrl: {
+      name: `next-auth.callback-url`,
+      options: {
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+    csrfToken: {
+      name: `next-auth.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
       },
     },
   },

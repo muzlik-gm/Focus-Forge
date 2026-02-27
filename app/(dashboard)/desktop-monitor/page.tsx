@@ -111,8 +111,10 @@ export default function DesktopMonitorPage() {
       setCurrentApp(appInfo.name);
       
       // Get category for current app
-      const category = await tauriApi.categories.getCategoryWithFallback(appInfo.name);
-      setCurrentCategory(category);
+      const categoryStr = await tauriApi.categories.getCategoryWithFallback(appInfo.name);
+      // Extract primary category (first one before comma)
+      const primaryCategory = categoryStr.split(',')[0].trim();
+      setCurrentCategory(primaryCategory);
     } catch (err) {
       console.error('Failed to get current application:', err);
     }
