@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import { verifyFirebaseToken } from './firebase-admin';
 import {
   checkRateLimit,
+  getClientIdentifier,
   RATE_LIMIT_CONFIGS,
 } from './rate-limit';
 
@@ -40,7 +41,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
         idToken: { label: 'ID Token', type: 'text' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email) {
           throw new Error('Email is required');
         }
@@ -48,7 +49,10 @@ export const authOptions: NextAuthOptions = {
         // Rate limiting for login attempts
         // Use email as identifier for login rate limiting
         // This prevents brute force attacks on specific accounts
-        const identifier = credentials.email.toLowerCase();
+        // Rate limiting for login attempts
+        // Use both IP address AND email for rate limiting
+        const ip = getClientIdentifier(req as any);
+        const identifier = `${ip}:${credentials.email.toLowerCase()}`;
         const rateLimitResult = checkRateLimit(
           identifier,
           RATE_LIMIT_CONFIGS.login
@@ -69,6 +73,8 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user) {
+          // Use a fixed delay to prevent timing attacks
+          await new Promise(resolve => setTimeout(resolve, 50));
           throw new Error('Invalid email or password');
         }
 

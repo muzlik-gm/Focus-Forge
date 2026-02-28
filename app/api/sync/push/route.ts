@@ -17,12 +17,8 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json();
-        console.log('[SyncPush] Received payload:', JSON.stringify(body, null, 2));
         
         const { focusSessions = [], activityLogs = [] } = body;
-
-        console.log('[SyncPush] Focus sessions count:', focusSessions.length);
-        console.log('[SyncPush] Activity logs count:', activityLogs.length);
 
         const results = {
             focusSessions: { synced: 0, skipped: 0, errors: 0 },
@@ -33,21 +29,15 @@ export async function POST(request: NextRequest) {
         // --- Sync Focus Sessions ---
         for (const session_data of focusSessions) {
             try {
-                console.log('[SyncPush] Processing session:', JSON.stringify(session_data, null, 2));
-
                 // Map desktop session to cloud schema
                 // Desktop sends timestamps in milliseconds
                 const startTime = new Date(session_data.start_time);
                 const endTime = session_data.end_time ? new Date(session_data.end_time) : null;
 
-                console.log('[SyncPush] Parsed times - start:', startTime.toISOString(), 'end:', endTime?.toISOString());
-
                 const durationMinutes = session_data.duration_minutes
                     ?? (endTime
                         ? Math.round((endTime.getTime() - startTime.getTime()) / 60000)
                         : 0);
-
-                console.log('[SyncPush] Duration minutes:', durationMinutes, 'from payload:', session_data.duration_minutes);
 
                 // Use desktopId as a stable unique identifier for upserting
                 // We store it in the notes field prefixed with a marker
@@ -68,7 +58,6 @@ export async function POST(request: NextRequest) {
                 }
 
                 const isCompleted = session_data.status === 'Completed';
-                console.log('[SyncPush] Creating session with completed:', isCompleted);
 
                 const createdSession = await prisma.focusSession.create({
                     data: {
@@ -86,14 +75,6 @@ export async function POST(request: NextRequest) {
                     },
                 });
 
-                console.log('[SyncPush] Session created successfully:', {
-                    id: createdSession.id,
-                    durationMinutes: createdSession.durationMinutes,
-                    distractionCount: createdSession.distractionCount,
-                    completed: createdSession.completed,
-                    startTime: createdSession.startTime.toISOString(),
-                    endTime: createdSession.endTime?.toISOString(),
-                });
                 results.focusSessions.synced++;
             } catch (err) {
                 console.error('[SyncPush] Error syncing focus session:', err);
