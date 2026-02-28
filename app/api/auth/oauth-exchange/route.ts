@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import {
+  checkRateLimit,
+  getClientIdentifier,
+  RATE_LIMIT_CONFIGS,
+} from '@/lib/rate-limit';
 
 /**
  * Exchange OAuth authorization code for user information
@@ -7,6 +12,27 @@ import { prisma } from '@/lib/prisma';
  */
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const clientId = getClientIdentifier(request);
+    const rateLimitResult = checkRateLimit(clientId, RATE_LIMIT_CONFIGS.login);
+
+    if (rateLimitResult.isLimited) {
+      const retryAfter = Math.ceil(
+        (rateLimitResult.resetTime - Date.now()) / 1000
+      );
+
+      return NextResponse.json(
+        {
+          error: {
+            code: 'RATE_LIMIT_EXCEEDED',
+            message: 'Too many login attempts. Please try again later.',
+            retryAfter,
+          },
+        },
+        { status: 429 }
+      );
+    }
+
     const { code } = await request.json();
 
     if (!code) {
@@ -111,10 +137,10 @@ export async function POST(request: NextRequest) {
       photoURL: user.image,
       userId: user.id,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('[OAuth Exchange] Error:', error);
     return NextResponse.json(
-      { error: { message: error.message || 'Internal server error' } },
+      { error: { code: 'INTERNAL_ERROR', message: 'An unexpected error occurred' } },
       { status: 500 }
     );
   }
