@@ -27,6 +27,10 @@ const PROTECTED_API_ROUTES = [
   '/api/reviews',
   '/api/billing',
   '/api/settings',
+  '/api/notifications',
+  '/api/sync',
+  '/api/onboarding',
+  '/api/export',
 ];
 
 /**

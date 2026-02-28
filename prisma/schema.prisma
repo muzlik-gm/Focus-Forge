@@ -31,7 +31,7 @@ model User {
   id                      String                   @id @default(auto()) @map("_id") @db.ObjectId
   email                   String                   @unique
   name                    String
-  passwordHash            String
+  passwordHash            String?
   firebaseUid             String?                  @unique
   emailVerified           Boolean                  @default(false)
   image                   String?

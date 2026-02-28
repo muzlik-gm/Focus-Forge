@@ -68,8 +68,9 @@ export async function createInvitation(
     accepted: false,
   };
 
-  // Store in a simple in-memory map for now
-  // In production, this would be stored in the database
+  // SECURITY NOTE: In-memory store is used for MVP.
+  // In a production environment, this MUST be moved to a database
+  // to support persistence and multi-instance scalability.
   invitationStore.set(token, invitation);
 
   return invitation;

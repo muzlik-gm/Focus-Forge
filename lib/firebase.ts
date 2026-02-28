@@ -26,14 +26,14 @@ import { getAnalytics, Analytics } from 'firebase/analytics';
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCLGCos-TuJGQwEWlXpDV4dhUzT_Lbdk7A",
-  authDomain: "elysium-legacy.firebaseapp.com",
-  databaseURL: "https://elysium-legacy-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "elysium-legacy",
-  storageBucket: "elysium-legacy.firebasestorage.app",
-  messagingSenderId: "583440735607",
-  appId: "1:583440735607:web:d14c09330330a8e2201572",
-  measurementId: "G-3DRWK43R3H"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyCLGCos-TuJGQwEWlXpDV4dhUzT_Lbdk7A",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "elysium-legacy.firebaseapp.com",
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL || "https://elysium-legacy-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "elysium-legacy",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "elysium-legacy.firebasestorage.app",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "583440735607",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:583440735607:web:d14c09330330a8e2201572",
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-3DRWK43R3H"
 };
 
 // Initialize Firebase (singleton pattern)
