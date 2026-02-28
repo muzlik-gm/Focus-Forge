@@ -13,8 +13,8 @@ import {
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting
-    const clientId = getClientIdentifier(request);
-    const rateLimitResult = checkRateLimit(clientId, RATE_LIMIT_CONFIGS.login);
+    const clientIdentifier = getClientIdentifier(request);
+    const rateLimitResult = checkRateLimit(clientIdentifier, RATE_LIMIT_CONFIGS.login);
 
     if (rateLimitResult.isLimited) {
       const retryAfter = Math.ceil(
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
         data: {
           email,
           name: name || email.split('@')[0],
-          password: '', // No password for OAuth users
+          passwordHash: undefined, // No password for OAuth users
           firebaseUid: googleId,
           emailVerified: true, // Google accounts are pre-verified
           image: picture,
