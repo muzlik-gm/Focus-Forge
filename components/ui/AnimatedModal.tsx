@@ -53,24 +53,24 @@ export function AnimatedModal({
 
   const animationVariants = {
     scale: {
-      initial: { opacity: 0, scale: 0.9 },
-      animate: { opacity: 1, scale: 1 },
-      exit: { opacity: 0, scale: 0.9 },
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
     },
     slide: {
-      initial: { opacity: 0, y: 50 },
-      animate: { opacity: 1, y: 0 },
-      exit: { opacity: 0, y: 50 },
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
     },
     rotate: {
-      initial: { opacity: 0, rotate: -10, scale: 0.9 },
-      animate: { opacity: 1, rotate: 0, scale: 1 },
-      exit: { opacity: 0, rotate: 10, scale: 0.9 },
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
     },
     bounce: {
-      initial: { opacity: 0, y: -100 },
-      animate: { opacity: 1, y: 0 },
-      exit: { opacity: 0, y: -100 },
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
     },
   };
 

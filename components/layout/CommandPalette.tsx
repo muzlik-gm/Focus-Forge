@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { Search, ArrowRight, Calendar, CheckSquare, BarChart2, Users, Settings, LogOut } from 'lucide-react';
+import { Search, ArrowRight, Calendar, CheckSquare, BarChart2, Users, Settings, LogOut, Clock } from 'lucide-react';
 
 /**
  * Command Palette Component
@@ -218,8 +218,8 @@ export function CommandPalette() {
                     key={command.id}
                     onClick={() => handleCommandClick(command)}
                     className={`w-full flex items-center gap-4 px-6 py-3 text-left transition-all ${isSelected
-                        ? 'bg-blue-500/20 text-white border-l-2 border-blue-500'
-                        : 'hover:bg-white/5 text-zinc-400 hover:text-white border-l-2 border-transparent'
+                      ? 'bg-blue-500/20 text-white border-l-2 border-blue-500'
+                      : 'hover:bg-white/5 text-zinc-400 hover:text-white border-l-2 border-transparent'
                       }`}
                   >
                     <div className={`${isSelected ? 'text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)]' : ''}`}>

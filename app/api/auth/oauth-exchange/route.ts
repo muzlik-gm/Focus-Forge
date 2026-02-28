@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const clientId = process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+    const googleClientId = process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
     const redirectUri = `${process.env.NEXTAUTH_URL}/oauth-callback`;
 
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
         code,
-        client_id: clientId || '',
+        client_id: googleClientId || '',
         client_secret: clientSecret || '',
         redirect_uri: redirectUri,
         grant_type: 'authorization_code',
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
         data: {
           email,
           name: name || email.split('@')[0],
-          password: '', // No password for OAuth users
+          passwordHash: '',
           firebaseUid: googleId,
           emailVerified: true, // Google accounts are pre-verified
           image: picture,

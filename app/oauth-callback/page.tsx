@@ -1,10 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { handleOAuthCallback } from '@/lib/desktop-oauth';
 
 export default function OAuthCallbackPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0f0f10] text-white flex items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 mx-auto mb-4 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <h1 className="text-2xl font-bold mb-2">Loading...</h1>
+          <p className="text-zinc-400">Preparing authentication...</p>
+        </div>
+      </div>
+    }>
+      <OAuthCallbackContent />
+    </Suspense>
+  );
+}
+
+function OAuthCallbackContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<'processing' | 'success' | 'error'>('processing');
   const [message, setMessage] = useState('Processing authentication...');
@@ -31,7 +47,7 @@ export default function OAuthCallbackPage() {
       handleOAuthCallback(code, state);
       setStatus('success');
       setMessage('Authentication successful! You can close this window.');
-      
+
       // Auto-close after 2 seconds
       setTimeout(() => {
         window.close();
@@ -52,7 +68,7 @@ export default function OAuthCallbackPage() {
             <p className="text-zinc-400">{message}</p>
           </>
         )}
-        
+
         {status === 'success' && (
           <>
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 flex items-center justify-center">
@@ -64,7 +80,7 @@ export default function OAuthCallbackPage() {
             <p className="text-zinc-400">{message}</p>
           </>
         )}
-        
+
         {status === 'error' && (
           <>
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/20 flex items-center justify-center">

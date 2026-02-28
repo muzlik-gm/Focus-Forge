@@ -91,9 +91,9 @@ export const Modal: React.FC<ModalProps> = ({
             aria-modal="true"
             aria-labelledby="modal-title"
             className={`relative z-[110] w-full max-w-xl mx-4 skeuo-modal ${className}`}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             onClick={(e) => e.stopPropagation()}
           >

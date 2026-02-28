@@ -13,7 +13,7 @@ export function LandingContent() {
   useEffect(() => {
     import('animejs').then((module) => {
       const anime = (module as any).default || module;
-      
+
       // Hero section animation
       if (heroRef.current) {
         anime({
@@ -52,14 +52,14 @@ export function LandingContent() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
+    <div className="neo-landing min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
       {/* Simplified Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.03) 0%, transparent 50%)`,
         }} />
-        
+
         {/* Blue gradient orbs only */}
         <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
         <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-blue-500" />
@@ -86,7 +86,7 @@ export function LandingContent() {
                   FocusForge helps developers eliminate distractions, track focus sessions, and achieve peak productivity through proven deep work techniques. Experience an interface that feels as real as it looks.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-in">
-                  <Link 
+                  <Link
                     href="/register"
                     className="skeuo-button inline-flex items-center justify-center gap-3 px-8 py-4 text-white font-medium text-lg"
                   >
@@ -159,8 +159,8 @@ export function LandingContent() {
             <div className="skeuo-card p-12 text-center">
               <h2 className="text-3xl lg:text-4xl font-bold mb-6 embossed-text">The productivity crisis</h2>
               <p className="text-lg text-zinc-400 leading-relaxed">
-                Research shows developers lose 23 minutes of productivity after each interruption. 
-                Context switching, endless notifications, and lack of structure destroy deep work. 
+                Research shows developers lose 23 minutes of productivity after each interruption.
+                Context switching, endless notifications, and lack of structure destroy deep work.
                 FocusForge provides the framework to reclaim your focus and build sustainable productivity habits.
               </p>
             </div>
@@ -204,31 +204,31 @@ export function LandingContent() {
               ].map((feature, i) => {
                 const IconComponent = feature.icon;
                 return (
-                <div key={i} className="skeuo-panel p-10 flex flex-col h-full feature-card">
-                  <div className="mb-8">
-                    <div className={`skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br ${feature.color} flex items-center justify-center`}>
-                      <IconComponent className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4 embossed-text text-center">{feature.title}</h3>
-                    <p className="text-zinc-300 text-center leading-relaxed mb-8">{feature.description}</p>
-                  </div>
-                  <div className="space-y-3 mb-10 flex-grow">
-                    {feature.features.map((item, j) => (
-                      <div key={j} className="flex items-center gap-3">
-                        <div className={`skeuo-avatar w-6 h-6 flex-shrink-0 bg-gradient-to-br ${feature.color}`}>
-                          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <span className="text-sm text-zinc-300">{item}</span>
+                  <div key={i} className="skeuo-panel p-10 flex flex-col h-full feature-card">
+                    <div className="mb-8">
+                      <div className={`skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br ${feature.color} flex items-center justify-center`}>
+                        <IconComponent className="w-8 h-8 text-white" />
                       </div>
-                    ))}
+                      <h3 className="text-2xl font-bold mb-4 embossed-text text-center">{feature.title}</h3>
+                      <p className="text-zinc-300 text-center leading-relaxed mb-8">{feature.description}</p>
+                    </div>
+                    <div className="space-y-3 mb-10 flex-grow">
+                      {feature.features.map((item, j) => (
+                        <div key={j} className="flex items-center gap-3">
+                          <div className={`skeuo-avatar w-6 h-6 flex-shrink-0 bg-gradient-to-br ${feature.color}`}>
+                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <span className="text-sm text-zinc-300">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <button className="skeuo-input w-full px-4 py-3 text-center font-medium hover:bg-zinc-800/50 transition">
+                      Learn more
+                    </button>
                   </div>
-                  <button className="skeuo-input w-full px-4 py-3 text-center font-medium hover:bg-zinc-800/50 transition">
-                    Learn more
-                  </button>
-                </div>
-              );
+                );
               })}
             </div>
           </div>
@@ -250,7 +250,7 @@ export function LandingContent() {
                   </div>
                   <h3 className="text-3xl font-bold mb-4 embossed-text">Start your focus session</h3>
                   <p className="text-zinc-400 text-lg leading-relaxed mb-6">
-                    Set your timer, choose your task, and begin. FocusForge tracks your session automatically, 
+                    Set your timer, choose your task, and begin. FocusForge tracks your session automatically,
                     so you can stay in the zone without worrying about the clock.
                   </p>
                   <ul className="space-y-3">
@@ -291,7 +291,7 @@ export function LandingContent() {
                   </div>
                   <h3 className="text-3xl font-bold mb-4 embossed-text">Track and manage distractions</h3>
                   <p className="text-zinc-400 text-lg leading-relaxed mb-6">
-                    When something pulls your attention away, log it with one click. Build awareness of your 
+                    When something pulls your attention away, log it with one click. Build awareness of your
                     distraction patterns and learn to minimize them over time.
                   </p>
                   <ul className="space-y-3">
@@ -313,7 +313,7 @@ export function LandingContent() {
                   </div>
                   <h3 className="text-3xl font-bold mb-4 embossed-text">Review and continuously improve</h3>
                   <p className="text-zinc-400 text-lg leading-relaxed mb-6">
-                    Analyze your weekly performance with detailed analytics. See your progress, identify 
+                    Analyze your weekly performance with detailed analytics. See your progress, identify
                     peak productivity hours, and continuously refine your focus practice.
                   </p>
                   <ul className="space-y-3">
@@ -375,7 +375,7 @@ export function LandingContent() {
                   <div className="h-64 flex items-end justify-between gap-2">
                     {[65, 45, 80, 55, 70, 40, 90].map((height, i) => (
                       <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                        <div 
+                        <div
                           className="w-full bg-gradient-to-t from-blue-600/20 to-blue-500/50 rounded-t-lg relative overflow-hidden"
                           style={{ height: `${height}%` }}
                         >
@@ -625,7 +625,7 @@ export function LandingContent() {
           </div>
         </section>
 
-      <Footer />
+        <Footer />
       </div>
     </div>
   );
