@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Briefcase, Heart, CheckCircle, AlertCircle } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Careers',
+  description: 'Join the FocusForge team. Explore open positions and career opportunities.',
+};
 
 export default function CareersPage() {
   const benefits = [
@@ -102,8 +108,8 @@ export default function CareersPage() {
             <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">
               Interested in future opportunities? Send us your resume and tell us why you'd be a great addition to the team. We'll keep your information on file and reach out when we have positions that match your skills.
             </p>
-            <a 
-              href="mailto:careers@focusforge.com" 
+            <a
+              href="mailto:careers@focusforge.com"
               className="skeuo-button inline-flex items-center gap-2 px-8 py-4 text-white font-medium text-lg"
             >
               <span>Send Your Resume</span>

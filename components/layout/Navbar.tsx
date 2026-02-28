@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronDown, LogOut, Settings, CreditCard, Key, CloudCog } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 import { CommandPalette } from './CommandPalette';
 import { NotificationDropdown } from './NotificationDropdown';
 import { WorkspaceSelector } from './WorkspaceSelector';
@@ -38,7 +39,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 h-16 bg-[var(--surface)]/80 backdrop-blur-xl border-b border-[var(--border)] z-50">
+    <nav className="fixed top-0 left-0 right-0 h-16 bg-[#1a1a1d] border-b-2 border-black z-50 shadow-[0_2px_0_#000]">
       <div className="flex items-center justify-between h-full px-4 lg:px-6">
         {/* Left: Logo */}
         <div className="flex items-center gap-4">
@@ -89,12 +90,12 @@ export function Navbar() {
           <div className="relative">
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-[var(--surface-elevated)] transition-colors"
+              className="flex items-center gap-2 p-1 rounded-lg hover:bg-white/5 transition-colors border-2 border-transparent hover:border-black active:translate-y-0.5"
             >
-              <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white text-sm font-semibold shadow-lg shadow-indigo-500/20">
+              <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center text-white text-sm font-bold border-2 border-black shadow-[2px_2px_0_#000]">
                 {user?.name?.charAt(0) || 'U'}
               </div>
-              <ChevronDown className="hidden sm:block w-4 h-4 text-[var(--text-secondary)]" />
+              <ChevronDown className={cn("hidden sm:block w-4 h-4 text-zinc-400 transition-transform", showProfileMenu && "rotate-180")} />
             </button>
 
             <AnimatePresence>
@@ -105,10 +106,10 @@ export function Navbar() {
                     onClick={() => setShowProfileMenu(false)}
                   />
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-64 bg-[var(--surface)] border border-[var(--border)] rounded-xl shadow-2xl overflow-hidden z-[70]"
+                    initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                    className="absolute right-0 top-full mt-3 w-64 bg-[#1a1a1d] border-2 border-black rounded-xl shadow-[8px_8px_0px_#000] overflow-hidden z-[70]"
                   >
                     <div className="p-4 border-b border-[var(--border)]">
                       <p className="font-semibold truncate">{user?.name || 'User'}</p>

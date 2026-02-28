@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         data: {
           email,
           name: name || email.split('@')[0],
-          password: '', // No password for OAuth users
+          passwordHash: '', // No password for OAuth users
           firebaseUid: decodedToken.uid,
           emailVerified: decodedToken.email_verified || false,
           image: photoURL,

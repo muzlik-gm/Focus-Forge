@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Smartphone, Download, Apple, PlaySquare, Globe } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Mobile App',
+  description: 'Download the FocusForge mobile app and take your productivity tools with you on the go.',
+};
 
 export default function MobilePage() {
   return (

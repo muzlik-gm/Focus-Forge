@@ -53,7 +53,7 @@ export function Sidebar() {
     setIsDesktop(tauriApi.isTauriEnvironment());
   }, []);
 
-  const navigation = isDesktop 
+  const navigation = isDesktop
     ? [...baseNavigation.slice(0, 1), ...desktopOnlyNavigation, ...baseNavigation.slice(1)]
     : baseNavigation;
 
@@ -62,20 +62,20 @@ export function Sidebar() {
       {/* Desktop Sidebar */}
       <motion.aside
         initial={false}
-        animate={{ 
+        animate={{
           width: collapsed ? 80 : 240,
           marginLeft: collapsed ? 0 : 0
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className={cn(
-          'hidden lg:flex flex-col fixed left-0 top-16 bottom-0 bg-[var(--surface)] border-r border-[var(--border)] z-30'
+          'hidden lg:flex flex-col fixed left-0 top-0 bottom-0 bg-[#1a1a1d] border-r-2 border-black z-30 pt-16 shadow-[2px_0_0_#000]'
         )}
       >
         <div className="flex flex-col h-full">
           {/* Collapse Toggle */}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="absolute -right-3 top-6 w-6 h-6 bg-[var(--surface)] border border-[var(--border)] rounded-full flex items-center justify-center hover:bg-[var(--surface-elevated)] hover:border-[var(--primary)] transition-all z-50 shadow-lg"
+            className="absolute -right-3 top-20 w-6 h-6 bg-[#1a1a1d] border-2 border-black rounded-full flex items-center justify-center hover:bg-indigo-500/10 hover:border-indigo-500 transition-all z-50 shadow-[2px_2px_0_#000]"
           >
             {collapsed ? (
               <ChevronRight className="w-3.5 h-3.5" />

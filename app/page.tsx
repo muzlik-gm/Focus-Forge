@@ -3,8 +3,8 @@ import { LandingContent } from './components/LandingContent';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://focusforge.app'),
-  title: 'FocusForge - Master Deep Focus and Build Lasting Productivity Habits',
-  description: 'FocusForge helps developers eliminate distractions, track focus sessions, and achieve peak productivity through proven deep work techniques. Track your deep work, analyze patterns, and build lasting habits.',
+  title: 'Master Deep Focus & Productivity',
+  description: 'FocusForge helps developers eliminate distractions, track focus sessions, and achieve peak productivity through proven deep work techniques.',
   keywords: ['productivity', 'focus timer', 'deep work', 'task management', 'analytics', 'developer tools', 'time tracking', 'distraction logging'],
   authors: [{ name: 'FocusForge' }],
   openGraph: {

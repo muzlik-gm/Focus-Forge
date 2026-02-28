@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Clock, Target, BarChart3, Users, Zap, Shield, Bell, Calendar, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Features',
+  description: 'Explore FocusForge features: focus sessions, task management, analytics, team collaboration, and more.',
+};
 
 export default function FeaturesPage() {
   const features = [
@@ -150,8 +156,8 @@ export default function FeaturesPage() {
             <p className="text-xl text-zinc-300 mb-10 max-w-2xl mx-auto">
               Start your free trial today. No credit card required. Experience the power of our design.
             </p>
-            <Link 
-              href="/register" 
+            <Link
+              href="/register"
               className="skeuo-button inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg"
             >
               <span>Get Started Free</span>

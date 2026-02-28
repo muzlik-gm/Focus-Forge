@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Book, Code, Zap, Shield, Search, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Documentation',
+  description: 'FocusForge documentation. Guides, API reference, and everything you need to get started.',
+};
 
 export default function DocsPage() {
   const sections = [

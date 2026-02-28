@@ -16,6 +16,8 @@
   body {
     color: #ffffff;
     background-color: #0f0f10;
+    zoom: 0.9;
+    /* 90% */
     /* Global default dark */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
   }
@@ -87,8 +89,7 @@
 .notch-card:hover,
 .skeuo-panel:hover,
 .skeuo-card-hover:hover {
-  transform: translate(-2px, -2px) !important;
-  box-shadow: 8px 8px 0px #000000, inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 6px 6px 0px #000000, inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
   background-color: #1e1e22 !important;
 }
 
@@ -200,8 +201,7 @@
 .neo-landing .notch-card:hover,
 .neo-landing .skeuo-panel:hover,
 .neo-landing .skeuo-card-hover:hover {
-  transform: translate(-4px, -4px) !important;
-  box-shadow: 16px 16px 0px var(--border-neo) !important;
+  box-shadow: 12px 12px 0px var(--border-neo) !important;
   background-color: #fff !important;
 }
 

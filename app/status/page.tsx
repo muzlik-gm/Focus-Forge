@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { CheckCircle, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'System Status',
+  description: 'Real-time status updates and uptime information for FocusForge services.',
+};
 
 export default function StatusPage() {
   const services = [

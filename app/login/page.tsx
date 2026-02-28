@@ -67,10 +67,10 @@ export default function LoginPage() {
 
       console.log('[Login] Backend authentication successful');
 
-      // Sign in with NextAuth using just the email (no password needed for Firebase users)
+      // Sign in with NextAuth using the email and firebase ID token
       const loginResult = await signIn('credentials', {
         email: firebaseUser.email,
-        password: 'firebase-oauth-user', // Placeholder - not used for Firebase users
+        idToken: idToken, // Required for secure firebase login route backend check
         redirect: false,
       });
 

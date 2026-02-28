@@ -27,7 +27,7 @@ export interface RateLimitConfig {
    * Maximum number of requests allowed within the time window
    */
   maxAttempts: number;
-  
+
   /**
    * Time window in milliseconds
    */
@@ -70,20 +70,32 @@ function cleanupExpiredEntries(): void {
  * - cf-connecting-ip (Cloudflare)
  * - Falls back to direct connection IP
  */
-export function getClientIdentifier(request: Request): string {
+export function getClientIdentifier(request: any): string {
+  // Extract headers handling both Request and NextAuth RequestInternal objects
+  const headers = request?.headers;
+
+  const getHeader = (name: string): string | null => {
+    if (!headers) return null;
+    if (typeof headers.get === 'function') {
+      return headers.get(name);
+    }
+    // Handle plain object format (like NextAuth's RequestInternal)
+    return headers[name] || headers[name.toLowerCase()] || null;
+  };
+
   // Try to get IP from headers (for proxied requests)
-  const forwardedFor = request.headers.get('x-forwarded-for');
+  const forwardedFor = getHeader('x-forwarded-for');
   if (forwardedFor) {
     // x-forwarded-for can contain multiple IPs, take the first one
     return forwardedFor.split(',')[0].trim();
   }
 
-  const realIp = request.headers.get('x-real-ip');
+  const realIp = getHeader('x-real-ip');
   if (realIp) {
     return realIp;
   }
 
-  const cfConnectingIp = request.headers.get('cf-connecting-ip');
+  const cfConnectingIp = getHeader('cf-connecting-ip');
   if (cfConnectingIp) {
     return cfConnectingIp;
   }

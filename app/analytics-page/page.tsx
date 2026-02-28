@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { BarChart3, TrendingUp, Clock, Target, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Analytics & Insights',
+  description: 'Deep dive into your productivity patterns with FocusForge analytics and AI-driven insights.',
+};
 
 export default function AnalyticsMarketingPage() {
   return (
@@ -158,8 +164,8 @@ export default function AnalyticsMarketingPage() {
             <p className="text-xl text-zinc-300 mb-10 max-w-2xl mx-auto">
               Get insights that help you work smarter, not harder.
             </p>
-            <Link 
-              href="/register" 
+            <Link
+              href="/register"
               className="skeuo-button inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg"
             >
               <span>Try Analytics Free</span>

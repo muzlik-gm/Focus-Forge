@@ -93,19 +93,19 @@ export default function DashboardPage() {
           </div>
           <div className="text-zinc-400 text-xs font-medium mb-2">Focus time</div>
           <div className="skeuo-progress h-1.5">
-            <div 
-              className="skeuo-progress-bar h-1.5 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-1000" 
+            <div
+              className="skeuo-progress-bar h-1.5 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-1000"
               style={{ width: `${Math.min((data?.todayFocusHours || 0) * 10, 100)}%` }}
             />
           </div>
           <div className="mt-1.5 text-[10px] text-zinc-500">
             {data?.todayFocusHours === 0 ? 'Start a session' :
-             data?.todayFocusHours && data.todayFocusHours < 2 ? 'Keep going!' :
-             data?.todayFocusHours && data.todayFocusHours < 4 ? 'Great progress!' :
-             'Excellent work!'}
+              data?.todayFocusHours && data.todayFocusHours < 2 ? 'Keep going!' :
+                data?.todayFocusHours && data.todayFocusHours < 4 ? 'Great progress!' :
+                  'Excellent work!'}
           </div>
         </div>
-        
+
         {/* Tasks Completed Card */}
         <div className="col-span-3 skeuo-panel p-5 hover:shadow-[0_8px_30px_rgba(34,197,94,0.15)] transition-all duration-300 group">
           <div className="flex items-center justify-between mb-3">
@@ -119,19 +119,19 @@ export default function DashboardPage() {
           </div>
           <div className="text-zinc-400 text-xs font-medium mb-2">Tasks completed</div>
           <div className="skeuo-progress h-1.5">
-            <div 
-              className="skeuo-progress-bar h-1.5 bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-1000" 
+            <div
+              className="skeuo-progress-bar h-1.5 bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-1000"
               style={{ width: `${Math.min((data?.todayTasksCompleted || 0) * 20, 100)}%` }}
             />
           </div>
           <div className="mt-1.5 text-[10px] text-zinc-500">
             {data?.todayTasksCompleted === 0 ? 'Create a task' :
-             data?.todayTasksCompleted === 1 ? 'One down!' :
-             data?.todayTasksCompleted && data.todayTasksCompleted < 5 ? 'Making progress!' :
-             'Crushing it!'}
+              data?.todayTasksCompleted === 1 ? 'One down!' :
+                data?.todayTasksCompleted && data.todayTasksCompleted < 5 ? 'Making progress!' :
+                  'Crushing it!'}
           </div>
         </div>
-        
+
         {/* Distractions Card */}
         <div className="col-span-3 skeuo-panel p-5 hover:shadow-[0_8px_30px_rgba(249,115,22,0.15)] transition-all duration-300 group">
           <div className="flex items-center justify-between mb-3">
@@ -145,16 +145,16 @@ export default function DashboardPage() {
           </div>
           <div className="text-zinc-400 text-xs font-medium mb-2">Distractions</div>
           <div className="skeuo-progress h-1.5">
-            <div 
-              className="skeuo-progress-bar h-1.5 bg-gradient-to-r from-orange-500 to-red-400 transition-all duration-1000" 
+            <div
+              className="skeuo-progress-bar h-1.5 bg-gradient-to-r from-orange-500 to-red-400 transition-all duration-1000"
               style={{ width: `${Math.min((data?.todayDistractions || 0) * 20, 100)}%` }}
             />
           </div>
           <div className="mt-1.5 text-[10px] text-zinc-500">
             {data?.todayDistractions === 0 ? 'Perfect focus!' :
-             data?.todayDistractions === 1 ? 'Almost perfect' :
-             data?.todayDistractions && data.todayDistractions < 3 ? 'Room to improve' :
-             'Try app blockers'}
+              data?.todayDistractions === 1 ? 'Almost perfect' :
+                data?.todayDistractions && data.todayDistractions < 3 ? 'Room to improve' :
+                  'Try app blockers'}
           </div>
         </div>
 
@@ -179,7 +179,7 @@ export default function DashboardPage() {
 
       {/* Work Health Monitoring */}
       <div className="mb-6">
-        <WorkHealthCard 
+        <WorkHealthCard
           health={calculateWorkHealth(
             (data?.todayTotalMinutes || data?.todayFocusHours ? data.todayFocusHours * 60 : 0),
             (data?.weekTotalMinutes || 0)
@@ -195,7 +195,7 @@ export default function DashboardPage() {
             <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
             <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
-          
+
           <div className="relative z-10">
             <div className="skeuo-avatar w-20 h-20 mx-auto mb-5 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.3)]">
               <Target className="w-10 h-10 text-white" />
@@ -204,30 +204,36 @@ export default function DashboardPage() {
               Ready to Build Your Focus Habit?
             </h2>
             <p className="text-zinc-300 text-sm mb-6 max-w-2xl mx-auto leading-relaxed">
-              Start your first focus session and begin tracking your productivity journey. 
+              Start your first focus session and begin tracking your productivity journey.
               Build streaks, eliminate distractions, and achieve deep work mastery.
             </p>
-            
+
             {/* Feature highlights */}
             <div className="grid grid-cols-3 gap-4 mb-6 max-w-3xl mx-auto">
               <div className="skeuo-card p-3">
-                <div className="text-2xl mb-1.5">🎯</div>
+                <div className="flex items-center justify-center mb-1.5 h-8">
+                  <Target className="w-6 h-6 text-blue-400" />
+                </div>
                 <div className="text-xs font-bold text-white mb-0.5">Smart Tracking</div>
                 <div className="text-[10px] text-zinc-400">Automatic distraction detection</div>
               </div>
               <div className="skeuo-card p-3">
-                <div className="text-2xl mb-1.5">🔥</div>
+                <div className="flex items-center justify-center mb-1.5 h-8">
+                  <Zap className="w-6 h-6 text-yellow-400" />
+                </div>
                 <div className="text-xs font-bold text-white mb-0.5">Build Streaks</div>
                 <div className="text-[10px] text-zinc-400">Stay consistent, see results</div>
               </div>
               <div className="skeuo-card p-3">
-                <div className="text-2xl mb-1.5">💡</div>
+                <div className="flex items-center justify-center mb-1.5 h-8">
+                  <TrendingUp className="w-6 h-6 text-purple-400" />
+                </div>
                 <div className="text-xs font-bold text-white mb-0.5">Get Insights</div>
                 <div className="text-[10px] text-zinc-400">Personalized productivity tips</div>
               </div>
             </div>
-            
-            <Link 
+
+            <Link
               href="/focus"
               className="skeuo-button inline-flex items-center gap-2.5 px-8 py-4 text-white font-bold text-base shadow-xl hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all duration-300 hover:-translate-y-1"
             >
@@ -255,7 +261,7 @@ export default function DashboardPage() {
               <span className="text-xs font-medium">View analytics →</span>
             </Link>
           </div>
-          
+
           <div className="flex items-end gap-3 h-48 relative">
             {/* Y-axis labels */}
             <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-[10px] text-zinc-600 pr-2">
@@ -265,7 +271,7 @@ export default function DashboardPage() {
               <span>{Math.round(maxHours * 0.25)}h</span>
               <span>0h</span>
             </div>
-            
+
             {/* Bars */}
             <div className="flex-1 flex items-end gap-2 ml-8">
               {data?.weeklyFocus.map((d, i) => {
@@ -275,28 +281,26 @@ export default function DashboardPage() {
                   <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
                     <div className="relative w-full h-full flex items-end">
                       {/* Bar */}
-                      <div 
-                        className={`w-full rounded-t-lg relative overflow-hidden transition-all duration-500 ${
-                          isToday 
-                            ? 'bg-gradient-to-t from-blue-600 to-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.5)]' 
-                            : 'bg-gradient-to-t from-blue-600/40 to-blue-500/60 group-hover:from-blue-600/60 group-hover:to-blue-500/80'
-                        }`}
+                      <div
+                        className={`w-full rounded-t-lg relative overflow-hidden transition-all duration-500 ${isToday
+                          ? 'bg-gradient-to-t from-blue-600 to-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.5)]'
+                          : 'bg-gradient-to-t from-blue-600/40 to-blue-500/60 group-hover:from-blue-600/60 group-hover:to-blue-500/80'
+                          }`}
                         style={{ height: `${height}%`, minHeight: d.hours > 0 ? '8px' : '0' }}
                       >
                         {/* Shimmer effect on hover */}
                         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        
+
                         {/* Value tooltip */}
                         <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-zinc-900 px-1.5 py-0.5 rounded text-[10px] font-bold text-white whitespace-nowrap shadow-lg">
                           {d.hours}h
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Day label */}
-                    <div className={`text-[10px] font-bold transition-colors ${
-                      isToday ? 'text-blue-400' : 'text-zinc-500 group-hover:text-zinc-300'
-                    }`}>
+                    <div className={`text-[10px] font-bold transition-colors ${isToday ? 'text-blue-400' : 'text-zinc-500 group-hover:text-zinc-300'
+                      }`}>
                       {d.day}
                       {isToday && <div className="w-1 h-1 bg-blue-400 rounded-full mx-auto mt-0.5" />}
                     </div>
@@ -305,7 +309,7 @@ export default function DashboardPage() {
               })}
             </div>
           </div>
-          
+
           {/* Summary stats */}
           <div className="mt-6 pt-4 border-t border-zinc-800/50 grid grid-cols-3 gap-3">
             <div className="text-center">
@@ -345,27 +349,25 @@ export default function DashboardPage() {
               <span className="text-xs font-medium">All tasks →</span>
             </Link>
           </div>
-          
+
           {data?.todayTasks && data.todayTasks.length > 0 ? (
             <div className="space-y-2.5">
               {data.todayTasks.slice(0, 5).map((task, index) => (
-                <div 
-                  key={task.id} 
+                <div
+                  key={task.id}
                   className="skeuo-card p-3 flex items-center gap-3 hover:bg-white/5 transition-all duration-200 group"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  <div className={`w-4 h-4 rounded-full flex items-center justify-center transition-all flex-shrink-0 ${
-                    task.completed 
-                      ? 'bg-gradient-to-br from-green-500 to-emerald-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]' 
-                      : 'bg-zinc-800 group-hover:bg-zinc-700'
-                  }`}>
+                  <div className={`w-4 h-4 rounded-full flex items-center justify-center transition-all flex-shrink-0 ${task.completed
+                    ? 'bg-gradient-to-br from-green-500 to-emerald-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]'
+                    : 'bg-zinc-800 group-hover:bg-zinc-700'
+                    }`}>
                     {task.completed && <CheckCircle2 className="w-2.5 h-2.5 text-white" />}
                   </div>
-                  <span className={`text-xs flex-grow transition-all ${
-                    task.completed 
-                      ? 'text-zinc-500 line-through' 
-                      : 'text-zinc-300 group-hover:text-white'
-                  }`}>
+                  <span className={`text-xs flex-grow transition-all ${task.completed
+                    ? 'text-zinc-500 line-through'
+                    : 'text-zinc-300 group-hover:text-white'
+                    }`}>
                     {task.title}
                   </span>
                   {task.completed && (
@@ -384,7 +386,7 @@ export default function DashboardPage() {
               <p className="text-zinc-400 text-xs mb-4 leading-relaxed">
                 No tasks yet.<br />Create your first task to get started!
               </p>
-              <Link 
+              <Link
                 href="/tasks"
                 className="skeuo-chip inline-flex items-center gap-2 hover:bg-green-500/20 transition-colors"
               >

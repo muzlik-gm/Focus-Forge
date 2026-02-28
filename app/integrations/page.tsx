@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Calendar, Webhook, Code, Zap, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Integrations',
+  description: 'Connect FocusForge with your favorite tools like Google Calendar, Slack, and more using our integrations and REST API.',
+};
 
 export default function IntegrationsPage() {
   const integrations = [
@@ -97,11 +103,10 @@ export default function IntegrationsPage() {
                     <div className={`skeuo-avatar w-14 h-14 bg-gradient-to-br ${integration.color} flex items-center justify-center`}>
                       <IconComponent className="w-7 h-7 text-white" />
                     </div>
-                    <span className={`skeuo-badge ${
-                      integration.status === 'Available' 
-                        ? 'bg-gradient-to-r from-green-600 to-emerald-500 text-white' 
+                    <span className={`skeuo-badge ${integration.status === 'Available'
+                        ? 'bg-gradient-to-r from-green-600 to-emerald-500 text-white'
                         : 'text-zinc-400'
-                    }`}>
+                      }`}>
                       {integration.status}
                     </span>
                   </div>
@@ -117,8 +122,8 @@ export default function IntegrationsPage() {
             <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">
               Our API gives you full access to build custom integrations tailored to your workflow.
             </p>
-            <Link 
-              href="/docs/api" 
+            <Link
+              href="/docs/api"
               className="skeuo-button inline-flex items-center gap-2 px-8 py-4 text-white font-medium text-lg"
             >
               <span>View API Documentation</span>

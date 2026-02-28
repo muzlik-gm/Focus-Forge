@@ -26,9 +26,9 @@ interface WorkspaceSelectorProps {
   workspaces?: Workspace[];
 }
 
-export function WorkspaceSelector({ 
-  currentWorkspaceId, 
-  workspaces = [] 
+export function WorkspaceSelector({
+  currentWorkspaceId,
+  workspaces = []
 }: WorkspaceSelectorProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -64,16 +64,15 @@ export function WorkspaceSelector({
   // If user doesn't have TEAM plan, show upgrade prompt
   if (!hasTeamPlan) {
     return (
-      <Button
-        variant="ghost"
+      <button
         onClick={() => router.push('/pricing')}
-        className="flex items-center gap-2 h-9 px-2"
+        className="flex items-center gap-2 h-9 px-3 rounded-lg hover:bg-white/5 border-2 border-transparent hover:border-black transition-all"
       >
-        <Building2 className="w-4 h-4" />
-        <span className="font-medium text-sm text-zinc-400">
+        <Building2 className="w-4 h-4 text-zinc-400" />
+        <span className="font-bold text-xs uppercase tracking-tight text-zinc-400">
           Personal
         </span>
-      </Button>
+      </button>
     );
   }
 
@@ -102,7 +101,7 @@ export function WorkspaceSelector({
               className="fixed inset-0 z-[60]"
               onClick={() => setIsOpen(false)}
             />
-            
+
             <div className="absolute left-0 mt-1 w-56 bg-[#0A0A0A] border border-white/10 rounded-lg shadow-lg overflow-hidden z-[70]">
               <div className="px-3 py-2 border-b border-white/10">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -140,21 +139,19 @@ export function WorkspaceSelector({
 
   return (
     <div className="relative">
-      {/* Current workspace button */}
-      <Button
-        variant="ghost"
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 h-9 px-2"
+        className="flex items-center gap-2 h-9 px-3 rounded-lg hover:bg-white/5 border-2 border-transparent hover:border-black transition-all"
       >
-        <Building2 className="w-4 h-4" />
-        <span className="font-medium truncate max-w-[120px]">
+        <Building2 className="w-4 h-4 text-zinc-400" />
+        <span className="font-bold text-xs uppercase tracking-tight text-white truncate max-w-[120px]">
           {selectedWorkspace?.name || 'Select Workspace'}
         </span>
         <ChevronDown className={cn(
-          'w-4 h-4 transition-transform',
+          'w-3 h-3 text-zinc-500 transition-transform',
           isOpen && 'rotate-180'
         )} />
-      </Button>
+      </button>
 
       {/* Dropdown */}
       {isOpen && (
@@ -164,7 +161,7 @@ export function WorkspaceSelector({
             className="fixed inset-0 z-[60]"
             onClick={() => setIsOpen(false)}
           />
-          
+
           {/* Dropdown menu */}
           <div className="absolute left-0 mt-1 w-56 bg-[#0A0A0A] border border-white/10 rounded-lg shadow-lg overflow-hidden z-[70]">
             <div className="px-3 py-2 border-b border-white/10">

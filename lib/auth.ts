@@ -78,20 +78,22 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid email or password');
         }
 
-        // Check if this is a Firebase OAuth user (no password hash)
-        if (user.firebaseUid && !user.passwordHash) {
-          // SECURITY FIX: For Firebase users, we MUST verify the Firebase ID token
-          // This prevents the authentication bypass vulnerability where someone
-          // could log in as a Firebase user by just providing their email.
-
-          if (!credentials?.idToken) {
-            throw new Error('Authentication token required for this account');
-          }
-
+        // FIREBASE / GOOGLE SIGN-IN PATH
+        // If the client provides an idToken, always use Firebase verification
+        // regardless of the user's DB state (passwordHash may or may not exist)
+        if (credentials?.idToken) {
           const decodedToken = await verifyFirebaseToken(credentials.idToken);
 
           if (!decodedToken || decodedToken.email !== user.email) {
             throw new Error('Invalid authentication token');
+          }
+
+          // Update firebaseUid if not already set
+          if (!user.firebaseUid) {
+            await prisma.user.update({
+              where: { id: user.id },
+              data: { firebaseUid: decodedToken.uid },
+            });
           }
 
           return {
@@ -103,7 +105,7 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        // For regular users, verify password
+        // REGULAR EMAIL/PASSWORD SIGN-IN PATH
         if (!user.passwordHash || !credentials?.password) {
           throw new Error('Invalid email or password');
         }

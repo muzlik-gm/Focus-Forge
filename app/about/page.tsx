@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Target, Users, Heart, Rocket } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about the FocusForge team and our mission to help you achieve deep work.',
+};
 
 export default function AboutPage() {
   return (
@@ -133,8 +139,8 @@ export default function AboutPage() {
             <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">
               We're always looking for talented people who share our passion for productivity and focus. Check out our open positions and become part of the team.
             </p>
-            <Link 
-              href="/careers" 
+            <Link
+              href="/careers"
               className="skeuo-button inline-flex items-center gap-2 px-8 py-4 text-white font-medium text-lg"
             >
               <span>View Open Positions</span>

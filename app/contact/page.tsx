@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Mail, MessageSquare, HelpCircle, Send } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description: 'Get in touch with the FocusForge team. We\'re here to help.',
+};
 
 export default function ContactPage() {
   return (

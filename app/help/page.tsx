@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { Search, HelpCircle, Book, MessageSquare, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+
+export const metadata: Metadata = {
+  title: 'Help Center',
+  description: 'Find answers, view FAQs, and get support for FocusForge.',
+};
 
 export default function HelpCenterPage() {
   const faqs = [
@@ -48,7 +54,7 @@ export default function HelpCenterPage() {
             </div>
             <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">Help Center</h1>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">Find answers to common questions and get help with FocusForge.</p>
-            
+
             <div className="max-w-2xl mx-auto skeuo-input relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
               <input type="search" placeholder="Search for help..." className="w-full pl-12 pr-4 py-4 bg-transparent text-sm focus:outline-none" />

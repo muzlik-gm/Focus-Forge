@@ -559,10 +559,10 @@ export function LandingContent() {
 
               {/* Pro Plan - Featured */}
               <div className="notch-card p-10 flex flex-col h-full relative -mt-4">
-                <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 z-10">
-                  <div className="px-5 py-2.5 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 text-white text-sm font-bold rounded-full shadow-[0_8px_24px_rgba(59,130,246,0.4)] flex items-center gap-2 whitespace-nowrap border border-blue-400/30">
-                    <Star className="w-4 h-4 fill-white" />
-                    <span>Most Popular</span>
+                <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 z-20">
+                  <div className="skeuo-badge px-6 py-2.5 flex items-center gap-2 whitespace-nowrap">
+                    <Star className="w-4 h-4 fill-current" />
+                    <span className="font-black uppercase tracking-wider">Most Popular</span>
                   </div>
                 </div>
                 <div className="mb-8">

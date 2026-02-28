@@ -82,10 +82,19 @@ export default function RegisterPage() {
         };
       }
 
-      // Sign in with NextAuth using just the email (no password needed for OAuth users)
+      // Sign in with NextAuth using the email and Firebase ID token
+      // Get idToken - for desktop flow we need to get it differently
+      let authIdToken: string | undefined;
+      if (!(window as any).__TAURI__) {
+        // For web Firebase flow, re-get the token from the current Firebase user
+        const { getAuth } = await import('firebase/auth');
+        const auth = getAuth();
+        authIdToken = await auth.currentUser?.getIdToken() || undefined;
+      }
+
       const loginResult = await signIn('credentials', {
         email: userData.email,
-        password: 'firebase-oauth-user', // Placeholder - not used for OAuth users
+        idToken: authIdToken, // Required for Firebase token verification
         redirect: false,
       });
 
