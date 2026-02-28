@@ -23,13 +23,9 @@ export default function DesktopLoginPage() {
     setIsDesktop(isDesktopApp());
     
     const savedEmail = localStorage.getItem('focusforge_desktop_remembered_email');
-    const savedPassword = localStorage.getItem('focusforge_desktop_remembered_password');
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
-    }
-    if (savedPassword) {
-      setPassword(atob(savedPassword)); // Decode from base64
     }
   }, []);
 
@@ -115,10 +111,8 @@ export default function DesktopLoginPage() {
 
       if (rememberMe) {
         localStorage.setItem('focusforge_desktop_remembered_email', email);
-        localStorage.setItem('focusforge_desktop_remembered_password', btoa(password));
       } else {
         localStorage.removeItem('focusforge_desktop_remembered_email');
-        localStorage.removeItem('focusforge_desktop_remembered_password');
       }
 
       // Force refresh session for desktop app

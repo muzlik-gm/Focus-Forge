@@ -1,25 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getAuth } from 'firebase-admin/auth';
-import { initializeApp, getApps, cert } from 'firebase-admin/app';
-
-// Initialize Firebase Admin (server-side)
-if (!getApps().length) {
-  try {
-    initializeApp({
-      credential: cert({
-        projectId: process.env.FIREBASE_PROJECT_ID || 'elysium-legacy',
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      }),
-    });
-  } catch (error) {
-    console.error('Firebase Admin initialization error:', error);
-  }
-}
+import { verifyFirebaseToken } from '@/lib/firebase-admin';
+import {
+  checkRateLimit,
+  getClientIdentifier,
+  RATE_LIMIT_CONFIGS,
+} from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const clientId = getClientIdentifier(request);
+    const rateLimitResult = checkRateLimit(clientId, RATE_LIMIT_CONFIGS.login);
+
+    if (rateLimitResult.isLimited) {
+      const retryAfter = Math.ceil(
+        (rateLimitResult.resetTime - Date.now()) / 1000
+      );
+
+      return NextResponse.json(
+        {
+          error: {
+            code: 'RATE_LIMIT_EXCEEDED',
+            message: 'Too many login attempts. Please try again later.',
+            retryAfter,
+          },
+        },
+        { status: 429 }
+      );
+    }
+
     const { idToken, name, email, photoURL } = await request.json();
 
     if (!idToken || !email) {
@@ -29,15 +39,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify Firebase ID token
-    let decodedToken;
-    try {
-      const auth = getAuth();
-      decodedToken = await auth.verifyIdToken(idToken);
-    } catch (error) {
-      console.error('Firebase token verification failed:', error);
+    // Verify Firebase ID token using utility
+    const decodedToken = await verifyFirebaseToken(idToken);
+
+    if (!decodedToken) {
       return NextResponse.json(
-        { error: { message: 'Invalid authentication token' } },
+        { error: { code: 'UNAUTHORIZED', message: 'Invalid authentication token' } },
         { status: 401 }
       );
     }
@@ -87,10 +94,10 @@ export async function POST(request: NextRequest) {
         emailVerified: user.emailVerified,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('[Firebase Login] Error:', error);
     return NextResponse.json(
-      { error: { message: error.message || 'Internal server error' } },
+      { error: { code: 'INTERNAL_ERROR', message: 'An unexpected error occurred' } },
       { status: 500 }
     );
   }

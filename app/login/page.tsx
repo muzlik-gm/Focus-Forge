@@ -21,13 +21,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('focusforge_remembered_email');
-    const savedPassword = localStorage.getItem('focusforge_remembered_password');
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
-    }
-    if (savedPassword) {
-      setPassword(atob(savedPassword)); // Decode from base64
     }
   }, []);
 
@@ -134,11 +130,8 @@ export default function LoginPage() {
 
       if (rememberMe) {
         localStorage.setItem('focusforge_remembered_email', email);
-        // Store password encoded in base64 (basic obfuscation, not encryption)
-        localStorage.setItem('focusforge_remembered_password', btoa(password));
       } else {
         localStorage.removeItem('focusforge_remembered_email');
-        localStorage.removeItem('focusforge_remembered_password');
       }
 
       // Force refresh session for desktop app

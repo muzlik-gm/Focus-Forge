@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from './prisma';
 import bcrypt from 'bcryptjs';
+import { verifyFirebaseToken } from './firebase-admin';
 import {
   checkRateLimit,
   RATE_LIMIT_CONFIGS,
@@ -37,10 +38,11 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
+        idToken: { label: 'ID Token', type: 'text' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Email and password are required');
+        if (!credentials?.email) {
+          throw new Error('Email is required');
         }
 
         // Rate limiting for login attempts
@@ -72,8 +74,20 @@ export const authOptions: NextAuthOptions = {
 
         // Check if this is a Firebase OAuth user (no password hash)
         if (user.firebaseUid && !user.passwordHash) {
-          // For Firebase users, we don't verify password
-          // They should have already been authenticated via Firebase
+          // SECURITY FIX: For Firebase users, we MUST verify the Firebase ID token
+          // This prevents the authentication bypass vulnerability where someone
+          // could log in as a Firebase user by just providing their email.
+
+          if (!credentials?.idToken) {
+            throw new Error('Authentication token required for this account');
+          }
+
+          const decodedToken = await verifyFirebaseToken(credentials.idToken);
+
+          if (!decodedToken || decodedToken.email !== user.email) {
+            throw new Error('Invalid authentication token');
+          }
+
           return {
             id: user.id,
             email: user.email,
@@ -84,7 +98,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         // For regular users, verify password
-        if (!user.passwordHash) {
+        if (!user.passwordHash || !credentials?.password) {
           throw new Error('Invalid email or password');
         }
 
