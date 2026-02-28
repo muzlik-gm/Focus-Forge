@@ -1,7 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { generateInsights } from '@/lib/insights';
+import { verifyFeatureAccess } from '@/lib/feature-access';
 
 /**
  * GET /api/analytics/insights
@@ -14,8 +15,12 @@ import { generateInsights } from '@/lib/insights';
  * 
  * Requirements: 5.5, 28
  */
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
+    // Check feature access (PRO or TEAM required)
+    const accessError = await verifyFeatureAccess(request, 'PRO');
+    if (accessError) return accessError;
+
     // Authenticate user
     const session = await getServerSession(authOptions);
     

@@ -32,13 +32,6 @@ export async function GET() {
     // Calculate dashboard metrics
     const metrics = await calculateDashboardMetrics(session.user.id);
 
-    console.log('[Dashboard] Calculated metrics:', {
-      todayFocusMinutes: metrics.todayFocusMinutes,
-      todayTasksCompleted: metrics.todayTasksCompleted,
-      todayDistractions: metrics.todayDistractions,
-      activeStreakDays: metrics.activeStreakDays,
-    });
-
     // Get today's tasks
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);

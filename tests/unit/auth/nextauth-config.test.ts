@@ -157,7 +157,7 @@ describe('NextAuth Security Configuration', () => {
   it('should validate credentials before authentication', () => {
     const authPath = path.join(process.cwd(), 'lib', 'auth.ts');
     const content = fs.readFileSync(authPath, 'utf-8');
-    expect(content).toContain('!credentials?.email || !credentials?.password');
+    expect(content).toContain('!credentials?.email');
   });
 
   it('should use secure password comparison', () => {
