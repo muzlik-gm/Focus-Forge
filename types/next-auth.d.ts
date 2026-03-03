@@ -18,6 +18,11 @@ declare module 'next-auth' {
     name: string;
     subscriptionTier: string;
     workspaceId: string | null;
+    isPro: boolean;
+    isTeam: boolean;
+    maxDurationMinutes: number;
+    dailySessionCount?: number;
+    dailySessionLimit?: number;
   }
 
   /**
@@ -30,6 +35,11 @@ declare module 'next-auth' {
       name: string;
       subscriptionTier: string;
       workspaceId: string | null;
+      isPro: boolean;
+      isTeam: boolean;
+      maxDurationMinutes: number;
+      dailySessionCount?: number;
+      dailySessionLimit?: number;
     } & DefaultSession['user'];
   }
 }
@@ -44,5 +54,10 @@ declare module 'next-auth/jwt' {
     name: string;
     subscriptionTier: string;
     workspaceId: string | null;
+    isPro: boolean;
+    isTeam: boolean;
+    maxDurationMinutes: number;
+    dailySessionCount?: number;
+    dailySessionLimit?: number;
   }
 }

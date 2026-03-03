@@ -102,6 +102,9 @@ export const authOptions: NextAuthOptions = {
             name: user.name,
             subscriptionTier: user.subscriptionTier,
             workspaceId: user.workspaceId,
+            isPro: user.subscriptionTier === 'PRO' || user.subscriptionTier === 'TEAM',
+            isTeam: user.subscriptionTier === 'TEAM',
+            maxDurationMinutes: user.subscriptionTier === 'FREE' ? 180 : 480,
           };
         }
 
@@ -126,6 +129,9 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           subscriptionTier: user.subscriptionTier,
           workspaceId: user.workspaceId,
+          isPro: user.subscriptionTier === 'PRO' || user.subscriptionTier === 'TEAM',
+          isTeam: user.subscriptionTier === 'TEAM',
+          maxDurationMinutes: user.subscriptionTier === 'FREE' ? 180 : 480,
         };
       },
     }),
@@ -180,6 +186,9 @@ export const authOptions: NextAuthOptions = {
         token.name = user.name;
         token.subscriptionTier = user.subscriptionTier;
         token.workspaceId = user.workspaceId;
+        token.isPro = user.isPro;
+        token.isTeam = user.isTeam;
+        token.maxDurationMinutes = user.maxDurationMinutes;
       }
 
       // Handle session updates (e.g., subscription tier changes)
@@ -196,6 +205,8 @@ export const authOptions: NextAuthOptions = {
         // Fetch fresh user data from database to get latest subscription tier
         // This ensures the session always has the most up-to-date information
         try {
+          // Fetch fresh user data from database to get latest subscription tier
+          // This ensures the session always has the most up-to-date information
           const user = await prisma.user.findUnique({
             where: { id: token.id as string },
             select: {
@@ -213,6 +224,34 @@ export const authOptions: NextAuthOptions = {
             session.user.name = user.name;
             session.user.subscriptionTier = user.subscriptionTier;
             session.user.workspaceId = user.workspaceId;
+            session.user.isPro = user.subscriptionTier === 'PRO' || user.subscriptionTier === 'TEAM';
+            session.user.isTeam = user.subscriptionTier === 'TEAM';
+
+            // Enforce duration and session limits based on subscription tier
+            const isFree = user.subscriptionTier === 'FREE';
+            const maxDurationMinutes = isFree ? 180 : 480; // 3 hours for free (Free plan), 8 hours for paid
+            session.user.maxDurationMinutes = maxDurationMinutes;
+
+            // Check daily session limit for free users (3 sessions / day)
+            if (isFree) {
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              const tomorrow = new Date(today);
+              tomorrow.setDate(today.getDate() + 1);
+
+              const sessionCount = await prisma.focusSession.count({
+                where: {
+                  userId: session.user.id,
+                  startTime: {
+                    gte: today,
+                    lt: tomorrow,
+                  },
+                },
+              });
+
+              session.user.dailySessionCount = sessionCount;
+              session.user.dailySessionLimit = 3;
+            }
           } else {
             // Fallback to token data if user not found
             session.user.id = token.id as string;
@@ -220,6 +259,9 @@ export const authOptions: NextAuthOptions = {
             session.user.name = token.name as string;
             session.user.subscriptionTier = token.subscriptionTier as string;
             session.user.workspaceId = token.workspaceId as string | null;
+            session.user.isPro = token.subscriptionTier === 'PRO' || token.subscriptionTier === 'TEAM';
+            session.user.isTeam = token.subscriptionTier === 'TEAM';
+            session.user.maxDurationMinutes = (token.subscriptionTier === 'FREE') ? 180 : 480;
           }
         } catch (error) {
           console.error('Error fetching user in session callback:', error);
@@ -229,6 +271,9 @@ export const authOptions: NextAuthOptions = {
           session.user.name = token.name as string;
           session.user.subscriptionTier = token.subscriptionTier as string;
           session.user.workspaceId = token.workspaceId as string | null;
+          session.user.isPro = token.subscriptionTier === 'PRO' || token.subscriptionTier === 'TEAM';
+          session.user.isTeam = token.subscriptionTier === 'TEAM';
+          session.user.maxDurationMinutes = (token.subscriptionTier === 'FREE') ? 180 : 480;
         }
       }
 
