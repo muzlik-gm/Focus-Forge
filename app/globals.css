@@ -379,9 +379,9 @@
 
 .neo-landing .glass-nav,
 .neo-landing .marketing-nav-fixed {
-  background-color: #fff !important;
-  border-bottom: 4px solid var(--border-neo) !important;
-  box-shadow: 0 8px 0px var(--border-neo) !important;
+  background-color: var(--bg-neo) !important;
+  border-bottom: 2px solid var(--border-neo) !important;
+  box-shadow: 0 4px 0px var(--border-neo) !important;
   border-radius: 0 !important;
 }
 

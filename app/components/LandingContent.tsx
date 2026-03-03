@@ -203,13 +203,11 @@ export function LandingContent() {
         </section>
 
         {/* How It Works */}
-        <section id="how-it-works" className="py-20 px-6 relative bg-white border-y-4 border-black overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/2 h-full opacity-5 pointer-events-none">
-          </div>
+        <section id="how-it-works" className="py-24 px-6 relative overflow-hidden">
           <div className="max-w-5xl mx-auto">
             <div className="text-left mb-16 border-l-4 border-black pl-6">
-              <h2 className="text-4xl lg:text-5xl font-black mb-2 uppercase tracking-tighter leading-tight">The Forgrin<br />Method.</h2>
-              <p className="text-black text-lg font-black uppercase">Simple. Effective. Professional.</p>
+              <h2 className="text-4xl lg:text-5xl font-black mb-2 uppercase tracking-tighter leading-tight text-black">The Forgrin<br />Method.</h2>
+              <p className="text-black text-lg font-black uppercase opacity-80">Simple. Effective. Professional.</p>
             </div>
 
             <div className="space-y-48">
@@ -333,7 +331,7 @@ export function LandingContent() {
         </section>
 
         {/* Analytics Preview */}
-        <section className="py-24 px-6 bg-white border-y-8 border-black">
+        <section className="py-24 px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Focus Analytics.</h2>
@@ -420,11 +418,11 @@ export function LandingContent() {
         </section>
 
         {/* Integrations */}
-        <section className="py-20 px-6 bg-zinc-100 border-y-4 border-black relative z-10">
+        <section className="py-24 px-6 relative z-10">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-black mb-3 uppercase tracking-tighter leading-none">Seamless Integrations.</h2>
-              <p className="text-black font-bold text-sm uppercase">Connect with your favorite apps.</p>
+              <h2 className="text-3xl font-black mb-3 uppercase tracking-tighter leading-none text-black">Seamless Integrations.</h2>
+              <p className="text-black font-bold text-sm uppercase opacity-70">Connect with your favorite apps.</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['Slack', 'GitHub', 'Jira', 'Notion', 'Trello', 'Asana', 'Linear', 'Discord'].map((tool, i) => (
@@ -468,7 +466,7 @@ export function LandingContent() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="py-24 px-6 relative pricing-section border-t-4 border-black">
+        <section id="pricing" className="py-24 px-6 relative pricing-section bg-inherit">
           <div className="max-w-5xl mx-auto relative z-10">
             <div className="text-center mb-16">
               <div className="skeuo-badge bg-black text-white mb-3 inline-flex border-2 border-black">
