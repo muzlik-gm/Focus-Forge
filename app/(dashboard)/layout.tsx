@@ -62,7 +62,7 @@ export default function DashboardLayout({
   console.log('[DashboardLayout] Rendering dashboard for user:', user?.email);
 
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white">
+    <div className="min-h-screen bg-[#09090b] text-white">
       <Navbar />
       <Sidebar />
       <main className="lg:ml-60 mt-16 mb-16 lg:mb-0 transition-all duration-300">

@@ -196,7 +196,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white flex items-center justify-center px-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[#09090b] text-white flex items-center justify-center px-4 relative overflow-hidden py-10">
       {/* Background Orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-20 right-[10%] w-[400px] h-[400px] gradient-orb bg-blue-600" />
@@ -205,9 +205,9 @@ export default function RegisterPage() {
 
       <div className="w-full max-w-[440px] relative z-10">
         {/* Logo */}
-        <div className="flex items-center gap-3 mb-12">
-          <img src="/logo.png" alt="Forgrin" className="w-8 h-8" />
-          <span className="text-base font-semibold tracking-tight embossed-text">
+        <div className="flex items-center gap-3 mb-8">
+          <img src="/logo.png" alt="Forgrin" className="w-6 h-6" />
+          <span className="text-sm font-bold tracking-tight">
             Forgrin {isDesktop && '(Desktop)'}
           </span>
         </div>
@@ -231,11 +231,11 @@ export default function RegisterPage() {
             </div>
           ) : (
             <>
-              <div className="mb-8">
-                <h1 className="text-3xl font-semibold mb-2 tracking-tight embossed-text">Create account</h1>
-                <p className="text-sm text-zinc-400">
+              <div className="mb-6">
+                <h1 className="text-2xl font-bold mb-1 tracking-tight">Create account</h1>
+                <p className="text-xs text-zinc-400">
                   Already have an account?{' '}
-                  <Link href="/login" className="text-blue-500">
+                  <Link href="/login" className="text-indigo-400 hover:text-indigo-300">
                     Sign in
                   </Link>
                 </p>

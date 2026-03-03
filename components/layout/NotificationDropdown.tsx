@@ -171,9 +171,9 @@ export function NotificationDropdown() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-[#0A0A0A] border border-white/10 rounded-lg shadow-lg overflow-hidden z-[70]">
+        <div className="absolute right-0 mt-2 w-80 bg-[#18181b] border-2 border-black rounded-xl shadow-[8px_8px_0px_#000] mt-3 overflow-hidden z-[70]">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-black/20">
             <h3 className="font-semibold">Notifications</h3>
             <div className="flex items-center gap-2">
               {unreadCount > 0 && (
@@ -189,7 +189,7 @@ export function NotificationDropdown() {
 
           {/* Browser notification permission request */}
           {permission === 'default' && (
-            <div className="px-4 py-3 bg-white/5 border-b border-white/10">
+            <div className="px-4 py-3 bg-white/5 border-b border-black/20">
               <p className="text-sm text-muted-foreground mb-2">
                 Enable browser notifications to stay updated
               </p>
@@ -215,7 +215,7 @@ export function NotificationDropdown() {
                 <div
                   key={notification.id}
                   className={cn(
-                    'flex items-start gap-3 px-4 py-3 border-b border-white/10 last:border-b-0 hover:bg-white/5 transition-colors',
+                    'flex items-start gap-3 px-4 py-3 border-b border-black/20 last:border-b-0 hover:bg-white/5 transition-colors',
                     !notification.read && 'bg-primary/5'
                   )}
                 >
@@ -265,7 +265,7 @@ export function NotificationDropdown() {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2 border-t border-white/10 bg-white/5">
+          <div className="px-4 py-2 border-t border-black/20 bg-white/5">
             <a
               href="/settings?tab=notifications"
               className="text-sm text-primary hover:underline"

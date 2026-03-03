@@ -7,34 +7,39 @@
 @layer base {
   :root {
     /* Premium Neo Brutalism Palette */
+    /* Refined Premium Palette */
     --bg-neo: hsl(48, 96%, 62%);
-    /* Curated gold-yellow */
     --border-neo: #000000;
     --surface-neo: #ffffff;
     --text-neo: #000000;
 
-    /* Tactile Accent Colors */
-    --accent-blue: hsl(217, 91%, 60%);
-    --accent-pink: hsl(312, 100%, 78%);
-    --accent-cyan: hsl(187, 85%, 75%);
-    --accent-green: hsl(142, 71%, 45%);
-    --accent-orange: hsl(24, 95%, 53%);
-
-    /* Semantic Dashboard Colors */
-    --text-primary: #ffffff;
+    /* Semantic Dashboard Colors - Professional Dark Theme */
+    --text-primary: #f4f4f5;
     --text-secondary: #a1a1aa;
-    --surface: #0c0c0d;
-    --surface-elevated: #1a1a1d;
+    --text-tertiary: #71717a;
+    --surface: #09090b;
+    --surface-elevated: #18181b;
+    --surface-card: #121215;
     --border: #27272a;
+    --border-strong: #000000;
+
+    /* Refined Accents */
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --accent-indigo: #6366f1;
+    --accent-emerald: #10b981;
+    --accent-rose: #f43f5e;
+    --accent-amber: #f59e0b;
   }
 
   html,
   body {
-    color: #ffffff;
-    background-color: #0c0c0d;
+    color: var(--text-primary);
+    background-color: var(--surface);
     font-family: 'Outfit', sans-serif !important;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   /* Force strong headings only on landing */
@@ -96,64 +101,73 @@
  * Solid dark background, no transparency.
  */
 .skeuo-card,
-.notch-card,
 .skeuo-panel,
 [class*="skeuo-card"] {
-  background-color: #1a1a1d;
-  border: 2px solid #000000;
-  box-shadow: 6px 6px 0px #000000, inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background-color: var(--surface-card);
+  border: 2px solid var(--border-strong);
+  box-shadow: 4px 4px 0px var(--border-strong);
   border-radius: 12px;
-  transition: all 0.2s ease-out;
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeuo-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
 }
 
 .skeuo-card:hover,
-.notch-card:hover,
-.skeuo-panel:hover,
-.skeuo-card-hover:hover {
-  background-color: #1e1e22;
+.skeuo-panel:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0px var(--border-strong);
+  background-color: #16161a;
 }
 
 .skeuo-button {
-  background: linear-gradient(180deg, var(--accent-blue) 0%, hsl(217, 91%, 50%) 100%) !important;
-  border: 4px solid #000000 !important;
-  box-shadow: 4px 4px 0px #000000, inset 0 2px 0 rgba(255, 255, 255, 0.3) !important;
+  background: var(--accent-indigo) !important;
+  border: 2px solid var(--border-strong) !important;
+  box-shadow: 3px 3px 0px var(--border-strong) !important;
   color: #ffffff !important;
-  border-radius: 12px !important;
-  font-weight: 800 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-  padding: 14px 28px;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1) !important;
+  padding: 10px 20px;
+  font-size: 0.875rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .skeuo-button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0px #000000, inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  background: linear-gradient(180deg, hsl(217, 91%, 65%) 0%, var(--accent-blue) 100%);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px var(--border-strong) !important;
+  filter: brightness(1.1);
 }
 
 .skeuo-button:active {
-  transform: translate(4px, 4px);
-  box-shadow: 0px 0px 0px #000000;
+  transform: translate(2px, 2px) !important;
+  box-shadow: 0px 0px 0px var(--border-strong) !important;
 }
 
 .skeuo-input {
-  background-color: #121214 !important;
-  border: 2px solid #000000 !important;
-  box-shadow: inset 4px 4px 0px rgba(0, 0, 0, 0.4) !important;
-  color: #ffffff !important;
-  border-radius: 8px !important;
+  background-color: #0c0c0e !important;
+  border: 2px solid var(--border-strong) !important;
+  box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.5) !important;
+  color: var(--text-primary) !important;
+  border-radius: 10px !important;
   font-weight: 500 !important;
   transition: all 0.1s ease !important;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
 }
 
 .text-zinc-400,
@@ -172,19 +186,16 @@
   outline: none !important;
 }
 
-.glass-nav,
-.marketing-nav-fixed {
-  background-color: #0f0f10 !important;
-  /* Solid color instead of glassmorphism */
-  border-bottom: 2px solid #000000 !important;
-  box-shadow: 0 4px 0px #000000 !important;
-  border-radius: 0 !important;
-  backdrop-filter: none !important;
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
+.sidebar-nav {
+  background-color: var(--surface) !important;
+  border-right: 2px solid var(--border-strong) !important;
+  box-shadow: 2px 0 0 var(--border-strong);
+}
+
+.navbar-main {
+  background-color: var(--surface) !important;
+  border-bottom: 2px solid var(--border-strong) !important;
+  box-shadow: 0 2px 0 var(--border-strong);
 }
 
 .skeuo-badge {

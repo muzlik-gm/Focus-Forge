@@ -68,7 +68,7 @@ export function Sidebar() {
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className={cn(
-          'hidden lg:flex flex-col fixed left-0 top-0 bottom-0 bg-[#1a1a1d] border-r-2 border-black z-30 pt-16 shadow-[2px_0_0_#000]'
+          'hidden lg:flex flex-col fixed left-0 top-0 bottom-0 z-30 pt-16 sidebar-nav'
         )}
       >
         <div className="flex flex-col h-full">
@@ -145,7 +145,7 @@ export function Sidebar() {
       {/* Mobile Bottom Navigation */}
       <motion.nav
         initial={false}
-        className="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--surface)]/95 backdrop-blur-xl border-t border-[var(--border)] z-40 safe-area-pb"
+        className="lg:hidden fixed bottom-0 left-0 right-0 bg-black/95 border-t-2 border-black z-40 safe-area-pb"
       >
         <div className="flex items-center justify-around h-16 px-2">
           {navigation.slice(0, 5).map((item) => {

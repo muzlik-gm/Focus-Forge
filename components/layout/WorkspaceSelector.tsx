@@ -100,8 +100,8 @@ export function WorkspaceSelector({
                 onClick={() => setIsOpen(false)}
               />
 
-              <div className="absolute left-0 mt-1 w-56 bg-[#0A0A0A] border border-white/10 rounded-lg shadow-lg overflow-hidden z-[70]">
-                <div className="px-3 py-2 border-b border-white/10">
+              <div className="absolute left-0 mt-1 w-56 bg-[#18181b] border-2 border-black rounded-xl shadow-[8px_8px_0px_#000] overflow-hidden z-[70]">
+                <div className="px-3 py-2 border-b border-black/20">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Workspaces
                   </p>
@@ -119,7 +119,7 @@ export function WorkspaceSelector({
                   </button>
                 </div>
 
-                <div className="border-t border-white/10 py-1">
+                <div className="border-t border-black/20 py-1">
                   <button
                     onClick={handleCreateWorkspace}
                     className="w-full flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
@@ -157,8 +157,8 @@ export function WorkspaceSelector({
               />
 
               {/* Dropdown menu */}
-              <div className="absolute left-0 mt-1 w-56 bg-[#0A0A0A] border border-white/10 rounded-lg shadow-lg overflow-hidden z-[70]">
-                <div className="px-3 py-2 border-b border-white/10">
+              <div className="absolute left-0 mt-1 w-56 bg-[#18181b] border-2 border-black rounded-xl shadow-[8px_8px_0px_#000] overflow-hidden z-[70]">
+                <div className="px-3 py-2 border-b border-black/20">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Workspaces
                   </p>
@@ -189,7 +189,7 @@ export function WorkspaceSelector({
                 </div>
 
                 {/* Create new workspace */}
-                <div className="border-t border-white/10 py-1">
+                <div className="border-t border-black/20 py-1">
                   <button
                     onClick={handleCreateWorkspace}
                     className="w-full flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"

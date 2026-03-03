@@ -175,9 +175,9 @@ export function CommandPalette() {
       />
 
       {/* Modal content */}
-      <div className="relative z-[110] w-full max-w-2xl mx-4 bg-[#0f0f10] border border-white/10 rounded-2xl shadow-2xl overflow-hidden skeuo-panel p-0">
+      <div className="relative z-[110] w-full max-w-2xl mx-4 bg-[#18181b] border-2 border-black rounded-xl shadow-[16px_16px_0px_#000] overflow-hidden skeuo-panel p-0">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-black/10">
           <h2 className="text-lg font-bold embossed-text tracking-tight text-white">Command Palette</h2>
           <button
             onClick={() => setIsOpen(false)}
@@ -190,7 +190,7 @@ export function CommandPalette() {
         </div>
 
         {/* Search input */}
-        <div className="flex items-center gap-3 px-6 py-4 border-b border-white/5 bg-black/20">
+        <div className="flex items-center gap-3 px-6 py-4 border-b border-black/10 bg-black/20">
           <Search className="w-5 h-5 text-blue-500 flex-shrink-0" />
           <input
             type="text"
@@ -243,7 +243,7 @@ export function CommandPalette() {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center gap-6 px-6 py-4 border-t border-white/5 bg-black/40 text-xs font-medium text-zinc-500">
+        <div className="flex items-center gap-6 px-6 py-4 border-t border-black/10 bg-black/40 text-xs font-medium text-zinc-500">
           <span className="flex items-center gap-2">
             <kbd className="px-2 py-1 bg-zinc-900 rounded-[6px] border border-zinc-800 text-zinc-400 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)]">↑↓</kbd>
             Navigate
