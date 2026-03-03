@@ -2,105 +2,93 @@
 
 import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
-import { Shield, Lock, Eye, Server, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Shield, Lock, Eye, Server, AlertTriangle, CheckCircle, Sparkles } from 'lucide-react';
 
 export default function SecurityPage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-      </div>
-
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      <div className="relative z-10">
-        <section className="max-w-4xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Shield className="w-4 h-4" />
-              <span>SECURITY</span>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-4xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Shield className="w-4 h-4 text-blue-600" />
+              <span>Fortified Architecture</span>
             </div>
-            <h1 className="text-5xl font-bold mb-6 embossed-text tracking-tight">Security at Forgrin</h1>
-            <p className="text-xl text-zinc-300">Your data security and privacy are our top priorities</p>
+            <h1 className="text-4xl lg:text-5xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Security<br />Hardening.
+            </h1>
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              Engineered to protect your most valuable cognitive asset: focus data.
+            </p>
           </div>
 
-          <div className="space-y-8">
-            <div className="skeuo-card p-8">
-              <div className="flex items-start gap-4">
-                <div className="icon-depth p-3">
-                  <Lock className="w-6 h-6 text-blue-400" />
+          <div className="space-y-6">
+            {[
+              {
+                icon: Lock,
+                title: 'AES-256 Encryption',
+                text: 'All telemetry is encrypted in transit via TLS 1.3 and at rest with AES-256. Your focus streams are inaccessible to unauthorized clusters.',
+                bg: 'bg-white'
+              },
+              {
+                icon: Server,
+                title: 'SOC 2 Infrastructure',
+                text: 'Hosted on hardened cloud nodes with 24/7 monitoring, automated backups, and 100% redundancy.',
+                points: ['Regular Pentesting', 'DDoS Mitigation', 'Rate Limiting', 'Intrusion Detection'],
+                bg: 'bg-blue-50'
+              },
+              {
+                icon: Eye,
+                title: 'Privacy Persistence',
+                text: 'Full telemetry sovereignty. You own your focus data. Export or burn your repository with one click.',
+                bg: 'bg-white'
+              },
+              {
+                icon: CheckCircle,
+                title: 'Global Compliance',
+                text: 'Operating at the intersection of GDPR, SOC 2 Type II, and CCPA standards.',
+                bg: 'bg-pink-50'
+              }
+            ].map((section, i) => (
+              <div key={i} className={`skeuo-panel p-10 border-2 border-black shadow-[6px_6px_0px_black] ${section.bg}`}>
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="skeuo-avatar w-12 h-12 bg-white border-2 border-black flex items-center justify-center shrink-0 shadow-[3px_3px_0px_black]">
+                    <section.icon className="w-6 h-6 text-black" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-black mb-2 uppercase tracking-tighter border-b-2 border-black pb-1">{section.title}</h2>
+                    <p className="text-sm font-bold text-black/70 leading-relaxed">{section.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-semibold mb-3 embossed-text">Encryption</h2>
-                  <p className="text-zinc-300">All data is encrypted in transit using TLS 1.3 and at rest using AES-256 encryption. Your sensitive information is protected with industry-standard security protocols.</p>
-                </div>
+                {section.points && (
+                  <div className="grid grid-cols-2 gap-3 mt-4 ml-16">
+                    {section.points.map((p, j) => (
+                      <div key={j} className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-black rotate-45" />
+                        <span className="text-[10px] font-black uppercase tracking-tight text-black/60">{p}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
+            ))}
 
-            <div className="skeuo-card p-8">
-              <div className="flex items-start gap-4">
-                <div className="icon-depth p-3">
-                  <Server className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-semibold mb-3 embossed-text">Infrastructure Security</h2>
-                  <p className="text-zinc-300 mb-4">Our infrastructure is hosted on secure, SOC 2 compliant cloud providers with:</p>
-                  <ul className="list-disc list-inside space-y-2 text-zinc-300 ml-4">
-                    <li>Regular security audits and penetration testing</li>
-                    <li>Automated backup and disaster recovery</li>
-                    <li>24/7 monitoring and intrusion detection</li>
-                    <li>DDoS protection and rate limiting</li>
-                  </ul>
-                </div>
+            <div className="skeuo-panel p-10 border-4 border-black shadow-[10px_10px_0px_black] bg-zinc-50">
+              <div className="flex items-center gap-4 mb-4">
+                <AlertTriangle className="w-8 h-8 text-black" />
+                <h2 className="text-3xl font-black mb-0 uppercase tracking-tighter">Vulnerability Logic</h2>
               </div>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <div className="flex items-start gap-4">
-                <div className="icon-depth p-3">
-                  <Eye className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-semibold mb-3 embossed-text">Privacy Controls</h2>
-                  <p className="text-zinc-300">You have full control over your data. Export, delete, or modify your information at any time. We never sell your data to third parties.</p>
-                </div>
+              <p className="text-sm font-black tracking-tight mb-6">Discovered a protocol leak? Report it directly to our security cluster:</p>
+              <div className="text-blue-600 font-black uppercase tracking-widest text-xl hover:underline cursor-pointer">
+                security@forgrin.app
               </div>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <div className="flex items-start gap-4">
-                <div className="icon-depth p-3">
-                  <CheckCircle className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-semibold mb-3 embossed-text">Compliance</h2>
-                  <p className="text-zinc-300 mb-4">Forgrin is compliant with:</p>
-                  <ul className="list-disc list-inside space-y-2 text-zinc-300 ml-4">
-                    <li>GDPR (General Data Protection Regulation)</li>
-                    <li>CCPA (California Consumer Privacy Act)</li>
-                    <li>SOC 2 Type II</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <div className="flex items-start gap-4">
-                <div className="icon-depth p-3">
-                  <AlertTriangle className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-semibold mb-3 embossed-text">Report a Vulnerability</h2>
-                  <p className="text-zinc-300 mb-4">We take security seriously. If you discover a security vulnerability, please report it to:</p>
-                  <a href="mailto:security@forgrin.com" className="text-blue-400 hover:text-blue-300 transition">security@forgrin.com</a>
-                  <p className="text-zinc-400 text-sm mt-4">We appreciate responsible disclosure and will respond within 48 hours.</p>
-                </div>
-              </div>
+              <p className="text-[10px] font-bold text-black/40 mt-4">48-hour SLA for critical disclosures.</p>
             </div>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

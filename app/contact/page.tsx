@@ -1,148 +1,91 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { Mail, MessageSquare, HelpCircle, Send } from 'lucide-react';
-import { Footer } from '@/components/layout/Footer';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with the Forgrin team. We\'re here to help.',
-};
+import Link from 'next/link';
+import { Mail, MessageSquare, HelpCircle, Send, Sparkles, Rocket } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
+import { Footer } from '@/components/layout/Footer';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      {/* Navigation */}
-      <nav className="marketing-nav-fixed">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/features" className="skeuo-chip">
-                <span className="text-sm">Features</span>
-              </Link>
-              <Link href="/pricing" className="skeuo-chip">
-                <span className="text-sm">Pricing</span>
-              </Link>
-              <Link href="/login" className="skeuo-chip">
-                <span className="text-sm">Sign in</span>
-              </Link>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Mail className="w-4 h-4 text-blue-600" />
+              <span>Contact Node</span>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="relative z-10">
-        <section className="max-w-5xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              <span>CONTACT</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">
-              Get in Touch
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Establish<br />Comms.
             </h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Have a question or need help? We're here for you.
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto uppercase">
+              Direct telemetry patch to our high-fidelity support engineering team.
             </p>
           </div>
 
-          {/* Contact Methods */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="skeuo-panel p-8 text-center skeuo-card-hover">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                <Mail className="w-7 h-7 text-white" />
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {[
+              { icon: Mail, title: 'Email Node', text: 'support@forgrin.app', bg: 'bg-blue-50' },
+              { icon: MessageSquare, title: 'Live Stream', text: 'Instant patch-through.', bg: 'bg-pink-50' },
+              { icon: HelpCircle, title: 'Archive Node', text: 'Self-serve troubleshooting.', bg: 'bg-green-50' }
+            ].map((method, i) => (
+              <div key={i} className={`skeuo-panel p-8 text-center border-2 border-black shadow-[6px_6px_0px_black] ${method.bg} group`}>
+                <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                  <method.icon className="w-7 h-7" />
+                </div>
+                <h3 className="text-xl font-black mb-2 uppercase tracking-tighter">{method.title}</h3>
+                <p className="text-[10px] font-black uppercase text-blue-600 underline tracking-tight">{method.text}</p>
               </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Email</h3>
-              <a href="mailto:support@forgrin.com" className="text-blue-400 hover:text-blue-300 transition">
-                support@forgrin.com
-              </a>
-            </div>
-
-            <div className="skeuo-panel p-8 text-center skeuo-card-hover">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                <MessageSquare className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Live Chat</h3>
-              <button className="text-purple-400 hover:text-purple-300 transition">
-                Start Chat
-              </button>
-            </div>
-
-            <div className="skeuo-panel p-8 text-center skeuo-card-hover">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center">
-                <HelpCircle className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Help Center</h3>
-              <Link href="/help" className="text-green-400 hover:text-green-300 transition">
-                Browse Docs
-              </Link>
-            </div>
+            ))}
           </div>
 
-          {/* Contact Form */}
-          <div className="skeuo-panel p-10">
-            <h2 className="text-3xl font-bold mb-8 embossed-text">Send us a message</h2>
+          <div className="skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black]">
+            <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4 text-center">Transmission Form</h2>
             <form className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-3 text-zinc-300">Name</label>
+                  <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Identifier</label>
                   <input
                     type="text"
-                    id="name"
-                    className="skeuo-input w-full px-4 py-3 text-sm"
-                    placeholder="Your name"
+                    placeholder="YOUR FULL NAME..."
+                    className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase focus:outline-none focus:bg-white"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-3 text-zinc-300">Email</label>
+                  <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Return Protocol</label>
                   <input
                     type="email"
-                    id="email"
-                    className="skeuo-input w-full px-4 py-3 text-sm"
-                    placeholder="you@example.com"
+                    placeholder="EMAIL@DOMAIN.COM..."
+                    className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase focus:outline-none focus:bg-white"
                   />
                 </div>
               </div>
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-3 text-zinc-300">Subject</label>
+                <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Payload Subject</label>
                 <input
                   type="text"
-                  id="subject"
-                  className="skeuo-input w-full px-4 py-3 text-sm"
-                  placeholder="How can we help?"
+                  placeholder="SUBJECT OF INQUIRY..."
+                  className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase focus:outline-none focus:bg-white"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-3 text-zinc-300">Message</label>
+                <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Data Packet Content</label>
                 <textarea
-                  id="message"
                   rows={6}
-                  className="skeuo-input w-full px-4 py-3 text-sm resize-none"
-                  placeholder="Tell us more..."
+                  placeholder="ELABORATE ON YOUR BLOCKER OR INQUIRY..."
+                  className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase resize-none focus:outline-none focus:bg-white"
                 />
               </div>
-              <button type="submit" className="skeuo-button w-full px-6 py-4 text-white font-medium flex items-center justify-center gap-2">
-                <span>Send Message</span>
-                <Send className="w-5 h-5" />
+              <button type="submit" className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center justify-center gap-3 w-full group">
+                <span>Initiate Transmission</span>
+                <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </form>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

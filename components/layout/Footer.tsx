@@ -56,7 +56,6 @@ export function Footer() {
             <h3 className="font-black text-xs uppercase tracking-[0.2em] mb-6 text-black/40">Follow Us</h3>
             <ul className="space-y-3 text-sm font-bold">
               <li><a href="https://twitter.com/forgrin" target="_blank" rel="noopener noreferrer" className="hover:underline transition-all">Twitter</a></li>
-              <li><a href="https://github.com/forgrin" target="_blank" rel="noopener noreferrer" className="hover:underline transition-all">GitHub</a></li>
               <li><a href="https://discord.gg/forgrin" target="_blank" rel="noopener noreferrer" className="hover:underline transition-all">Discord</a></li>
             </ul>
           </div>

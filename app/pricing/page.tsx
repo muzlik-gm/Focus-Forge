@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Check, ArrowRight, Loader2 } from 'lucide-react';
+import { Check, ArrowRight, Loader2, Sparkles, Target, Star, Rocket } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
 
 export default function PricingPage() {
@@ -10,7 +11,6 @@ export default function PricingPage() {
 
   const handleSubscribe = async (priceId: string | null) => {
     if (!priceId) {
-      // Free plan - redirect to register
       window.location.href = '/register';
       return;
     }
@@ -28,8 +28,6 @@ export default function PricingPage() {
         if (data.url) {
           window.location.href = data.url;
         }
-      } else {
-        console.error('Failed to create checkout session');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -39,138 +37,120 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      {/* Background Orbs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[60%] left-[10%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 glass-nav z-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-3">
-              <img src="/logo.png" alt="Forgrin" className="w-8 h-8" />
-              <span className="text-base font-semibold tracking-tight embossed-text">Forgrin</span>
-            </Link>
-            <div className="flex items-center gap-8">
-              <Link href="/" className="text-sm text-zinc-400 hover:text-white transition">
-                Home
-              </Link>
-              <Link href="/login" className="text-sm text-zinc-400 hover:text-white transition">
-                Sign in
-              </Link>
-              <Link href="/register" className="skeuo-button px-5 py-2.5 text-white text-sm font-medium">
-                Get started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="relative z-20">
+      <main className="flex-grow">
         {/* Hero */}
-        <section className="pt-40 pb-24 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-semibold mb-6 tracking-tight embossed-text">
-              Simple, transparent pricing
-            </h1>
-            <p className="text-lg text-zinc-400">
-              Start free, scale as you grow. No hidden fees.
+        <section className="pt-32 pb-16 px-6 relative z-10 text-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="skeuo-badge bg-white text-black mb-3 inline-flex border-2 border-black">
+              <Target className="w-4 h-4" />
+              <span className="font-black uppercase tracking-tighter text-[10px]">Simple Pricing</span>
+            </div>
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight text-black">Precision Plans.<br />Transparent fees.</h1>
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              Start free, scale as you grow. No hidden complexity.
             </p>
           </div>
         </section>
 
         {/* Pricing Cards */}
-        <section className="py-12 px-6 overflow-visible">
-          <div className="max-w-6xl mx-auto overflow-visible">
-            <div className="grid md:grid-cols-3 gap-8 pt-8 overflow-visible">
-              {/* Free */}
-              <div className="notch-card p-8">
-                <div className="text-xl font-semibold mb-2 embossed-text">Free</div>
-                <div className="mb-8">
-                  <span className="text-4xl font-bold embossed-text">$0</span>
-                  <span className="text-zinc-400 text-sm">/month</span>
+        <section className="py-12 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 items-stretch">
+              {/* Free Plan */}
+              <div className="skeuo-card p-6 flex flex-col h-full bg-white border-2 border-black shadow-[8px_8px_0px_black] text-black">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-black mb-1 uppercase text-black">Free</h3>
+                  <div className="flex items-baseline mb-3">
+                    <span className="text-4xl font-black">$0</span>
+                    <span className="text-black/50 ml-1 font-bold uppercase text-[10px]">/month</span>
+                  </div>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  {['Unlimited focus sessions', 'Basic task management', 'Weekly analytics', '1 workspace'].map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-zinc-400">
-                      <Check className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      {feature}
-                    </li>
+                <div className="space-y-3 mb-10 flex-grow">
+                  {['3 Focus Sessions / day', 'Basic Analytics', 'Manual logs', 'Community access'].map((feature, i) => (
+                    <div key={i} className="flex items-center gap-3 text-black">
+                      <Check className="w-4 h-4 text-black flex-shrink-0" />
+                      <span className="text-[10px] font-bold tracking-tight text-black/80">{feature}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
                 <button
                   onClick={() => handleSubscribe(null)}
-                  disabled={loading === 'free'}
-                  className="skeuo-input w-full px-4 py-2.5 text-center text-sm font-medium hover:bg-zinc-800/50 transition disabled:opacity-50"
+                  className="skeuo-button bg-[#ff91e0] text-black border-2 border-black w-full text-base font-black py-4 shadow-[4px_4px_0px_black]"
                 >
-                  {loading === 'free' ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Get started'}
+                  {loading === 'free' ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Get Started'}
                 </button>
               </div>
 
-              {/* Pro */}
-              <div className="pricing-featured p-8 md:scale-105 relative mt-8">
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900 text-xs font-bold rounded-full shadow-lg z-10 whitespace-nowrap">
-                  Most Popular
+              {/* Pro Plan - Featured */}
+              <div className="skeuo-card p-6 flex flex-col h-full bg-white border-4 border-black shadow-[10px_10px_0px_black] relative z-20 overflow-visible text-black md:scale-105">
+                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-full text-center">
+                  <div className="skeuo-badge bg-[#9eff9e] text-black px-4 py-1 border-2 border-black shadow-[3px_3px_0px_black] inline-flex items-center gap-1">
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    <span className="font-black uppercase tracking-tight text-[10px]">RECOMMENDED</span>
+                  </div>
                 </div>
-                <div className="text-xl font-semibold mb-2">Pro</div>
-                <div className="mb-8">
-                  <span className="text-4xl font-bold">$9</span>
-                  <span className="text-blue-100 text-sm">/month</span>
+                <div className="mb-6 pt-4">
+                  <h3 className="text-3xl font-black mb-1 uppercase text-black">Pro</h3>
+                  <div className="flex items-baseline mb-3">
+                    <span className="text-5xl font-black text-black">$12</span>
+                    <span className="text-black/50 ml-1 font-black uppercase text-[10px]">/month</span>
+                  </div>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  {['Everything in Free', 'Advanced analytics', 'AI-powered insights', 'Priority support', 'Export data', 'Unlimited workspaces'].map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-blue-50">
-                      <Check className="w-5 h-5 text-white flex-shrink-0" />
-                      {feature}
-                    </li>
+                <div className="space-y-3 mb-10 flex-grow">
+                  {['Unlimited sessions', 'Advanced Analytics', 'Predictions', 'Team Sharing', 'API Access'].map((feature, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <Check className="w-4 h-4 text-black flex-shrink-0" />
+                      <span className="text-[10px] font-black uppercase text-black/80">{feature}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
                 <button
                   onClick={() => handleSubscribe('price_pro_monthly')}
-                  disabled={loading === 'price_pro_monthly'}
-                  className="w-full px-4 py-2.5 bg-white hover:bg-blue-50 text-blue-600 text-center text-sm font-medium rounded-[20px] transition shadow-lg disabled:opacity-50"
+                  className="skeuo-button bg-[#ff91e0] text-black border-2 border-black w-full text-lg font-black py-4 shadow-[6px_6px_0px_black]"
                 >
-                  {loading === 'price_pro_monthly' ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Get started'}
+                  {loading === 'price_pro_monthly' ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : 'Upgrade to Pro'}
                 </button>
               </div>
 
-              {/* Team */}
-              <div className="notch-card p-8">
-                <div className="text-xl font-semibold mb-2 embossed-text">Team</div>
-                <div className="mb-8">
-                  <span className="text-4xl font-bold embossed-text">$19</span>
-                  <span className="text-zinc-400 text-sm">/month</span>
+              {/* Team Plan */}
+              <div className="skeuo-card p-6 flex flex-col h-full bg-white border-2 border-black shadow-[8px_8px_0px_black] text-black">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-black mb-1 uppercase text-black">Team</h3>
+                  <div className="flex items-baseline mb-3">
+                    <span className="text-4xl font-black">$29</span>
+                    <span className="text-black/50 ml-1 font-bold uppercase text-[10px]">/month</span>
+                  </div>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  {['Everything in Pro', 'Team collaboration', 'Leaderboards', 'Admin controls', 'SSO', 'Advanced permissions'].map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-zinc-400">
-                      <Check className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      {feature}
-                    </li>
+                <div className="space-y-3 mb-10 flex-grow">
+                  {['Up to 10 members', 'Admin Oversight', 'Team Heatmaps', 'Priority Support'].map((feature, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <Check className="w-4 h-4 text-black flex-shrink-0" />
+                      <span className="text-[10px] font-bold tracking-tight text-black/80">{feature}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
                 <button
                   onClick={() => handleSubscribe('price_team_monthly')}
-                  disabled={loading === 'price_team_monthly'}
-                  className="skeuo-input w-full px-4 py-2.5 text-center text-sm font-medium hover:bg-zinc-800/50 transition disabled:opacity-50"
+                  className="skeuo-button bg-[#ff91e0] text-black border-2 border-black w-full text-base font-black py-4 shadow-[4px_4px_0px_black]"
                 >
-                  {loading === 'price_team_monthly' ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Get started'}
+                  {loading === 'price_team_monthly' ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Start Team Plan'}
                 </button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="py-24 px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-semibold mb-12 tracking-tight text-center embossed-text">
-              Frequently asked questions
-            </h2>
-            <div className="space-y-4">
+        {/* FAQ - Compact */}
+        <section className="py-24 px-6 relative z-10 border-t-4 border-black mt-16">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-black mb-3 uppercase tracking-tighter leading-none text-black">General Questions.</h2>
+              <p className="text-black font-bold text-sm opacity-70">Everything you need to know about billing.</p>
+            </div>
+            <div className="grid gap-4">
               {[
                 {
                   q: 'Can I change plans later?',
@@ -186,39 +166,18 @@ export default function PricingPage() {
                 },
                 {
                   q: 'Can I cancel anytime?',
-                  a: 'Yes, you can cancel your subscription at any time. No questions asked.',
+                  a: 'Yes, you can cancel your subscription at any time with one click.',
                 },
               ].map((faq, i) => (
-                <div key={i} className="skeuo-card p-6">
-                  <h3 className="text-lg font-semibold mb-2 embossed-text">{faq.q}</h3>
-                  <p className="text-sm text-zinc-400">{faq.a}</p>
+                <div key={i} className="skeuo-card p-6 bg-white border-2 border-black shadow-[4px_4px_0px_black] text-black">
+                  <h3 className="text-lg font-black uppercase mb-2 tracking-tighter">{faq.q}</h3>
+                  <p className="text-sm font-bold text-black/70 leading-relaxed">{faq.a}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
-
-        {/* CTA */}
-        <section className="py-24 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="skeuo-card p-12">
-              <h2 className="text-4xl font-semibold mb-6 tracking-tight embossed-text">
-                Ready to get started?
-              </h2>
-              <p className="text-base text-zinc-400 mb-10">
-                Join 10,000+ developers who&apos;ve transformed their productivity.
-              </p>
-              <Link
-                href="/register"
-                className="skeuo-button inline-flex items-center gap-2 px-6 py-3 text-white font-medium"
-              >
-                Start free trial
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

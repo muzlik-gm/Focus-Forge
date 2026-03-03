@@ -1,99 +1,84 @@
+'use client';
+
 import Link from 'next/link';
-import { Code, Key, Webhook, Book, Sparkles } from 'lucide-react';
+import { Code, Key, Webhook, Book, Sparkles, Rocket } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
 
 export default function APIReferencePage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      <nav className="marketing-nav-fixed" style={{ borderRadius: '0 0 32px 32px' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/docs" className="skeuo-chip"><span className="text-sm">Docs</span></Link>
-              <Link href="/login" className="skeuo-chip"><span className="text-sm">Sign in</span></Link>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Code className="w-4 h-4 text-blue-600" />
+              <span>Full API Reference</span>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="relative z-10">
-        <section className="max-w-7xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              <span>API REFERENCE</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">API Reference</h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">Build powerful integrations with the Forgrin API.</p>
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Focus Stream<br />Endpoints.
+            </h1>
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto uppercase">
+              Programmatic control over your session telemetry and task mutations.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="skeuo-panel p-10">
-              <div className="skeuo-avatar w-14 h-14 mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                <Key className="w-7 h-7 text-white" />
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div className="skeuo-panel p-8 bg-white border-2 border-black shadow-[8px_8px_0px_black] group">
+              <div className="skeuo-avatar w-12 h-12 mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                <Key className="w-6 h-6" />
               </div>
-              <h2 className="text-2xl font-bold mb-4 embossed-text">Authentication</h2>
-              <p className="text-zinc-300 mb-4">All API requests require authentication using API keys. Generate your API key in the settings.</p>
-              <code className="block skeuo-input p-4 text-sm text-green-400 mb-4">Authorization: Bearer YOUR_API_KEY</code>
-              <Link href="/settings?tab=api" className="text-blue-400 hover:text-blue-300 text-sm">Generate API Key →</Link>
+              <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter">Authentication</h2>
+              <p className="text-xs font-bold text-black/70 mb-6 uppercase leading-tight">Secure your telemetry stream with Bearer tokens.</p>
+              <div className="skeuo-panel p-4 bg-zinc-50 border-2 border-black font-mono text-[11px] text-black">
+                Authorization: Bearer KEY_0xFFFF
+              </div>
+              <Link href="/dashboard/settings" className="mt-6 inline-block text-[10px] font-black uppercase text-blue-600 hover:underline">Get API Key →</Link>
             </div>
 
-            <div className="skeuo-panel p-10">
-              <div className="skeuo-avatar w-14 h-14 mb-6 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                <Code className="w-7 h-7 text-white" />
+            <div className="skeuo-panel p-8 bg-white border-2 border-black shadow-[8px_8px_0px_black] group">
+              <div className="skeuo-avatar w-12 h-12 mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                <Code className="w-6 h-6" />
               </div>
-              <h2 className="text-2xl font-bold mb-4 embossed-text">Base URL</h2>
-              <p className="text-zinc-300 mb-4">All API endpoints are relative to the base URL:</p>
-              <code className="block skeuo-input p-4 text-sm text-green-400">https://api.forgrin.com/v1</code>
+              <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter">Base Protocol</h2>
+              <p className="text-xs font-bold text-black/70 mb-6 uppercase leading-tight">Static endpoint for all REST mutations.</p>
+              <div className="skeuo-panel p-4 bg-zinc-50 border-2 border-black font-mono text-[11px] text-black">
+                https://api.forgrin.com/v1
+              </div>
             </div>
           </div>
 
-          <div className="skeuo-panel p-10 mb-12">
-            <h2 className="text-3xl font-bold mb-8 embossed-text">Endpoints</h2>
-            <div className="space-y-8">
+          <div className="skeuo-panel p-10 mb-16 bg-white border-4 border-black shadow-[12px_12px_0px_black]">
+            <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4">Standard Endpoints</h2>
+            <div className="grid gap-8">
               {[
                 {
-                  title: 'Sessions', endpoints: [
-                    { method: 'GET', path: '/sessions', desc: 'List all sessions' },
-                    { method: 'POST', path: '/sessions', desc: 'Create a session' },
-                    { method: 'GET', path: '/sessions/:id', desc: 'Get session details' }
+                  title: 'Focus Sessions', endpoints: [
+                    { method: 'GET', path: '/sessions', desc: 'TELEMETRY LIST' },
+                    { method: 'POST', path: '/sessions', desc: 'CREATE SESSION' },
+                    { method: 'GET', path: '/sessions/:id', desc: 'SESSION DATA' }
                   ]
                 },
                 {
-                  title: 'Tasks', endpoints: [
-                    { method: 'GET', path: '/tasks', desc: 'List all tasks' },
-                    { method: 'POST', path: '/tasks', desc: 'Create a task' },
-                    { method: 'PATCH', path: '/tasks/:id', desc: 'Update a task' }
-                  ]
-                },
-                {
-                  title: 'Analytics', endpoints: [
-                    { method: 'GET', path: '/analytics/dashboard', desc: 'Get dashboard metrics' },
-                    { method: 'GET', path: '/analytics/weekly', desc: 'Get weekly analytics' }
+                  title: 'Task Mutations', endpoints: [
+                    { method: 'GET', path: '/tasks', desc: 'TASK REPOSITORY' },
+                    { method: 'POST', path: '/tasks', desc: 'REGISTER TASK' },
+                    { method: 'PATCH', path: '/tasks/:id', desc: 'UPDATE STATE' }
                   ]
                 }
               ].map((section, i) => (
-                <div key={i}>
-                  <h3 className="text-xl font-bold mb-4 embossed-text">{section.title}</h3>
-                  <div className="space-y-3">
+                <div key={i} className="border-t-2 border-black/10 pt-6 first:border-0 first:pt-0">
+                  <h3 className="text-xl font-black mb-4 uppercase tracking-tighter text-blue-600">{section.title}</h3>
+                  <div className="grid gap-3">
                     {section.endpoints.map((endpoint, j) => (
-                      <div key={j} className="skeuo-card p-4 flex items-center gap-4 text-sm">
-                        <span className={`skeuo-badge ${endpoint.method === 'GET' ? 'bg-gradient-to-r from-green-600 to-emerald-500' : endpoint.method === 'POST' ? 'bg-gradient-to-r from-blue-600 to-cyan-500' : 'bg-gradient-to-r from-yellow-600 to-orange-500'} text-white font-mono`}>{endpoint.method}</span>
-                        <code className="text-zinc-300 flex-1">{endpoint.path}</code>
-                        <span className="text-zinc-500">{endpoint.desc}</span>
+                      <div key={j} className="skeuo-panel p-4 bg-zinc-50 border-2 border-black flex items-center gap-4 group/item hover:bg-white transition-colors">
+                        <span className={`skeuo-badge py-1 px-3 border-2 border-black text-[9px] font-black uppercase ${endpoint.method === 'GET' ? 'bg-green-400' : endpoint.method === 'POST' ? 'bg-blue-400' : 'bg-orange-400'}`}>
+                          {endpoint.method}
+                        </span>
+                        <code className="text-[11px] font-black font-mono flex-1">{endpoint.path}</code>
+                        <span className="text-[9px] font-black uppercase text-black/40 group-hover/item:text-black">{endpoint.desc}</span>
                       </div>
                     ))}
                   </div>
@@ -103,26 +88,22 @@ export default function APIReferencePage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="skeuo-panel p-10">
-              <div className="skeuo-avatar w-14 h-14 mb-6 bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center">
-                <Webhook className="w-7 h-7 text-white" />
+            {[
+              { icon: Webhook, title: 'Webhooks', text: 'Real-time telemetry push notifications.', bg: 'bg-green-50' },
+              { icon: Book, title: 'Examples', text: 'Multi-language implementation snippets.', bg: 'bg-orange-50' }
+            ].map((box, i) => (
+              <div key={i} className={`skeuo-panel p-8 border-2 border-black shadow-[6px_6px_0px_black] ${box.bg} group`}>
+                <div className="skeuo-avatar w-12 h-12 mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                  <box.icon className="w-6 h-6" />
+                </div>
+                <h2 className="text-2xl font-black mb-2 uppercase tracking-tighter">{box.title}</h2>
+                <p className="text-xs font-bold text-black/70 mb-6 uppercase">{box.text}</p>
+                <button className="text-[10px] font-black uppercase text-black border-b-2 border-black pb-0.5 group-hover:bg-black group-hover:text-white transition-colors">See Guides →</button>
               </div>
-              <h2 className="text-2xl font-bold mb-4 embossed-text">Webhooks</h2>
-              <p className="text-zinc-300 mb-4">Receive real-time notifications when events occur in your account.</p>
-              <Link href="/docs/api/webhooks" className="text-green-400 hover:text-green-300 text-sm">Learn about webhooks →</Link>
-            </div>
-
-            <div className="skeuo-panel p-10">
-              <div className="skeuo-avatar w-14 h-14 mb-6 bg-gradient-to-br from-orange-500 to-red-400 flex items-center justify-center">
-                <Book className="w-7 h-7 text-white" />
-              </div>
-              <h2 className="text-2xl font-bold mb-4 embossed-text">Examples</h2>
-              <p className="text-zinc-300 mb-4">Check out code examples in various programming languages.</p>
-              <Link href="/docs/api/examples" className="text-orange-400 hover:text-orange-300 text-sm">View examples →</Link>
-            </div>
+            ))}
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

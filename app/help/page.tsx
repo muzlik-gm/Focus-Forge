@@ -1,12 +1,9 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { Search, HelpCircle, Book, MessageSquare, Sparkles } from 'lucide-react';
-import { Footer } from '@/components/layout/Footer';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Help Center',
-  description: 'Find answers, view FAQs, and get support for Forgrin.',
-};
+import Link from 'next/link';
+import { Search, HelpCircle, Book, MessageSquare, Sparkles, Rocket } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
+import { Footer } from '@/components/layout/Footer';
 
 export default function HelpCenterPage() {
   const faqs = [
@@ -19,101 +16,78 @@ export default function HelpCenterPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      <nav className="marketing-nav-fixed">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/docs" className="skeuo-chip"><span className="text-sm">Docs</span></Link>
-              <Link href="/contact" className="skeuo-chip"><span className="text-sm">Contact</span></Link>
-              <Link href="/login" className="skeuo-chip"><span className="text-sm">Sign in</span></Link>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Sparkles className="w-4 h-4 text-blue-600" />
+              <span>Help Center</span>
             </div>
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Knowledge Base &<br />Support Hub.
+            </h1>
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              Everything you need to master your focus workflow.
+            </p>
           </div>
-        </div>
-      </nav>
 
-      <div className="relative z-10">
-        <section className="max-w-5xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              <span>HELP CENTER</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">Help Center</h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">Find answers to common questions and get help with Forgrin.</p>
-
-            <div className="max-w-2xl mx-auto skeuo-input relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-              <input type="search" placeholder="Search for help..." className="w-full pl-12 pr-4 py-4 bg-transparent text-sm focus:outline-none" />
+          <div className="max-w-2xl mx-auto mb-16">
+            <div className="skeuo-input bg-white border-4 border-black shadow-[8px_8px_0px_black] relative flex items-center p-0 overflow-hidden">
+              <Search className="ml-6 w-6 h-6 text-black" />
+              <input
+                type="search"
+                placeholder="SEARCH FOR TOPICS..."
+                className="w-full pl-4 pr-6 py-6 bg-transparent text-sm font-black uppercase focus:outline-none placeholder:text-black/30"
+              />
             </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-16">
-            <Link href="/docs" className="skeuo-panel p-8 text-center skeuo-card-hover">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                <Book className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Documentation</h3>
-              <p className="text-sm text-zinc-300">Comprehensive guides and tutorials</p>
-            </Link>
-
-            <Link href="/docs/api" className="skeuo-panel p-8 text-center skeuo-card-hover">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                <HelpCircle className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">API Reference</h3>
-              <p className="text-sm text-zinc-300">Technical documentation for developers</p>
-            </Link>
-
-            <Link href="/contact" className="skeuo-panel p-8 text-center skeuo-card-hover">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center">
-                <MessageSquare className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Contact Support</h3>
-              <p className="text-sm text-zinc-300">Get help from our team</p>
-            </Link>
+            {[
+              { href: '/docs', icon: Book, title: 'Docs', desc: 'Detailed guides', bg: 'bg-blue-50' },
+              { href: '/docs/api', icon: HelpCircle, title: 'API', desc: 'Technical specs', bg: 'bg-purple-50' },
+              { href: '/contact', icon: MessageSquare, title: 'Support', desc: 'Direct help', bg: 'bg-green-50' }
+            ].map((item, i) => (
+              <Link key={i} href={item.href} className={`skeuo-panel p-8 text-center border-2 border-black shadow-[6px_6px_0px_black] transition-all ${item.bg}`}>
+                <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-white border-2 border-black flex items-center justify-center">
+                  <item.icon className="w-7 h-7" />
+                </div>
+                <h3 className="text-xl font-black mb-2 uppercase tracking-tighter">{item.title}</h3>
+                <p className="text-[10px] font-bold text-black/70 tracking-tight leading-tight">{item.desc}</p>
+              </Link>
+            ))}
           </div>
 
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 embossed-text">Frequently Asked Questions</h2>
-            <div className="space-y-4">
+          <div className="mb-20">
+            <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4">Common Questions</h2>
+            <div className="grid md:grid-cols-2 gap-4">
               {faqs.map((faq, index) => (
-                <details key={index} className="skeuo-panel p-6 group">
-                  <summary className="font-semibold cursor-pointer list-none flex items-center justify-between embossed-text">
-                    {faq.question}
-                    <HelpCircle className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <p className="text-zinc-300 mt-4 leading-relaxed">{faq.answer}</p>
-                </details>
+                <div key={index} className="skeuo-panel p-6 bg-white border-2 border-black shadow-[4px_4px_0px_black]">
+                  <h3 className="text-sm font-black mb-3 border-b border-black pb-2 leading-tight uppercase">{faq.question}</h3>
+                  <p className="text-[11px] font-bold text-black/70 leading-relaxed">{faq.answer}</p>
+                </div>
               ))}
             </div>
           </div>
 
-          <div className="skeuo-panel p-12 text-center">
-            <h3 className="text-3xl font-bold mb-4 embossed-text">Still need help?</h3>
-            <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">Our support team is here to help you get the most out of Forgrin.</p>
-            <Link href="/contact" className="skeuo-button inline-flex items-center gap-2 px-8 py-4 text-white font-medium text-lg">
+          <div className="skeuo-panel p-12 text-center bg-white border-4 border-black shadow-[10px_10px_0px_black]">
+            <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Need more help?</h2>
+            <p className="text-base font-bold text-black/70 mb-10 max-w-2xl mx-auto">
+              Our high-density support team is standing by to resolve your technical roadblocks.
+            </p>
+            <Link
+              href="/contact"
+              className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center gap-3 w-fit mx-auto group"
+            >
               <span>Contact Support</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

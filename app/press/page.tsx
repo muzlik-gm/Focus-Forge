@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Download, Mail, Newspaper, Calendar } from 'lucide-react';
+import { Download, Mail, Newspaper, Calendar, Rocket, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { MarketingNav } from '@/components/layout/MarketingNav';
 
@@ -12,9 +12,7 @@ export default function PressPage() {
   useEffect(() => {
     async function fetchReleases() {
       try {
-        const res = await fetch('/api/press', {
-          cache: 'no-store'
-        });
+        const res = await fetch('/api/press', { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           setReleases(data.releases || []);
@@ -29,126 +27,80 @@ export default function PressPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.03) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-blue-500" />
-      </div>
-
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      {/* Main Content */}
-      <div className="relative z-10">
-        <section className="max-w-5xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Newspaper className="w-4 h-4" />
-              <span>PRESS KIT</span>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Newspaper className="w-4 h-4 text-blue-600" />
+              <span>Media Relations</span>
             </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">
-              Press & Media
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Press &<br />Publicity.
             </h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Resources for journalists, bloggers, and media professionals covering Forgrin.
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              The official source for Forgrin telemetry news and institutional updates.
             </p>
           </div>
 
-          {/* About Section */}
-          <div className="skeuo-panel p-10 mb-8">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">About Forgrin</h2>
-            <p className="text-zinc-300 mb-4 leading-relaxed">
-              Forgrin is a productivity platform that helps individuals and teams achieve deep work through focus sessions, task management, and intelligent analytics. Founded in 2025, we're on a mission to help people reclaim their attention in an age of constant distractions.
-            </p>
-            <p className="text-zinc-300 leading-relaxed">
-              Our platform combines proven productivity techniques like the Pomodoro method with modern analytics and AI-powered insights to help users understand and optimize their work patterns.
-            </p>
-          </div>
+          <div className="grid lg:grid-cols-3 gap-6 mb-16">
+            <div className="lg:col-span-2 skeuo-panel p-10 bg-white border-2 border-black shadow-[8px_8px_0px_black]">
+              <h2 className="text-3xl font-black mb-6 uppercase tracking-tighter border-b-2 border-black pb-2 text-blue-600">Institutional Profile</h2>
+              <p className="text-sm font-bold text-black/70 leading-relaxed mb-6">
+                Forgrin is a high-density productivity cluster engineering deep work environments for the next generation of digital professionals. Founded in 2025, we specialize in focus telemetry and cognitive session orchestration.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { label: 'Founded', value: '2025' },
+                  { label: 'H.Q.', value: 'Remote-First' },
+                  { label: 'Telemetry Nodes', value: 'Global' },
+                  { label: 'Protocol', value: 'Neo-Brutalist' }
+                ].map((fact, i) => (
+                  <div key={i} className="skeuo-panel p-4 bg-zinc-50 border-2 border-black">
+                    <p className="text-[9px] font-black uppercase text-black/40">{fact.label}</p>
+                    <p className="text-lg font-black uppercase tracking-tighter">{fact.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          {/* Company Facts */}
-          <div className="skeuo-panel p-10 mb-8">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">Company Facts</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="skeuo-card p-6">
-                <p className="text-sm text-zinc-400 mb-1">Founded</p>
-                <p className="text-2xl font-bold embossed-text">2025</p>
+            <div className="flex flex-col gap-6">
+              <div className="skeuo-panel p-8 bg-blue-50 border-2 border-black shadow-[6px_6px_0px_black] text-center">
+                <Download className="w-8 h-8 mx-auto mb-4" />
+                <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Protocol Assets</h3>
+                <p className="text-[10px] font-bold text-black/70 mb-6">Logos, diagrams, and telemetry visualization kits.</p>
+                <button className="skeuo-button bg-black text-white px-6 py-3 font-black uppercase text-[9px] w-full">Fetch Kit</button>
               </div>
-              <div className="skeuo-card p-6">
-                <p className="text-sm text-zinc-400 mb-1">Headquarters</p>
-                <p className="text-2xl font-bold embossed-text">Remote-first</p>
-              </div>
-              <div className="skeuo-card p-6">
-                <p className="text-sm text-zinc-400 mb-1">Team Size</p>
-                <p className="text-2xl font-bold embossed-text">10-50</p>
-              </div>
-              <div className="skeuo-card p-6">
-                <p className="text-sm text-zinc-400 mb-1">Funding</p>
-                <p className="text-2xl font-bold embossed-text">Bootstrapped</p>
+              <div className="skeuo-panel p-8 bg-pink-50 border-2 border-black shadow-[6px_6px_0px_black] text-center">
+                <Mail className="w-8 h-8 mx-auto mb-4" />
+                <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Media Inquiry</h3>
+                <p className="text-[10px] font-bold text-black/70 mb-6">Institutional requests and interview orchestration.</p>
+                <a href="mailto:press@forgrin.app" className="text-[11px] font-black uppercase text-blue-600 underline">press@forgrin.app</a>
               </div>
             </div>
           </div>
 
-          {/* Press Releases */}
           {!loading && releases.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-6 embossed-text">Press Releases</h2>
-              <div className="space-y-6">
+            <div className="mb-16">
+              <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4">Latest Transmissions</h2>
+              <div className="grid gap-6">
                 {releases.map((release: any) => (
-                  <div key={release.id} className="skeuo-panel p-8 skeuo-card-hover">
-                    <div className="flex items-center gap-2 mb-3 text-sm text-zinc-400">
+                  <div key={release.id} className="skeuo-panel p-8 bg-white border-2 border-black shadow-[6px_6px_0px_black] group transition-all">
+                    <div className="flex items-center gap-2 mb-4 text-[9px] font-black uppercase text-black/40">
                       <Calendar className="w-4 h-4" />
-                      {new Date(release.publishedAt).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
+                      {new Date(release.publishedAt).toLocaleDateString()}
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 embossed-text">{release.title}</h3>
-                    <p className="text-zinc-300 leading-relaxed">{release.content}</p>
+                    <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter text-blue-600">{release.title}</h3>
+                    <p className="text-xs font-bold text-black/70 leading-relaxed">{release.content}</p>
                   </div>
                 ))}
               </div>
             </div>
           )}
-
-          {/* Brand Assets */}
-          <div className="skeuo-panel p-10 mb-8">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">Brand Assets</h2>
-            <p className="text-zinc-300 mb-6">
-              Download our logos, screenshots, and other brand assets for use in your coverage.
-            </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <button className="skeuo-input flex items-center justify-center gap-2 px-6 py-4 font-medium hover:bg-zinc-800/50 transition">
-                <Download className="w-5 h-5" />
-                <span>Logo Pack</span>
-              </button>
-              <button className="skeuo-input flex items-center justify-center gap-2 px-6 py-4 font-medium hover:bg-zinc-800/50 transition">
-                <Download className="w-5 h-5" />
-                <span>Screenshots</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Media Contact */}
-          <div className="skeuo-panel p-10">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">Media Contact</h2>
-            <p className="text-zinc-300 mb-6">
-              For press inquiries, interviews, or additional information:
-            </p>
-            <a
-              href="mailto:press@forgrin.com"
-              className="skeuo-button inline-flex items-center gap-2 px-6 py-4 text-white font-medium"
-            >
-              <Mail className="w-5 h-5" />
-              <span>press@forgrin.com</span>
-            </a>
-          </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

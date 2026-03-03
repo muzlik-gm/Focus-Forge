@@ -1,123 +1,88 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { Book, Code, Zap, Shield, Search, Sparkles } from 'lucide-react';
-import { Footer } from '@/components/layout/Footer';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Documentation',
-  description: 'Forgrin documentation. Guides, API reference, and everything you need to get started.',
-};
+import Link from 'next/link';
+import { Book, Code, Zap, Shield, Search, Sparkles, Rocket } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
+import { Footer } from '@/components/layout/Footer';
 
 export default function DocsPage() {
   const sections = [
     {
       icon: Book,
       title: 'Getting Started',
-      description: 'Learn the basics of Forgrin',
-      color: 'from-blue-500 to-cyan-400',
+      description: 'Master the basics of Forgrin focus architecture.',
+      bg: 'bg-blue-50',
       links: [
         { title: 'Quick Start Guide', href: '/docs/quick-start' },
-        { title: 'Creating Your First Session', href: '/docs/first-session' },
-        { title: 'Managing Tasks', href: '/docs/tasks' },
-        { title: 'Understanding Analytics', href: '/docs/analytics' }
+        { title: 'First Session', href: '/docs/first-session' },
+        { title: 'Task Logic', href: '/docs/tasks' },
+        { title: 'Analytics 101', href: '/docs/analytics' }
       ]
     },
     {
       icon: Zap,
-      title: 'Features',
-      description: 'Deep dive into Forgrin features',
-      color: 'from-purple-500 to-pink-400',
+      title: 'Deep Work Features',
+      description: 'Advanced telemetry and session management.',
+      bg: 'bg-pink-50',
       links: [
         { title: 'Focus Sessions', href: '/docs/focus-sessions' },
-        { title: 'Task Management', href: '/docs/task-management' },
+        { title: 'Kanban Logic', href: '/docs/task-management' },
         { title: 'Weekly Reviews', href: '/docs/weekly-reviews' },
-        { title: 'Team Collaboration', href: '/docs/team' }
+        { title: 'Team Workspaces', href: '/docs/team' }
       ]
     },
     {
       icon: Code,
-      title: 'API Reference',
-      description: 'Integrate with Forgrin',
-      color: 'from-green-500 to-emerald-400',
+      title: 'REST Telemetry API',
+      description: 'Integrate Forgrin into your custom stack.',
+      bg: 'bg-cyan-50',
       links: [
         { title: 'Authentication', href: '/docs/api/auth' },
-        { title: 'Sessions API', href: '/docs/api/sessions' },
-        { title: 'Tasks API', href: '/docs/api/tasks' },
-        { title: 'Webhooks', href: '/docs/api/webhooks' }
+        { title: 'Session Endpoints', href: '/docs/api/sessions' },
+        { title: 'Task Mutation', href: '/docs/api/tasks' },
+        { title: 'Webhook Hooks', href: '/docs/api/webhooks' }
       ]
     },
     {
       icon: Shield,
-      title: 'Security & Privacy',
-      description: 'How we protect your data',
-      color: 'from-orange-500 to-red-400',
+      title: 'Security Protocols',
+      description: 'How we engineer data privacy and safety.',
+      bg: 'bg-green-50',
       links: [
-        { title: 'Security Overview', href: '/docs/security' },
-        { title: 'Privacy Policy', href: '/docs/privacy' },
-        { title: 'Data Export', href: '/docs/data-export' },
-        { title: 'GDPR Compliance', href: '/docs/gdpr' }
+        { title: 'Infrastructure', href: '/docs/security' },
+        { title: 'Privacy Logic', href: '/docs/privacy' },
+        { title: 'Data Extraction', href: '/docs/data-export' },
+        { title: 'GDPR Stack', href: '/docs/gdpr' }
       ]
     }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      {/* Navigation */}
-      <nav className="marketing-nav-fixed">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/docs/api" className="skeuo-chip">
-                <span className="text-sm">API</span>
-              </Link>
-              <Link href="/help" className="skeuo-chip">
-                <span className="text-sm">Help</span>
-              </Link>
-              <Link href="/login" className="skeuo-chip">
-                <span className="text-sm">Sign in</span>
-              </Link>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Sparkles className="w-4 h-4 text-blue-600" />
+              <span>Full Documentation</span>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="relative z-10">
-        <section className="max-w-7xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              <span>DOCUMENTATION</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">
-              Documentation
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight text-center">
+              The Focus<br />Standard.
             </h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Everything you need to know about using Forgrin.
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              Comprehensive technical guides for the modern deep worker.
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto mb-16">
-            <div className="skeuo-input relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+          <div className="max-w-2xl mx-auto mb-16">
+            <div className="skeuo-input bg-white border-4 border-black shadow-[8px_8px_0px_black] relative flex items-center p-0 overflow-hidden">
+              <Search className="ml-6 w-6 h-6 text-black" />
               <input
                 type="search"
-                placeholder="Search documentation..."
-                className="w-full pl-12 pr-4 py-4 bg-transparent text-sm focus:outline-none"
+                placeholder="SEARCH FOR GUIDES..."
+                className="w-full pl-4 pr-6 py-6 bg-transparent text-sm font-black uppercase focus:outline-none placeholder:text-black/30"
               />
             </div>
           </div>
@@ -126,22 +91,22 @@ export default function DocsPage() {
             {sections.map((section, index) => {
               const IconComponent = section.icon;
               return (
-                <div key={index} className="skeuo-panel p-10">
-                  <div className={`skeuo-avatar w-14 h-14 mb-6 bg-gradient-to-br ${section.color} flex items-center justify-center`}>
-                    <IconComponent className="w-7 h-7 text-white" />
+                <div key={index} className={`skeuo-panel p-8 border-2 border-black shadow-[6px_6px_0px_black] ${section.bg} transition-all group`}>
+                  <div className="skeuo-avatar w-12 h-12 mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                    <IconComponent className="w-6 h-6" />
                   </div>
-                  <h2 className="text-2xl font-bold mb-3 embossed-text">{section.title}</h2>
-                  <p className="text-zinc-300 mb-6">{section.description}</p>
-                  <ul className="space-y-3">
+                  <h2 className="text-2xl font-black mb-2 uppercase tracking-tighter">{section.title}</h2>
+                  <p className="text-xs font-bold text-black/70 mb-8 leading-tight">{section.description}</p>
+                  <ul className="grid gap-3">
                     {section.links.map((link, i) => (
                       <li key={i}>
-                        <Link href={link.href} className="text-sm text-zinc-300 hover:text-white transition-colors flex items-center gap-3">
-                          <div className={`skeuo-avatar w-6 h-6 bg-gradient-to-br ${section.color}`}>
-                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        <Link href={link.href} className="flex items-center gap-3 group/link">
+                          <div className="w-4 h-4 bg-white border border-black flex items-center justify-center group-hover/link:bg-black group-hover/link:text-white transition-colors">
+                            <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                             </svg>
                           </div>
-                          {link.title}
+                          <span className="text-[10px] font-black text-black hover:underline tracking-tight uppercase">{link.title}</span>
                         </Link>
                       </li>
                     ))}
@@ -150,8 +115,22 @@ export default function DocsPage() {
               );
             })}
           </div>
+
+          <div className="mt-20 skeuo-panel p-12 text-center bg-white border-4 border-black shadow-[10px_10px_0px_black]">
+            <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Need a deeper dive?</h2>
+            <p className="text-base font-bold text-black/70 mb-10 max-w-2xl mx-auto">
+              Our high-fidelity API reference provides full programmatic specifications for custom implementations.
+            </p>
+            <Link
+              href="/docs/api"
+              className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center gap-3 w-fit mx-auto group"
+            >
+              <span>View API Docs</span>
+              <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </Link>
+          </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

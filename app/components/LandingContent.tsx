@@ -207,7 +207,7 @@ export function LandingContent() {
           <div className="max-w-5xl mx-auto">
             <div className="text-left mb-16 border-l-4 border-black pl-6">
               <h2 className="text-4xl lg:text-5xl font-black mb-2 uppercase tracking-tighter leading-tight text-black">The Forgrin<br />Method.</h2>
-              <p className="text-black text-lg font-black uppercase opacity-80">Simple. Effective. Professional.</p>
+              <p className="text-black text-lg font-black opacity-80">Simple. Effective. Professional.</p>
             </div>
 
             <div className="space-y-48">
@@ -335,14 +335,14 @@ export function LandingContent() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Focus Analytics.</h2>
-              <p className="text-black font-black text-lg uppercase">Everything you need to optimize your workday.</p>
+              <p className="text-black font-black text-lg">Everything you need to optimize your workday.</p>
             </div>
             <div className="skeuo-card p-12 bg-zinc-50 border-4 border-black shadow-[16px_16px_0px_black]">
               <div className="grid lg:grid-cols-3 gap-16">
                 <div className="lg:col-span-2">
                   <div className="mb-10">
                     <h3 className="text-3xl font-black mb-2 uppercase">Your Focus Activity</h3>
-                    <p className="text-sm text-black font-bold uppercase">Average sessions over the past week.</p>
+                    <p className="text-sm text-black font-bold">Average sessions over the past week.</p>
                   </div>
                   <div className="h-80 flex items-end justify-between gap-4">
                     {[65, 45, 80, 55, 70, 40, 90].map((height, i) => (
@@ -382,7 +382,7 @@ export function LandingContent() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-black mb-3 uppercase tracking-tighter leading-none">Trusted By Teams.</h2>
-              <p className="text-black font-black text-sm uppercase">Real world experiences.</p>
+              <p className="text-black font-black text-sm">Real world experiences.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {[
@@ -422,7 +422,7 @@ export function LandingContent() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-black mb-3 uppercase tracking-tighter leading-none text-black">Seamless Integrations.</h2>
-              <p className="text-black font-bold text-sm uppercase opacity-70">Connect with your favorite apps.</p>
+              <p className="text-black font-bold text-sm opacity-70">Connect with your favorite apps.</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['Slack', 'GitHub', 'Jira', 'Notion', 'Trello', 'Asana', 'Linear', 'Discord'].map((tool, i) => (
@@ -439,7 +439,7 @@ export function LandingContent() {
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-black mb-3 uppercase tracking-tighter leading-none">Common Questions.</h2>
-              <p className="text-black font-bold text-sm uppercase">Everything you need to know.</p>
+              <p className="text-black font-bold text-sm">Everything you need to know.</p>
             </div>
             <div className="space-y-6">
               {[

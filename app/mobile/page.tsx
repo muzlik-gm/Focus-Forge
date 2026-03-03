@@ -1,124 +1,67 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { Smartphone, Download, Apple, PlaySquare, Globe } from 'lucide-react';
-import { Footer } from '@/components/layout/Footer';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Mobile App',
-  description: 'Download the Forgrin mobile app and take your productivity tools with you on the go.',
-};
+import Link from 'next/link';
+import { Smartphone, Download, Apple, PlaySquare, Globe, Sparkles } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
+import { Footer } from '@/components/layout/Footer';
 
 export default function MobilePage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      {/* Navigation */}
-      <nav className="marketing-nav-fixed">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/features" className="skeuo-chip">
-                <span className="text-sm">Features</span>
-              </Link>
-              <Link href="/pricing" className="skeuo-chip">
-                <span className="text-sm">Pricing</span>
-              </Link>
-              <Link href="/login" className="skeuo-chip">
-                <span className="text-sm">Sign in</span>
-              </Link>
-              <Link href="/register" className="skeuo-button px-6 py-3 text-white font-medium flex items-center gap-2">
-                <span>Get started</span>
-              </Link>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Smartphone className="w-4 h-4 text-blue-600" />
+              <span>Mobile Infrastructure</span>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="relative z-10">
-        <section className="max-w-5xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-avatar w-20 h-20 mx-auto mb-8 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-              <Smartphone className="w-10 h-10 text-white" />
-            </div>
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Download className="w-4 h-4" />
-              <span>MOBILE APP</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">
-              Focus On The Go
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Focus In Your<br />Pocket.
             </h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">
-              Stay focused anywhere with our mobile app. Track sessions, manage tasks, and view analytics from your phone.
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              Take the Forgrin telemetry engine anywhere. Zero-lag sync across all your devices.
             </p>
-            <div className="skeuo-badge inline-flex items-center gap-2 px-6 py-3 text-lg">
-              <Download className="w-5 h-5" />
-              <span>Coming Soon</span>
-            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                <Apple className="w-7 h-7 text-white" />
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {[
+              { icon: Apple, title: 'iOS Protocol', desc: 'iPhone & iPad', status: 'Coming Q2 2026', bg: 'bg-blue-50' },
+              { icon: PlaySquare, title: 'Android Bot', desc: 'All Handhelds', status: 'Coming Q2 2026', bg: 'bg-green-50' },
+              { icon: Globe, title: 'Edge Web', desc: 'Universal Browser', status: 'AVAILABLE NOW', bg: 'bg-pink-50' }
+            ].map((device, i) => (
+              <div key={i} className={`skeuo-panel p-8 text-center border-2 border-black shadow-[6px_6px_0px_black] ${device.bg} group flex flex-col items-center`}>
+                <div className="skeuo-avatar w-14 h-14 mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                  <device.icon className="w-7 h-7" />
+                </div>
+                <h3 className="text-xl font-black mb-2 uppercase tracking-tighter">{device.title}</h3>
+                <p className="text-[10px] font-bold text-black/40 mb-6">{device.desc}</p>
+                <div className="mt-auto skeuo-badge bg-white px-3 py-1 border-2 border-black text-[9px] font-black uppercase">
+                  {device.status}
+                </div>
               </div>
-              <h3 className="text-2xl font-bold mb-3 embossed-text">iOS</h3>
-              <p className="text-zinc-300 mb-4">iPhone & iPad</p>
-              <div className="skeuo-badge text-zinc-400">Coming Q2 2026</div>
-            </div>
-
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center">
-                <PlaySquare className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 embossed-text">Android</h3>
-              <p className="text-zinc-300 mb-4">All devices</p>
-              <div className="skeuo-badge text-zinc-400">Coming Q2 2026</div>
-            </div>
-
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                <Globe className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 embossed-text">Web</h3>
-              <p className="text-zinc-300 mb-4">All browsers</p>
-              <Link href="/register" className="text-blue-400 hover:text-blue-300 transition">
-                Available Now →
-              </Link>
-            </div>
+            ))}
           </div>
 
-          <div className="skeuo-panel p-12 text-center">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">Get notified when we launch</h2>
-            <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">
-              Be the first to know when our mobile apps are available. We'll send you an email as soon as they're ready.
+          <div className="skeuo-panel p-12 text-center bg-white border-4 border-black shadow-[10px_10px_0px_black]">
+            <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Join the Waitlist.</h2>
+            <p className="text-base font-bold text-black/70 mb-10 max-w-2xl mx-auto">
+              Be the first to integrate mobile focus telemetry into your daily operations.
             </p>
-            <div className="max-w-md mx-auto flex gap-4">
+            <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
               <input
                 type="email"
-                placeholder="Enter your email"
-                className="skeuo-input flex-1 px-4 py-3 text-sm"
+                placeholder="ENTER EMAIL PROTOCOL..."
+                className="skeuo-input flex-1 px-4 py-4 bg-white border-2 border-black text-xs font-black uppercase focus:outline-none"
               />
-              <button className="skeuo-button px-6 py-3 text-white font-medium whitespace-nowrap">
-                Notify Me
+              <button className="skeuo-button bg-black text-white px-8 py-4 font-black uppercase text-sm shadow-[4px_4px_0px_pink]">
+                Register
               </button>
             </div>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

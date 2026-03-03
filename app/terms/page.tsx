@@ -2,66 +2,81 @@
 
 import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
+import { Book, Sparkles } from 'lucide-react';
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-      </div>
-
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      <div className="relative z-10">
-        <section className="max-w-4xl mx-auto px-6 pt-40 pb-20">
-          <h1 className="text-5xl font-bold mb-6 embossed-text tracking-tight">Terms of Service</h1>
-          <p className="text-zinc-400 mb-12">Last updated: February 22, 2026</p>
-
-          <div className="space-y-8 text-zinc-300">
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Agreement to Terms</h2>
-              <p>By accessing or using Forgrin, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-4xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Book className="w-4 h-4 text-blue-600" />
+              <span>User Agreement</span>
             </div>
+            <h1 className="text-4xl lg:text-5xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Terms of<br />Operation.
+            </h1>
+            <p className="text-xs font-black text-black/50">Last updated: March 03, 2026</p>
+          </div>
 
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Use License</h2>
-              <p className="mb-4">Permission is granted to temporarily use Forgrin for personal or commercial productivity purposes. This license shall automatically terminate if you violate any of these restrictions.</p>
-            </div>
+          <div className="space-y-6">
+            {[
+              {
+                title: 'Operational Binding',
+                content: 'By accessing the Forgrin gateway, you agree to comply with our protocol specifications. These terms govern your interaction with our focus telemetry and session orchestration services.',
+                bg: 'bg-white'
+              },
+              {
+                title: 'Access License',
+                content: 'We grant users a non-exclusive, revocable license to utilize the Forgrin toolkit for professional focus optimization. This license remains active provided the user adheres to our anti-harassment and infrastructure protection policies.',
+                bg: 'bg-pink-50'
+              },
+              {
+                title: 'Account Integrity',
+                content: 'Users are responsible for the entropy and security of their authentication tokens. Any compromise of session data due to client-side negligence is the primary responsibility of the account holder.',
+                points: ['Token Security Management', 'Activity Monitoring', 'Unauthorized Access Reporting'],
+                bg: 'bg-white'
+              },
+              {
+                title: 'Prohibited Inputs',
+                content: 'Users may not inject malicious payloads, scrapers, or high-velocity automation that degrades the performance of our focus telemetry clusters.',
+                bg: 'bg-blue-50'
+              },
+              {
+                title: 'Service Termination',
+                content: 'We reserve the absolute right to deactivate accounts that demonstrate patterns of protocol violation or malicious intent without prior warning.',
+                bg: 'bg-white'
+              }
+            ].map((section, i) => (
+              <div key={i} className={`skeuo-panel p-10 border-2 border-black shadow-[6px_6px_0px_black] ${section.bg}`}>
+                <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter border-b-2 border-black pb-2">{section.title}</h2>
+                <p className="text-sm font-bold text-black/70 leading-relaxed mb-4">{section.content}</p>
+                {section.points && (
+                  <div className="grid grid-cols-2 gap-3 mt-4">
+                    {section.points.map((p, j) => (
+                      <div key={j} className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-black" />
+                        <span className="text-[10px] font-black uppercase tracking-tight text-black/60">{p}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
 
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">User Accounts</h2>
-              <p className="mb-4">When you create an account with us, you must provide accurate and complete information. You are responsible for:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>Maintaining the security of your account</li>
-                <li>All activities that occur under your account</li>
-                <li>Notifying us immediately of any unauthorized use</li>
-              </ul>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Prohibited Uses</h2>
-              <p className="mb-4">You may not use Forgrin:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>In any way that violates applicable laws</li>
-                <li>To transmit malicious code or viruses</li>
-                <li>To harass, abuse, or harm another person</li>
-                <li>To impersonate or attempt to impersonate Forgrin or another user</li>
-              </ul>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Termination</h2>
-              <p>We may terminate or suspend your account immediately, without prior notice, for any reason, including breach of these Terms.</p>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Contact Us</h2>
-              <p>If you have questions about these Terms, please contact us at legal@forgrin.com</p>
+            <div className="skeuo-panel p-10 border-2 border-black shadow-[6px_6px_0px_black] bg-zinc-50">
+              <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter">Legal Inquiries</h2>
+              <p className="text-sm font-black tracking-tight mb-4">Direct institutional or legal correspondence to our compliance cluster:</p>
+              <div className="mt-4 text-blue-600 font-black uppercase tracking-widest text-lg hover:underline cursor-pointer transition-colors">
+                legal@forgrin.app
+              </div>
             </div>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

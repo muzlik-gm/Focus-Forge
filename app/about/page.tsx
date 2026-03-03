@@ -1,156 +1,95 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { Target, Users, Heart, Rocket } from 'lucide-react';
-import { Footer } from '@/components/layout/Footer';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Learn about the Forgrin team and our mission to help you achieve deep work.',
-};
+import Link from 'next/link';
+import { Target, Users, Heart, Rocket, Sparkles, Check } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
+import { Footer } from '@/components/layout/Footer';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      {/* Navigation */}
-      <nav className="marketing-nav-fixed">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/features" className="skeuo-chip">
-                <span className="text-sm">Features</span>
-              </Link>
-              <Link href="/pricing" className="skeuo-chip">
-                <span className="text-sm">Pricing</span>
-              </Link>
-              <Link href="/login" className="skeuo-chip">
-                <span className="text-sm">Sign in</span>
-              </Link>
-              <Link href="/register" className="skeuo-button px-6 py-3 text-white font-medium flex items-center gap-2">
-                <span>Get started</span>
-              </Link>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black">
+              <Sparkles className="w-4 h-4 text-blue-600" />
+              <span className="text-[10px] font-black uppercase tracking-tight">Our Story</span>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="relative z-10">
-        <section className="max-w-5xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Rocket className="w-4 h-4" />
-              <span>ABOUT US</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">
-              About Forgrin
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Human-Centric<br />Focus Engineering.
             </h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              We're on a mission to help people achieve deep work and build lasting productivity habits.
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              Mission-driven to help you achieve deep work in a world of constant noise.
             </p>
           </div>
 
-          {/* Our Story */}
-          <div className="skeuo-panel p-10 mb-12">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">Our Story</h2>
-            <p className="text-zinc-300 mb-6 leading-relaxed">
-              Forgrin was born from a simple observation: in an age of constant distractions, achieving deep, focused work has become increasingly difficult. We built Forgrin to help individuals and teams reclaim their attention and accomplish meaningful work.
-            </p>
-            <p className="text-zinc-300 leading-relaxed">
-              Our design philosophy brings a tactile, real-world feel to digital productivity tools, making the experience more intuitive and engaging. We believe that beautiful, thoughtful design can make productivity tools not just functional, but delightful to use.
-            </p>
-          </div>
-
-          {/* Values Grid */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                <Target className="w-8 h-8 text-white" />
+          <div className="grid lg:grid-cols-2 gap-12 mb-16 items-center">
+            <div className="skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black]">
+              <h2 className="text-3xl font-black mb-6 uppercase tracking-tighter border-b-2 border-black pb-4">The Forgrin Philosophy</h2>
+              <div className="space-y-6 text-sm font-bold text-black/80 leading-relaxed">
+                <p>
+                  Forgrin was born from a simple observation: in an age of constant algorithmic distractions, achieving deep, focused work has become an elite skill.
+                </p>
+                <p>
+                  We built Forgrin to bridge the gap between human intention and digital execution. Our design language is tactile and real, because productivity should feel like a physical achievement, not a digital chore.
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Our Mission</h3>
-              <p className="text-zinc-300 leading-relaxed">
-                Empower people to do their best work through focus and intentionality.
-              </p>
             </div>
-
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Our Team</h3>
-              <p className="text-zinc-300 leading-relaxed">
-                A small, dedicated team passionate about productivity and focus.
-              </p>
-            </div>
-
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center">
-                <Heart className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 embossed-text">Our Values</h3>
-              <p className="text-zinc-300 leading-relaxed">
-                Privacy-first, user-focused, and committed to sustainable productivity.
-              </p>
-            </div>
-          </div>
-
-          {/* Why Forgrin */}
-          <div className="skeuo-panel p-10 mb-12">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">Why Forgrin?</h2>
-            <p className="text-zinc-300 mb-6 leading-relaxed">
-              Unlike other productivity tools that add complexity, Forgrin is designed to be simple, focused, and effective. We believe that the best productivity tool is one that gets out of your way and lets you work.
-            </p>
-            <div className="space-y-4">
+            <div className="grid gap-6">
               {[
-                'No unnecessary features or distractions',
-                'Privacy-first approach - your data is yours',
-                'Built by people who care about deep work',
-                'Continuously improving based on user feedback',
-                'Beautiful design that feels real'
-              ].map((point, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="skeuo-avatar w-8 h-8 flex-shrink-0 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
+                { icon: Target, title: 'Our Mission', text: 'Empower humans to do their best work through intentional session design.', bg: 'bg-blue-50' },
+                { icon: Heart, title: 'Our Core Values', text: 'Privacy-first, user-focused, and committed to zero-lag performance.', bg: 'bg-pink-50' }
+              ].map((value, i) => (
+                <div key={i} className={`skeuo-panel p-6 ${value.bg} border-2 border-black shadow-[6px_6px_0px_black]`}>
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="skeuo-avatar w-10 h-10 bg-white border-2 border-black flex items-center justify-center">
+                      <value.icon className="w-5 h-5 text-black" />
+                    </div>
+                    <h3 className="text-lg font-black uppercase tracking-tighter">{value.title}</h3>
                   </div>
-                  <span className="text-zinc-300 leading-relaxed pt-1">{point}</span>
+                  <p className="text-xs font-bold text-black/70 leading-relaxed">{value.text}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Join Us CTA */}
-          <div className="skeuo-panel p-10 text-center">
-            <h3 className="text-3xl font-bold mb-4 embossed-text">Join Us</h3>
-            <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">
-              We're always looking for talented people who share our passion for productivity and focus. Check out our open positions and become part of the team.
+          <div className="skeuo-panel p-10 mb-16 bg-zinc-50 border-2 border-black">
+            <h2 className="text-3xl font-black mb-8 uppercase tracking-tighter text-center">Engineered for Excellence.</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {[
+                'Zero unnecessary feature bloat',
+                'Local-first privacy architecture',
+                'Tactile Neo-Brutalist interface',
+                'AI-driven focus telemetry',
+                'Built for high-performance teams'
+              ].map((point, i) => (
+                <div key={i} className="flex items-center gap-4 group">
+                  <div className="skeuo-avatar w-8 h-8 flex-shrink-0 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-tight text-black/80">{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="skeuo-panel p-12 text-center bg-white border-4 border-black shadow-[10px_10px_0px_black]">
+            <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Scale with us.</h2>
+            <p className="text-base font-bold text-black/70 mb-10 max-w-2xl mx-auto">
+              We are constantly seeking brilliant minds to help us define the future of deep work.
             </p>
             <Link
               href="/careers"
-              className="skeuo-button inline-flex items-center gap-2 px-8 py-4 text-white font-medium text-lg"
+              className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center gap-3 w-fit mx-auto group"
             >
-              <span>View Open Positions</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              <span>View Openings</span>
+              <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

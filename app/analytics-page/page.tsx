@@ -1,181 +1,109 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { BarChart3, TrendingUp, Clock, Target, Sparkles } from 'lucide-react';
-import { Footer } from '@/components/layout/Footer';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Analytics & Insights',
-  description: 'Deep dive into your productivity patterns with Forgrin analytics and AI-driven insights.',
-};
+import Link from 'next/link';
+import { BarChart3, TrendingUp, Clock, Target, Sparkles, Rocket, Check } from 'lucide-react';
+import { MarketingNav } from '@/components/layout/MarketingNav';
+import { Footer } from '@/components/layout/Footer';
 
 export default function AnalyticsMarketingPage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%)`,
-        }} />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-        <div className="absolute top-[40%] left-[5%] w-[400px] h-[400px] gradient-orb bg-purple-600" />
-      </div>
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
+      <MarketingNav />
 
-      {/* Navigation */}
-      <nav className="marketing-nav-fixed">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/features" className="skeuo-chip">
-                <span className="text-sm">Features</span>
-              </Link>
-              <Link href="/pricing" className="skeuo-chip">
-                <span className="text-sm">Pricing</span>
-              </Link>
-              <Link href="/login" className="skeuo-chip">
-                <span className="text-sm">Sign in</span>
-              </Link>
-              <Link href="/register" className="skeuo-button px-6 py-3 text-white font-medium flex items-center gap-2">
-                <span>Get started</span>
-              </Link>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-5xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <BarChart3 className="w-4 h-4 text-blue-600" />
+              <span>Full Telemetry</span>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="relative z-10">
-        {/* Hero */}
-        <section className="max-w-7xl mx-auto px-6 pt-40 pb-20">
-          <div className="text-center mb-16">
-            <div className="skeuo-badge mb-6 inline-flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              <span>ANALYTICS</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">
-              Understand your productivity<br />like never before
+            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight text-center">
+              Deep Analytics.<br />Clearer Focus.
             </h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Powerful analytics and AI-driven insights help you identify patterns, optimize your workflow, and achieve your goals.
+            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
+              High-density insights that quantify your peak performance windows.
             </p>
           </div>
 
-          <div className="skeuo-panel p-12 mb-16">
-            <div className="aspect-video flex items-center justify-center">
-              <BarChart3 className="w-32 h-32 text-zinc-600" />
+          <div className="skeuo-panel p-10 mb-20 bg-white border-4 border-black shadow-[12px_12px_0px_black] relative overflow-hidden">
+            <div className="absolute top-4 right-4 skeuo-badge bg-zinc-100 border-2 border-black text-[9px] font-black uppercase">v1.2_PREVIEW</div>
+            <div className="aspect-video bg-zinc-50 border-4 border-black flex items-end justify-between p-12 gap-4">
+              {[60, 40, 80, 50, 90, 70, 45, 65, 30, 85].map((h, i) => (
+                <div key={i} className="flex-1 bg-blue-500 border-2 border-black shadow-[2px_2px_0px_black]" style={{ height: `${h}%` }} />
+              ))}
             </div>
-          </div>
-        </section>
-
-        {/* Features */}
-        <section className="max-w-7xl mx-auto px-6 pb-20">
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                <Clock className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 embossed-text">Time Tracking</h3>
-              <p className="text-zinc-300 leading-relaxed">
-                See exactly where your time goes with detailed session breakdowns and daily summaries.
-              </p>
-            </div>
-
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                <TrendingUp className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 embossed-text">Trend Analysis</h3>
-              <p className="text-zinc-300 leading-relaxed">
-                Identify patterns in your productivity and discover your peak performance hours.
-              </p>
-            </div>
-
-            <div className="skeuo-panel p-8 text-center">
-              <div className="skeuo-avatar w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center">
-                <Target className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 embossed-text">Goal Tracking</h3>
-              <p className="text-zinc-300 leading-relaxed">
-                Set goals and track your progress with visual charts and milestone celebrations.
-              </p>
-            </div>
+            <p className="mt-8 text-[11px] font-black uppercase text-black/40 text-center tracking-widest">Telemetry Sample: Weekly Focus Distribution</p>
           </div>
 
-          {/* Detailed Features */}
-          <div className="space-y-16">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl font-bold mb-6 embossed-text">Daily Dashboard</h2>
-                <p className="text-zinc-300 mb-8 leading-relaxed">
-                  Start each day with a clear view of your productivity metrics. See your focus hours, completed tasks, current streak, and distraction count at a glance.
-                </p>
-                <div className="space-y-4">
-                  {['Real-time focus tracking', 'Weekly comparison charts', 'Task completion rates'].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <div className="skeuo-avatar w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                        </svg>
+          <div className="grid md:grid-cols-3 gap-6 mb-20">
+            {[
+              { icon: Clock, title: 'Time Analysis', text: 'Granular session tracking for total transparency.', bg: 'bg-blue-50' },
+              { icon: TrendingUp, title: 'Trend Modeling', text: 'Identify growth vectors in your productivity habits.', bg: 'bg-pink-50' },
+              { icon: Target, title: 'Goal Metrics', text: 'Visualized milestone tracking with zero-lag updates.', bg: 'bg-green-50' }
+            ].map((stat, i) => (
+              <div key={i} className={`skeuo-panel p-8 border-2 border-black shadow-[4px_4px_0px_black] ${stat.bg} group`}>
+                <div className="skeuo-avatar w-12 h-12 mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                  <stat.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-black mb-2 uppercase tracking-tighter">{stat.title}</h3>
+                <p className="text-xs font-bold text-black/70 leading-relaxed">{stat.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-12 mb-20">
+            {[
+              {
+                title: 'The Daily Dashboard',
+                desc: 'High-fidelity metrics delivered every morning to calibrate your focus strategy.',
+                points: ['Real-time focus tracking', 'Team Heatmaps', 'Efficiency Scores'],
+                bg: 'bg-white',
+                icon: BarChart3
+              },
+              {
+                title: 'Historical Flux',
+                desc: 'Deep archival access to your focus telemetry across months and years.',
+                points: ['Longitudinal growth charts', 'Peak hour prediction', 'Anomaly detection'],
+                bg: 'bg-zinc-50',
+                icon: TrendingUp,
+                reverse: true
+              }
+            ].map((feature, i) => (
+              <div key={i} className={`skeuo-panel p-12 border-4 border-black shadow-[8px_8px_0px_black] ${feature.bg} flex flex-col md:flex-row gap-12 items-center`}>
+                <div className={`flex-1 ${feature.reverse ? 'md:order-last' : ''}`}>
+                  <h2 className="text-3xl font-black mb-4 uppercase tracking-tighter">{feature.title}</h2>
+                  <p className="text-sm font-bold text-black/70 mb-8 leading-relaxed">{feature.desc}</p>
+                  <div className="grid gap-3">
+                    {feature.points.map((p, j) => (
+                      <div key={j} className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-black rotate-45" />
+                        <span className="text-[10px] font-black tracking-tight text-black/80">{p}</span>
                       </div>
-                      <span className="text-zinc-300">{item}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                </div>
+                <div className="w-full md:w-1/3 aspect-square bg-white border-4 border-black shadow-[6px_6px_0px_black] flex items-center justify-center">
+                  <feature.icon className="w-16 h-16 text-black/20" />
                 </div>
               </div>
-              <div className="skeuo-panel p-12 aspect-square flex items-center justify-center">
-                <BarChart3 className="w-32 h-32 text-zinc-600" />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="skeuo-panel p-12 aspect-square flex items-center justify-center md:order-first">
-                <TrendingUp className="w-32 h-32 text-zinc-600" />
-              </div>
-              <div>
-                <h2 className="text-4xl font-bold mb-6 embossed-text">Weekly & Monthly Reports</h2>
-                <p className="text-zinc-300 mb-8 leading-relaxed">
-                  Dive deep into your productivity patterns with comprehensive weekly and monthly reports. Understand what works and what doesn't.
-                </p>
-                <div className="space-y-4">
-                  {['Distraction heatmaps', 'Focus time by hour', 'Month-over-month comparison'].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <div className="skeuo-avatar w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-zinc-300">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        </section>
 
-        {/* CTA */}
-        <section className="max-w-7xl mx-auto px-6 pb-32">
-          <div className="skeuo-panel p-12 text-center">
-            <h2 className="text-4xl font-bold mb-6 embossed-text">Start tracking your productivity today</h2>
-            <p className="text-xl text-zinc-300 mb-10 max-w-2xl mx-auto">
-              Get insights that help you work smarter, not harder.
+          <div className="skeuo-panel p-12 text-center bg-white border-4 border-black shadow-[10px_10px_0px_black]">
+            <h2 className="text-3xl font-black mb-4 uppercase tracking-tighter">Quantify your success.</h2>
+            <p className="text-base font-bold text-black/70 mb-10 max-w-2xl mx-auto">
+              Stop guessing. Start measuring your deep work output with high-density telemetry.
             </p>
             <Link
               href="/register"
-              className="skeuo-button inline-flex items-center gap-3 px-8 py-4 text-white font-medium text-lg"
+              className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center gap-3 w-fit mx-auto group"
             >
-              <span>Try Analytics Free</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              <span>Begin Tracking</span>
+              <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

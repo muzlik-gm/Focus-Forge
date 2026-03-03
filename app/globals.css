@@ -46,10 +46,15 @@
   .neo-landing h6 {
     color: var(--text-neo) !important;
     font-weight: 900 !important;
-    text-transform: uppercase;
-    letter-spacing: -2px;
     font-style: normal !important;
-    /* Force no italics on headers */
+    letter-spacing: -0.02em;
+    /* Proportion-based tightening for legibility */
+    line-height: 1.1;
+  }
+
+  .neo-landing h1 {
+    letter-spacing: -0.04em !important;
+    line-height: 0.95 !important;
   }
 }
 

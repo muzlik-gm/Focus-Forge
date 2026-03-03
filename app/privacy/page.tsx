@@ -2,63 +2,76 @@
 
 import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
+import { Shield, Sparkles } from 'lucide-react';
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#0f0f10] text-white relative overflow-x-hidden">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f10] via-[#151518] to-[#0f0f10] opacity-100" />
-        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] gradient-orb bg-blue-600" />
-      </div>
-
+    <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      <div className="relative z-10">
-        <section className="max-w-4xl mx-auto px-6 pt-40 pb-20">
-          <h1 className="text-5xl font-bold mb-6 embossed-text tracking-tight">Privacy Policy</h1>
-          <p className="text-zinc-400 mb-12">Last updated: February 22, 2026</p>
-
-          <div className="space-y-8 text-zinc-300">
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Introduction</h2>
-              <p>Forgrin ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service.</p>
+      <main className="flex-grow pt-32 px-6">
+        <section className="max-w-4xl mx-auto pb-20">
+          <div className="text-center mb-16 border-b-4 border-black pb-12">
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <Shield className="w-4 h-4 text-blue-600" />
+              <span>Data Integrity</span>
             </div>
+            <h1 className="text-4xl lg:text-5xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
+              Privacy<br />Architecture.
+            </h1>
+            <p className="text-xs font-black text-black/50">Last updated: March 03, 2026</p>
+          </div>
 
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Information We Collect</h2>
-              <p className="mb-4">We collect information that you provide directly to us, including:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>Account information (name, email, password)</li>
-                <li>Focus session data and productivity metrics</li>
-                <li>Task and project information</li>
-                <li>Usage data and analytics</li>
-              </ul>
-            </div>
+          <div className="space-y-6">
+            {[
+              {
+                title: 'Core Protocol',
+                content: 'Forgrin ("we", "our", or "us") is engineered with a privacy-first mandate. This document outlines the technical and legal framework for the telemetry we collect to optimize your deep work sessions.',
+                bg: 'bg-white'
+              },
+              {
+                title: 'Data Collection',
+                content: 'We process a high-density stream of productivity telemetry, including session timestamps, task descriptors, and focus scores. All and any personally identifiable information (PII) is encrypted at rest using industry-standard protocols.',
+                points: ['Session Duration & Frequency', 'Distraction Metadata', 'Task Hierarchy & Completion', 'Encrypted Identity Tokens'],
+                bg: 'bg-blue-50'
+              },
+              {
+                title: 'Utilization Strategy',
+                content: 'Collected data is exclusively utilized to train your local focus models and provide comparative analytics within your team workspace. We maintain a zero-leak policy regarding third-party data brokerage.',
+                bg: 'bg-white'
+              },
+              {
+                title: 'Secure Transmission',
+                content: 'All communication between your client and our telemetry clusters is tunneled through TLS 1.3. We undergo regular pentesting to ensure the integrity of your focus data.',
+                bg: 'bg-pink-50'
+              }
+            ].map((section, i) => (
+              <div key={i} className={`skeuo-panel p-10 border-2 border-black shadow-[6px_6px_0px_black] ${section.bg}`}>
+                <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter border-b-2 border-black pb-2">{section.title}</h2>
+                <p className="text-sm font-bold text-black/70 leading-relaxed mb-4">{section.content}</p>
+                {section.points && (
+                  <ul className="grid grid-cols-2 gap-3 mt-4">
+                    {section.points.map((p, j) => (
+                      <li key={j} className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-black rotate-45" />
+                        <span className="text-[10px] font-black uppercase tracking-tight text-black/60">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
 
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">How We Use Your Information</h2>
-              <p className="mb-4">We use the information we collect to:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>Provide, maintain, and improve our services</li>
-                <li>Process your transactions and send related information</li>
-                <li>Send you technical notices and support messages</li>
-                <li>Respond to your comments and questions</li>
-                <li>Analyze usage patterns and trends</li>
-              </ul>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Data Security</h2>
-              <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
-            </div>
-
-            <div className="skeuo-card p-8">
-              <h2 className="text-2xl font-semibold mb-4 embossed-text">Contact Us</h2>
-              <p>If you have questions about this Privacy Policy, please contact us at privacy@forgrin.com</p>
+            <div className="skeuo-panel p-10 border-2 border-black shadow-[6px_6px_0px_black] bg-zinc-50">
+              <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter">Contact Privacy</h2>
+              <p className="text-sm font-black tracking-tight mb-4">For data requests or deletion directives, reach out to our legal department:</p>
+              <div className="mt-4 text-blue-600 font-black uppercase tracking-widest text-lg hover:underline cursor-pointer">
+                privacy@forgrin.app
+              </div>
             </div>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>
