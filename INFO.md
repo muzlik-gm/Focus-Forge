@@ -1,4 +1,4 @@
-# FocusForge - Complete AI Context Document
+# Forgrin - Complete AI Context Document
 *Last Updated: February 2026*
 *Purpose: Provide AI assistants with complete context to improve the application*
 
@@ -89,7 +89,7 @@
 - ✅ Fixed Command Palette navigation (added "Go to Focus Sessions")
 - ✅ Implemented Work Health Monitoring system with research-backed thresholds
 - ✅ Applied compact design across all dashboard pages
-- ✅ Fixed Windows notification system (shows "FocusForge" instead of "PowerShell")
+- ✅ Fixed Windows notification system (shows "Forgrin" instead of "PowerShell")
 - ✅ Removed Weekly Review page from navigation
 - ✅ Removed borders from avatar icons (fully circular design)
 - ✅ Added WorkHealthCard component to dashboard
@@ -822,7 +822,7 @@ Workspace
 ### 9.1 Critical Issues (Fix Immediately)
 
 **Desktop App**:
-1. ❌ **Notification shows "PowerShell" instead of "FocusForge"**
+1. ❌ **Notification shows "PowerShell" instead of "Forgrin"**
    - Status: IN PROGRESS (Windows toast implementation)
    - Impact: Confusing for users, unprofessional
    - Fix: Use native Windows ToastNotificationManager API
@@ -942,7 +942,7 @@ Workspace
   - Achieve 3+ hours deep focus daily
   - Maintain work-life balance
   - Track billable hours accurately
-- How FocusForge Helps:
+- How Forgrin Helps:
   - Automatic distraction detection
   - Work health monitoring (prevents overwork)
   - Focus session tracking
@@ -963,7 +963,7 @@ Workspace
   - Maintain 45-hour work week
   - Show value to leadership
   - Help team improve productivity
-- How FocusForge Helps:
+- How Forgrin Helps:
   - Focus session blocking
   - Work health warnings
   - Team leaderboard and collaboration
@@ -984,7 +984,7 @@ Workspace
   - Prevent burnout
   - Data-driven performance reviews
   - Foster healthy work culture
-- How FocusForge Helps:
+- How Forgrin Helps:
   - Team dashboard and analytics
   - Burnout detection
   - Leaderboard for motivation
@@ -1005,7 +1005,7 @@ Workspace
   - Build consistent habits
   - Track learning progress
   - Stay motivated
-- How FocusForge Helps:
+- How Forgrin Helps:
   - Streak system for motivation
   - Focus sessions for structure
   - Analytics to see progress
@@ -1016,7 +1016,7 @@ Workspace
 **Journey 1: First-Time User (Solo Developer Sam)**
 
 **Day 1 - Discovery & Onboarding**:
-1. Discovers FocusForge via Reddit post about productivity
+1. Discovers Forgrin via Reddit post about productivity
 2. Signs up with email (FREE tier)
 3. Completes onboarding: sets goal (3 hours deep focus/day)
 4. Downloads desktop app
@@ -1049,7 +1049,7 @@ Workspace
 **Journey 2: Team Adoption (Team Lead Tom)**
 
 **Week 1 - Evaluation**:
-1. Hears about FocusForge from engineer
+1. Hears about Forgrin from engineer
 2. Signs up for FREE trial
 3. Tests desktop app for 1 week
 4. Sees 30% productivity improvement
@@ -1151,7 +1151,7 @@ Workspace
 5. **Privacy**: User data is sacred - never compromise
 6. **Simplicity**: Complex problems need simple solutions
 7. **Consistency**: Follow established patterns and conventions
-8. **Accessibility**: Everyone should be able to use FocusForge
+8. **Accessibility**: Everyone should be able to use Forgrin
 
 ### Common Pitfalls to Avoid
 
@@ -1178,5 +1178,5 @@ Workspace
 **Document Version**: 1.0
 **Last Updated**: February 28, 2026
 **Next Review**: March 31, 2026
-**Maintained By**: FocusForge Team
+**Maintained By**: Forgrin Team
 **Contact**: [email] for questions or updates

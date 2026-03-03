@@ -65,8 +65,8 @@ export function NotificationToastProvider() {
             }, toast.durationMs);
         };
 
-        window.addEventListener('focusforge:notification', handler);
-        return () => window.removeEventListener('focusforge:notification', handler);
+        window.addEventListener('forgrin:notification', handler);
+        return () => window.removeEventListener('forgrin:notification', handler);
     }, []);
 
     const dismiss = (id: string) => {

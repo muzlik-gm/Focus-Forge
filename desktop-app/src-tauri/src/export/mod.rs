@@ -78,15 +78,15 @@ pub struct ExportResult {
 /// Get the default export directory
 /// 
 /// Platform-specific locations:
-/// - Windows: %USERPROFILE%\Documents\FocusForge\Exports
-/// - macOS: ~/Documents/FocusForge/Exports
-/// - Linux: ~/Documents/FocusForge/Exports
+/// - Windows: %USERPROFILE%\Documents\Forgrin\Exports
+/// - macOS: ~/Documents/Forgrin/Exports
+/// - Linux: ~/Documents/Forgrin/Exports
 pub fn get_export_directory() -> Result<PathBuf> {
     let documents_dir = dirs::document_dir()
         .context("Failed to get documents directory")?;
     
     let export_dir = documents_dir
-        .join("FocusForge")
+        .join("Forgrin")
         .join("Exports");
     
     // Create directory if it doesn't exist

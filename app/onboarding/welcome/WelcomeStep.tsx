@@ -20,7 +20,7 @@ export function WelcomeStep() {
 
   const handleGetStarted = async () => {
     setIsLoading(true);
-    
+
     try {
       // Save onboarding progress and move to next step
       await fetch('/api/onboarding/progress', {
@@ -28,7 +28,7 @@ export function WelcomeStep() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ step: 'welcome_complete' }),
       });
-      
+
       router.push('/onboarding/goals');
     } catch (error) {
       console.error('Error saving onboarding progress:', error);
@@ -40,7 +40,7 @@ export function WelcomeStep() {
 
   const handleSkip = async () => {
     setIsLoading(true);
-    
+
     try {
       await fetch('/api/onboarding/complete', { method: 'POST' });
       router.push('/dashboard');
@@ -68,7 +68,7 @@ export function WelcomeStep() {
               <Zap className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-cyan-500 bg-clip-text text-transparent">
-              Welcome to FocusForge
+              Welcome to Forgrin
             </h1>
             <p className="text-lg text-muted-foreground mt-2">
               Your journey to deep work starts here
@@ -89,7 +89,7 @@ export function WelcomeStep() {
                 Organize tasks with drag-and-drop Kanban boards
               </p>
             </div>
-            
+
             <div className={cn(
               'p-6 rounded-xl border bg-card text-card-foreground',
               'hover:shadow-lg transition-shadow'
@@ -102,7 +102,7 @@ export function WelcomeStep() {
                 Timer-based sessions with distraction tracking
               </p>
             </div>
-            
+
             <div className={cn(
               'p-6 rounded-xl border bg-card text-card-foreground',
               'hover:shadow-lg transition-shadow'

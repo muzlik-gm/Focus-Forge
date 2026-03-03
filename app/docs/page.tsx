@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Documentation',
-  description: 'FocusForge documentation. Guides, API reference, and everything you need to get started.',
+  description: 'Forgrin documentation. Guides, API reference, and everything you need to get started.',
 };
 
 export default function DocsPage() {
@@ -13,7 +13,7 @@ export default function DocsPage() {
     {
       icon: Book,
       title: 'Getting Started',
-      description: 'Learn the basics of FocusForge',
+      description: 'Learn the basics of Forgrin',
       color: 'from-blue-500 to-cyan-400',
       links: [
         { title: 'Quick Start Guide', href: '/docs/quick-start' },
@@ -25,7 +25,7 @@ export default function DocsPage() {
     {
       icon: Zap,
       title: 'Features',
-      description: 'Deep dive into FocusForge features',
+      description: 'Deep dive into Forgrin features',
       color: 'from-purple-500 to-pink-400',
       links: [
         { title: 'Focus Sessions', href: '/docs/focus-sessions' },
@@ -37,7 +37,7 @@ export default function DocsPage() {
     {
       icon: Code,
       title: 'API Reference',
-      description: 'Integrate with FocusForge',
+      description: 'Integrate with Forgrin',
       color: 'from-green-500 to-emerald-400',
       links: [
         { title: 'Authentication', href: '/docs/api/auth' },
@@ -77,8 +77,8 @@ export default function DocsPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/docs/api" className="skeuo-chip">
@@ -107,7 +107,7 @@ export default function DocsPage() {
               Documentation
             </h1>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Everything you need to know about using FocusForge.
+              Everything you need to know about using Forgrin.
             </p>
           </div>
 

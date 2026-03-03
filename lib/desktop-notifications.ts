@@ -83,7 +83,7 @@ class DesktopNotificationService {
                     body: notification.body,
                     icon: notification.icon ?? '/logo.png',
                     silent: notification.silent ?? false,
-                    tag: notification.type ?? 'focusforge',
+                    tag: notification.type ?? 'forgrin',
                 });
 
                 // Auto-close after duration
@@ -98,7 +98,7 @@ class DesktopNotificationService {
 
         // Fallback: in-app toast (dispatches to a global event the toast listener can pick up)
         if (typeof window !== 'undefined') {
-            window.dispatchEvent(new CustomEvent('focusforge:notification', {
+            window.dispatchEvent(new CustomEvent('forgrin:notification', {
                 detail: notification,
             }));
         }

@@ -21,7 +21,7 @@ export default function PrivacyPage() {
           <div className="space-y-8 text-zinc-300">
             <div className="skeuo-card p-8">
               <h2 className="text-2xl font-semibold mb-4 embossed-text">Introduction</h2>
-              <p>FocusForge ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service.</p>
+              <p>Forgrin ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service.</p>
             </div>
 
             <div className="skeuo-card p-8">
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
 
             <div className="skeuo-card p-8">
               <h2 className="text-2xl font-semibold mb-4 embossed-text">Contact Us</h2>
-              <p>If you have questions about this Privacy Policy, please contact us at privacy@focusforge.com</p>
+              <p>If you have questions about this Privacy Policy, please contact us at privacy@forgrin.com</p>
             </div>
           </div>
         </section>

@@ -1,16 +1,21 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 export function MarketingNav() {
+  const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
+
+  // Use logo_black.png on the landing page (/), and logo.png on all other pages
+  const logoSrc = pathname === '/' ? '/logo_black.png' : '/logo.png';
 
   useEffect(() => {
     // Dynamically import anime.js only on client side
     import('animejs').then((module) => {
       const anime = (module as any).default || module;
-      
+
       if (navRef.current) {
         // Subtle entrance animation
         anime({
@@ -27,15 +32,15 @@ export function MarketingNav() {
   }, []);
 
   return (
-    <nav 
+    <nav
       ref={navRef}
       className="marketing-nav-fixed"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-            <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-            <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+            <img src={logoSrc} alt="Forgrin" className="w-10 h-10" />
+            <span className="text-xl font-black tracking-tight">Forgrin</span>
           </Link>
           <div className="hidden md:flex items-center gap-6">
             <Link href="/features" className="skeuo-chip">

@@ -8,7 +8,9 @@ import { cn } from '@/lib/utils';
 import { CommandPalette } from './CommandPalette';
 import { NotificationDropdown } from './NotificationDropdown';
 import { WorkspaceSelector } from './WorkspaceSelector';
+import { CreateWorkspaceModal } from './CreateWorkspaceModal';
 import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 import type { SyncStatus } from '@/lib/cloud-sync';
 
 /**
@@ -26,7 +28,9 @@ import type { SyncStatus } from '@/lib/cloud-sync';
 
 export function Navbar() {
   const { user, signOut: handleSignOut } = useAuth();
+  const router = useRouter();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isDev = process.env.NODE_ENV === 'development';
   const [syncStatus, setSyncStatus] = useState<SyncStatus | null>(null);
 
@@ -45,8 +49,8 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           {/* Logo */}
           <Link href="/dashboard" className="flex items-center gap-3">
-            <img src="/logo.png" alt="FocusForge" className="w-9 h-9" />
-            <span className="font-bold text-lg">FocusForge</span>
+            <img src="/logo.png" alt="Forgrin" className="w-9 h-9" />
+            <span className="font-bold text-lg">Forgrin</span>
           </Link>
 
           {/* Dev Mode Indicator */}
@@ -67,7 +71,14 @@ export function Navbar() {
           <CommandPalette />
 
           {/* Workspace Selector */}
-          <WorkspaceSelector />
+          <WorkspaceSelector onCreateWorkspace={() => setIsModalOpen(true)} />
+
+          {/* Create Workspace Modal */}
+          <CreateWorkspaceModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onSuccess={() => router.refresh()}
+          />
 
           {/* Notifications */}
           <NotificationDropdown />

@@ -3,7 +3,7 @@
 // This test verifies that the database recovery system works correctly
 // when integrated with the full application startup process.
 
-use focusforge_desktop::database::{Database, recovery};
+use forgrin_desktop::database::{Database, recovery};
 use std::path::PathBuf;
 
 #[tokio::test]
@@ -116,12 +116,12 @@ async fn test_backup_cleanup() {
     
     // Create old backup (8 days ago)
     let old_timestamp = chrono::Utc::now().timestamp() - (8 * 24 * 60 * 60);
-    let old_backup_path = backup_dir.join(format!("focusforge_backup_{}.db", old_timestamp));
+    let old_backup_path = backup_dir.join(format!("forgrin_backup_{}.db", old_timestamp));
     tokio::fs::write(&old_backup_path, b"old backup").await.unwrap();
     
     // Create recent backup (1 day ago)
     let recent_timestamp = chrono::Utc::now().timestamp() - (1 * 24 * 60 * 60);
-    let recent_backup_path = backup_dir.join(format!("focusforge_backup_{}.db", recent_timestamp));
+    let recent_backup_path = backup_dir.join(format!("forgrin_backup_{}.db", recent_timestamp));
     tokio::fs::write(&recent_backup_path, b"recent backup").await.unwrap();
     
     // Run cleanup

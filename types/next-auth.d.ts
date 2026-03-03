@@ -5,7 +5,7 @@ import { JWT, DefaultJWT } from 'next-auth/jwt';
  * Type definitions for NextAuth
  * 
  * Extends the default NextAuth types to include custom user properties
- * from the FocusForge User model.
+ * from the Forgrin User model.
  */
 
 declare module 'next-auth' {

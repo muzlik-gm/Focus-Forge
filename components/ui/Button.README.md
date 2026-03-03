@@ -1,6 +1,6 @@
 # Button Component
 
-A flexible, accessible button component that implements the FocusForge design system as specified in **Requirement 18: Button Design System**.
+A flexible, accessible button component that implements the Forgrin design system as specified in **Requirement 18: Button Design System**.
 
 ## Features
 

@@ -9,7 +9,7 @@ Before running integration tests, you need:
 1. **PostgreSQL Database**: A running PostgreSQL instance
 2. **Environment Variables**: Create a `.env.local` file with:
    ```
-   DATABASE_URL="postgresql://user:password@localhost:5432/focusforge_test?schema=public"
+   DATABASE_URL="postgresql://user:password@localhost:5432/forgrin_test?schema=public"
    NEXTAUTH_SECRET="test-secret-key"
    NEXTAUTH_URL="http://localhost:3000"
    ```

@@ -18,8 +18,8 @@ export default function APIReferencePage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/docs" className="skeuo-chip"><span className="text-sm">Docs</span></Link>
@@ -37,7 +37,7 @@ export default function APIReferencePage() {
               <span>API REFERENCE</span>
             </div>
             <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">API Reference</h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">Build powerful integrations with the FocusForge API.</p>
+            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">Build powerful integrations with the Forgrin API.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -57,7 +57,7 @@ export default function APIReferencePage() {
               </div>
               <h2 className="text-2xl font-bold mb-4 embossed-text">Base URL</h2>
               <p className="text-zinc-300 mb-4">All API endpoints are relative to the base URL:</p>
-              <code className="block skeuo-input p-4 text-sm text-green-400">https://api.focusforge.com/v1</code>
+              <code className="block skeuo-input p-4 text-sm text-green-400">https://api.forgrin.com/v1</code>
             </div>
           </div>
 
@@ -65,20 +65,26 @@ export default function APIReferencePage() {
             <h2 className="text-3xl font-bold mb-8 embossed-text">Endpoints</h2>
             <div className="space-y-8">
               {[
-                { title: 'Sessions', endpoints: [
-                  { method: 'GET', path: '/sessions', desc: 'List all sessions' },
-                  { method: 'POST', path: '/sessions', desc: 'Create a session' },
-                  { method: 'GET', path: '/sessions/:id', desc: 'Get session details' }
-                ]},
-                { title: 'Tasks', endpoints: [
-                  { method: 'GET', path: '/tasks', desc: 'List all tasks' },
-                  { method: 'POST', path: '/tasks', desc: 'Create a task' },
-                  { method: 'PATCH', path: '/tasks/:id', desc: 'Update a task' }
-                ]},
-                { title: 'Analytics', endpoints: [
-                  { method: 'GET', path: '/analytics/dashboard', desc: 'Get dashboard metrics' },
-                  { method: 'GET', path: '/analytics/weekly', desc: 'Get weekly analytics' }
-                ]}
+                {
+                  title: 'Sessions', endpoints: [
+                    { method: 'GET', path: '/sessions', desc: 'List all sessions' },
+                    { method: 'POST', path: '/sessions', desc: 'Create a session' },
+                    { method: 'GET', path: '/sessions/:id', desc: 'Get session details' }
+                  ]
+                },
+                {
+                  title: 'Tasks', endpoints: [
+                    { method: 'GET', path: '/tasks', desc: 'List all tasks' },
+                    { method: 'POST', path: '/tasks', desc: 'Create a task' },
+                    { method: 'PATCH', path: '/tasks/:id', desc: 'Update a task' }
+                  ]
+                },
+                {
+                  title: 'Analytics', endpoints: [
+                    { method: 'GET', path: '/analytics/dashboard', desc: 'Get dashboard metrics' },
+                    { method: 'GET', path: '/analytics/weekly', desc: 'Get weekly analytics' }
+                  ]
+                }
               ].map((section, i) => (
                 <div key={i}>
                   <h3 className="text-xl font-bold mb-4 embossed-text">{section.title}</h3>

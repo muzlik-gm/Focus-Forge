@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session || !session.user) {
       return NextResponse.json(
         {
@@ -64,10 +64,10 @@ export async function GET(request: NextRequest) {
 
     if (type === 'sessions') {
       csv = await exportSessionsAsCSV(session.user.id);
-      filename = `focusforge-sessions-${new Date().toISOString().split('T')[0]}.csv`;
+      filename = `forgrin-sessions-${new Date().toISOString().split('T')[0]}.csv`;
     } else {
       csv = await exportTasksAsCSV(session.user.id);
-      filename = `focusforge-tasks-${new Date().toISOString().split('T')[0]}.csv`;
+      filename = `forgrin-tasks-${new Date().toISOString().split('T')[0]}.csv`;
     }
 
     // Return as downloadable CSV

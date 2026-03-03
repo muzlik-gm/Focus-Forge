@@ -1,8 +1,8 @@
-# FocusForge Desktop App - Checkpoint 5 Verification Script
+# Forgrin Desktop App - Checkpoint 5 Verification Script
 # This script verifies that the basic unified app is working correctly
 
 Write-Host "========================================"
-Write-Host "FocusForge Desktop App - Checkpoint 5"
+Write-Host "Forgrin Desktop App - Checkpoint 5"
 Write-Host "Basic Unified App Verification"
 Write-Host "========================================"
 Write-Host ""
@@ -23,7 +23,7 @@ function Test-HttpEndpoint {
 # Function to check if SQLite database exists
 function Test-DatabaseExists {
     $appDataPath = $env:APPDATA
-    $dbPath = Join-Path $appDataPath "com.focusforge.desktop\focusforge.db"
+    $dbPath = Join-Path $appDataPath "com.forgrin.desktop\forgrin.db"
     return Test-Path $dbPath
 }
 
@@ -127,7 +127,7 @@ if (Test-Path "src-tauri/migrations") {
 
 if (Test-DatabaseExists) {
     Write-Host "  [PASS] SQLite database file exists in AppData"
-    $dbPath = Join-Path $env:APPDATA "com.focusforge.desktop\focusforge.db"
+    $dbPath = Join-Path $env:APPDATA "com.forgrin.desktop\forgrin.db"
     Write-Host "    Location: $dbPath"
 } else {
     Write-Host "  [INFO] SQLite database not yet created (will be created on first run)"

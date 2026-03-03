@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
  * Requirements: 30
  */
 
-type OnboardingGoal = 
+type OnboardingGoal =
   | 'productivity'
   | 'focus'
   | 'task_management'
@@ -83,14 +83,14 @@ export function GoalsStep() {
 
   const handleContinue = async () => {
     setIsLoading(true);
-    
+
     try {
       await fetch('/api/onboarding/goals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ goals: selectedGoals }),
       });
-      
+
       router.push('/onboarding/tour');
     } catch (error) {
       console.error('Error saving goals:', error);
@@ -110,7 +110,7 @@ export function GoalsStep() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">
-            What brings you to FocusForge?
+            What brings you to Forgrin?
           </h1>
           <p className="text-muted-foreground">
             Select your goals so we can personalize your experience
@@ -122,7 +122,7 @@ export function GoalsStep() {
           {GOAL_OPTIONS.map((goal) => {
             const isSelected = selectedGoals.includes(goal.id);
             const Icon = goal.icon;
-            
+
             return (
               <button
                 key={goal.id}

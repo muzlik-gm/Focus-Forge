@@ -1,7 +1,7 @@
-# FocusForge Desktop Application Architecture
+# Forgrin Desktop Application Architecture
 
 ## Overview
-Transform FocusForge into a native desktop application with deep system monitoring capabilities for comprehensive focus tracking and distraction detection.
+Transform Forgrin into a native desktop application with deep system monitoring capabilities for comprehensive focus tracking and distraction detection.
 
 ## Technology Stack
 
@@ -134,7 +134,7 @@ interface FocusSessionConfig {
 
 ### Desktop Application Structure
 ```
-focusforge-desktop/
+forgrin-desktop/
 ├── src/
 │   ├── main/                    # Main process (Node.js/Rust)
 │   │   ├── index.ts
@@ -373,7 +373,7 @@ model AppCategory {
 - **Toggl Track**: Manual tracking, no automatic detection
 - **ActivityWatch**: Open source, basic tracking
 
-### FocusForge Advantages
+### Forgrin Advantages
 - ✅ Real-time focus loss detection
 - ✅ AI-powered insights
 - ✅ Team collaboration features

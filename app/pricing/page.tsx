@@ -51,8 +51,8 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
-              <img src="/logo.png" alt="FocusForge" className="w-8 h-8" />
-              <span className="text-base font-semibold tracking-tight embossed-text">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-8 h-8" />
+              <span className="text-base font-semibold tracking-tight embossed-text">Forgrin</span>
             </Link>
             <div className="flex items-center gap-8">
               <Link href="/" className="text-sm text-zinc-400 hover:text-white transition">

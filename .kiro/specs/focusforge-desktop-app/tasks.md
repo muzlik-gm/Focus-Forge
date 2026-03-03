@@ -1,8 +1,8 @@
-# Implementation Plan: FocusForge Desktop Application
+# Implementation Plan: Forgrin Desktop Application
 
 ## Overview
 
-This implementation plan documents the FocusForge desktop application using Tauri. The desktop app uses a **cloud-based architecture** where it connects to a running Next.js server for all authentication and data operations.
+This implementation plan documents the Forgrin desktop application using Tauri. The desktop app uses a **cloud-based architecture** where it connects to a running Next.js server for all authentication and data operations.
 
 **IMPORTANT: This is NOT a standalone desktop app**. The desktop app is a lightweight client that:
 - Loads the frontend from the Next.js server

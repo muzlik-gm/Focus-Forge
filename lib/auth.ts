@@ -11,7 +11,7 @@ import {
 } from './rate-limit';
 
 /**
- * NextAuth configuration for FocusForge
+ * NextAuth configuration for Forgrin
  * 
  * Implements:
  * - Credentials provider for email/password authentication

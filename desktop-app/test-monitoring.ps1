@@ -1,13 +1,13 @@
 # Test script to verify monitoring functionality
 # This script tests task 4.4 requirements
 
-Write-Host "Testing FocusForge Monitoring System" -ForegroundColor Cyan
+Write-Host "Testing Forgrin Monitoring System" -ForegroundColor Cyan
 Write-Host "====================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Get the database path
 $appDataDir = $env:APPDATA
-$dbPath = Join-Path $appDataDir "com.focusforge.desktop\focusforge.db"
+$dbPath = Join-Path $appDataDir "com.forgrin.desktop\forgrin.db"
 
 Write-Host "Database path: $dbPath" -ForegroundColor Yellow
 Write-Host ""

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# FocusForge Database Setup Script
+# Forgrin Database Setup Script
 # This script helps set up the database for development
 
-echo "🚀 FocusForge Database Setup"
+echo "🚀 Forgrin Database Setup"
 echo "=============================="
 echo ""
 
@@ -23,7 +23,7 @@ if ! grep -q "DATABASE_URL=" .env.local; then
     echo "❌ Error: DATABASE_URL not found in .env.local"
     echo ""
     echo "Please add DATABASE_URL to your .env.local file:"
-    echo '  DATABASE_URL="postgresql://user:password@localhost:5432/focusforge?schema=public"'
+    echo '  DATABASE_URL="postgresql://user:password@localhost:5432/forgrin?schema=public"'
     exit 1
 fi
 
@@ -42,8 +42,8 @@ if [ $? -ne 0 ]; then
     echo "  3. Database exists (or will be created)"
     echo ""
     echo "Quick start with Docker:"
-    echo '  docker run --name focusforge-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres'
-    echo '  docker exec -it focusforge-db createdb -U postgres focusforge'
+    echo '  docker run --name forgrin-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres'
+    echo '  docker exec -it forgrin-db createdb -U postgres forgrin'
     exit 1
 fi
 

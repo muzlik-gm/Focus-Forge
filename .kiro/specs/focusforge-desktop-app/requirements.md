@@ -2,7 +2,7 @@
 
 ## Introduction
 
-FocusForge Desktop Application transforms the existing web-based productivity platform into a unified native desktop application. The system provides seamless integration between the Next.js frontend and a powerful system monitoring backend, delivering real-time focus tracking, distraction detection, and comprehensive activity analytics.
+Forgrin Desktop Application transforms the existing web-based productivity platform into a unified native desktop application. The system provides seamless integration between the Next.js frontend and a powerful system monitoring backend, delivering real-time focus tracking, distraction detection, and comprehensive activity analytics.
 
 **CRITICAL REQUIREMENT: The application runs as a single unified process** - when you launch the desktop app, both the Next.js frontend and the Rust monitoring backend start together automatically, just like Discord. There are no separate processes to manage, no separate terminal commands to run, and no manual coordination needed. One app, one launch, everything works together.
 
@@ -28,7 +28,7 @@ The application features deep OS integration, browser extension connectivity, an
 
 ### Requirement 1: Unified Application Launch
 
-**User Story:** As a user, I want to launch FocusForge with a single click and have everything start automatically, so that I don't need to manage multiple processes or terminal windows.
+**User Story:** As a user, I want to launch Forgrin with a single click and have everything start automatically, so that I don't need to manage multiple processes or terminal windows.
 
 #### Acceptance Criteria
 
@@ -42,7 +42,7 @@ The application features deep OS integration, browser extension connectivity, an
 
 ### Requirement 2: Embedded Next.js Application
 
-**User Story:** As a user, I want the familiar FocusForge web interface embedded in the desktop app, so that I can use all existing features without learning a new interface.
+**User Story:** As a user, I want the familiar Forgrin web interface embedded in the desktop app, so that I can use all existing features without learning a new interface.
 
 #### Acceptance Criteria
 
@@ -157,7 +157,7 @@ The application features deep OS integration, browser extension connectivity, an
 
 ### Requirement 11: Cross-Platform Support
 
-**User Story:** As a user, I want FocusForge to work on my operating system, so that I can use it regardless of my platform choice.
+**User Story:** As a user, I want Forgrin to work on my operating system, so that I can use it regardless of my platform choice.
 
 #### Acceptance Criteria
 

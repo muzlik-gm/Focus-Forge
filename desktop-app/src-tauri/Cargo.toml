@@ -1,10 +1,10 @@
 [package]
-name = "focusforge-desktop"
+name = "forgrin-desktop"
 version = "0.1.0"
-description = "FocusForge Desktop Application - Unified productivity tracking with embedded Next.js frontend"
-authors = ["FocusForge Team"]
+description = "Forgrin Desktop Application - Unified productivity tracking with embedded Next.js frontend"
+authors = ["Forgrin Team"]
 license = "MIT"
-repository = "https://github.com/focusforge/focusforge"
+repository = "https://github.com/forgrin/forgrin"
 edition = "2021"
 
 [build-dependencies]

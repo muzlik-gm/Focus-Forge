@@ -303,5 +303,5 @@ Potential improvements for future tasks:
 - `desktop-app/src-tauri/src/focus/session_manager.rs` - Session-scoped overrides
 - `desktop-app/src-tauri/src/main.rs` - Command registration
 - `lib/tauri-api.ts` - Frontend TypeScript API
-- `.kiro/specs/focusforge-desktop-app/requirements.md` - Requirements 5.2-5.5
-- `.kiro/specs/focusforge-desktop-app/design.md` - Design specifications
+- `.kiro/specs/forgrin-desktop-app/requirements.md` - Requirements 5.2-5.5
+- `.kiro/specs/forgrin-desktop-app/design.md` - Design specifications

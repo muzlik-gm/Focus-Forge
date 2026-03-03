@@ -7,7 +7,7 @@ import { Flame } from 'lucide-react';
  * Card Component Examples
  * 
  * This file demonstrates all variants and use cases of the Card component.
- * These examples align with the FocusForge design system and requirements.
+ * These examples align with the Forgrin design system and requirements.
  */
 
 export function CardExamples() {
@@ -18,7 +18,7 @@ export function CardExamples() {
       {/* Standard Card Examples */}
       <section className="space-y-4">
         <h2 className="text-h3 font-bold text-white">Standard Cards</h2>
-        
+
         <Card variant="standard">
           <h3 className="text-h4 font-bold text-white mb-2">Basic Standard Card</h3>
           <p className="text-gray-300">
@@ -40,7 +40,7 @@ export function CardExamples() {
       {/* Stats Card Examples */}
       <section className="space-y-4">
         <h2 className="text-h3 font-bold text-white">Stats Cards</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card variant="stats">
             <div className="flex flex-col gap-2">
@@ -80,12 +80,12 @@ export function CardExamples() {
       {/* Task Card Examples */}
       <section className="space-y-4">
         <h2 className="text-h3 font-bold text-white">Task Cards</h2>
-        
+
         <div className="space-y-3 max-w-2xl">
           <Card variant="task">
             <div className="flex items-center gap-3">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 className="h-5 w-5 rounded border-gray-600 bg-gray-800 text-electric-blue focus:ring-electric-blue"
               />
               <div className="flex-1">
@@ -106,8 +106,8 @@ export function CardExamples() {
 
           <Card variant="task">
             <div className="flex items-center gap-3">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 className="h-5 w-5 rounded border-gray-600 bg-gray-800 text-electric-blue focus:ring-electric-blue"
               />
               <div className="flex-1">
@@ -128,8 +128,8 @@ export function CardExamples() {
 
           <Card variant="task">
             <div className="flex items-center gap-3">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 checked
                 className="h-5 w-5 rounded border-gray-600 bg-gray-800 text-electric-blue focus:ring-electric-blue"
               />
@@ -151,7 +151,7 @@ export function CardExamples() {
       {/* Session Card Examples */}
       <section className="space-y-4">
         <h2 className="text-h3 font-bold text-white">Session Cards</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl">
           <Card variant="session">
             <div className="flex flex-col items-center gap-4">
@@ -213,10 +213,10 @@ export function CardExamples() {
       {/* Interactive Examples */}
       <section className="space-y-4">
         <h2 className="text-h3 font-bold text-white">Interactive Cards</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card 
-            variant="standard" 
+          <Card
+            variant="standard"
             onClick={() => alert('Card clicked!')}
             className="cursor-pointer"
           >
@@ -242,7 +242,7 @@ export function CardExamples() {
       {/* Custom Styled Cards */}
       <section className="space-y-4">
         <h2 className="text-h3 font-bold text-white">Custom Styled Cards</h2>
-        
+
         <Card variant="standard" className="max-w-sm border-2 border-electric-blue">
           <h3 className="text-h4 font-bold text-electric-blue mb-2">Featured Card</h3>
           <p className="text-gray-300">

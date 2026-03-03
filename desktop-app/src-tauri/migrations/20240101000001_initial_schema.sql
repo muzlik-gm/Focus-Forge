@@ -1,4 +1,4 @@
--- Initial database schema for FocusForge Desktop Application
+-- Initial database schema for Forgrin Desktop Application
 -- This migration creates all core tables for activity tracking, categorization, and focus sessions
 
 -- Activity logs table: stores all application and website usage events

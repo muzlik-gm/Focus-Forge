@@ -1,7 +1,7 @@
 /**
  * UI Components
  * 
- * Shared UI components following the FocusForge design system.
+ * Shared UI components following the Forgrin design system.
  * All components implement the design specifications from Requirement 16-22.
  */
 

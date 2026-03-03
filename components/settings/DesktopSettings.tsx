@@ -46,7 +46,7 @@ export default function DesktopSettings() {
     try {
       const [notifSettings, exportDir] = await Promise.all([
         tauriApi.notifications.getSettings().catch(() => ({ enabled: true, timeout_ms: 5000 })),
-        tauriApi.exportData.getExportDirectory().catch(() => '~/Documents/FocusForge/exports'),
+        tauriApi.exportData.getExportDirectory().catch(() => '~/Documents/Forgrin/exports'),
       ]);
 
       setNotificationSettings(notifSettings);
@@ -105,7 +105,7 @@ export default function DesktopSettings() {
     if (granted) {
       await desktopNotifications.send({
         title: '✅ Notifications Enabled!',
-        body: 'You will now receive FocusForge desktop notifications.',
+        body: 'You will now receive Forgrin desktop notifications.',
         type: 'achievement',
         durationMs: 5000,
       });
@@ -300,7 +300,7 @@ export default function DesktopSettings() {
                   {saving ? 'Saving...' : 'Save Notification Settings'}
                 </button>
                 <button
-                  onClick={() => desktopNotifications.send({ title: '🔔 Test Notification', body: 'FocusForge desktop notifications are working!', type: 'info', durationMs: 5000 })}
+                  onClick={() => desktopNotifications.send({ title: '🔔 Test Notification', body: 'Forgrin desktop notifications are working!', type: 'info', durationMs: 5000 })}
                   className="skeuo-card flex items-center px-6 py-3 font-medium text-white transition-all hover:bg-white/5"
                 >
                   <Bell className="w-4 h-4 mr-2" />
@@ -314,22 +314,22 @@ export default function DesktopSettings() {
 
               {/* OS Permission Card */}
               <div className={`p-5 skeuo-card flex items-center justify-between gap-4 ${notifPermission === 'granted'
-                  ? 'border-emerald-500/20 bg-emerald-500/5'
-                  : notifPermission === 'denied'
-                    ? 'border-red-500/20 bg-red-500/5'
-                    : 'border-amber-500/20 bg-amber-500/5'
+                ? 'border-emerald-500/20 bg-emerald-500/5'
+                : notifPermission === 'denied'
+                  ? 'border-red-500/20 bg-red-500/5'
+                  : 'border-amber-500/20 bg-amber-500/5'
                 }`}>
                 <div className="flex items-center gap-4">
                   <ShieldCheck className={`w-6 h-6 flex-shrink-0 ${notifPermission === 'granted' ? 'text-emerald-400'
-                      : notifPermission === 'denied' ? 'text-red-400'
-                        : 'text-amber-400'
+                    : notifPermission === 'denied' ? 'text-red-400'
+                      : 'text-amber-400'
                     }`} strokeWidth={1.5} />
                   <div>
                     <p className="text-sm font-bold text-white">
                       OS Notification Permission:{' '}
                       <span className={`capitalize ${notifPermission === 'granted' ? 'text-emerald-400'
-                          : notifPermission === 'denied' ? 'text-red-400'
-                            : 'text-amber-400'
+                        : notifPermission === 'denied' ? 'text-red-400'
+                          : 'text-amber-400'
                         }`}>{notifPermission}</span>
                     </p>
                     <p className="text-xs text-zinc-500 mt-0.5">

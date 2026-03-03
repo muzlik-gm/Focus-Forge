@@ -1,5 +1,5 @@
 # Simple PowerShell script to check the database using .NET SQLite
-$dbPath = Join-Path $env:APPDATA "com.focusforge.desktop\focusforge.db"
+$dbPath = Join-Path $env:APPDATA "com.forgrin.desktop\forgrin.db"
 
 Write-Host "Database path: $dbPath" -ForegroundColor Cyan
 Write-Host ""

@@ -1,4 +1,4 @@
-# FocusForge Research Brief for AI Analysis
+# Forgrin Research Brief for AI Analysis
 *Document Purpose: Structured context for evidence-based market and product validation*
 *Target Audience: Perplexity AI and research-focused LLMs*
 *Last Updated: February 28, 2026*
@@ -8,7 +8,7 @@
 ## 1. EXECUTIVE SUMMARY
 
 ### Product Identity
-- **Product Name**: FocusForge
+- **Product Name**: Forgrin
 - **Category**: Developer productivity and work health monitoring SaaS
 - **Deployment**: Dual platform (Web + Desktop native app)
 
@@ -194,7 +194,7 @@ Desktop Application (Tauri + Rust)
   - Desktop app adoption rates in SaaS
   - Platform distribution (Windows/Mac/Linux)
 
-- **Q3**: What is the serviceable obtainable market (SOM) for FocusForge?
+- **Q3**: What is the serviceable obtainable market (SOM) for Forgrin?
   - Realistic market share in Year 1-3
   - Competitive market concentration
 
@@ -316,7 +316,7 @@ Desktop Application (Tauri + Rust)
 4. Notion has no time tracking or distraction detection
 5. Forest is too casual for professional developers
 
-**FocusForge Differentiation**:
+**Forgrin Differentiation**:
 - Only tool with research-backed work health thresholds
 - Only desktop app with automatic distraction detection for developers
 - Only unified system: planning (web) + execution (desktop)
@@ -398,7 +398,7 @@ Desktop Application (Tauri + Rust)
 ---
 
 ### Risk 4: Category Confusion
-**Description**: Market doesn't understand if FocusForge is time tracking, project management, or wellness tool.
+**Description**: Market doesn't understand if Forgrin is time tracking, project management, or wellness tool.
 
 **Indicators**:
 - Comparison to wrong competitors

@@ -2,7 +2,7 @@
 // This test verifies that default categories are properly initialized
 // and that category lookup with fallback works correctly
 
-use focusforge_desktop::database::{Database, categories};
+use forgrin_desktop::database::{Database, categories};
 use std::path::PathBuf;
 
 #[tokio::test]

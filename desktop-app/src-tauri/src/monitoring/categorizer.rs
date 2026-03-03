@@ -17,7 +17,7 @@ impl CategorizerService {
     pub fn new() -> Self {
         Self {
             client: reqwest::Client::builder()
-                .user_agent("FocusForge/1.0 (App Categorization Engine)")
+                .user_agent("Forgrin/1.0 (App Categorization Engine)")
                 .timeout(std::time::Duration::from_secs(5))
                 .build()
                 .unwrap_or_default(),

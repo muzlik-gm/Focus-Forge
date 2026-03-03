@@ -104,7 +104,7 @@ export default function RegisterPage() {
       }
 
       console.log('[Register] NextAuth sign-in successful');
-      toast.success('Welcome to FocusForge!');
+      toast.success('Welcome to Forgrin!');
       router.push('/onboarding');
     } catch (err: any) {
       console.error('[Register] Google sign-in error:', err);
@@ -206,9 +206,9 @@ export default function RegisterPage() {
       <div className="w-full max-w-[440px] relative z-10">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-12">
-          <img src="/logo.png" alt="FocusForge" className="w-8 h-8" />
+          <img src="/logo.png" alt="Forgrin" className="w-8 h-8" />
           <span className="text-base font-semibold tracking-tight embossed-text">
-            FocusForge {isDesktop && '(Desktop)'}
+            Forgrin {isDesktop && '(Desktop)'}
           </span>
         </div>
 

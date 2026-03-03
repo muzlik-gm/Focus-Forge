@@ -1,8 +1,8 @@
-# FocusForge Desktop App Verification Script
+# Forgrin Desktop App Verification Script
 # This script tests the desktop app to ensure everything works correctly
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "FocusForge Desktop App Verification" -ForegroundColor Cyan
+Write-Host "Forgrin Desktop App Verification" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -94,15 +94,15 @@ if (Test-Path "src-tauri/src/notifications/service.rs") {
 
 # Check if build artifacts exist
 Write-Host "10. Checking build artifacts..." -ForegroundColor Yellow
-if (Test-Path "src-tauri/target/release/FocusForge.exe") {
-    $exeSize = (Get-Item "src-tauri/target/release/FocusForge.exe").Length / 1MB
+if (Test-Path "src-tauri/target/release/Forgrin.exe") {
+    $exeSize = (Get-Item "src-tauri/target/release/Forgrin.exe").Length / 1MB
     Write-Host "   ✓ Executable found: $([math]::Round($exeSize, 2)) MB" -ForegroundColor Green
 } else {
     Write-Host "   ⚠ Executable not found (run 'npm run build' to create)" -ForegroundColor Yellow
 }
 
-if (Test-Path "src-tauri/target/release/bundle/nsis/FocusForge_0.1.0_x64-setup.exe") {
-    $installerSize = (Get-Item "src-tauri/target/release/bundle/nsis/FocusForge_0.1.0_x64-setup.exe").Length / 1MB
+if (Test-Path "src-tauri/target/release/bundle/nsis/Forgrin_0.1.0_x64-setup.exe") {
+    $installerSize = (Get-Item "src-tauri/target/release/bundle/nsis/Forgrin_0.1.0_x64-setup.exe").Length / 1MB
     Write-Host "   ✓ Installer found: $([math]::Round($installerSize, 2)) MB" -ForegroundColor Green
 } else {
     Write-Host "   ⚠ Installer not found (run 'npm run build' to create)" -ForegroundColor Yellow

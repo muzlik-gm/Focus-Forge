@@ -71,9 +71,9 @@ export interface CloudPullData {
 }
 
 const SYNC_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
-const STORAGE_KEY_LAST_SYNC = 'focusforge_last_sync_ts';
-const STORAGE_KEY_CLOUD_TASKS = 'focusforge_cloud_tasks';
-const STORAGE_KEY_SYNC_STATS = 'focusforge_sync_stats';
+const STORAGE_KEY_LAST_SYNC = 'forgrinst_sync_ts';
+const STORAGE_KEY_CLOUD_TASKS = 'forgrin_cloud_tasks';
+const STORAGE_KEY_SYNC_STATS = 'forgrin_sync_stats';
 
 class CloudSyncService {
     private syncTimer: ReturnType<typeof setInterval> | null = null;

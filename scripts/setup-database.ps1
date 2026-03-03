@@ -1,7 +1,7 @@
-# FocusForge Database Setup Script (PowerShell)
+# Forgrin Database Setup Script (PowerShell)
 # This script helps set up the database for development
 
-Write-Host "🚀 FocusForge Database Setup" -ForegroundColor Cyan
+Write-Host "🚀 Forgrin Database Setup" -ForegroundColor Cyan
 Write-Host "==============================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -22,7 +22,7 @@ if ($envContent -notmatch "DATABASE_URL=") {
     Write-Host "❌ Error: DATABASE_URL not found in .env.local" -ForegroundColor Red
     Write-Host ""
     Write-Host "Please add DATABASE_URL to your .env.local file:"
-    Write-Host '  DATABASE_URL="postgresql://user:password@localhost:5432/focusforge?schema=public"' -ForegroundColor Yellow
+    Write-Host '  DATABASE_URL="postgresql://user:password@localhost:5432/forgrina=public"' -ForegroundColor Yellow
     exit 1
 }
 
@@ -41,8 +41,8 @@ if ($LASTEXITCODE -ne 0) {
     Write-Host "  3. Database exists (or will be created)"
     Write-Host ""
     Write-Host "Quick start with Docker:"
-    Write-Host '  docker run --name focusforge-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres' -ForegroundColor Yellow
-    Write-Host '  docker exec -it focusforge-db createdb -U postgres focusforge' -ForegroundColor Yellow
+    Write-Host '  docker run --name forgrin-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres' -ForegroundColor Yellow
+    Write-Host '  docker exec -it forgrin-db createdb -U postgres forgrin' -ForegroundColor Yellow
     exit 1
 }
 

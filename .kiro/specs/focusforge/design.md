@@ -1,8 +1,8 @@
-# Design Document: FocusForge
+# Design Document: Forgrin
 
 ## Overview
 
-FocusForge is a full-stack SaaS web application built with Next.js 14 (App Router), TypeScript, and PostgreSQL. The system architecture follows a modern server-side rendering approach with strategic client-side interactivity for real-time features like the focus timer and drag-and-drop task management.
+Forgrin is a full-stack SaaS web application built with Next.js 14 (App Router), TypeScript, and PostgreSQL. The system architecture follows a modern server-side rendering approach with strategic client-side interactivity for real-time features like the focus timer and drag-and-drop task management.
 
 The application is structured around five core domains:
 1. **Authentication & User Management** - NextAuth-based authentication with session management
@@ -905,7 +905,7 @@ Example validation error:
 
 ### Dual Testing Approach
 
-FocusForge requires both unit testing and property-based testing for comprehensive coverage:
+Forgrin requires both unit testing and property-based testing for comprehensive coverage:
 
 **Unit Tests** focus on:
 - Specific examples and edge cases
@@ -928,13 +928,13 @@ Both approaches are complementary and necessary. Unit tests catch concrete bugs 
 **Test Configuration**:
 - Minimum 100 iterations per property test (due to randomization)
 - Each property test must reference its design document property
-- Tag format: `Feature: focusforge, Property {number}: {property_text}`
+- Tag format: `Feature: Forgrin, Property {number}: {property_text}`
 
 **Example Property Test Structure**:
 ```typescript
 import fc from 'fast-check';
 
-// Feature: focusforge, Property 9: Session Persistence Round Trip
+// Feature: Forgrin, Property 9: Session Persistence Round Trip
 test('session persistence round trip', async () => {
   await fc.assert(
     fc.asyncProperty(

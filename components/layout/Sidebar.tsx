@@ -106,7 +106,7 @@ export function Sidebar() {
                     <motion.div
                       layoutId="activeNav"
                       className="absolute left-0 top-2 bottom-2 w-1 bg-indigo-500 rounded-r-full"
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                      transition={{ type: 'tween', ease: 'easeOut', duration: 0.2 }}
                     />
                   )}
 

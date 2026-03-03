@@ -10,9 +10,9 @@ const os = require('os');
 
 // Get the database path (same as in Rust code)
 const appDataDir = process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming');
-const dbPath = path.join(appDataDir, 'com.focusforge.desktop', 'focusforge.db');
+const dbPath = path.join(appDataDir, 'com.forgrin.desktop', 'forgrin.db');
 
-console.log('Testing FocusForge Monitoring System');
+console.log('Testing Forgrin Monitoring System');
 console.log('====================================\n');
 console.log(`Database path: ${dbPath}\n`);
 
@@ -27,12 +27,12 @@ setTimeout(() => {
             console.error('Error opening database:', err.message);
             process.exit(1);
         }
-        
+
         console.log('Database opened successfully\n');
-        
+
         // Query activity logs from the last minute
         const oneMinuteAgo = Date.now() - 60000;
-        
+
         db.all(
             'SELECT * FROM activity_logs WHERE timestamp > ? ORDER BY timestamp DESC',
             [oneMinuteAgo],
@@ -42,16 +42,16 @@ setTimeout(() => {
                     db.close();
                     process.exit(1);
                 }
-                
+
                 console.log(`Found ${rows.length} activity log(s) in the last minute:\n`);
-                
+
                 if (rows.length === 0) {
                     console.log('⚠️  No activity logs found. Monitoring may not be running.');
                     console.log('   Please start monitoring from the app UI or via Tauri command.\n');
                 } else {
                     console.log('✅ Monitoring is working! Activity logs:');
                     console.log('─'.repeat(80));
-                    
+
                     rows.forEach((row, index) => {
                         const timestamp = new Date(row.timestamp);
                         console.log(`\n${index + 1}. Application: ${row.application}`);
@@ -63,7 +63,7 @@ setTimeout(() => {
                             console.log(`   Path: ${row.executable_path}`);
                         }
                     });
-                    
+
                     console.log('\n' + '─'.repeat(80));
                     console.log('\n✅ Task 4.4 Verification:');
                     console.log('   ✓ Monitoring is tracking application focus');
@@ -71,7 +71,7 @@ setTimeout(() => {
                     console.log('   ✓ Timestamps and durations are being tracked');
                     console.log('   ✓ Application names and process IDs are captured\n');
                 }
-                
+
                 db.close((err) => {
                     if (err) {
                         console.error('Error closing database:', err.message);

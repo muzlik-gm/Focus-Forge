@@ -30,7 +30,7 @@ pub mod windows_notifications {
             let toast = ToastNotification::CreateToastNotification(&xml)?;
             
             // Use the app identifier from Tauri config
-            let app_id = HSTRING::from("com.focusforge.desktop");
+            let app_id = HSTRING::from("com.forgrinop");
             let notifier = ToastNotificationManager::CreateToastNotifierWithId(&app_id)?;
             
             notifier.Show(&toast)?;

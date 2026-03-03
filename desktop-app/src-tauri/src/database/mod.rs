@@ -179,32 +179,32 @@ impl Database {
 /// Get the default database path in the app data directory
 /// 
 /// Platform-specific locations:
-/// - Windows: %APPDATA%/com.focusforge.desktop/focusforge.db
-/// - macOS: ~/Library/Application Support/com.focusforge.desktop/focusforge.db
-/// - Linux: ~/.local/share/com.focusforge.desktop/focusforge.db
+/// - Windows: %APPDATA%/com.forgrin.desktop/forgrin.db
+/// - macOS: ~/Library/Application Support/com.forgrin.desktop/forgrin.db
+/// - Linux: ~/.local/share/com.forgrin.desktop/forgrin.db
 pub fn get_database_path() -> Result<PathBuf> {
     // Get the app data directory using platform-specific paths
     let app_data_dir = if cfg!(target_os = "windows") {
         std::env::var("APPDATA")
             .map(PathBuf::from)
             .context("Failed to get APPDATA directory")?
-            .join("com.focusforge.desktop")
+            .join("com.forgrin.desktop")
     } else if cfg!(target_os = "macos") {
         dirs::home_dir()
             .context("Failed to get home directory")?
             .join("Library")
             .join("Application Support")
-            .join("com.focusforge.desktop")
+            .join("com.forgrin.desktop")
     } else {
         // Linux and other Unix-like systems
         dirs::home_dir()
             .context("Failed to get home directory")?
             .join(".local")
             .join("share")
-            .join("com.focusforge.desktop")
+            .join("com.forgrin.desktop")
     };
 
-    let db_path = app_data_dir.join("focusforge.db");
+    let db_path = app_data_dir.join("forgrin.db");
     log::info!("Database path: {:?}", db_path);
 
     Ok(db_path)
@@ -218,7 +218,7 @@ mod tests {
     async fn test_database_initialization() {
         // Use in-memory database for testing
         let temp_dir = std::env::temp_dir();
-        let db_path = temp_dir.join("test_focusforge.db");
+        let db_path = temp_dir.join("test_forgrin.db");
 
         // Clean up any existing test database
         let _ = tokio::fs::remove_file(&db_path).await;
@@ -238,7 +238,7 @@ mod tests {
     async fn test_database_idempotence() {
         // Test that opening an existing database doesn't cause errors
         let temp_dir = std::env::temp_dir();
-        let db_path = temp_dir.join("test_focusforge_idempotent.db");
+        let db_path = temp_dir.join("test_forgrin_idempotent.db");
 
         // Clean up any existing test database
         let _ = tokio::fs::remove_file(&db_path).await;

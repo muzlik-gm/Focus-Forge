@@ -3,7 +3,7 @@
 ## Root Directory Layout
 
 ```
-focusforge/
+forgrin/
 ├── app/                    # Next.js App Router pages and API routes
 ├── components/             # React components organized by feature
 ├── contexts/               # React context providers

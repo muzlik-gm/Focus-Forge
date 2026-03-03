@@ -1,8 +1,8 @@
-# Design Document: FocusForge Desktop Application
+# Design Document: Forgrin Desktop Application
 
 ## Overview
 
-The FocusForge Desktop Application is a unified native application built with Tauri that combines a Rust-based system monitoring backend with an embedded Next.js frontend. The application provides comprehensive activity tracking, real-time focus detection, and intelligent distraction management across Windows, macOS, and Linux platforms.
+The Forgrin Desktop Application is a unified native application built with Tauri that combines a Rust-based system monitoring backend with an embedded Next.js frontend. The application provides comprehensive activity tracking, real-time focus detection, and intelligent distraction management across Windows, macOS, and Linux platforms.
 
 The design follows a local-first architecture where all monitoring data is stored in a local SQLite database by default, with optional cloud synchronization. The application runs as a single process that manages both the UI and monitoring systems, providing a seamless user experience similar to applications like Discord or Slack.
 
@@ -155,7 +155,7 @@ module.exports = {
   "tauri": {
     "windows": [
       {
-        "title": "FocusForge",
+        "title": "Forgrin",
         "width": 1200,
         "height": 800,
         "minWidth": 800,
@@ -389,9 +389,9 @@ Native messaging host enables communication between browser extensions and the d
 **Native Messaging Host Manifest** (Chrome):
 ```json
 {
-  "name": "com.focusforge.native",
-  "description": "FocusForge Native Messaging Host",
-  "path": "/path/to/focusforge-native-host",
+  "name": "com.Forgrin.native",
+  "description": "Forgrin Native Messaging Host",
+  "path": "/path/to/forgrin-native-host",
   "type": "stdio",
   "allowed_origins": [
     "chrome-extension://[extension-id]/"
@@ -451,7 +451,7 @@ impl NativeMessagingHost {
 let port: chrome.runtime.Port | null = null;
 
 function connectNativeHost() {
-  port = chrome.runtime.connectNative('com.focusforge.native');
+  port = chrome.runtime.connectNative('com.forgrin.native');
   
   port.onMessage.addListener((message) => {
     console.log('Received from native host:', message);
@@ -564,7 +564,7 @@ impl NotificationService {
         Notification::new()
             .summary("Focus Alert")
             .body(&format!("You switched to {} - Stay focused!", app_name))
-            .icon("focusforge-icon")
+            .icon("forgrin-icon")
             .timeout(settings.duration_ms)
             .action("return", "Return to Work")
             .action("break", "Take a Break")
@@ -1098,7 +1098,7 @@ async fn sync_with_retry(sync_service: &SyncService) -> Result<SyncResult> {
 
 ### Dual Testing Approach
 
-The FocusForge Desktop Application requires both unit testing and property-based testing for comprehensive correctness validation:
+The Forgrin Desktop Application requires both unit testing and property-based testing for comprehensive correctness validation:
 
 **Unit Tests**: Verify specific examples, edge cases, and error conditions
 - Focus on integration points between components
@@ -1118,7 +1118,7 @@ The FocusForge Desktop Application requires both unit testing and property-based
 
 **Test Configuration**:
 - Minimum 100 iterations per property test
-- Each test tagged with format: **Feature: focusforge-desktop-app, Property {number}: {property_text}**
+- Each test tagged with format: **Feature: forgrin-desktop-app, Property {number}: {property_text}**
 - Generators for all core data types (ActivityLog, FocusSession, ApplicationInfo)
 
 **Example Property Test**:
@@ -1127,7 +1127,7 @@ use proptest::prelude::*;
 
 proptest! {
     #[test]
-    // Feature: focusforge-desktop-app, Property 32: SQLite persistence
+    // Feature: forgrin-desktop-app, Property 32: SQLite persistence
     fn test_activity_log_persistence(
         log in activity_log_strategy()
     ) {

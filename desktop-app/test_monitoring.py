@@ -18,24 +18,24 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 def get_database_path():
-    """Get the path to the FocusForge database"""
+    """Get the path to the Forgrin database"""
     if os.name == 'nt':  # Windows
         appdata = os.getenv('APPDATA')
-        db_path = Path(appdata) / 'com.focusforge.desktop' / 'focusforge.db'
+        db_path = Path(appdata) / 'com.forgrin.desktop' / 'forgrin.db'
     else:
         # macOS/Linux
         home = Path.home()
         if os.uname().sysname == 'Darwin':  # macOS
-            db_path = home / 'Library' / 'Application Support' / 'com.focusforge.desktop' / 'focusforge.db'
+            db_path = home / 'Library' / 'Application Support' / 'com.forgrin.desktop' / 'forgrin.db'
         else:  # Linux
-            db_path = home / '.local' / 'share' / 'com.focusforge.desktop' / 'focusforge.db'
+            db_path = home / '.local' / 'share' / 'com.forgrin.desktop' / 'forgrin.db'
     
     return db_path
 
 def test_monitoring():
     """Test the monitoring functionality"""
     print("=" * 80)
-    print("FocusForge Monitoring Test - Task 4.4")
+    print("Forgrin Monitoring Test - Task 4.4")
     print("=" * 80)
     print()
     
@@ -46,7 +46,7 @@ def test_monitoring():
     # Check if database exists
     if not db_path.exists():
         print("❌ Database not found!")
-        print("   Please ensure the FocusForge app has been started.")
+        print("   Please ensure the Forgrin app has been started.")
         return False
     
     print("✅ Database found")
@@ -87,7 +87,7 @@ def test_monitoring():
             print("  2. No application focus changes occurred in the last 5 minutes")
             print()
             print("To start monitoring:")
-            print("  - Open the FocusForge app")
+            print("  - Open the Forgrin app")
             print("  - Navigate to http://localhost:3000/test-monitoring.html")
             print("  - Click 'Start Monitoring'")
             print("  - Switch between different applications")

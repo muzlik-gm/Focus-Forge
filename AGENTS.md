@@ -4,7 +4,7 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-FocusForge is a SaaS deep work and productivity app with two deployment targets sharing the same Next.js frontend and MongoDB backend:
+Forgrin is a SaaS deep work and productivity app with two deployment targets sharing the same Next.js frontend and MongoDB backend:
 - **Web version**: Next.js 14 (App Router) + MongoDB (Prisma) + NextAuth + Stripe
 - **Desktop version**: Tauri static frontend that connects to the web server's API routes for all data operations
 

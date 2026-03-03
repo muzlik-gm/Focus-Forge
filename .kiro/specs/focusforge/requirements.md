@@ -1,15 +1,15 @@
-# Requirements Document: FocusForge
+# Requirements Document: Forgrin
 
 ## Introduction
 
-FocusForge is a SaaS web application that serves as a deep work and productivity command center for developers, founders, and remote teams. The system combines task management, focus session tracking, distraction logging, analytics, and team collaboration to help users maximize their productive deep work time and analyze their productivity patterns.
+Forgrin is a SaaS web application that serves as a deep work and productivity command center for developers, founders, and remote teams. The system combines task management, focus session tracking, distraction logging, analytics, and team collaboration to help users maximize their productive deep work time and analyze their productivity patterns.
 
 The application follows a freemium business model with Pro and Team subscription tiers, providing progressively advanced features for individual users and collaborative teams.
 
 ## Glossary
 
-- **System**: The FocusForge web application
-- **User**: An authenticated individual using FocusForge
+- **System**: The Forgrin web application
+- **User**: An authenticated individual using Forgrin
 - **Workspace**: A shared environment for team collaboration
 - **Focus_Session**: A timed deep work period tracked by the system
 - **Task**: A work item with status, priority, and time estimates
@@ -362,7 +362,7 @@ The application follows a freemium business model with Pro and Team subscription
 
 ### Requirement 30: Onboarding Flow
 
-**User Story:** As a new user, I want a guided onboarding experience, so that I can quickly understand how to use FocusForge.
+**User Story:** As a new user, I want a guided onboarding experience, so that I can quickly understand how to use Forgrin.
 
 #### Acceptance Criteria
 
@@ -375,7 +375,7 @@ The application follows a freemium business model with Pro and Team subscription
 
 ### Requirement 31: API Key Management
 
-**User Story:** As a Pro or Team user, I want to generate API keys, so that I can integrate FocusForge with other tools.
+**User Story:** As a Pro or Team user, I want to generate API keys, so that I can integrate Forgrin with other tools.
 
 #### Acceptance Criteria
 
@@ -469,7 +469,7 @@ The application follows a freemium business model with Pro and Team subscription
 
 ### Requirement 14: Landing Page and Marketing
 
-**User Story:** As a visitor, I want to understand FocusForge's value proposition, so that I can decide whether to sign up.
+**User Story:** As a visitor, I want to understand Forgrin's value proposition, so that I can decide whether to sign up.
 
 #### Acceptance Criteria
 
@@ -496,7 +496,7 @@ The application follows a freemium business model with Pro and Team subscription
 
 ### Requirement 35: Landing Page Sections
 
-**User Story:** As a visitor, I want to see comprehensive information about FocusForge, so that I can make an informed decision to sign up.
+**User Story:** As a visitor, I want to see comprehensive information about Forgrin, so that I can make an informed decision to sign up.
 
 #### Acceptance Criteria
 

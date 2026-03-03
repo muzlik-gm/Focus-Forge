@@ -18,15 +18,15 @@ export default function DesktopMonitorPage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Real-time monitoring state
   const [currentApp, setCurrentApp] = useState<string>('');
   const [currentCategory, setCurrentCategory] = useState<string>('');
   const [isMonitoring, setIsMonitoring] = useState(false);
-  
+
   // Focus session state
   const [activeSession, setActiveSession] = useState<FocusSession | null>(null);
-  
+
   // Today's productivity summary
   const [todaySummary, setTodaySummary] = useState<ProductivitySummary>({
     totalTime: 0,
@@ -42,13 +42,13 @@ export default function DesktopMonitorPage() {
     const checkEnvironment = () => {
       const isTauri = tauriApi.isTauriEnvironment();
       setIsDesktop(isTauri);
-      
+
       if (!isTauri) {
         setError('This page is only available in the desktop app');
         setLoading(false);
       }
     };
-    
+
     checkEnvironment();
   }, []);
 
@@ -59,18 +59,18 @@ export default function DesktopMonitorPage() {
     const initializeMonitoring = async () => {
       try {
         setLoading(true);
-        
+
         // Start monitoring service
         await tauriApi.monitoring.start();
         setIsMonitoring(true);
-        
+
         // Load initial data
         await Promise.all([
           loadCurrentApplication(),
           loadActiveSession(),
           loadTodaySummary(),
         ]);
-        
+
         setError(null);
       } catch (err) {
         console.error('Failed to initialize monitoring:', err);
@@ -109,7 +109,7 @@ export default function DesktopMonitorPage() {
     try {
       const appInfo = await tauriApi.monitoring.getActiveWindow();
       setCurrentApp(appInfo.name);
-      
+
       // Get category for current app
       const categoryStr = await tauriApi.categories.getCategoryWithFallback(appInfo.name);
       // Extract primary category (first one before comma)
@@ -135,10 +135,10 @@ export default function DesktopMonitorPage() {
       const startOfDay = new Date();
       startOfDay.setHours(0, 0, 0, 0);
       const startTime = Math.floor(startOfDay.getTime() / 1000);
-      
+
       // Get today's activity logs
       const logs = await tauriApi.activityLogs.getLogs(startTime, now);
-      
+
       // Calculate summary
       const summary = calculateSummary(logs);
       setTodaySummary(summary);
@@ -176,8 +176,8 @@ export default function DesktopMonitorPage() {
     });
 
     const totalTime = productiveTime + distractingTime + neutralTime;
-    const productivityScore = totalTime > 0 
-      ? Math.round((productiveTime / totalTime) * 100) 
+    const productivityScore = totalTime > 0
+      ? Math.round((productiveTime / totalTime) * 100)
       : 0;
 
     // Get top 5 applications by duration
@@ -199,7 +199,7 @@ export default function DesktopMonitorPage() {
   const formatDuration = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    
+
     if (hours > 0) {
       return `${hours}h ${minutes}m`;
     }
@@ -247,7 +247,7 @@ export default function DesktopMonitorPage() {
           </div>
           <h2 className="text-2xl font-bold mb-3 embossed-text">Desktop Only</h2>
           <p className="text-zinc-300 text-lg mb-2">
-            This page is only available in the FocusForge desktop app
+            This page is only available in the Forgrin desktop app
           </p>
           {error && (
             <p className="text-zinc-400 text-sm mt-4">{error}</p>
@@ -391,9 +391,9 @@ export default function DesktopMonitorPage() {
           </div>
           <div className="text-zinc-400 text-sm">Productivity</div>
           <div className="skeuo-progress mt-4">
-            <div 
-              className="skeuo-progress-bar" 
-              style={{ width: `${todaySummary.productivityScore}%` }} 
+            <div
+              className="skeuo-progress-bar"
+              style={{ width: `${todaySummary.productivityScore}%` }}
             />
           </div>
         </div>
@@ -431,9 +431,9 @@ export default function DesktopMonitorPage() {
                     </div>
                   </div>
                   <div className="skeuo-progress">
-                    <div 
-                      className="skeuo-progress-bar" 
-                      style={{ width: `${percentage}%` }} 
+                    <div
+                      className="skeuo-progress-bar"
+                      style={{ width: `${percentage}%` }}
                     />
                   </div>
                 </div>

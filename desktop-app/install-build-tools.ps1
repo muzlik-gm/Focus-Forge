@@ -1,8 +1,8 @@
-# Install Build Tools for FocusForge Desktop
+# Install Build Tools for Forgrin Desktop
 # This script helps install the required tools to build the Tauri application on Windows
 
 Write-Host "==================================" -ForegroundColor Cyan
-Write-Host "FocusForge Build Tools Installer" -ForegroundColor Cyan
+Write-Host "Forgrin Build Tools Installer" -ForegroundColor Cyan
 Write-Host "==================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -151,7 +151,7 @@ Write-Host "==================================" -ForegroundColor Green
 Write-Host "✓ ALL BUILD TOOLS INSTALLED!" -ForegroundColor Green
 Write-Host "==================================" -ForegroundColor Green
 Write-Host ""
-Write-Host "You can now build the FocusForge desktop app!" -ForegroundColor Green
+Write-Host "You can now build the Forgrin desktop app!" -ForegroundColor Green
 Write-Host ""
 Write-Host "To build the app, run:" -ForegroundColor Yellow
 Write-Host "  cd desktop-app" -ForegroundColor White

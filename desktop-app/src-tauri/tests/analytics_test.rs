@@ -1,8 +1,8 @@
 // Integration tests for analytics module
 // These tests verify that analytics query functions work correctly with real database
 
-use focusforge_desktop::analytics;
-use focusforge_desktop::database::{activity_logs, categories, Database};
+use forgrinsktop::analytics;
+use forgrin_desktop::database::{activity_logs, categories, Database};
 use std::path::PathBuf;
 
 #[tokio::test]

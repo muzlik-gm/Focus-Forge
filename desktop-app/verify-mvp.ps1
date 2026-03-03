@@ -1,8 +1,8 @@
-# FocusForge Desktop App - MVP Verification Script
+# Forgrin Desktop App - MVP Verification Script
 # Task 13: Checkpoint - MVP complete
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "FocusForge Desktop App - MVP Verification" -ForegroundColor Cyan
+Write-Host "Forgrin Desktop App - MVP Verification" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 

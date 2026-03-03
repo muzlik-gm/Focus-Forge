@@ -1,7 +1,7 @@
 {
-  "name": "focusforge-desktop",
+  "name": "forgrin-desktop",
   "version": "0.1.0",
-  "description": "FocusForge Desktop - Native focus tracking application",
+  "description": "Forgrin Desktop - Native focus tracking application",
   "private": true,
   "scripts": {
     "tauri": "tauri",

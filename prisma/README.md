@@ -7,7 +7,7 @@ Before running migrations, you need:
 1. **PostgreSQL Database Running**
    - Install PostgreSQL locally, or
    - Use a cloud provider (e.g., Supabase, Railway, Neon), or
-   - Use Docker: `docker run --name focusforge-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`
+   - Use Docker: `docker run --name forgrin POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`
 
 2. **Environment Configuration**
    - Copy `.env.local.example` to `.env.local`
@@ -21,7 +21,7 @@ DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"
 
 Example for local development:
 ```
-DATABASE_URL="postgresql://postgres:password@localhost:5432/focusforge?schema=public"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/forgrin?schema=public"
 ```
 
 ## Running Migrations

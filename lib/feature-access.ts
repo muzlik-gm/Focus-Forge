@@ -32,14 +32,14 @@ export async function checkFeatureAccess(
   requiredTier: FeatureTier
 ): Promise<{ hasAccess: boolean; reason?: string }> {
   const hasAccess = await hasFeatureAccess(userId, requiredTier);
-  
+
   if (!hasAccess) {
     return {
       hasAccess: false,
       reason: `This feature requires a ${requiredTier} subscription. Please upgrade to access.`,
     };
   }
-  
+
   return { hasAccess: true };
 }
 
@@ -57,7 +57,7 @@ export function createFeatureMiddleware(featureConfig: FeatureConfig) {
   ): Promise<NextResponse | null> {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session?.user?.id) {
       // Redirect to login if not authenticated
       return NextResponse.redirect(new URL('/login', request.url));
@@ -93,7 +93,7 @@ export async function verifyFeatureAccess(
   requiredTier: FeatureTier
 ): Promise<NextResponse | null> {
   const session = await getServerSession(authOptions);
-  
+
   if (!session?.user?.id) {
     return NextResponse.json(
       {
@@ -136,7 +136,7 @@ export const FEATURES = {
   API_KEYS: {
     requiredTier: 'PRO' as FeatureTier,
     featureName: 'API Keys',
-    upgradeMessage: 'Generate API keys to integrate FocusForge with your tools.',
+    upgradeMessage: 'Generate API keys to integrate Forgrin with your tools.',
   },
   AI_INSIGHTS: {
     requiredTier: 'PRO' as FeatureTier,
@@ -183,7 +183,7 @@ export async function isFeatureAccessible(
 ): Promise<boolean> {
   const feature = FEATURES[featureName];
   if (!feature) return false;
-  
+
   const { hasAccess } = await checkFeatureAccess(userId, feature.requiredTier);
   return hasAccess;
 }

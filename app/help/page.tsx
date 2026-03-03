@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Help Center',
-  description: 'Find answers, view FAQs, and get support for FocusForge.',
+  description: 'Find answers, view FAQs, and get support for Forgrin.',
 };
 
 export default function HelpCenterPage() {
@@ -14,7 +14,7 @@ export default function HelpCenterPage() {
     { question: 'Can I pause a focus session?', answer: 'Yes! Click the "Pause" button during a session. Your time will be saved and you can resume later.' },
     { question: 'How do I invite team members?', answer: 'Go to the Team page and click "Invite member". Enter their email and they\'ll receive an invitation link.' },
     { question: 'What happens to my data if I cancel?', answer: 'You can export all your data before canceling. After cancellation, data is retained for 30 days then permanently deleted.' },
-    { question: 'Can I use FocusForge offline?', answer: 'Currently, FocusForge requires an internet connection. Offline mode is planned for a future release.' },
+    { question: 'Can I use Forgrin offline?', answer: 'Currently, Forgrin requires an internet connection. Offline mode is planned for a future release.' },
     { question: 'How do I change my subscription plan?', answer: 'Go to Settings > Billing and click "Change Plan". You can upgrade or downgrade at any time.' }
   ];
 
@@ -33,8 +33,8 @@ export default function HelpCenterPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/docs" className="skeuo-chip"><span className="text-sm">Docs</span></Link>
@@ -53,7 +53,7 @@ export default function HelpCenterPage() {
               <span>HELP CENTER</span>
             </div>
             <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">Help Center</h1>
-            <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">Find answers to common questions and get help with FocusForge.</p>
+            <p className="text-xl text-zinc-300 max-w-2xl mx-auto mb-8">Find answers to common questions and get help with Forgrin.</p>
 
             <div className="max-w-2xl mx-auto skeuo-input relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
@@ -104,7 +104,7 @@ export default function HelpCenterPage() {
 
           <div className="skeuo-panel p-12 text-center">
             <h3 className="text-3xl font-bold mb-4 embossed-text">Still need help?</h3>
-            <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">Our support team is here to help you get the most out of FocusForge.</p>
+            <p className="text-zinc-300 mb-8 leading-relaxed max-w-2xl mx-auto">Our support team is here to help you get the most out of Forgrin.</p>
             <Link href="/contact" className="skeuo-button inline-flex items-center gap-2 px-8 py-4 text-white font-medium text-lg">
               <span>Contact Support</span>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

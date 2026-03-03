@@ -14,8 +14,8 @@
 
 import { isDesktopApp } from './desktop-session';
 
-const OAUTH_STATE_KEY = 'focusforge_oauth_state';
-const OAUTH_CALLBACK_KEY = 'focusforge_oauth_callback';
+const OAUTH_STATE_KEY = 'forgrinuth_state';
+const OAUTH_CALLBACK_KEY = 'forgrinuth_callback';
 
 /**
  * Generate a random state parameter for OAuth security
@@ -40,16 +40,16 @@ function saveOAuthState(state: string): void {
 function verifyOAuthState(state: string): boolean {
   const storedState = localStorage.getItem(OAUTH_STATE_KEY);
   const timestamp = localStorage.getItem(`${OAUTH_STATE_KEY}_timestamp`);
-  
+
   // Clear stored state
   localStorage.removeItem(OAUTH_STATE_KEY);
   localStorage.removeItem(`${OAUTH_STATE_KEY}_timestamp`);
-  
+
   // Check if state matches and is not expired (5 minutes)
   if (!storedState || !timestamp) return false;
   if (storedState !== state) return false;
   if (Date.now() - parseInt(timestamp) > 5 * 60 * 1000) return false;
-  
+
   return true;
 }
 
@@ -59,11 +59,11 @@ function verifyOAuthState(state: string): boolean {
 export function buildGoogleOAuthUrl(): string {
   const state = generateState();
   saveOAuthState(state);
-  
+
   // Use the Google Client ID from environment variables
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '583440735607-your-client-id.apps.googleusercontent.com';
   const redirectUri = `${window.location.origin}/oauth-callback`;
-  
+
   const params = new URLSearchParams({
     client_id: clientId,
     redirect_uri: redirectUri,
@@ -73,7 +73,7 @@ export function buildGoogleOAuthUrl(): string {
     access_type: 'offline',
     prompt: 'select_account', // Always show account selector
   });
-  
+
   return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
 }
 
@@ -84,14 +84,14 @@ export async function openBrowserForOAuth(url: string): Promise<void> {
   if (!isDesktopApp()) {
     throw new Error('This function is only available in desktop app');
   }
-  
+
   try {
     console.log('[DesktopOAuth] Opening system browser with URL:', url);
-    
+
     // Use Tauri's shell.open to open the system browser
     const { open } = await import('@tauri-apps/api/shell');
     await open(url);
-    
+
     console.log('[DesktopOAuth] System browser opened successfully');
   } catch (error) {
     console.error('[DesktopOAuth] Failed to open browser:', error);
@@ -106,38 +106,38 @@ export async function openBrowserForOAuth(url: string): Promise<void> {
 export function startDesktopOAuth(): Promise<{ code: string; state: string }> {
   return new Promise((resolve, reject) => {
     const oauthUrl = buildGoogleOAuthUrl();
-    
+
     // Set up callback listener
     const handleCallback = (event: StorageEvent) => {
       if (event.key === OAUTH_CALLBACK_KEY && event.newValue) {
         try {
           const data = JSON.parse(event.newValue);
-          
+
           // Verify state
           if (!verifyOAuthState(data.state)) {
             reject(new Error('Invalid OAuth state'));
             return;
           }
-          
+
           // Clear callback data
           localStorage.removeItem(OAUTH_CALLBACK_KEY);
-          
+
           // Remove listener
           window.removeEventListener('storage', handleCallback);
-          
+
           resolve(data);
         } catch (error) {
           reject(error);
         }
       }
     };
-    
+
     // Listen for storage events (callback will write to localStorage)
     window.addEventListener('storage', handleCallback);
-    
+
     // Open browser
     openBrowserForOAuth(oauthUrl).catch(reject);
-    
+
     // Timeout after 5 minutes
     setTimeout(() => {
       window.removeEventListener('storage', handleCallback);
@@ -152,7 +152,7 @@ export function startDesktopOAuth(): Promise<{ code: string; state: string }> {
 export function handleOAuthCallback(code: string, state: string): void {
   // Store callback data in localStorage to trigger storage event
   localStorage.setItem(OAUTH_CALLBACK_KEY, JSON.stringify({ code, state }));
-  
+
   // Close the callback window/tab
   window.close();
 }
@@ -168,31 +168,31 @@ export async function signInWithGoogleDesktop(): Promise<{
   if (!isDesktopApp()) {
     throw new Error('This function is only available in desktop app');
   }
-  
+
   try {
     console.log('[DesktopOAuth] Starting Google OAuth flow...');
-    
+
     // Start OAuth flow and wait for callback
     const { code } = await startDesktopOAuth();
-    
+
     console.log('[DesktopOAuth] Received OAuth code, exchanging for tokens...');
-    
+
     // Exchange code for tokens via our backend
     const response = await fetch('/api/auth/oauth-exchange', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),
     });
-    
+
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || 'Failed to exchange OAuth code');
     }
-    
+
     const data = await response.json();
-    
+
     console.log('[DesktopOAuth] OAuth successful:', data.email);
-    
+
     return {
       email: data.email,
       name: data.name,

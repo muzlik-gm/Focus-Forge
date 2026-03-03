@@ -20,8 +20,8 @@ export default function CommunityPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/blog" className="skeuo-chip">
@@ -56,10 +56,10 @@ export default function CommunityPage() {
 
           {/* Community Channels */}
           <div className="grid md:grid-cols-2 gap-6 mb-12">
-            <a 
-              href="https://discord.gg/focusforge" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://discord.gg/forgrin"
+              target="_blank"
+              rel="noopener noreferrer"
               className="skeuo-panel p-8 skeuo-card-hover"
             >
               <div className="skeuo-avatar w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-6">
@@ -77,10 +77,10 @@ export default function CommunityPage() {
               </span>
             </a>
 
-            <a 
-              href="https://github.com/focusforge" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://github.com/forgrin"
+              target="_blank"
+              rel="noopener noreferrer"
               className="skeuo-panel p-8 skeuo-card-hover"
             >
               <div className="skeuo-avatar w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6">
@@ -88,7 +88,7 @@ export default function CommunityPage() {
               </div>
               <h3 className="text-2xl font-bold mb-3 embossed-text">GitHub</h3>
               <p className="text-zinc-300 mb-6 leading-relaxed">
-                Contribute to our open-source projects, report issues, and help shape the future of FocusForge.
+                Contribute to our open-source projects, report issues, and help shape the future of Forgrin.
               </p>
               <span className="skeuo-button inline-flex items-center gap-2 px-6 py-3 text-white font-medium">
                 <span>View on GitHub</span>
@@ -98,10 +98,10 @@ export default function CommunityPage() {
               </span>
             </a>
 
-            <a 
-              href="https://twitter.com/focusforge" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://twitter.com/forgrin"
+              target="_blank"
+              rel="noopener noreferrer"
               className="skeuo-panel p-8 skeuo-card-hover"
             >
               <div className="skeuo-avatar w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6">
@@ -109,10 +109,10 @@ export default function CommunityPage() {
               </div>
               <h3 className="text-2xl font-bold mb-3 embossed-text">Twitter</h3>
               <p className="text-zinc-300 mb-6 leading-relaxed">
-                Follow us for updates, productivity tips, and insights from the FocusForge team.
+                Follow us for updates, productivity tips, and insights from the Forgrin team.
               </p>
               <span className="skeuo-button inline-flex items-center gap-2 px-6 py-3 text-white font-medium">
-                <span>Follow @focusforge</span>
+                <span>Follow @forgrin</span>
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -125,7 +125,7 @@ export default function CommunityPage() {
               </div>
               <h3 className="text-2xl font-bold mb-3 embossed-text">Blog</h3>
               <p className="text-zinc-300 mb-6 leading-relaxed">
-                Read stories, tips, and insights from the FocusForge community and team.
+                Read stories, tips, and insights from the Forgrin community and team.
               </p>
               <span className="skeuo-button inline-flex items-center gap-2 px-6 py-3 text-white font-medium">
                 <span>Read the blog</span>
@@ -146,7 +146,7 @@ export default function CommunityPage() {
               {[
                 'Be respectful and supportive of other community members',
                 'Share your productivity tips and learn from others',
-                'Help newcomers get started with FocusForge',
+                'Help newcomers get started with Forgrin',
                 'Report bugs and suggest features constructively',
                 'No spam, self-promotion, or off-topic content'
               ].map((guideline, i) => (

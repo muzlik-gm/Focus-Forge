@@ -1,8 +1,8 @@
-# NextAuth Configuration for FocusForge
+# NextAuth Configuration for Forgrin
 
 ## Overview
 
-This directory contains the NextAuth.js authentication configuration for FocusForge. The implementation follows the requirements specified in the design document (Requirements 1.2, 13.2).
+This directory contains the NextAuth.js authentication configuration for Forgrin. The implementation follows the requirements specified in the design document (Requirements 1.2, 13.2).
 
 ## Files
 

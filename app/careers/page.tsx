@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Careers',
-  description: 'Join the FocusForge team. Explore open positions and career opportunities.',
+  description: 'Join the Forgrin team. Explore open positions and career opportunities.',
 };
 
 export default function CareersPage() {
@@ -34,8 +34,8 @@ export default function CareersPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/about" className="skeuo-chip">
@@ -85,7 +85,7 @@ export default function CareersPage() {
               <div className="skeuo-avatar w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
                 <Heart className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl font-bold embossed-text">Why FocusForge?</h2>
+              <h2 className="text-3xl font-bold embossed-text">Why Forgrin?</h2>
             </div>
             <p className="text-zinc-300 mb-6 leading-relaxed">
               When we do have openings, here's what you can expect:
@@ -109,7 +109,7 @@ export default function CareersPage() {
               Interested in future opportunities? Send us your resume and tell us why you'd be a great addition to the team. We'll keep your information on file and reach out when we have positions that match your skills.
             </p>
             <a
-              href="mailto:careers@focusforge.com"
+              href="mailto:careers@forgrin.com"
               className="skeuo-button inline-flex items-center gap-2 px-8 py-4 text-white font-medium text-lg"
             >
               <span>Send Your Resume</span>

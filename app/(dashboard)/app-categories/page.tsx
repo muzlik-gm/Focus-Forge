@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Monitor, 
-  Search, 
-  Plus, 
-  Trash2, 
-  Edit2, 
-  Check, 
+import {
+  Monitor,
+  Search,
+  Plus,
+  Trash2,
+  Edit2,
+  Check,
   X,
   AlertCircle,
   Filter,
@@ -159,7 +159,7 @@ export default function AppCategoriesPage() {
     if (!apps) return;
 
     const appList = apps.split(',').map(a => a.trim()).filter(a => a);
-    
+
     try {
       for (const app of appList) {
         await tauriApi.categories.setCategory(app, category, false);
@@ -200,11 +200,11 @@ export default function AppCategoriesPage() {
       try {
         const text = await file.text();
         const imported = JSON.parse(text) as ApplicationCategory[];
-        
+
         for (const cat of imported) {
           await tauriApi.categories.setCategory(cat.application, cat.category, cat.custom);
         }
-        
+
         await loadCategories();
         showMessage('success', `Imported ${imported.length} categories`);
       } catch (error) {
@@ -224,8 +224,8 @@ export default function AppCategoriesPage() {
             <div>
               <h2 className="text-xl font-bold embossed-text">Desktop Only Feature</h2>
               <p className="text-zinc-300 mt-2">
-                Application categorization is only available in the desktop app. 
-                Please use the FocusForge desktop application to manage application categories.
+                Application categorization is only available in the desktop app.
+                Please use the Forgrin desktop application to manage application categories.
               </p>
             </div>
           </div>
@@ -245,11 +245,10 @@ export default function AppCategoriesPage() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success' 
-              ? 'bg-green-500/10 text-green-400 border border-green-500/30' 
+          className={`mb-6 p-4 rounded-lg ${message.type === 'success'
+              ? 'bg-green-500/10 text-green-400 border border-green-500/30'
               : 'bg-red-500/10 text-red-400 border border-red-500/30'
-          }`}
+            }`}
         >
           {message.text}
         </motion.div>
@@ -358,8 +357,8 @@ export default function AppCategoriesPage() {
           <div className="text-center py-12">
             <Monitor className="w-12 h-12 text-zinc-600 mx-auto mb-4" />
             <p className="text-zinc-400">
-              {searchQuery || filterCategory !== 'all' 
-                ? 'No applications match your filters' 
+              {searchQuery || filterCategory !== 'all'
+                ? 'No applications match your filters'
                 : 'No applications categorized yet'}
             </p>
           </div>
@@ -408,9 +407,8 @@ export default function AppCategoriesPage() {
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-lg text-sm font-medium border ${
-                      CATEGORY_COLORS[cat.category as keyof typeof CATEGORY_COLORS] || CATEGORY_COLORS.Neutral
-                    }`}>
+                    <span className={`px-3 py-1 rounded-lg text-sm font-medium border ${CATEGORY_COLORS[cat.category as keyof typeof CATEGORY_COLORS] || CATEGORY_COLORS.Neutral
+                      }`}>
                       {String(cat.category)}
                     </span>
                     <button

@@ -20,7 +20,7 @@ export default function DebugTrackingPage() {
       addLog('Testing monitoring status...');
       const status = await tauriApi.monitoring.getStatus();
       addLog(`Monitoring status: ${status ? 'RUNNING' : 'STOPPED'}`);
-      
+
       if (!status) {
         addLog('Starting monitoring...');
         await tauriApi.monitoring.start();
@@ -36,7 +36,7 @@ export default function DebugTrackingPage() {
       addLog('Getting current application...');
       const app = await tauriApi.monitoring.getActiveWindow();
       addLog(`Current app: ${app.name} (PID: ${app.process_id})`);
-      
+
       addLog('Getting category...');
       const category = await tauriApi.categories.getCategoryWithFallback(app.name);
       addLog(`Category: ${category}`);
@@ -52,11 +52,11 @@ export default function DebugTrackingPage() {
       const startOfDay = new Date();
       startOfDay.setHours(0, 0, 0, 0);
       const startTime = Math.floor(startOfDay.getTime() / 1000);
-      
+
       addLog(`Querying from ${startTime} to ${now} (${now - startTime} seconds range)`);
       const logs = await tauriApi.activityLogs.getLogs(startTime, now);
       addLog(`Found ${logs.length} activity logs`);
-      
+
       if (logs.length > 0) {
         addLog('Last 5 logs:');
         logs.slice(-5).forEach(log => {
@@ -71,8 +71,8 @@ export default function DebugTrackingPage() {
   const testCategories = async () => {
     try {
       addLog('Testing category system...');
-      
-      const testApps = ['Kiro', 'Chrome', 'Discord', 'FocusForge'];
+
+      const testApps = ['Kiro', 'Chrome', 'Discord', 'Forgrin'];
       for (const app of testApps) {
         const category = await tauriApi.categories.getCategoryWithFallback(app);
         addLog(`${app}: ${category}`);
@@ -104,7 +104,7 @@ export default function DebugTrackingPage() {
   return (
     <div className="max-w-4xl mx-auto p-8">
       <h1 className="text-2xl font-bold mb-4">Debug Tracking System</h1>
-      
+
       <div className="flex gap-4 mb-6">
         <button
           onClick={runAllTests}

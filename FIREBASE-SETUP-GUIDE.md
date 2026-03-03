@@ -43,7 +43,7 @@ FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY_HERE\n-----E
 2. Scroll to **Authorized domains**
 3. Add:
    - `localhost` (already there)
-   - Your production domain (e.g., `focusforge.app`)
+   - Your production domain (e.g., `Forgrin.app`)
 
 ## Step 5: Update Database Schema
 

@@ -26,7 +26,7 @@ fn send_notification_impl(title: &str, body: &str, _icon: &str, _timeout_ms: i32
 #[cfg(not(target_os = "windows"))]
 fn send_notification_impl(title: &str, body: &str, icon: &str, timeout_ms: i32) -> Result<()> {
     Notification::new()
-        .appname("FocusForge")
+        .appname("Forgrin")
         .summary(title)
         .body(body)
         .icon(icon)

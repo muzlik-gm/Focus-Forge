@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: 'Get in touch with the FocusForge team. We\'re here to help.',
+  description: 'Get in touch with the Forgrin team. We\'re here to help.',
 };
 
 export default function ContactPage() {
@@ -26,8 +26,8 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/features" className="skeuo-chip">
@@ -67,8 +67,8 @@ export default function ContactPage() {
                 <Mail className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3 embossed-text">Email</h3>
-              <a href="mailto:support@focusforge.com" className="text-blue-400 hover:text-blue-300 transition">
-                support@focusforge.com
+              <a href="mailto:support@forgrin.com" className="text-blue-400 hover:text-blue-300 transition">
+                support@forgrin.com
               </a>
             </div>
 

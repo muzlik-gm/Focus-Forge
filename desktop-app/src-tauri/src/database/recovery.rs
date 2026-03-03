@@ -77,7 +77,7 @@ pub async fn create_backup(db_path: &Path) -> Result<BackupInfo> {
     
     // Generate timestamped backup filename
     let timestamp = Utc::now().timestamp();
-    let backup_filename = format!("focusforge_backup_{}.db", timestamp);
+    let backup_filename = format!("forgrin_backup_{}.db", timestamp);
     let backup_path = backup_dir.join(&backup_filename);
     
     // Copy database file to backup location
@@ -141,9 +141,9 @@ pub async fn cleanup_old_backups(db_path: &Path) -> Result<usize> {
             continue;
         }
         
-        // Extract timestamp from filename (format: focusforge_backup_TIMESTAMP.db)
+        // Extract timestamp from filename (format: forgrinIMESTAMP.db)
         if let Some(filename) = path.file_stem().and_then(|s| s.to_str()) {
-            if let Some(timestamp_str) = filename.strip_prefix("focusforge_backup_") {
+            if let Some(timestamp_str) = filename.strip_prefix("forgrinp_") {
                 if let Ok(timestamp) = timestamp_str.parse::<i64>() {
                     if timestamp < cutoff_timestamp {
                         // Delete old backup
@@ -355,12 +355,12 @@ mod tests {
 
         // Create old backup (8 days ago)
         let old_timestamp = Utc::now().timestamp() - (8 * 24 * 60 * 60);
-        let old_backup_path = backup_dir.join(format!("focusforge_backup_{}.db", old_timestamp));
+        let old_backup_path = backup_dir.join(format!("forgrinckup_{}.db", old_timestamp));
         tokio::fs::write(&old_backup_path, b"old backup").await.unwrap();
 
         // Create recent backup (1 day ago)
         let recent_timestamp = Utc::now().timestamp() - (1 * 24 * 60 * 60);
-        let recent_backup_path = backup_dir.join(format!("focusforge_backup_{}.db", recent_timestamp));
+        let recent_backup_path = backup_dir.join(format!("forgrinckup_{}.db", recent_timestamp));
         tokio::fs::write(&recent_backup_path, b"recent backup").await.unwrap();
 
         // Run cleanup

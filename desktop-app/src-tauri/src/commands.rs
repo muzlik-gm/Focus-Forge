@@ -125,7 +125,7 @@ pub fn get_running_apps(state: State<'_, AppState>) -> Result<Vec<ApplicationInf
 
 /// Get application version
 /// 
-/// Returns the current version of the FocusForge desktop application.
+/// Returns the current version of the Forgrin desktop application.
 /// 
 /// Returns: Version string from Cargo.toml
 #[tauri::command]

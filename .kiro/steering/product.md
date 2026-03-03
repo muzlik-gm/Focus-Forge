@@ -1,6 +1,6 @@
 # Product Overview
 
-FocusForge is a SaaS deep work and productivity application that helps users track focus sessions, manage tasks, and improve productivity through analytics and weekly reviews.
+Forgrin is a SaaS deep work and productivity application that helps users track focus sessions, manage tasks, and improve productivity through analytics and weekly reviews.
 
 ## Deployment Targets
 

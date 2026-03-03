@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Features',
-  description: 'Explore FocusForge features: focus sessions, task management, analytics, team collaboration, and more.',
+  description: 'Explore Forgrin features: focus sessions, task management, analytics, team collaboration, and more.',
 };
 
 export default function FeaturesPage() {
@@ -85,8 +85,8 @@ export default function FeaturesPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/pricing" className="skeuo-chip">
@@ -115,7 +115,7 @@ export default function FeaturesPage() {
             Everything you need to<br />stay focused
           </h1>
           <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-            FocusForge combines powerful productivity tools with intelligent insights to help you achieve deep work and build lasting habits.
+            Forgrin combines powerful productivity tools with intelligent insights to help you achieve deep work and build lasting habits.
           </p>
         </section>
 

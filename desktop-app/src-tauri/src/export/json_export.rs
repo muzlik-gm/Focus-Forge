@@ -116,7 +116,7 @@ pub async fn export_all_data_json(
         Some(path) => path,
         None => {
             let export_dir = get_export_directory()?;
-            let filename = generate_filename("focusforge_data", "json");
+            let filename = generate_filename("forgrin, "json");
             export_dir.join(filename)
         }
     };

@@ -1,6 +1,6 @@
-# FocusForge Desktop App
+# Forgrin Desktop App
 
-A cloud-based desktop application built with Tauri that connects to the FocusForge Next.js server.
+A cloud-based desktop application built with Tauri that connects to the Forgrin Next.js server.
 
 ## Architecture
 
@@ -301,4 +301,4 @@ For issues or questions:
 
 ## License
 
-Same as main FocusForge project.
+Same as main Forgrin project.

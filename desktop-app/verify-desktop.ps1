@@ -1,7 +1,7 @@
-# FocusForge Desktop App Verification Script
+# Forgrin Desktop App Verification Script
 
 Write-Host "========================================"  -ForegroundColor Cyan
-Write-Host "FocusForge Desktop App Verification" -ForegroundColor Cyan
+Write-Host "Forgrin Desktop App Verification" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -87,8 +87,8 @@ if (Test-Path "src-tauri/src/notifications/service.rs") {
 
 # 10. Check build artifacts
 Write-Host "10. Checking build artifacts..." -ForegroundColor Yellow
-if (Test-Path "src-tauri/target/release/FocusForge.exe") {
-    $size = [math]::Round((Get-Item "src-tauri/target/release/FocusForge.exe").Length / 1MB, 2)
+if (Test-Path "src-tauri/target/release/Forgrin.exe") {
+    $size = [math]::Round((Get-Item "src-tauri/target/release/Forgrin.exe").Length / 1MB, 2)
     Write-Host "   OK: Executable found ($size MB)" -ForegroundColor Green
 } else {
     Write-Host "   INFO: Executable not built yet" -ForegroundColor Gray

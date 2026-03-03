@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo FocusForge Desktop Application
+echo Forgrin Desktop Application
 echo ========================================
 echo.
 echo Starting the desktop app...

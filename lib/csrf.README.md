@@ -1,6 +1,6 @@
 # CSRF Protection Implementation
 
-This document explains the CSRF (Cross-Site Request Forgery) protection implementation in FocusForge.
+This document explains the CSRF (Cross-Site Request Forgery) protection implementation in Forgrin.
 
 ## Overview
 

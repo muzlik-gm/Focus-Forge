@@ -1,6 +1,6 @@
 # Card Component
 
-A flexible, accessible card component that implements the FocusForge design system as specified in **Requirement 19: Card Component System**.
+A flexible, accessible card component that implements the Forgrin design system as specified in **Requirement 19: Card Component System**.
 
 ## Features
 

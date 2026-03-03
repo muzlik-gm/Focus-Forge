@@ -1,8 +1,8 @@
-# FocusForge Desktop App - Checkpoint 9 Verification Script
+# Forgrin Desktop App - Checkpoint 9 Verification Script
 # This script verifies that core features from tasks 6-8 are working correctly
 
 Write-Host "========================================"
-Write-Host "FocusForge Desktop App - Checkpoint 9"
+Write-Host "Forgrin Desktop App - Checkpoint 9"
 Write-Host "Core Features Verification (Tasks 6-8)"
 Write-Host "========================================"
 Write-Host ""
@@ -18,7 +18,7 @@ Write-Host ""
 # Function to check if SQLite database exists
 function Test-DatabaseExists {
     $appDataPath = $env:APPDATA
-    $dbPath = Join-Path $appDataPath "com.focusforge.desktop\focusforge.db"
+    $dbPath = Join-Path $appDataPath "com.forgrin.desktop\forgrin.db"
     return Test-Path $dbPath
 }
 

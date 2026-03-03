@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Integrations',
-  description: 'Connect FocusForge with your favorite tools like Google Calendar, Slack, and more using our integrations and REST API.',
+  description: 'Connect Forgrin with your favorite tools like Google Calendar, Slack, and more using our integrations and REST API.',
 };
 
 export default function IntegrationsPage() {
@@ -57,8 +57,8 @@ export default function IntegrationsPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/features" className="skeuo-chip">
@@ -90,7 +90,7 @@ export default function IntegrationsPage() {
               Connect Your Workflow
             </h1>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Connect FocusForge with your favorite tools and build custom workflows.
+              Connect Forgrin with your favorite tools and build custom workflows.
             </p>
           </div>
 
@@ -104,8 +104,8 @@ export default function IntegrationsPage() {
                       <IconComponent className="w-7 h-7 text-white" />
                     </div>
                     <span className={`skeuo-badge ${integration.status === 'Available'
-                        ? 'bg-gradient-to-r from-green-600 to-emerald-500 text-white'
-                        : 'text-zinc-400'
+                      ? 'bg-gradient-to-r from-green-600 to-emerald-500 text-white'
+                      : 'text-zinc-400'
                       }`}>
                       {integration.status}
                     </span>

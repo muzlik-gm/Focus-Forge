@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'About Us',
-  description: 'Learn about the FocusForge team and our mission to help you achieve deep work.',
+  description: 'Learn about the Forgrin team and our mission to help you achieve deep work.',
 };
 
 export default function AboutPage() {
@@ -26,8 +26,8 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/features" className="skeuo-chip">
@@ -56,7 +56,7 @@ export default function AboutPage() {
               <span>ABOUT US</span>
             </div>
             <h1 className="text-5xl lg:text-6xl font-bold mb-6 embossed-text tracking-tight">
-              About FocusForge
+              About Forgrin
             </h1>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
               We're on a mission to help people achieve deep work and build lasting productivity habits.
@@ -67,7 +67,7 @@ export default function AboutPage() {
           <div className="skeuo-panel p-10 mb-12">
             <h2 className="text-3xl font-bold mb-6 embossed-text">Our Story</h2>
             <p className="text-zinc-300 mb-6 leading-relaxed">
-              FocusForge was born from a simple observation: in an age of constant distractions, achieving deep, focused work has become increasingly difficult. We built FocusForge to help individuals and teams reclaim their attention and accomplish meaningful work.
+              Forgrin was born from a simple observation: in an age of constant distractions, achieving deep, focused work has become increasingly difficult. We built Forgrin to help individuals and teams reclaim their attention and accomplish meaningful work.
             </p>
             <p className="text-zinc-300 leading-relaxed">
               Our design philosophy brings a tactile, real-world feel to digital productivity tools, making the experience more intuitive and engaging. We believe that beautiful, thoughtful design can make productivity tools not just functional, but delightful to use.
@@ -107,11 +107,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Why FocusForge */}
+          {/* Why Forgrin */}
           <div className="skeuo-panel p-10 mb-12">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">Why FocusForge?</h2>
+            <h2 className="text-3xl font-bold mb-6 embossed-text">Why Forgrin?</h2>
             <p className="text-zinc-300 mb-6 leading-relaxed">
-              Unlike other productivity tools that add complexity, FocusForge is designed to be simple, focused, and effective. We believe that the best productivity tool is one that gets out of your way and lets you work.
+              Unlike other productivity tools that add complexity, Forgrin is designed to be simple, focused, and effective. We believe that the best productivity tool is one that gets out of your way and lets you work.
             </p>
             <div className="space-y-4">
               {[

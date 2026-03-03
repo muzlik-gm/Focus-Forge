@@ -1,4 +1,4 @@
-# FocusForge
+# Forgrin
 
 A SaaS web application for deep work and productivity management, built with Next.js 14, TypeScript, and PostgreSQL.
 

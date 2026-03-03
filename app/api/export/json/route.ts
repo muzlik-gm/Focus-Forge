@@ -24,7 +24,7 @@ export async function GET() {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session || !session.user) {
       return NextResponse.json(
         {
@@ -57,7 +57,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Content-Disposition': `attachment; filename="focusforge-export-${new Date().toISOString().split('T')[0]}.json"`,
+        'Content-Disposition': `attachment; filename="forgrin-export-${new Date().toISOString().split('T')[0]}.json"`,
       },
     });
   } catch (error) {

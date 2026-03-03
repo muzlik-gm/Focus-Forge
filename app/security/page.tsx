@@ -21,7 +21,7 @@ export default function SecurityPage() {
               <Shield className="w-4 h-4" />
               <span>SECURITY</span>
             </div>
-            <h1 className="text-5xl font-bold mb-6 embossed-text tracking-tight">Security at FocusForge</h1>
+            <h1 className="text-5xl font-bold mb-6 embossed-text tracking-tight">Security at Forgrin</h1>
             <p className="text-xl text-zinc-300">Your data security and privacy are our top priorities</p>
           </div>
 
@@ -75,7 +75,7 @@ export default function SecurityPage() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-semibold mb-3 embossed-text">Compliance</h2>
-                  <p className="text-zinc-300 mb-4">FocusForge is compliant with:</p>
+                  <p className="text-zinc-300 mb-4">Forgrin is compliant with:</p>
                   <ul className="list-disc list-inside space-y-2 text-zinc-300 ml-4">
                     <li>GDPR (General Data Protection Regulation)</li>
                     <li>CCPA (California Consumer Privacy Act)</li>
@@ -93,7 +93,7 @@ export default function SecurityPage() {
                 <div>
                   <h2 className="text-2xl font-semibold mb-3 embossed-text">Report a Vulnerability</h2>
                   <p className="text-zinc-300 mb-4">We take security seriously. If you discover a security vulnerability, please report it to:</p>
-                  <a href="mailto:security@focusforge.com" className="text-blue-400 hover:text-blue-300 transition">security@focusforge.com</a>
+                  <a href="mailto:security@forgrin.com" className="text-blue-400 hover:text-blue-300 transition">security@forgrin.com</a>
                   <p className="text-zinc-400 text-sm mt-4">We appreciate responsible disclosure and will respond within 48 hours.</p>
                 </div>
               </div>

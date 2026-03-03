@@ -1,4 +1,4 @@
-FocusForge Desktop Application - Build Status
+Forgrin Desktop Application - Build Status
 ==============================================
 
 BUILD IN PROGRESS
@@ -61,10 +61,10 @@ This will:
 OUTPUT LOCATION
 ---------------
 After build completes, the executable will be at:
-  desktop-app/src-tauri/target/release/focusforge-desktop.exe
+  desktop-app/src-tauri/target/release/forgrin-desktop.exe
 
 And the installer will be at:
-  desktop-app/src-tauri/target/release/bundle/msi/FocusForge_0.1.0_x64_en-US.msi
+  desktop-app/src-tauri/target/release/bundle/msi/Forgrin_0.1.0_x64_en-US.msi
 
 CODE STATUS
 -----------

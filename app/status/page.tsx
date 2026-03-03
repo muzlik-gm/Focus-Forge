@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'System Status',
-  description: 'Real-time status updates and uptime information for FocusForge services.',
+  description: 'Real-time status updates and uptime information for Forgrin services.',
 };
 
 export default function StatusPage() {
@@ -42,8 +42,8 @@ export default function StatusPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 p-3 rounded-2xl">
-              <img src="/logo.png" alt="FocusForge" className="w-10 h-10" />
-              <span className="text-xl font-bold embossed-text tracking-tight">FocusForge</span>
+              <img src="/logo.png" alt="Forgrin" className="w-10 h-10" />
+              <span className="text-xl font-bold embossed-text tracking-tight">Forgrin</span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link href="/docs" className="skeuo-chip"><span className="text-sm">Docs</span></Link>

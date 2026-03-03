@@ -54,15 +54,15 @@ export default function PressPage() {
               Press & Media
             </h1>
             <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
-              Resources for journalists, bloggers, and media professionals covering FocusForge.
+              Resources for journalists, bloggers, and media professionals covering Forgrin.
             </p>
           </div>
 
           {/* About Section */}
           <div className="skeuo-panel p-10 mb-8">
-            <h2 className="text-3xl font-bold mb-6 embossed-text">About FocusForge</h2>
+            <h2 className="text-3xl font-bold mb-6 embossed-text">About Forgrin</h2>
             <p className="text-zinc-300 mb-4 leading-relaxed">
-              FocusForge is a productivity platform that helps individuals and teams achieve deep work through focus sessions, task management, and intelligent analytics. Founded in 2025, we're on a mission to help people reclaim their attention in an age of constant distractions.
+              Forgrin is a productivity platform that helps individuals and teams achieve deep work through focus sessions, task management, and intelligent analytics. Founded in 2025, we're on a mission to help people reclaim their attention in an age of constant distractions.
             </p>
             <p className="text-zinc-300 leading-relaxed">
               Our platform combines proven productivity techniques like the Pomodoro method with modern analytics and AI-powered insights to help users understand and optimize their work patterns.
@@ -101,10 +101,10 @@ export default function PressPage() {
                   <div key={release.id} className="skeuo-panel p-8 skeuo-card-hover">
                     <div className="flex items-center gap-2 mb-3 text-sm text-zinc-400">
                       <Calendar className="w-4 h-4" />
-                      {new Date(release.publishedAt).toLocaleDateString('en-US', { 
-                        month: 'long', 
-                        day: 'numeric', 
-                        year: 'numeric' 
+                      {new Date(release.publishedAt).toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
                       })}
                     </div>
                     <h3 className="text-2xl font-bold mb-4 embossed-text">{release.title}</h3>
@@ -139,12 +139,12 @@ export default function PressPage() {
             <p className="text-zinc-300 mb-6">
               For press inquiries, interviews, or additional information:
             </p>
-            <a 
-              href="mailto:press@focusforge.com" 
+            <a
+              href="mailto:press@forgrin.com"
               className="skeuo-button inline-flex items-center gap-2 px-6 py-4 text-white font-medium"
             >
               <Mail className="w-5 h-5" />
-              <span>press@focusforge.com</span>
+              <span>press@forgrin.com</span>
             </a>
           </div>
         </section>

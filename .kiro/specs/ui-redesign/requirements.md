@@ -1,7 +1,7 @@
 # UI/UX Redesign - Requirements
 
 ## Overview
-Complete redesign of FocusForge frontend to eliminate generic AI aesthetics, improve functionality, and create a professional productivity tool.
+Complete redesign of Forgrin frontend to eliminate generic AI aesthetics, improve functionality, and create a professional productivity tool.
 
 ## Problem Statement
 Current issues:

@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "FocusForge",
+    "productName": "Forgrin",
     "version": "0.1.0"
   },
   "tauri": {
@@ -62,7 +62,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.focusforge.desktop",
+      "identifier": "com.forgrin.desktop",
       "icon": [
         "icons/icon.ico"
       ]
@@ -109,13 +109,13 @@
         "fileDropEnabled": false,
         "fullscreen": false,
         "resizable": true,
-        "title": "FocusForge",
+        "title": "Forgrin",
         "width": 1200,
         "height": 800,
         "minWidth": 800,
         "minHeight": 600,
         "url": "http://localhost:3000",
-        "userAgent": "FocusForge-Desktop/0.1.0"
+        "userAgent": "Forgrin-Desktop/0.1.0"
       }
     ],
     "systemTray": {

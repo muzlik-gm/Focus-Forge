@@ -4,7 +4,7 @@ const path = require('path');
 const os = require('os');
 
 const appDataDir = process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming');
-const dbPath = path.join(appDataDir, 'com.focusforge.desktop', 'focusforge.db');
+const dbPath = path.join(appDataDir, 'com.forgrin.desktop', 'forgrin.db');
 
 console.log('Checking database:', dbPath);
 console.log('');
@@ -14,7 +14,7 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
         console.error('Error opening database:', err.message);
         process.exit(1);
     }
-    
+
     // Count total logs
     db.get('SELECT COUNT(*) as count FROM activity_logs', (err, row) => {
         if (err) {
@@ -22,10 +22,10 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
             db.close();
             process.exit(1);
         }
-        
+
         console.log(`Total activity logs in database: ${row.count}`);
         console.log('');
-        
+
         if (row.count === 0) {
             console.log('❌ No activity logs found at all!');
             console.log('');

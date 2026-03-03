@@ -21,12 +21,12 @@ export default function TermsPage() {
           <div className="space-y-8 text-zinc-300">
             <div className="skeuo-card p-8">
               <h2 className="text-2xl font-semibold mb-4 embossed-text">Agreement to Terms</h2>
-              <p>By accessing or using FocusForge, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+              <p>By accessing or using Forgrin, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
             </div>
 
             <div className="skeuo-card p-8">
               <h2 className="text-2xl font-semibold mb-4 embossed-text">Use License</h2>
-              <p className="mb-4">Permission is granted to temporarily use FocusForge for personal or commercial productivity purposes. This license shall automatically terminate if you violate any of these restrictions.</p>
+              <p className="mb-4">Permission is granted to temporarily use Forgrin for personal or commercial productivity purposes. This license shall automatically terminate if you violate any of these restrictions.</p>
             </div>
 
             <div className="skeuo-card p-8">
@@ -41,12 +41,12 @@ export default function TermsPage() {
 
             <div className="skeuo-card p-8">
               <h2 className="text-2xl font-semibold mb-4 embossed-text">Prohibited Uses</h2>
-              <p className="mb-4">You may not use FocusForge:</p>
+              <p className="mb-4">You may not use Forgrin:</p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>In any way that violates applicable laws</li>
                 <li>To transmit malicious code or viruses</li>
                 <li>To harass, abuse, or harm another person</li>
-                <li>To impersonate or attempt to impersonate FocusForge or another user</li>
+                <li>To impersonate or attempt to impersonate Forgrin or another user</li>
               </ul>
             </div>
 
@@ -57,7 +57,7 @@ export default function TermsPage() {
 
             <div className="skeuo-card p-8">
               <h2 className="text-2xl font-semibold mb-4 embossed-text">Contact Us</h2>
-              <p>If you have questions about these Terms, please contact us at legal@focusforge.com</p>
+              <p>If you have questions about these Terms, please contact us at legal@forgrin.com</p>
             </div>
           </div>
         </section>

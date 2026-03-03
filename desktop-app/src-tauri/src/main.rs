@@ -128,7 +128,7 @@ fn create_system_tray() -> SystemTray {
     let hide = CustomMenuItem::new("hide".to_string(), "Hide Window");
     let start_focus = CustomMenuItem::new("start_focus".to_string(), "Start Focus Session");
     let notification_history = CustomMenuItem::new("notification_history".to_string(), "Notification History");
-    let quit = CustomMenuItem::new("quit".to_string(), "Quit FocusForge");
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit Forgrin");
     
     let tray_menu = SystemTrayMenu::new()
         .add_item(show)
@@ -202,7 +202,7 @@ fn main() {
         .filter_level(log::LevelFilter::Info)
         .init();
 
-    log::info!("Starting FocusForge Desktop Application v{}", env!("CARGO_PKG_VERSION"));
+    log::info!("Starting Forgrin Desktop Application v{}", env!("CARGO_PKG_VERSION"));
 
     // Create system tray
     let system_tray = create_system_tray();
@@ -344,5 +344,5 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 
-    log::info!("FocusForge Desktop Application shutdown complete");
+    log::info!("Forgrin Desktop Application shutdown complete");
 }

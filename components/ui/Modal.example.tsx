@@ -31,7 +31,7 @@ export function ModalExamples() {
         <Modal
           isOpen={basicModalOpen}
           onClose={() => setBasicModalOpen(false)}
-          title="Welcome to FocusForge"
+          title="Welcome to Forgrin"
         >
           <p className="mb-4">
             This is a basic modal with some content. You can close it by:
@@ -214,7 +214,7 @@ export function ModalExamples() {
               <p className="text-sm flex items-start gap-2">
                 <Lightbulb className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span><strong>Tip:</strong> Focus sessions work best in 25-45 minute intervals.
-                Take a 5-minute break between sessions.</span>
+                  Take a 5-minute break between sessions.</span>
               </p>
             </div>
             <div className="flex gap-3 justify-end pt-2">

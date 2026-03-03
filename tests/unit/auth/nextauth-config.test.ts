@@ -2,7 +2,7 @@
  * Unit tests for NextAuth configuration files
  * 
  * Validates that the NextAuth configuration files are properly created
- * and structured according to FocusForge requirements.
+ * and structured according to Forgrin requirements.
  * 
  * Requirements: 1.2, 13.2
  */

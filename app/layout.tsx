@@ -16,10 +16,10 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "FocusForge - Master Deep Focus & Productivity",
-    template: "%s | FocusForge",
+    default: "Forgrin - Master Deep Focus & Productivity",
+    template: "%s | Forgrin",
   },
-  description: "FocusForge helps you eliminate distractions, track focus sessions, and achieve peak productivity through proven deep work techniques.",
+  description: "Forgrin helps you eliminate distractions, track focus sessions, and achieve peak productivity through proven deep work techniques.",
 };
 
 export default function RootLayout({

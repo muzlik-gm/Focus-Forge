@@ -88,15 +88,15 @@ export function InviteMemberModal({ isOpen, onClose, onSuccess }: InviteMemberMo
               <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-2">
                 Email Address
               </label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+              <div className="skeuo-input p-0 flex items-center relative">
+                <Mail className="absolute left-4 w-5 h-5 text-zinc-400" />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="colleague@example.com"
-                  className="skeuo-input w-full pl-12 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-transparent pl-12 pr-4 py-3 text-white focus:outline-none"
                   required
                   disabled={loading}
                 />

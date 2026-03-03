@@ -1,8 +1,8 @@
-# Build Verification Script for FocusForge Desktop
+# Build Verification Script for Forgrin Desktop
 # This script checks all prerequisites and verifies the build configuration
 
 Write-Host "==================================" -ForegroundColor Cyan
-Write-Host "FocusForge Desktop Build Verification" -ForegroundColor Cyan
+Write-Host "Forgrin Desktop Build Verification" -ForegroundColor Cyan
 Write-Host "==================================" -ForegroundColor Cyan
 Write-Host ""
 

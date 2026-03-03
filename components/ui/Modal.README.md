@@ -135,7 +135,7 @@ The Modal component supports various use cases as specified in Requirement 20:
 
 ## Styling
 
-The Modal uses the FocusForge design system:
+The Modal uses the Forgrin design system:
 
 - **Background**: Dark gray with 95% opacity and backdrop blur
 - **Border**: 1px solid gray-800
