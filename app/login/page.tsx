@@ -159,9 +159,9 @@ export default function LoginPage() {
         {/* Form Card */}
         <div className="skeuo-panel p-8 bg-white border-4 border-black shadow-[8px_8px_0px_white] ring-4 ring-black">
           <div className="mb-6 text-center">
-            <h1 className="text-2xl font-bold mb-1 tracking-tighter uppercase italic border-b-2 border-black inline-block pb-1">Desktop Sync</h1>
+            <h1 className="text-2xl font-black mb-1 tracking-tighter uppercase italic border-b-2 border-black inline-block pb-1">Sign In</h1>
             <p className="text-[10px] font-black uppercase text-black/50 mt-2">
-              Cloud Authentication Protocol Active
+              Secure Protocol Active
             </p>
           </div>
 
@@ -252,7 +252,7 @@ export default function LoginPage() {
 
           <div className="mt-8 text-center pt-6 border-t border-black/10">
             <p className="text-[9px] font-black uppercase text-black/40">
-              This page is exclusive to the Forgrin Desktop Client telemetry cluster.
+              Access the Forgrin global telemetry network.
             </p>
           </div>
         </div>
