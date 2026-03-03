@@ -2,78 +2,54 @@
 
 import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
-import { Book, Sparkles } from 'lucide-react';
+import { Scroll, CheckCircle2, AlertTriangle, Scale, Target } from 'lucide-react';
 
 export default function TermsPage() {
   return (
     <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      <main className="flex-grow pt-32 px-6">
-        <section className="max-w-4xl mx-auto pb-20">
+      <main className="flex-grow pt-32 px-6 pb-24">
+        <section className="max-w-4xl mx-auto">
           <div className="text-center mb-16 border-b-4 border-black pb-12">
             <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
-              <Book className="w-4 h-4 text-blue-600" />
-              <span>User Agreement</span>
+              <Scale className="w-4 h-4 text-orange-600" />
+              <span>Operational Protocols</span>
             </div>
-            <h1 className="text-4xl lg:text-5xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
-              Terms of<br />Operation.
+            <h1 className="text-5xl lg:text-7xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight italic">
+              Terms_Of<br />Service.
             </h1>
-            <p className="text-xs font-black text-black/50">Last updated: March 03, 2026</p>
           </div>
 
-          <div className="space-y-6">
-            {[
-              {
-                title: 'Operational Binding',
-                content: 'By accessing the Forgrin gateway, you agree to comply with our protocol specifications. These terms govern your interaction with our focus telemetry and session orchestration services.',
-                bg: 'bg-white'
-              },
-              {
-                title: 'Access License',
-                content: 'We grant users a non-exclusive, revocable license to utilize the Forgrin toolkit for professional focus optimization. This license remains active provided the user adheres to our anti-harassment and infrastructure protection policies.',
-                bg: 'bg-pink-50'
-              },
-              {
-                title: 'Account Integrity',
-                content: 'Users are responsible for the entropy and security of their authentication tokens. Any compromise of session data due to client-side negligence is the primary responsibility of the account holder.',
-                points: ['Token Security Management', 'Activity Monitoring', 'Unauthorized Access Reporting'],
-                bg: 'bg-white'
-              },
-              {
-                title: 'Prohibited Inputs',
-                content: 'Users may not inject malicious payloads, scrapers, or high-velocity automation that degrades the performance of our focus telemetry clusters.',
-                bg: 'bg-blue-50'
-              },
-              {
-                title: 'Service Termination',
-                content: 'We reserve the absolute right to deactivate accounts that demonstrate patterns of protocol violation or malicious intent without prior warning.',
-                bg: 'bg-white'
-              }
-            ].map((section, i) => (
-              <div key={i} className={`skeuo-panel p-10 border-2 border-black shadow-[6px_6px_0px_black] ${section.bg}`}>
-                <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter border-b-2 border-black pb-2">{section.title}</h2>
-                <p className="text-sm font-bold text-black/70 leading-relaxed mb-4">{section.content}</p>
-                {section.points && (
-                  <div className="grid grid-cols-2 gap-3 mt-4">
-                    {section.points.map((p, j) => (
-                      <div key={j} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-black" />
-                        <span className="text-[10px] font-black uppercase tracking-tight text-black/60">{p}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-
-            <div className="skeuo-panel p-10 border-2 border-black shadow-[6px_6px_0px_black] bg-zinc-50">
-              <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter">Legal Inquiries</h2>
-              <p className="text-sm font-black tracking-tight mb-4">Direct institutional or legal correspondence to our compliance cluster:</p>
-              <div className="mt-4 text-blue-600 font-black uppercase tracking-widest text-lg hover:underline cursor-pointer transition-colors">
-                legal@forgrin.app
-              </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="skeuo-panel p-8 bg-zinc-50 border-2 border-black shadow-[6px_6px_0px_black] ring-2 ring-black">
+              <h3 className="text-2xl font-black uppercase tracking-tighter italic mb-4 border-b-2 border-black inline-block pb-1">0_User_Nodes</h3>
+              <p className="text-sm font-bold text-black/70 leading-snug">
+                By accessing the Forgrin grid, you agree to optimize your cognitive output and respect the telemetry of other nodes.
+              </p>
             </div>
+            <div className="skeuo-panel p-8 bg-white border-2 border-black shadow-[6px_6px_0px_black] ring-2 ring-black">
+              <h3 className="text-2xl font-black uppercase tracking-tighter italic mb-4 border-b-2 border-black inline-block pb-1">1_Grid_Access</h3>
+              <p className="text-sm font-bold text-black/70 leading-snug">
+                Access may be throttled or terminated if any node attempts to manipulate the telemetry cluster or bypass focus limits.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black] ring-4 ring-black">
+            <h3 className="text-3xl font-black uppercase tracking-tighter mb-8 border-b-2 border-black inline-block italic">Subscription_Sync</h3>
+            <ul className="space-y-6">
+              {[
+                'Paid subscriptions sync across all nodes instantly.',
+                'Refunds are available for 14 operational days.',
+                'Beta-Path access is subject to frequent telemetry updates.'
+              ].map((t, i) => (
+                <li key={i} className="flex items-center gap-4">
+                  <Target className="w-5 h-5 flex-shrink-0" />
+                  <span className="text-xs font-black uppercase tracking-tight italic">{t}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       </main>

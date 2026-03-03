@@ -1,88 +1,85 @@
 'use client';
 
-import Link from 'next/link';
-import { Mail, MessageSquare, HelpCircle, Send, Sparkles, Rocket } from 'lucide-react';
 import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
+import { Mail, MessageCircle, MapPin, Globe, Loader2 } from 'lucide-react';
+import { useState } from 'react';
 
 export default function ContactPage() {
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      <main className="flex-grow pt-32 px-6">
-        <section className="max-w-5xl mx-auto pb-20">
-          <div className="text-center mb-16 border-b-4 border-black pb-12">
-            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
-              <Mail className="w-4 h-4 text-blue-600" />
-              <span>Contact Node</span>
+      <main className="flex-grow pt-32 px-6 pb-24">
+        <section className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-stretch">
+            {/* Form Section */}
+            <div className="skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black] ring-4 ring-black">
+              <div className="mb-10 text-center lg:text-left">
+                <h1 className="text-4xl font-black mb-1 uppercase tracking-tighter italic border-b-4 border-black inline-block pb-2">Direct_Link</h1>
+                <p className="text-[10px] font-black uppercase text-black/50 mt-4 leading-relaxed">
+                  Establish a high-priority telemetry connection with our support cluster.
+                </p>
+              </div>
+
+              <form className="space-y-6">
+                <div>
+                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Access_Name</label>
+                  <input className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black uppercase placeholder:text-black/20" placeholder="ENTER_IDENTITY" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Telemetry_Address (Email)</label>
+                  <input className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black uppercase placeholder:text-black/20" placeholder="YOU@GRID.COM" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Transmission_Body</label>
+                  <textarea rows={5} className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black placeholder:text-black/20" placeholder="DESCRIBE_YOUR_SYNC_NEEDS..." />
+                </div>
+                <button type="button" onClick={() => setLoading(true)} className="skeuo-button bg-black text-white w-full py-5 font-black uppercase text-sm shadow-[8px_8px_0px_white] ring-4 ring-black hover:bg-zinc-800 transition-all">
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'INITIATE_TRANSMISSION'}
+                </button>
+              </form>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
-              Establish<br />Comms.
-            </h1>
-            <p className="text-base font-bold text-black/70 max-w-xl mx-auto uppercase">
-              Direct telemetry patch to our high-fidelity support engineering team.
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
-            {[
-              { icon: Mail, title: 'Email Node', text: 'support@forgrin.app', bg: 'bg-blue-50' },
-              { icon: MessageSquare, title: 'Live Stream', text: 'Instant patch-through.', bg: 'bg-pink-50' },
-              { icon: HelpCircle, title: 'Archive Node', text: 'Self-serve troubleshooting.', bg: 'bg-green-50' }
-            ].map((method, i) => (
-              <div key={i} className={`skeuo-panel p-8 text-center border-2 border-black shadow-[6px_6px_0px_black] ${method.bg} group`}>
-                <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-white border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
-                  <method.icon className="w-7 h-7" />
+            {/* Side Info Section */}
+            <div className="flex flex-col gap-8">
+              <div className="skeuo-panel p-8 bg-blue-50 border-2 border-black shadow-[6px_6px_0px_black] ring-2 ring-black flex-grow">
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="w-14 h-14 bg-white border-2 border-black flex items-center justify-center flex-shrink-0">
+                    <MessageCircle className="w-8 h-8 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black uppercase tracking-tighter italic mb-1">Live_Node_Support</h3>
+                    <p className="text-[9px] font-black uppercase opacity-40">Cluster Active 24/7</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-black mb-2 uppercase tracking-tighter">{method.title}</h3>
-                <p className="text-[10px] font-black uppercase text-blue-600 underline tracking-tight">{method.text}</p>
+                <p className="text-sm font-bold text-black/70 mb-8 border-l-4 border-black pl-4">
+                  Join our Discord for immediate low-latency assistance from our engineering community.
+                </p>
+                <button className="skeuo-button bg-white text-black border-2 border-black px-6 py-3 font-black uppercase text-[10px] shadow-[4px_4px_0px_black] ring-2 ring-black">
+                  Connect_Discord
+                </button>
               </div>
-            ))}
-          </div>
 
-          <div className="skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black]">
-            <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4 text-center">Transmission Form</h2>
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Identifier</label>
-                  <input
-                    type="text"
-                    placeholder="YOUR FULL NAME..."
-                    className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase focus:outline-none focus:bg-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Return Protocol</label>
-                  <input
-                    type="email"
-                    placeholder="EMAIL@DOMAIN.COM..."
-                    className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase focus:outline-none focus:bg-white"
-                  />
+              <div className="skeuo-panel p-8 bg-zinc-50 border-2 border-black shadow-[6px_6px_0px_black] ring-2 ring-black">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <Mail className="w-5 h-5 text-black" />
+                    <span className="text-[10px] font-black uppercase">node.support@forgrin.com</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <Globe className="w-5 h-5 text-black" />
+                    <span className="text-[10px] font-black uppercase">forgrin.com/global-nodes</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <MapPin className="w-5 h-5 text-black" />
+                    <span className="text-[10px] font-black uppercase italic">DECENTRALIZED_INFRASTRUCTURE</span>
+                  </div>
                 </div>
               </div>
-              <div>
-                <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Payload Subject</label>
-                <input
-                  type="text"
-                  placeholder="SUBJECT OF INQUIRY..."
-                  className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-black uppercase mb-3 text-black/40">Data Packet Content</label>
-                <textarea
-                  rows={6}
-                  placeholder="ELABORATE ON YOUR BLOCKER OR INQUIRY..."
-                  className="skeuo-input w-full px-4 py-4 bg-zinc-50 border-2 border-black text-xs font-black uppercase resize-none focus:outline-none focus:bg-white"
-                />
-              </div>
-              <button type="submit" className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center justify-center gap-3 w-full group">
-                <span>Initiate Transmission</span>
-                <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </button>
-            </form>
+            </div>
           </div>
         </section>
       </main>

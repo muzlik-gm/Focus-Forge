@@ -1,100 +1,86 @@
 'use client';
 
-import Link from 'next/link';
-import { CheckCircle, Sparkles, Rocket, Activity, Zap } from 'lucide-react';
 import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
+import { Activity, CheckCircle2, AlertTriangle, ShieldCheck, Sparkles, Zap } from 'lucide-react';
 
 export default function StatusPage() {
   const services = [
-    { name: 'Telemetry API', status: 'operational', uptime: '99.99%' },
-    { name: 'Focus Orchestrator', status: 'operational', uptime: '99.98%' },
-    { name: 'Cognitive Database', status: 'operational', uptime: '99.99%' },
-    { name: 'Auth Protocol', status: 'operational', uptime: '100%' },
-    { name: 'Push Clusters', status: 'operational', uptime: '99.95%' }
-  ];
-
-  const incidents = [
-    {
-      date: '2026-02-15',
-      title: 'Node Optimization',
-      description: 'Database indexing and performance hardening.',
-      status: 'resolved',
-      duration: '30m'
-    }
+    { name: 'Core_Telemetry_Interface', status: 'OPERATIONAL', uptime: '99.99%', color: 'text-green-500' },
+    { name: 'Node_Registration_Hub', status: 'OPERATIONAL', uptime: '100%', color: 'text-green-500' },
+    { name: 'Focus_Analysis_Engine', status: 'DEGRADED_LATENCY', uptime: '98.5%', color: 'text-yellow-500' },
+    { name: 'Auth_Protocol_V3', status: 'OPERATIONAL', uptime: '99.99%', color: 'text-green-500' },
+    { name: 'Desktop_Sync_Cluster', status: 'OPERATIONAL', uptime: '99.95%', color: 'text-green-500' },
+    { name: 'Mobile_Gateway', status: 'OPERATIONAL', uptime: '99.99%', color: 'text-green-500' },
   ];
 
   return (
     <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      <main className="flex-grow pt-32 px-6">
-        <section className="max-w-5xl mx-auto pb-20">
+      <main className="flex-grow pt-32 px-6 pb-24">
+        <section className="max-w-4xl mx-auto">
           <div className="text-center mb-16 border-b-4 border-black pb-12">
-            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
-              <Activity className="w-4 h-4 text-blue-600" />
-              <span>Real-time Telemetry</span>
+            <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-[#9eff9e] border-2 border-black font-black uppercase tracking-tight text-[10px]">
+              <ShieldCheck className="w-4 h-4 text-black" />
+              <span>All Systems Nominal</span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
-              Operational<br />Integrity.
+            <h1 className="text-5xl lg:text-7xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight italic">
+              System<br />Pulse.
             </h1>
-            <div className="flex items-center justify-center gap-3 mt-4">
-              <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse border-2 border-black" />
-              <span className="text-lg font-black uppercase text-green-600 tracking-tighter">Nodes 100% Nominal</span>
-            </div>
+            <p className="text-sm font-black uppercase text-black/40 max-w-xl mx-auto italic">
+              Real-time monitoring of the Forgrin node network.
+            </p>
           </div>
 
-          <div className="skeuo-panel p-10 mb-8 bg-white border-4 border-black shadow-[10px_10px_0px_black]">
-            <h2 className="text-2xl font-black mb-8 uppercase tracking-tighter border-b-2 border-black pb-2">Active Services</h2>
-            <div className="grid gap-4">
-              {services.map((service, index) => (
-                <div key={index} className="skeuo-panel p-4 bg-zinc-50 border-2 border-black flex items-center justify-between group hover:bg-white transition-colors">
+          <div className="skeuo-panel bg-white border-4 border-black shadow-[12px_12px_0px_black] ring-4 ring-black p-0 overflow-hidden mb-12">
+            <div className="bg-black text-white p-4 flex justify-between items-center">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] italic">Telemetry_Logs</span>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[8px] font-black uppercase">LIVE_FEED</span>
+              </div>
+            </div>
+            <div className="divide-y-2 divide-black">
+              {services.map((s, i) => (
+                <div key={i} className="p-6 flex flex-col md:flex-row justify-between items-center gap-4 hover:bg-zinc-50 transition-colors">
                   <div className="flex items-center gap-4">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="font-black uppercase text-xs tracking-tight">{service.name}</span>
+                    <Activity className="w-5 h-5 text-black" />
+                    <span className="text-xs font-black uppercase tracking-tighter italic">{s.name}</span>
                   </div>
-                  <div className="flex items-center gap-6">
-                    <span className="text-[9px] font-black uppercase text-black/30">Uptime: {service.uptime}</span>
-                    <span className="skeuo-badge bg-green-500 border-2 border-black px-3 py-1 text-[9px] font-black uppercase text-white shadow-[2px_2px_0px_black]">Operational</span>
+                  <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
+                    <div className="flex flex-col items-end">
+                      <span className="text-[8px] font-black uppercase text-black/40 mb-1">UPTIME_90D</span>
+                      <span className="text-[10px] font-black">{s.uptime}</span>
+                    </div>
+                    <div className={`skeuo-badge bg-white border-2 border-black ${s.color} text-[8px] font-black px-4 py-1 shadow-[2px_2px_0px_black]`}>
+                      {s.status}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <div className="skeuo-panel p-10 bg-white border-2 border-black shadow-[6px_6px_0px_black]">
-              <h2 className="text-2xl font-black mb-8 uppercase tracking-tighter border-b-2 border-black pb-2">Archives</h2>
-              {incidents.length === 0 ? (
-                <p className="text-[10px] font-bold text-black/40">No incidents in the last 30 intervals.</p>
-              ) : (
-                <div className="space-y-4">
-                  {incidents.map((incident, index) => (
-                    <div key={index} className="skeuo-panel p-4 bg-zinc-50 border-2 border-black">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-lg font-black uppercase tracking-tighter text-blue-600">{incident.title}</span>
-                        <span className="skeuo-badge bg-green-400 border-2 border-black px-2 py-0.5 text-[8px] font-black uppercase">Resolved</span>
-                      </div>
-                      <p className="text-[10px] font-black text-black/70 mb-3">{incident.description}</p>
-                      <div className="flex items-center gap-3 text-[8px] font-black uppercase text-black/30">
-                        <span>{incident.date}</span>
-                        <span>•</span>
-                        <span>Duration: {incident.duration}</span>
-                      </div>
-                    </div>
-                  ))}
+          {/* Past Incidents */}
+          <div className="mt-20">
+            <h2 className="text-2xl font-black uppercase tracking-tighter italic mb-8 border-b-2 border-black inline-block pb-1">Past_Incidents</h2>
+            <div className="space-y-6">
+              {[
+                { date: 'MAR_02_2026', title: 'Analysis Cache Rebuild', desc: 'Brief latency spike during global cache optimization.', status: 'RESOLVED' },
+                { date: 'FEB_28_2026', title: 'Core Auth Upgrade', desc: 'Planned maintenance for Node-A1 synchronization protocol.', status: 'COMPLETE' }
+              ].map((inc, i) => (
+                <div key={i} className="skeuo-panel p-6 bg-zinc-100 border-2 border-black shadow-[6px_6px_0px_black] flex items-center justify-between gap-6">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[8px] font-black uppercase text-black/40">{inc.date}</span>
+                    <h4 className="text-lg font-black uppercase tracking-tighter italic">{inc.title}</h4>
+                    <p className="text-[10px] font-bold text-black/60 leading-tight">{inc.desc}</p>
+                  </div>
+                  <div className="skeuo-badge bg-black text-white text-[8px] font-black px-4 py-1 italic">
+                    {inc.status}
+                  </div>
                 </div>
-              )}
-            </div>
-
-            <div className="skeuo-panel p-10 bg-blue-50 border-2 border-black shadow-[6px_6px_0px_black] flex flex-col justify-center text-center">
-              <Zap className="w-10 h-10 mx-auto mb-4 text-black" />
-              <h2 className="text-2xl font-black mb-4 uppercase tracking-tighter">System Alerts</h2>
-              <p className="text-[10px] font-bold text-black/70 mb-8 leading-tight">Subscribe to the high-density alert stream for instant protocol notifications.</p>
-              <div className="flex flex-col gap-3">
-                <input type="email" placeholder="ENTER EMAIL NODE..." className="skeuo-input px-4 py-4 bg-white border-2 border-black text-xs font-black uppercase focus:outline-none" />
-                <button className="skeuo-button bg-black text-white px-8 py-4 font-black uppercase text-xs">Establish Link</button>
-              </div>
+              ))}
             </div>
           </div>
         </section>

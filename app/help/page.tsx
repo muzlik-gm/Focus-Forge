@@ -1,89 +1,85 @@
 'use client';
 
-import Link from 'next/link';
-import { Search, HelpCircle, Book, MessageSquare, Sparkles, Rocket } from 'lucide-react';
 import { MarketingNav } from '@/components/layout/MarketingNav';
 import { Footer } from '@/components/layout/Footer';
+import { HelpCircle, Search, MessageCircle, FileText, Sparkles, Zap, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function HelpCenterPage() {
-  const faqs = [
-    { question: 'How do I start a focus session?', answer: 'Navigate to the Focus page and click the "Start" button. You can customize the duration before starting.' },
-    { question: 'Can I pause a focus session?', answer: 'Yes! Click the "Pause" button during a session. Your time will be saved and you can resume later.' },
-    { question: 'How do I invite team members?', answer: 'Go to the Team page and click "Invite member". Enter their email and they\'ll receive an invitation link.' },
-    { question: 'What happens to my data if I cancel?', answer: 'You can export all your data before canceling. After cancellation, data is retained for 30 days then permanently deleted.' },
-    { question: 'Can I use Forgrin offline?', answer: 'Currently, Forgrin requires an internet connection. Offline mode is planned for a future release.' },
-    { question: 'How do I change my subscription plan?', answer: 'Go to Settings > Billing and click "Change Plan". You can upgrade or downgrade at any time.' }
+  const commonQuestions = [
+    { q: 'Establishing Sync Connection', a: 'Ensure your Node-A1 telemetry client is updated to the latest version.' },
+    { q: 'Billing Sync Failure', a: 'Check your Stripe cluster status and retry the transmission.' },
+    { q: 'Protocol V3 Documentation', a: 'Access our high-fidelity API reference for custom hooks.' },
+    { q: 'Node Deactivation', a: 'Deactivate your presence across all global grids from the settings panel.' },
   ];
 
   return (
     <div className="neo-landing min-h-screen text-black relative flex flex-col overflow-x-hidden">
       <MarketingNav />
 
-      <main className="flex-grow pt-32 px-6">
-        <section className="max-w-5xl mx-auto pb-20">
+      <main className="flex-grow pt-32 px-6 pb-24">
+        <section className="max-w-5xl mx-auto">
           <div className="text-center mb-16 border-b-4 border-black pb-12">
             <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
-              <Sparkles className="w-4 h-4 text-blue-600" />
-              <span>Help Center</span>
+              <HelpCircle className="w-4 h-4 text-blue-600" />
+              <span>Telemetry Support Cluster</span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
-              Knowledge Base &<br />Support Hub.
+            <h1 className="text-5xl lg:text-7xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight italic">
+              Knowledge<br />Interface.
             </h1>
-            <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
-              Everything you need to master your focus workflow.
+            <p className="text-sm font-black uppercase text-black/40 max-w-xl mx-auto italic">
+              Search the Forgrin grid for operational guides.
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto mb-16">
-            <div className="skeuo-input bg-white border-4 border-black shadow-[8px_8px_0px_black] relative flex items-center p-0 overflow-hidden">
-              <Search className="ml-6 w-6 h-6 text-black" />
-              <input
-                type="search"
-                placeholder="SEARCH FOR TOPICS..."
-                className="w-full pl-4 pr-6 py-6 bg-transparent text-sm font-black uppercase focus:outline-none placeholder:text-black/30"
-              />
+          <div className="max-w-2xl mx-auto mb-20 relative">
+            <div className="skeuo-panel p-6 bg-white border-4 border-black shadow-[10px_10px_0px_black] ring-4 ring-black group transition-all focus-within:translate-x-1 focus-within:translate-y-1 focus-within:shadow-none">
+              <div className="flex items-center gap-6">
+                <Search className="w-8 h-8 text-black opacity-30" />
+                <input className="w-full bg-transparent text-xl font-black uppercase placeholder:text-black/10 focus:outline-none" placeholder="SEARCH_PROTOCOL_GUIDES..." />
+              </div>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {[
-              { href: '/docs', icon: Book, title: 'Docs', desc: 'Detailed guides', bg: 'bg-blue-50' },
-              { href: '/docs/api', icon: HelpCircle, title: 'API', desc: 'Technical specs', bg: 'bg-purple-50' },
-              { href: '/contact', icon: MessageSquare, title: 'Support', desc: 'Direct help', bg: 'bg-green-50' }
-            ].map((item, i) => (
-              <Link key={i} href={item.href} className={`skeuo-panel p-8 text-center border-2 border-black shadow-[6px_6px_0px_black] transition-all ${item.bg}`}>
-                <div className="skeuo-avatar w-14 h-14 mx-auto mb-6 bg-white border-2 border-black flex items-center justify-center">
-                  <item.icon className="w-7 h-7" />
+              { name: 'Core_Manual', icon: FileText, color: 'bg-zinc-50' },
+              { name: 'API_Telemetry', icon: Zap, color: 'bg-blue-50' },
+              { name: 'Cluster_Sync', icon: Sparkles, color: 'bg-pink-50' }
+            ].map((cat, i) => (
+              <div key={i} className={`skeuo-panel p-8 border-2 border-black shadow-[6px_6px_0px_black] ring-2 ring-black ${cat.color} group hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all`}>
+                <div className="w-12 h-12 bg-white border-2 border-black mb-8 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                  <cat.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-black mb-2 uppercase tracking-tighter">{item.title}</h3>
-                <p className="text-[10px] font-bold text-black/70 tracking-tight leading-tight">{item.desc}</p>
-              </Link>
+                <h3 className="text-xl font-black uppercase tracking-tighter mb-2 italic border-b-2 border-black inline-block pb-0.5">{cat.name}</h3>
+                <p className="text-[10px] font-black uppercase text-black/40 mb-10">Access high-fidelity documentation for this module.</p>
+                <Link href="/docs" className="skeuo-button bg-black text-white px-6 py-2 uppercase font-black text-[9px] shadow-[4px_4px_0px_blue] ring-2 ring-black">
+                  VIEW_DOCS
+                </Link>
+              </div>
             ))}
           </div>
 
-          <div className="mb-20">
-            <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4">Common Questions</h2>
-            <div className="grid md:grid-cols-2 gap-4">
-              {faqs.map((faq, index) => (
-                <div key={index} className="skeuo-panel p-6 bg-white border-2 border-black shadow-[4px_4px_0px_black]">
-                  <h3 className="text-sm font-black mb-3 border-b border-black pb-2 leading-tight uppercase">{faq.question}</h3>
-                  <p className="text-[11px] font-bold text-black/70 leading-relaxed">{faq.answer}</p>
+          <div className="skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black] ring-4 ring-black">
+            <h2 className="text-3xl font-black uppercase tracking-tighter mb-10 border-b-2 border-black inline-block italic">Frequent_Sync_Queries</h2>
+            <div className="space-y-4">
+              {commonQuestions.map((q, i) => (
+                <div key={i} className="p-4 border-2 border-black flex flex-col md:flex-row justify-between items-center gap-4 hover:bg-zinc-50 transition-colors cursor-pointer group">
+                  <div className="flex items-center gap-4">
+                    <div className="w-6 h-6 border-2 border-black flex items-center justify-center text-[10px] font-black group-hover:bg-black group-hover:text-white">{i + 1}</div>
+                    <span className="text-xs font-black uppercase tracking-tight italic">{q.q}</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 opacity-30 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="skeuo-panel p-12 text-center bg-white border-4 border-black shadow-[10px_10px_0px_black]">
-            <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Need more help?</h2>
-            <p className="text-base font-bold text-black/70 mb-10 max-w-2xl mx-auto">
-              Our high-density support team is standing by to resolve your technical roadblocks.
-            </p>
-            <Link
-              href="/contact"
-              className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center gap-3 w-fit mx-auto group"
-            >
-              <span>Contact Support</span>
-              <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <div className="mt-24 text-center">
+            <h4 className="text-xl font-black uppercase tracking-tighter italic mb-8">Node not synchronizing?</h4>
+            <Link href="/contact" className="skeuo-button bg-black text-white px-12 py-5 font-black uppercase text-xs shadow-[8px_8px_0px_white] ring-2 ring-black transition-transform hover:scale-110 flex items-center gap-3 w-fit mx-auto">
+              <MessageCircle className="w-5 h-5 text-blue-400" />
+              <span>Establish Support Link</span>
             </Link>
           </div>
         </section>

@@ -196,24 +196,24 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-white flex items-center justify-center px-4 relative overflow-hidden py-10">
+    <div className="neo-landing min-h-screen text-black flex items-center justify-center px-4 py-8 relative overflow-hidden">
       {/* Background Orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-20 right-[10%] w-[400px] h-[400px] gradient-orb bg-blue-600" />
         <div className="absolute bottom-20 left-[10%] w-[350px] h-[350px] gradient-orb bg-purple-600" />
       </div>
 
-      <div className="w-full max-w-[440px] relative z-10">
+      <div className="w-full max-w-[400px] relative z-10 scale-90 sm:scale-100">
         {/* Logo */}
-        <div className="flex items-center gap-3 mb-8">
-          <img src="/logo.png" alt="Forgrin" className="w-6 h-6" />
-          <span className="text-sm font-bold tracking-tight">
-            Forgrin {isDesktop && '(Desktop)'}
+        <div className="flex items-center gap-3 mb-6 justify-center">
+          <img src="/logo.png" alt="Forgrin" className="w-7 h-7" />
+          <span className="text-sm font-black tracking-tighter uppercase italic">
+            Forgrin {isDesktop && '(Node_A1)'}
           </span>
         </div>
 
         {/* Form Card */}
-        <div className="skeuo-card p-8">
+        <div className="skeuo-panel p-8 bg-white border-4 border-black shadow-[8px_8px_0px_white] ring-4 ring-black">
           {showVerificationMessage ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 flex items-center justify-center">
@@ -222,20 +222,20 @@ export default function RegisterPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-bold mb-2">Check your email!</h2>
-              <p className="text-zinc-400 mb-4">
-                We've sent a verification link to <strong>{email}</strong>
+              <p className="text-zinc-600 mb-4 font-bold">
+                We've sent a verification link to <br /><strong>{email}</strong>
               </p>
-              <p className="text-sm text-zinc-500">
-                Please verify your email before signing in. Redirecting to login...
+              <p className="text-[10px] text-zinc-500 font-black uppercase">
+                Verify before signing in. Redirecting...
               </p>
             </div>
           ) : (
             <>
-              <div className="mb-6">
-                <h1 className="text-2xl font-bold mb-1 tracking-tight">Create account</h1>
-                <p className="text-xs text-zinc-400">
-                  Already have an account?{' '}
-                  <Link href="/login" className="text-indigo-400 hover:text-indigo-300">
+              <div className="mb-6 text-center">
+                <h1 className="text-2xl font-bold mb-1 tracking-tighter uppercase italic border-b-2 border-black inline-block pb-1">Create Account</h1>
+                <p className="text-[10px] font-black uppercase text-black/50 mt-2">
+                  Already a node?{' '}
+                  <Link href="/login" className="text-blue-600 hover:underline">
                     Sign in
                   </Link>
                 </p>
@@ -246,7 +246,7 @@ export default function RegisterPage() {
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="w-full mb-6 px-4 py-3 bg-white text-gray-900 font-medium text-sm flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full mb-6 px-4 py-3 bg-white text-gray-900 border-2 border-black font-black uppercase text-[11px] flex items-center justify-center gap-3 hover:bg-zinc-100 transition-colors shadow-[4px_4px_0px_black] active:translate-x-1 active:translate-y-1 active:shadow-none disabled:opacity-50"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -259,46 +259,44 @@ export default function RegisterPage() {
 
               <div className="relative mb-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-zinc-800"></div>
+                  <div className="w-full border-t-2 border-black"></div>
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-[#1a1a1d] text-zinc-500">Or continue with email</span>
+                <div className="relative flex justify-center text-[10px]">
+                  <span className="px-4 bg-white border-2 border-black font-black uppercase tracking-tighter">Identity Creation</span>
                 </div>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {error && (
-                  <div className="px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-[20px] text-sm text-red-400">
+                  <div className="px-4 py-3 bg-red-500/10 border-2 border-red-500 rounded-lg text-[11px] font-black uppercase text-red-600">
                     {error}
                   </div>
                 )}
 
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2 embossed-text">
-                    Name
+                  <label htmlFor="name" className="block text-[10px] font-black uppercase mb-1 tracking-tight">
+                    Full Name
                   </label>
                   <input
                     id="name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="skeuo-input w-full px-4 py-2.5 text-sm focus:outline-none"
-                    placeholder="John Doe"
+                    className="skeuo-input w-full bg-zinc-50 border-2 border-black p-3 text-xs focus:ring-2 focus:ring-blue-500 mb-4"
+                    placeholder="ENTER_NAME"
                     required
                     disabled={loading}
                   />
-                </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2 embossed-text">
-                    Email
+                  <label htmlFor="email" className="block text-[10px] font-black uppercase mb-1 tracking-tight">
+                    Email Address
                   </label>
                   <input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="skeuo-input w-full px-4 py-2.5 text-sm focus:outline-none"
+                    className="skeuo-input w-full bg-zinc-50 border-2 border-black p-3 text-xs focus:ring-2 focus:ring-blue-500"
                     placeholder="you@example.com"
                     required
                     disabled={loading}

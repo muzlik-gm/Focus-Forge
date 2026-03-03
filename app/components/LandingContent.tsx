@@ -476,77 +476,74 @@ export function LandingContent() {
               <h2 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight text-black">Built for your team.</h2>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto overflow-visible items-stretch">
+            <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto overflow-visible items-stretch">
               {/* Free Plan */}
-              <div className="skeuo-card p-6 flex flex-col h-full bg-white border-2 border-black shadow-[8px_8px_0px_black] text-black">
-                <div className="mb-6">
-                  <h3 className="text-2xl font-black mb-1 uppercase">Free</h3>
-                  <div className="flex items-baseline mb-3">
-                    <span className="text-4xl font-black">$0</span>
-                    <span className="text-black/50 ml-1 font-bold uppercase text-[10px]">/month</span>
+              <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-2 border-black shadow-[6px_6px_0px_black] text-black ring-2 ring-black">
+                <div className="mb-4">
+                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Lite_Node</h3>
+                  <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
+                    <span className="text-3xl font-black tracking-tighter">$0</span>
+                    <span className="text-black/40 ml-1 font-bold uppercase text-[8px]">/month</span>
                   </div>
                 </div>
-                <div className="space-y-3 mb-10 flex-grow">
-                  {['3 Focus Sessions / day', 'Basic Analytics', 'Manual logs', 'Community access'].map((feature, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <Check className="w-3.5 h-3.5 text-black flex-shrink-0" />
-                      <span className="text-[10px] font-bold uppercase tracking-tight text-black">{feature}</span>
+                <div className="space-y-2 mb-8 flex-grow">
+                  {['3 Daily Sessions', 'Pulse Analytics', 'Manual Tracking', 'Network access'].map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <Check className="w-3 h-3 text-blue-600 flex-shrink-0" />
+                      <span className="text-[9px] font-black uppercase tracking-tight text-black/70">{feature}</span>
                     </div>
                   ))}
                 </div>
-                <button className="skeuo-button bg-[#ff91e0] text-black border-2 border-black w-full text-base font-black py-3 shadow-[4px_4px_0px_black]">
-                  Get Started
-                </button>
+                <Link href="/register" className="skeuo-button bg-zinc-100 text-black border-2 border-black w-full text-[10px] font-black py-4 uppercase shadow-[4px_4px_0px_black] hover:bg-black hover:text-white transition-all text-center">
+                  Initialize
+                </Link>
               </div>
 
               {/* Pro Plan - Featured */}
-              <div className="skeuo-card p-6 flex flex-col h-full bg-white border-4 border-black shadow-[10px_10px_0px_black] relative z-20 overflow-visible text-black md:scale-105">
-                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-full text-center">
-                  <div className="skeuo-badge bg-[#9eff9e] text-black px-4 py-1 border-2 border-black shadow-[3px_3px_0px_black] inline-flex items-center gap-1">
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <span className="font-black uppercase tracking-tight text-[10px]">RECOMMENDED</span>
+              <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-4 border-black shadow-[10px_10px_0px_black] relative z-20 overflow-visible text-black md:scale-105">
+                <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-fit bg-[#ff91e0] border-2 border-black px-4 py-0.5 shadow-[2px_2px_0px_black] z-30">
+                  <span className="font-black uppercase tracking-tight text-[8px] italic">OPTIMAL_PATH</span>
+                </div>
+                <div className="mb-4 pt-2">
+                  <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter italic">Pro_Core</h3>
+                  <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
+                    <span className="text-4xl font-black tracking-tighter">$12</span>
+                    <span className="text-black/40 ml-1 font-black uppercase text-[8px]">/month</span>
                   </div>
                 </div>
-                <div className="mb-6 pt-4">
-                  <h3 className="text-3xl font-black mb-1 uppercase text-black">Pro</h3>
-                  <div className="flex items-baseline mb-3">
-                    <span className="text-5xl font-black text-black">$12</span>
-                    <span className="text-black/50 ml-1 font-black uppercase text-[10px]">/month</span>
-                  </div>
-                </div>
-                <div className="space-y-3 mb-10 flex-grow">
-                  {['Unlimited sessions', 'Advanced Analytics', 'Predictions', 'Team Sharing', 'API Access'].map((feature, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <Check className="w-3.5 h-3.5 text-black flex-shrink-0" />
-                      <span className="text-[10px] font-black uppercase text-black">{feature}</span>
+                <div className="space-y-2 mb-8 flex-grow">
+                  {['Unlimited focus', 'Deep Telemetry', 'Focus Analysis', 'Cluster Shares', 'Open Interface'].map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <Check className="w-3 h-3 text-pink-500 flex-shrink-0" />
+                      <span className="text-[9px] font-black uppercase text-black">{feature}</span>
                     </div>
                   ))}
                 </div>
-                <button className="skeuo-button bg-[#ff91e0] text-black border-2 border-black w-full text-lg font-black py-4 shadow-[6px_6px_0px_black]">
-                  Upgrade to Pro
-                </button>
+                <Link href="/register" className="skeuo-button bg-black text-white px-4 py-4 w-full text-xs font-black uppercase shadow-[6px_6px_0px_white] ring-2 ring-black hover:bg-zinc-800 text-center">
+                  Upgrade Path
+                </Link>
               </div>
 
               {/* Team Plan */}
-              <div className="skeuo-card p-6 flex flex-col h-full bg-white border-2 border-black shadow-[8px_8px_0px_black] text-black">
-                <div className="mb-6">
-                  <h3 className="text-2xl font-black mb-1 uppercase">Team</h3>
-                  <div className="flex items-baseline mb-3">
-                    <span className="text-4xl font-black">$29</span>
-                    <span className="text-black/50 ml-1 font-bold uppercase text-[10px]">/month</span>
+              <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-2 border-black shadow-[6px_6px_0px_black] text-black ring-2 ring-black">
+                <div className="mb-4">
+                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Team_Grid</h3>
+                  <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
+                    <span className="text-3xl font-black tracking-tighter">$29</span>
+                    <span className="text-black/40 ml-1 font-bold uppercase text-[8px]">/month</span>
                   </div>
                 </div>
-                <div className="space-y-3 mb-10 flex-grow">
-                  {['Up to 10 members', 'Admin Oversight', 'Team Heatmaps', 'Priority Support'].map((feature, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <Check className="w-3.5 h-3.5 text-black flex-shrink-0" />
-                      <span className="text-[10px] font-bold uppercase tracking-tight text-black">{feature}</span>
+                <div className="space-y-2 mb-8 flex-grow">
+                  {['Multi-Node Support', 'Admin Oversight', 'Network Heatmaps', 'Priority Path'].map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <Check className="w-3 h-3 text-cyan-500 flex-shrink-0" />
+                      <span className="text-[9px] font-black uppercase tracking-tight text-black/70">{feature}</span>
                     </div>
                   ))}
                 </div>
-                <button className="skeuo-button bg-[#ff91e0] text-black border-2 border-black w-full text-base font-black py-3 shadow-[4px_4px_0px_black]">
-                  Start Team Plan
-                </button>
+                <Link href="/register" className="skeuo-button bg-zinc-100 text-black border-2 border-black w-full text-[10px] font-black py-4 uppercase shadow-[4px_4px_0px_black] hover:bg-black hover:text-white transition-all text-center">
+                  Grid Access
+                </Link>
               </div>
             </div>
           </div>

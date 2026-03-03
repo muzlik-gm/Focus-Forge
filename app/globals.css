@@ -40,6 +40,32 @@
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    letter-spacing: -0.01em;
+  }
+
+  /* Universal Neo-Brutalist Typography */
+  .neo-text-h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    font-style: italic;
+  }
+
+  .neo-text-h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .neo-text-p {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
   }
 
   /* Force strong headings only on landing */
@@ -52,14 +78,14 @@
     color: var(--text-neo) !important;
     font-weight: 900 !important;
     font-style: normal !important;
-    letter-spacing: -0.02em;
-    /* Proportion-based tightening for legibility */
+    letter-spacing: -0.03em;
     line-height: 1.1;
   }
 
   .neo-landing h1 {
-    letter-spacing: -0.04em !important;
-    line-height: 0.95 !important;
+    letter-spacing: -0.05em !important;
+    line-height: 0.9 !important;
+    text-transform: uppercase !important;
   }
 }
 
