@@ -230,7 +230,7 @@ export default function TasksPage() {
     return (
       <div className="w-full max-w-7xl mx-auto p-6">
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-8 h-8 text-zinc-600 animate-spin" />
+          <Loader2 className="w-8 h-8 text-primary animate-spin" />
         </div>
       </div>
     );
@@ -240,12 +240,12 @@ export default function TasksPage() {
     <div className="w-full p-4 md:p-6 overflow-hidden">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1 embossed-text tracking-tight">Tasks</h1>
-          <p className="text-zinc-300 text-sm">Organize and track your work</p>
+          <h1 className="text-2xl font-bold font-heading text-on-surface tracking-tight mb-1">Tasks</h1>
+          <p className="text-on-surface-variant text-sm">Organize and track your work</p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="skeuo-button inline-flex items-center gap-2 px-5 py-2.5 text-white font-medium text-sm shadow-lg transition-all"
+          className="skeuo-button inline-flex items-center gap-2 px-5 py-2.5 text-on-surface font-medium text-sm shadow-lg transition-all"
         >
           <Plus className="w-4 h-4" />
           New Task
@@ -270,10 +270,10 @@ export default function TasksPage() {
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="skeuo-avatar w-7 h-7 bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
-                    <StatusIcon className="w-3.5 h-3.5 text-zinc-400" />
+                  <div className="skeuo-icon-container w-7 h-7">
+                    <StatusIcon className="w-3.5 h-3.5 text-on-surface-variant" />
                   </div>
-                  <h2 className="font-semibold text-sm embossed-text">{getStatusLabel(status)}</h2>
+                  <h2 className="font-semibold text-sm text-on-surface">{getStatusLabel(status)}</h2>
                 </div>
                 <span className="skeuo-badge scale-75 origin-right">
                   {items.length}
@@ -283,8 +283,8 @@ export default function TasksPage() {
               <div className="space-y-3 min-h-[200px]">
                 {items.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center pointer-events-none">
-                    <StatusIcon className={`w-12 h-12 mb-4 transition-colors ${dragOverStatus === status ? 'text-blue-500/50' : 'text-zinc-700'}`} />
-                    <p className={`text-sm transition-colors ${dragOverStatus === status ? 'text-blue-400' : 'text-zinc-500'}`}>
+                    <StatusIcon className={`w-12 h-12 mb-4 transition-colors ${dragOverStatus === status ? 'text-blue-500/50' : 'text-outline-variant'}`} />
+                    <p className={`text-sm transition-colors ${dragOverStatus === status ? 'text-blue-400' : 'text-outline'}`}>
                       {dragOverStatus === status ? 'Drop task here' : 'No tasks here'}
                     </p>
                   </div>
@@ -300,11 +300,11 @@ export default function TasksPage() {
                         draggable
                         onDragStart={(e) => handleDragStart(e, task.id)}
                         onDragEnd={handleDragEnd}
-                        className={`skeuo-card select-none p-4 border transition-colors duration-200 group ${isDragging ? 'opacity-50 shadow-none border-blue-500/30 bg-blue-500/5 cursor-grabbing' : 'hover:border-white/10 hover:bg-white/[0.03] border-transparent cursor-grab'}
+                        className={`skeuo-card select-none p-4 border transition-colors duration-200 group ${isDragging ? 'opacity-50 shadow-none border-blue-500/30 bg-primary/5 cursor-grabbing' : 'hover:border-white/10 hover:bg-white/[0.03] border-transparent cursor-grab'}
                           `}
                       >
                         <div className="flex items-start justify-between gap-2 mb-2">
-                          <p className="text-sm font-medium text-zinc-100 leading-snug flex-1">{task.title}</p>
+                          <p className="text-sm font-medium text-on-surface leading-snug flex-1">{task.title}</p>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -331,7 +331,7 @@ export default function TasksPage() {
                 )}
                 {/* Visual placeholder for drop zone */}
                 {dragOverStatus === status && items.length > 0 && (
-                  <div className="h-24 rounded-2xl border-2 border-dashed border-blue-500/30 bg-blue-500/5 animate-pulse" />
+                  <div className="h-24 rounded-2xl border-2 border-dashed border-blue-500/30 bg-primary/5 animate-pulse" />
                 )}
               </div>
             </div>
@@ -341,7 +341,7 @@ export default function TasksPage() {
         {/* Add State Column */}
         <div className="min-w-[200px] max-w-[200px] shrink-0">
           {isAddingState ? (
-            <div className="skeuo-panel p-4 border border-blue-500/30 bg-blue-500/5">
+            <div className="skeuo-panel p-4 border border-blue-500/30 bg-primary/5">
               <input
                 type="text"
                 autoFocus
@@ -353,17 +353,17 @@ export default function TasksPage() {
                 }}
                 onBlur={handleAddState}
                 placeholder="List name (e.g. Design)"
-                className="w-full bg-transparent text-white focus:outline-none mb-3"
+                className="w-full bg-transparent text-on-surface focus:outline-none mb-3"
               />
               <div className="flex justify-end gap-2 text-xs font-medium">
                 <button onMouseDown={() => setIsAddingState(false)} className="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">Cancel</button>
-                <button onMouseDown={handleAddState} className="px-3 py-1.5 rounded-md bg-blue-500 hover:bg-blue-600 text-white transition-colors">Add</button>
+                <button onMouseDown={handleAddState} className="px-3 py-1.5 rounded-md bg-primary hover:bg-primary text-on-surface transition-colors">Add</button>
               </div>
             </div>
           ) : (
             <button
               onClick={() => setIsAddingState(true)}
-              className="w-full skeuo-panel border-dashed border-2 border-white/10 hover:border-white/20 p-4 flex flex-col items-center justify-center gap-2 text-zinc-400 hover:text-white transition-all cursor-pointer h-[100px]"
+              className="w-full skeuo-panel border-dashed border-2 border-white/10 hover:border-white/20 p-4 flex flex-col items-center justify-center gap-2 text-on-surface-variant hover:text-on-surface transition-all cursor-pointer h-[100px]"
             >
               <Plus className="w-5 h-5" />
               <span className="font-medium text-xs">Add custom list</span>
@@ -376,46 +376,46 @@ export default function TasksPage() {
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100]" onClick={() => setShowCreateModal(false)}>
           <div className="skeuo-modal p-6 w-full max-w-md mx-4" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-xl font-bold mb-5 embossed-text">Create New Task</h2>
+            <h2 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-5">Create New Task</h2>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-2">Title</label>
+                <label className="block text-xs font-medium text-on-surface-variant mb-2">Title</label>
                 <input
                   type="text"
                   value={newTaskTitle}
                   onChange={(e) => setNewTaskTitle(e.target.value)}
                   placeholder="Enter task title"
-                  className="skeuo-input w-full px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="skeuo-input w-full px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500"
                   autoFocus
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-2">Priority</label>
+                <label className="block text-xs font-medium text-on-surface-variant mb-2">Priority</label>
                 <select
                   value={newTaskPriority}
                   onChange={(e) => setNewTaskPriority(e.target.value as any)}
-                  className="skeuo-input w-full px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-zinc-900 bg-no-repeat bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[position:right_1rem_center]"
+                  className="skeuo-input w-full px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-surface-container bg-no-repeat bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[position:right_1rem_center]"
                 >
-                  <option value="LOW" className="bg-zinc-800">Low</option>
-                  <option value="MEDIUM" className="bg-zinc-800">Medium</option>
-                  <option value="HIGH" className="bg-zinc-800">High</option>
-                  <option value="URGENT" className="bg-zinc-800">Urgent</option>
+                  <option value="LOW" className="bg-surface-container-highest">Low</option>
+                  <option value="MEDIUM" className="bg-surface-container-highest">Medium</option>
+                  <option value="HIGH" className="bg-surface-container-highest">High</option>
+                  <option value="URGENT" className="bg-surface-container-highest">Urgent</option>
                 </select>
               </div>
 
               <div className="flex gap-3 pt-3">
                 <button
                   onClick={() => setShowCreateModal(false)}
-                  className="skeuo-card hover:bg-zinc-800 flex-1 py-2.5 text-white font-medium text-sm transition-colors cursor-pointer"
+                  className="skeuo-card hover:bg-surface-container-highest flex-1 py-2.5 text-on-surface font-medium text-sm transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={createTask}
                   disabled={creating || !newTaskTitle.trim()}
-                  className="skeuo-button flex-1 py-2.5 text-white font-medium text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="skeuo-button flex-1 py-2.5 text-on-surface font-medium text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {creating ? 'Creating...' : 'Create Task'}
                 </button>

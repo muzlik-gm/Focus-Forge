@@ -30,6 +30,7 @@ export interface SyncStatus {
     authenticated: boolean;
     syncAvailable: boolean;
     email: string | null;
+    lastCheckAt: string | null;
 }
 
 export interface CloudTask {
@@ -70,7 +71,7 @@ export interface CloudPullData {
     }>;
 }
 
-const SYNC_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+const SYNC_INTERVAL_MS = 30 * 1000; // 30 seconds (Real-time)
 const STORAGE_KEY_LAST_SYNC = 'forgrinst_sync_ts';
 const STORAGE_KEY_CLOUD_TASKS = 'forgrin_cloud_tasks';
 const STORAGE_KEY_SYNC_STATS = 'forgrin_sync_stats';
@@ -86,6 +87,7 @@ class CloudSyncService {
         authenticated: false,
         syncAvailable: false,
         email: null,
+        lastCheckAt: null,
     };
 
     constructor() {
@@ -134,6 +136,7 @@ class CloudSyncService {
                     cloudTasks: data.stats?.cloudTasks ?? 0,
                 },
                 lastSyncAt: data.lastSyncAt ?? this.currentStatus.lastSyncAt,
+                lastCheckAt: new Date().toISOString(),
             });
         } catch { /* network error, ignore */ }
     }
@@ -259,6 +262,8 @@ class CloudSyncService {
     async sync(): Promise<void> {
         if (this.currentStatus.isSyncing) return;
 
+        console.log('[CloudSync] Starting sync...');
+
         await this.checkStatus();
         if (!this.currentStatus.authenticated) {
             this.emit({ error: 'Not signed in — sync unavailable' });
@@ -279,12 +284,20 @@ class CloudSyncService {
         }
     }
 
-    /** Start automatic background sync every 5 minutes */
+    /** Start automatic background sync every 30 seconds */
     startAutoSync(): void {
         if (this.syncTimer) return;
 
         // Initial sync after short delay
         setTimeout(() => this.sync(), 3000);
+
+        // Trigger sync when window gains focus for "instant" feel
+        if (typeof window !== 'undefined') {
+            window.addEventListener('focus', () => {
+                console.log('Window focused, triggering sync...');
+                this.sync();
+            });
+        }
 
         this.syncTimer = setInterval(() => {
             this.sync();

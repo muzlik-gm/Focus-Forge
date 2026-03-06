@@ -152,7 +152,7 @@ export default function LoginPage() {
         <div className="flex items-center gap-3 mb-6 justify-center">
           <img src="/logo.png" alt="Forgrin" className="w-7 h-7" />
           <span className="text-sm font-black tracking-tighter uppercase italic">
-            Forgrin Desktop
+            Forgrin
           </span>
         </div>
 
@@ -161,7 +161,7 @@ export default function LoginPage() {
           <div className="mb-6 text-center">
             <h1 className="text-2xl font-black mb-1 tracking-tighter uppercase italic border-b-2 border-black inline-block pb-1">Sign In</h1>
             <p className="text-[10px] font-black uppercase text-black/50 mt-2">
-              Secure Protocol Active
+              Welcome Back
             </p>
           </div>
 
@@ -186,7 +186,7 @@ export default function LoginPage() {
               <div className="w-full border-t-2 border-black"></div>
             </div>
             <div className="relative flex justify-center text-[10px]">
-              <span className="px-4 bg-white border-2 border-black font-black uppercase tracking-tighter">Identity Verification</span>
+              <span className="px-4 bg-white border-2 border-black font-black uppercase tracking-tighter">Sign In With Email</span>
             </div>
           </div>
 
@@ -237,7 +237,7 @@ export default function LoginPage() {
                 disabled={loading}
               />
               <label htmlFor="remember_me" className="ml-2 text-[10px] font-black uppercase text-black/60">
-                Remember Node
+                Remember Me
               </label>
             </div>
 
@@ -246,13 +246,13 @@ export default function LoginPage() {
               disabled={loading}
               className="skeuo-button w-full bg-black text-white border-2 border-black font-black uppercase py-4 shadow-[6px_6px_0px_white] ring-2 ring-black hover:bg-zinc-800"
             >
-              {loading ? 'Processing...' : 'Sync Session'}
+              {loading ? 'Processing...' : 'Sign In'}
             </button>
           </form>
 
           <div className="mt-8 text-center pt-6 border-t border-black/10">
             <p className="text-[9px] font-black uppercase text-black/40">
-              Access the Forgrin global telemetry network.
+              Sign in to access your dashboard.
             </p>
           </div>
         </div>

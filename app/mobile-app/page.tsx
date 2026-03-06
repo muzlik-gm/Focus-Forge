@@ -16,23 +16,23 @@ export default function MobileAppPage() {
                         <div className="lg:w-1/2">
                             <div className="skeuo-badge mb-6 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
                                 <Smartphone className="w-4 h-4 text-pink-600" />
-                                <span>Mobile Node Deployment</span>
+                                <span>Mobile App</span>
                             </div>
                             <h1 className="text-5xl lg:text-7xl font-black mb-6 embossed-text tracking-tighter uppercase leading-tight italic">
-                                Focus_On<br />The_Move.
+                                Focus On<br />The Move.
                             </h1>
                             <p className="text-xl font-bold text-black/70 mb-10 border-l-8 border-black pl-6">
-                                Take your deep work telemetry anywhere. Low-latency focus tracking for iOS and Android.
+                                Take your focus sessions anywhere. Easy tracking for iOS and Android.
                             </p>
 
                             <div className="grid sm:grid-cols-2 gap-4">
                                 <button className="skeuo-button bg-black text-white px-8 py-5 font-black uppercase text-xs flex items-center justify-center gap-3 shadow-[6px_6px_0px_white] ring-2 ring-black">
                                     <Apple className="w-5 h-5" />
-                                    <span>App_Store</span>
+                                    <span>App Store</span>
                                 </button>
                                 <button className="skeuo-button bg-white text-black border-4 border-black px-8 py-5 font-black uppercase text-xs flex items-center justify-center gap-3 shadow-[8px_8px_0px_black] ring-2 ring-black">
                                     <Play className="w-5 h-5 fill-current" />
-                                    <span>Google_Play</span>
+                                    <span>Google Play</span>
                                 </button>
                             </div>
                         </div>
@@ -45,8 +45,8 @@ export default function MobileAppPage() {
                                     <div className="w-32 h-32 rounded-full border-[6px] border-black flex items-center justify-center mb-6 bg-white animate-pulse">
                                         <Zap className="w-16 h-16 text-blue-600" />
                                     </div>
-                                    <h3 className="text-2xl font-black uppercase tracking-tighter italic">FOCUS_ACTIVE</h3>
-                                    <p className="text-[10px] font-black uppercase text-black/40 mt-2">Node_A1 Tracking</p>
+                                    <h3 className="text-2xl font-black uppercase tracking-tighter italic">FOCUS ACTIVE</h3>
+                                    <p className="text-[10px] font-black uppercase text-black/40 mt-2">Advanced Tracking</p>
                                 </div>
                                 <div className="grid grid-cols-2 gap-3 pb-8">
                                     <div className="skeuo-panel bg-white border-2 border-black h-20" />
@@ -61,9 +61,9 @@ export default function MobileAppPage() {
                 {/* Feature Grid */}
                 <section className="max-w-5xl mx-auto mt-32 grid md:grid-cols-3 gap-8">
                     {[
-                        { name: 'Sync_Path', desc: 'Real-time telemetry synchronization with your desktop node.' },
-                        { name: 'Native_Logs', desc: 'Swift and smooth interaction design for mobile deep work.' },
-                        { name: 'Pulse_Alerts', desc: 'Minimal haptic feedback systems for focus transitions.' }
+                        { name: 'Sync', desc: 'Real-time sync between your mobile and desktop.' },
+                        { name: 'Native Design', desc: 'Smooth and responsive design for mobile deep work.' },
+                        { name: 'Focus Alerts', desc: 'Minimal haptic feedback for focus transitions.' }
                     ].map((f, i) => (
                         <div key={i} className="skeuo-panel p-8 bg-zinc-100 border-2 border-black shadow-[6px_6px_0px_black] ring-2 ring-black">
                             <h3 className="text-2xl font-black uppercase tracking-tighter italic mb-3 border-b-2 border-black inline-block pb-1">{f.name}</h3>

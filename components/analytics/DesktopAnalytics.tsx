@@ -165,7 +165,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
       case 'Productive':
         return 'bg-green-500';
       case 'Neutral':
-        return 'bg-blue-500';
+        return 'bg-primary';
       case 'Distracting':
         return 'bg-red-500';
       default:
@@ -185,27 +185,27 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
       <div className="mb-8 flex gap-3">
         <button
           onClick={() => setTimeRange('today')}
-          className={`skeuo-button px-6 py-3 font-medium transition-all ${timeRange === 'today'
-            ? 'text-white shadow-lg'
-            : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
+          className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'today'
+            ? 'text-on-surface shadow-lg'
+            : 'bg-surface-container-highest text-on-surface-variant hover:text-on-surface hover:bg-zinc-700 !shadow-none'
             }`}
         >
           Today
         </button>
         <button
           onClick={() => setTimeRange('week')}
-          className={`skeuo-button px-6 py-3 font-medium transition-all ${timeRange === 'week'
-            ? 'text-white shadow-lg'
-            : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
+          className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'week'
+            ? 'text-on-surface shadow-lg'
+            : 'bg-surface-container-highest text-on-surface-variant hover:text-on-surface hover:bg-zinc-700 !shadow-none'
             }`}
         >
           This Week
         </button>
         <button
           onClick={() => setTimeRange('month')}
-          className={`skeuo-button px-6 py-3 font-medium transition-all ${timeRange === 'month'
-            ? 'text-white shadow-lg'
-            : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
+          className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'month'
+            ? 'text-on-surface shadow-lg'
+            : 'bg-surface-container-highest text-on-surface-variant hover:text-on-surface hover:bg-zinc-700 !shadow-none'
             }`}
         >
           This Month
@@ -215,7 +215,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
       {loading && (
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-zinc-400">Loading analytics...</p>
+          <p className="mt-4 text-on-surface-variant">Loading analytics...</p>
         </div>
       )}
 
@@ -231,48 +231,48 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+                <div className="skeuo-icon-container w-10 h-10">
                   <Clock className="w-5 h-5 text-blue-400" />
                 </div>
-                <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">TOTAL TIME</span>
+                <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">TOTAL TIME</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
                 {formatDuration(totalDuration)}
               </div>
             </div>
 
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+                <div className="skeuo-icon-container w-10 h-10">
                   <TrendingUp className="w-5 h-5 text-green-400" />
                 </div>
-                <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">PRODUCTIVITY</span>
+                <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">PRODUCTIVITY</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
                 {productivityScore.toFixed(0)}%
               </div>
             </div>
 
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-green-400" />
+                <div className="skeuo-icon-container w-10 h-10">
+                  <Zap className="w-5 h-5 text-emerald-400" />
                 </div>
-                <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">PRODUCTIVE</span>
+                <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">PRODUCTIVE</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
                 {formatDuration(productiveDuration)}
               </div>
             </div>
 
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+                <div className="skeuo-icon-container w-10 h-10">
                   <BarChart3 className="w-5 h-5 text-red-400" />
                 </div>
-                <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">DISTRACTIONS</span>
+                <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">DISTRACTIONS</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
                 {formatDuration(distractingDuration)}
               </div>
             </div>
@@ -280,21 +280,21 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* Application Usage Chart */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
-              <h2 className="font-medium text-white mb-6">Top Applications</h2>
+            <div className="skeuo-panel p-6">
+              <h2 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-6">Top Applications</h2>
               <div className="space-y-3">
                 {topApplications.slice(0, 10).map((app, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-white">
+                        <span className="text-sm font-medium text-on-surface">
                           {app.application}
                         </span>
-                        <span className="text-sm text-zinc-400">
+                        <span className="text-sm text-on-surface-variant">
                           {formatDuration(app.total_duration)}
                         </span>
                       </div>
-                      <div className="w-full bg-zinc-800 rounded-full h-2">
+                      <div className="w-full bg-surface-container-highest rounded-full h-2">
                         <div
                           className={`h-2 rounded-full ${getCategoryColor(app.category)}`}
                           style={{ width: `${app.percentage}%` }}
@@ -304,7 +304,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                   </div>
                 ))}
                 {topApplications.length === 0 && (
-                  <p className="text-zinc-500 text-center py-8">No data available</p>
+                  <p className="text-outline text-center py-8">No data available</p>
                 )}
               </div>
             </div>
@@ -312,7 +312,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
             {/* Daily Breakdown Chart (for weekly view) */}
             {timeRange === 'week' && weeklyStats?.daily_breakdown && (
               <div className="skeuo-panel p-8">
-                <h2 className="font-bold text-xl text-white mb-8 embossed-text">Daily Breakdown</h2>
+                <h2 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-8">Daily Breakdown</h2>
                 <div className="flex items-end justify-between gap-2 h-64">
                   {weeklyStats.daily_breakdown.map((day, index) => {
                     const maxDuration = Math.max(
@@ -328,18 +328,18 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                       <div key={index} className="flex-1 flex flex-col items-center gap-2">
                         <div className="relative w-full group">
                           <div
-                            className="w-full bg-blue-600 rounded-t-lg transition-opacity hover:opacity-80 cursor-pointer"
+                            className="w-full bg-primary rounded-t-lg transition-opacity hover:opacity-80 cursor-pointer"
                             style={{ height: `${Math.max(heightPercent, 4)}%` }}
                           >
-                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-zinc-800 border border-zinc-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-surface-container-highest border border-outline-variant/20 text-on-surface text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                               <div className="font-semibold">{formatDuration(day.total_duration)}</div>
-                              <div className="text-zinc-300">
+                              <div className="text-on-surface-variant">
                                 {(day.productivity_score || 0).toFixed(0)}% productive
                               </div>
                             </div>
                           </div>
                         </div>
-                        <span className="text-xs text-zinc-500 font-medium">{dayName}</span>
+                        <span className="text-xs text-outline font-medium">{dayName}</span>
                       </div>
                     );
                   })}
@@ -350,12 +350,12 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
             {/* Time Distribution (for today view) */}
             {timeRange === 'today' && dailyStats && (
               <div className="skeuo-panel p-8">
-                <h2 className="font-bold text-xl text-white mb-8 embossed-text">Time Distribution</h2>
+                <h2 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-8">Time Distribution</h2>
                 <div className="space-y-6">
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-base font-bold text-zinc-300">Productive</span>
-                      <span className="text-base font-bold text-zinc-400 embossed-text">
+                      <span className="text-base font-bold font-heading text-on-surface-variant">Productive</span>
+                      <span className="text-base font-bold font-heading text-on-surface-variant">
                         {formatDuration(dailyStats.productive_duration)}
                       </span>
                     </div>
@@ -373,14 +373,14 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-base font-bold text-zinc-300">Neutral</span>
-                      <span className="text-base font-bold text-zinc-400 embossed-text">
+                      <span className="text-base font-bold font-heading text-on-surface-variant">Neutral</span>
+                      <span className="text-base font-bold font-heading text-on-surface-variant">
                         {formatDuration(dailyStats.neutral_duration)}
                       </span>
                     </div>
                     <div className="w-full bg-black/40 rounded-full h-3 skeuo-input border-0">
                       <div
-                        className="h-3 rounded-full bg-blue-500"
+                        className="h-3 rounded-full bg-primary"
                         style={{
                           width: `${totalDuration > 0
                             ? (dailyStats.neutral_duration / totalDuration) * 100
@@ -392,8 +392,8 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-base font-bold text-zinc-300">Distracting</span>
-                      <span className="text-base font-bold text-zinc-400 embossed-text">
+                      <span className="text-base font-bold font-heading text-on-surface-variant">Distracting</span>
+                      <span className="text-base font-bold font-heading text-on-surface-variant">
                         {formatDuration(dailyStats.distracting_duration)}
                       </span>
                     </div>
@@ -417,7 +417,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
           {/* Focus Session Trends */}
           {sessionTrends.length > 0 && (
             <div className="skeuo-panel p-8 mb-8">
-              <h2 className="font-bold text-xl text-white mb-8 embossed-text">Focus Session Trends</h2>
+              <h2 className="font-bold font-heading text-xl text-on-surface mb-8 tracking-tight">Focus Session Trends</h2>
               <div className="flex items-end justify-between gap-2 h-48">
                 {sessionTrends.map((trend, index) => {
                   const maxScore = Math.max(
@@ -434,23 +434,23 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                     <div key={index} className="flex-1 flex flex-col items-center gap-2">
                       <div className="relative w-full group">
                         <div
-                          className="w-full bg-purple-600 rounded-t-lg transition-opacity hover:opacity-80 cursor-pointer"
+                          className="w-full bg-primary-dim rounded-t-lg transition-opacity hover:opacity-80 cursor-pointer"
                           style={{ height: `${Math.max(heightPercent, 4)}%` }}
                         >
-                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-zinc-800 border border-zinc-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-surface-container-highest border border-outline-variant/20 text-on-surface text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                             <div className="font-semibold">
                               {(trend.avg_productivity_score || 0).toFixed(0)}% avg score
                             </div>
-                            <div className="text-zinc-300">
+                            <div className="text-on-surface-variant">
                               {trend.session_count} sessions
                             </div>
-                            <div className="text-zinc-300">
+                            <div className="text-on-surface-variant">
                               {formatDuration(trend.avg_duration)} avg
                             </div>
                           </div>
                         </div>
                       </div>
-                      <span className="text-xs text-zinc-500 font-medium">{date}</span>
+                      <span className="text-xs text-outline font-medium">{date}</span>
                     </div>
                   );
                 })}

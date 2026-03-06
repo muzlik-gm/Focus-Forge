@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Flame, Trophy, Crown, Star, Zap, Sparkles, Loader2, RefreshCw, CheckCircle2, Lock } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
@@ -26,26 +26,21 @@ export default function AchievementsPage() {
     const [unlocked, setUnlocked] = useState<UserAchievement[]>([]);
     const [loading, setLoading] = useState(true);
     const [syncing, setSyncing] = useState(false);
-    const [stats, setStats] = useState<any>(null);
 
-    useEffect(() => {
-        fetchAchievements();
-    }, []);
-
-    const fetchAchievements = async () => {
+    const fetchAchievements = useCallback(async () => {
         try {
             const res = await fetch('/api/achievements');
             if (res.ok) {
                 setUnlocked(await res.json());
             }
         } catch {
-            toast.error('Telemetry interference fetching Gamification Data');
+            // silently fail on background refresh
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
-    const handleSync = async () => {
+    const handleSync = useCallback(async (silent = false) => {
         setSyncing(true);
         try {
             const res = await fetch('/api/achievements/sync', { method: 'POST' });
@@ -53,61 +48,74 @@ export default function AchievementsPage() {
 
             if (!res.ok) throw new Error('Sync failed');
 
-            setStats(data.stats);
-
             if (data.newUnlocks && data.newUnlocks.length > 0) {
-                toast.success(`SYSTEM_UPGRADE: Unlocked ${data.newUnlocks.length} badges!`);
-                fetchAchievements();
+                if (!silent) toast.success(`🎉 Unlocked ${data.newUnlocks.length} new achievement${data.newUnlocks.length > 1 ? 's' : ''}!`);
+                await fetchAchievements();
             } else {
-                toast.success('Matrix Sync Complete - No New Unlocks');
+                await fetchAchievements();
+                if (!silent) toast.success('All up to date!');
             }
         } catch (error) {
-            toast.error('Sync failed');
+            if (!silent) toast.error('Sync failed. Please try again.');
         } finally {
             setSyncing(false);
         }
-    };
+    }, [fetchAchievements]);
+
+    // Auto-sync on mount (real-time on page load)
+    useEffect(() => {
+        handleSync(true); // silent=true on auto load
+    }, [handleSync]);
+
+    // Re-sync whenever window regains focus (user switches back to tab)
+    useEffect(() => {
+        const onFocus = () => handleSync(true);
+        window.addEventListener('focus', onFocus);
+        return () => window.removeEventListener('focus', onFocus);
+    }, [handleSync]);
 
     const totalPoints = unlocked.reduce((acc, curr) => acc + curr.achievement.points, 0);
 
     return (
         <div className="max-w-7xl mx-auto p-4 lg:p-10">
-            <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b-4 border-black pb-8">
+            <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-zinc-800 pb-8">
                 <div>
-                    <h1 className="text-4xl lg:text-5xl font-black mb-1 embossed-text tracking-tighter uppercase italic">Gamification_Matrix</h1>
-                    <p className="text-black/50 text-[10px] font-black uppercase tracking-widest">Progress Data / Honors / Rewards</p>
+                    <h1 className="text-4xl lg:text-5xl font-bold mb-1 tracking-tight uppercase italic text-white">Achievements</h1>
+                    <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-tight">Your Progress and Rewards</p>
                 </div>
 
                 <div className="flex gap-4 items-center">
-                    <div className="bg-black text-white px-6 py-4 border-4 border-black shadow-[4px_4px_0px_white] ring-2 ring-black">
-                        <span className="text-[10px] font-black uppercase tracking-widest opacity-50 block leading-none mb-1">Total_Reputation</span>
-                        <span className="text-2xl font-black leading-none">{totalPoints}_XP</span>
+                    <div className="skeuo-panel px-6 py-4 flex flex-col justify-center min-w-[120px]">
+                        <span className="text-[10px] font-bold uppercase tracking-tight text-zinc-500 block leading-none mb-1">Total Points</span>
+                        <span className="text-2xl font-bold leading-none text-white">{totalPoints} XP</span>
                     </div>
 
                     <button
-                        onClick={handleSync}
+                        onClick={() => handleSync(false)}
                         disabled={syncing}
-                        className="skeuo-button h-16 w-16 bg-zinc-100 text-black border-4 border-black flex items-center justify-center font-black uppercase tracking-tighter shadow-[4px_4px_0px_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50"
+                        title="Sync Achievements"
+                        className="skeuo-button h-[68px] px-6"
                     >
-                        <RefreshCw className={`w-6 h-6 ${syncing ? 'animate-spin' : ''}`} />
+                        <RefreshCw className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`} />
                     </button>
                 </div>
             </div>
 
             {loading ? (
-                <div className="flex justify-center p-20">
-                    <Loader2 className="w-10 h-10 animate-spin text-black" />
+                <div className="flex flex-col items-center justify-center p-20 gap-4">
+                    <Loader2 className="w-10 h-10 animate-spin text-zinc-500" />
+                    <p className="text-zinc-500 text-sm font-bold uppercase tracking-widest">Checking your achievements...</p>
                 </div>
             ) : unlocked.length === 0 ? (
-                <div className="text-center py-24 skeuo-panel bg-white border-4 border-black shadow-[12px_12px_0px_black] ring-4 ring-black relative overflow-hidden">
-                    <Trophy className="w-16 h-16 text-black/10 mx-auto mb-6" />
-                    <h3 className="text-3xl font-black uppercase tracking-tighter italic mb-2">No_Honors_Found</h3>
-                    <p className="text-black/50 font-bold uppercase text-xs mb-8">Initiate tasks and focus sessions to unlock operational achievements.</p>
+                <div className="text-center py-24 skeuo-panel">
+                    <Trophy className="w-16 h-16 text-zinc-800 mx-auto mb-6" />
+                    <h3 className="text-3xl font-bold uppercase tracking-tight italic mb-2 text-white">No Achievements Yet</h3>
+                    <p className="text-zinc-500 font-bold uppercase text-xs mb-8">Complete tasks and focus sessions to unlock achievements.</p>
                     <button
-                        onClick={handleSync}
-                        className="skeuo-button px-10 py-5 bg-black text-white font-black uppercase tracking-tighter shadow-[6px_6px_0px_black] ring-2 ring-black hover:bg-zinc-800 transition-all text-sm mx-auto"
+                        onClick={() => handleSync(false)}
+                        className="skeuo-button"
                     >
-                        Force_Scan_Matrix
+                        {syncing ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Sync Achievements'}
                     </button>
                 </div>
             ) : (
@@ -115,26 +123,27 @@ export default function AchievementsPage() {
                     {unlocked.map(({ achievement, unlockedAt }) => {
                         const IconComp = ICON_MAP[achievement.icon] || Star;
                         return (
-                            <div key={achievement.id} className="skew-panel bg-white border-4 border-black ring-2 ring-black shadow-[8px_8px_0px_black] hover:shadow-[12px_12px_0px_black] transform hover:-translate-y-1 transition-all group overflow-hidden relative p-8">
-                                <div className="absolute -top-4 -right-4 w-24 h-24 bg-zinc-100 rounded-full flex items-center justify-center border-4 border-black">
-                                    <IconComp className="w-10 h-10 text-black mb-4 mr-4" />
+                            <div key={achievement.id} className="skeuo-card p-6 flex flex-col h-full">
+                                <div className="flex items-start justify-between mb-4">
+                                    <div className="flex-1 pr-4">
+                                        <div className="text-[10px] font-bold uppercase tracking-tight text-zinc-500 mb-1">{achievement.category}</div>
+                                        <h3 className="text-xl font-bold tracking-tight uppercase italic text-white line-clamp-1">{achievement.name}</h3>
+                                    </div>
+                                    <div className="skeuo-icon-container w-12 h-12 flex-shrink-0">
+                                        <IconComp className="w-6 h-6 text-indigo-400" />
+                                    </div>
                                 </div>
 
-                                <div className="mb-8 pr-16 relative z-10">
-                                    <h3 className="text-2xl font-black tracking-tighter uppercase italic">{achievement.name}</h3>
-                                    <div className="text-[10px] font-black uppercase tracking-widest text-black/50 mb-1">{achievement.category}_Track</div>
-                                </div>
-
-                                <p className="text-black/80 font-bold text-sm mb-10 h-10 line-clamp-2 pr-4 relative z-10">
+                                <p className="text-zinc-400 font-medium text-sm mb-6 line-clamp-2 flex-grow">
                                     {achievement.description}
                                 </p>
 
-                                <div className="border-t-4 border-black pt-4 flex items-center justify-between relative z-10">
-                                    <div className="bg-black text-white px-3 py-1 text-[10px] font-black uppercase flex items-center gap-1 shadow-[2px_2px_0px_black] ring-1 ring-white">
+                                <div className="border-t border-zinc-800 pt-4 flex items-center justify-between mt-auto">
+                                    <div className="bg-indigo-500/10 text-indigo-400 px-2.5 py-1 rounded text-[10px] font-bold uppercase flex items-center gap-1 border border-indigo-500/20">
                                         <Zap className="w-3 h-3" />
                                         {achievement.points} XP
                                     </div>
-                                    <div className="text-[8px] font-black uppercase text-black/40">
+                                    <div className="text-[9px] font-bold uppercase text-zinc-500">
                                         Unlocked: {new Date(unlockedAt).toLocaleDateString()}
                                     </div>
                                 </div>
@@ -144,16 +153,19 @@ export default function AchievementsPage() {
                 </div>
             )}
 
-            {/* Placeholder Locked Section to show aesthetic */}
+            {/* Locked Section */}
             {!loading && unlocked.length > 0 && (
                 <div className="mt-20">
-                    <h2 className="text-2xl font-black uppercase tracking-tighter italic border-b-4 border-black pb-2 mb-8 inline-block">Secure_Vault (Locked)</h2>
-                    <div className="grid md:grid-cols-4 gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                    <h2 className="text-xl font-bold uppercase tracking-tight italic text-zinc-400 mb-6 flex items-center gap-3">
+                        <Lock className="w-5 h-5" />
+                        Locked Achievements
+                    </h2>
+                    <div className="grid md:grid-cols-4 gap-4">
                         {[1, 2, 3, 4].map(i => (
-                            <div key={i} className="border-4 border-black border-dashed p-6 flex flex-col items-center justify-center text-center bg-zinc-50 relative overflow-hidden group">
-                                <Lock className="w-8 h-8 text-black mb-4 group-hover:scale-110 transition-transform" />
-                                <h4 className="font-black uppercase tracking-tighter italic text-sm mb-1">Classified</h4>
-                                <p className="text-[8px] font-black uppercase text-black/40">Requires higher clearance level</p>
+                            <div key={i} className="skeuo-card bg-zinc-900/40 p-6 flex flex-col items-center justify-center text-center opacity-70 cursor-not-allowed hover:transform-none hover:shadow-none hover:bg-zinc-900/40">
+                                <Lock className="w-8 h-8 text-zinc-600 mb-4" />
+                                <h4 className="font-bold uppercase tracking-tight text-sm mb-1 text-zinc-500">Locked</h4>
+                                <p className="text-[10px] font-bold uppercase text-zinc-600">Keep working to unlock</p>
                             </div>
                         ))}
                     </div>

@@ -198,8 +198,8 @@ export default function DesktopSettings() {
       className="space-y-8"
     >
       <div>
-        <h2 className="text-xl font-semibold mb-2">Desktop App Settings</h2>
-        <p className="text-sm text-gray-400">
+        <h2 className="text-xl font-bold mb-2 text-white tracking-tight">Desktop App Settings</h2>
+        <p className="text-sm text-zinc-500 font-medium">
           Configure desktop-specific features including notifications, data export, and diagnostics
         </p>
       </div>
@@ -246,14 +246,14 @@ export default function DesktopSettings() {
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <Bell className="w-5 h-5 text-blue-400" />
-              <h3 className="text-lg font-semibold">Notification Settings</h3>
+              <h3 className="text-lg font-bold text-white tracking-tight">Notification Settings</h3>
             </div>
 
             <div className="space-y-4 pl-8">
               <div className="flex items-center justify-between p-6 skeuo-card">
                 <div>
-                  <p className="font-medium">Enable Notifications</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="font-bold text-white text-sm mb-0.5">Enable Notifications</p>
+                  <p className="text-xs text-zinc-500">
                     Show desktop notifications for focus session events and distractions
                   </p>
                 </div>
@@ -272,8 +272,8 @@ export default function DesktopSettings() {
 
               <div className="p-6 skeuo-card">
                 <label className="block mb-2">
-                  <span className="font-medium">Auto-dismiss Timeout</span>
-                  <p className="text-sm text-gray-500 mb-3">
+                  <span className="font-bold text-white text-sm">Auto-dismiss Timeout</span>
+                  <p className="text-xs text-zinc-500 mb-3">
                     How long notifications stay visible before auto-dismissing
                   </p>
                 </label>
@@ -358,7 +358,7 @@ export default function DesktopSettings() {
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <Download className="w-5 h-5 text-green-400" />
-              <h3 className="text-lg font-semibold">Data Export</h3>
+              <h3 className="text-lg font-bold text-white tracking-tight">Data Export</h3>
             </div>
 
             <div className="space-y-4 pl-8">
@@ -366,8 +366,8 @@ export default function DesktopSettings() {
                 <div className="flex items-start gap-4 mb-4">
                   <FolderOpen className="w-6 h-6 text-gray-400 mt-0.5" />
                   <div>
-                    <p className="font-medium mb-1">Export Directory</p>
-                    <p className="text-sm text-gray-400 font-mono break-all">{exportDirectory}</p>
+                    <p className="font-bold text-white text-sm mb-1">Export Directory</p>
+                    <p className="text-xs text-zinc-500 font-mono break-all">{exportDirectory}</p>
                   </div>
                 </div>
               </div>
@@ -375,8 +375,8 @@ export default function DesktopSettings() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="p-6 skeuo-card">
                   <FileText className="w-10 h-10 text-blue-400 mb-4" />
-                  <h4 className="font-semibold mb-3">Activity Logs (CSV)</h4>
-                  <p className="text-sm text-gray-400 mb-6">
+                  <h4 className="font-bold text-white text-sm mb-3">Activity Logs (CSV)</h4>
+                  <p className="text-xs text-zinc-500 mb-6 font-medium">
                     Export the last 30 days of activity logs in CSV format for analysis in spreadsheet applications
                   </p>
                   <button
@@ -390,8 +390,8 @@ export default function DesktopSettings() {
 
                 <div className="p-6 skeuo-card">
                   <Database className="w-10 h-10 text-purple-400 mb-4" />
-                  <h4 className="font-semibold mb-3">All Data (JSON)</h4>
-                  <p className="text-sm text-gray-400 mb-6">
+                  <h4 className="font-bold text-white text-sm mb-3">All Data (JSON)</h4>
+                  <p className="text-xs text-zinc-500 mb-6 font-medium">
                     Export all your data including settings, categories, sessions, and activity logs in JSON format
                   </p>
                   <button
@@ -410,7 +410,7 @@ export default function DesktopSettings() {
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <Trash2 className="w-5 h-5 text-orange-400" />
-              <h3 className="text-lg font-semibold">Data Retention</h3>
+              <h3 className="text-lg font-bold text-white tracking-tight">Data Retention</h3>
             </div>
 
             <div className="space-y-4 pl-8">
@@ -434,7 +434,7 @@ export default function DesktopSettings() {
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <CloudCog className="w-5 h-5 text-cyan-400" />
-              <h3 className="text-lg font-semibold">Cloud Sync</h3>
+              <h3 className="text-lg font-bold text-white tracking-tight">Cloud Sync</h3>
             </div>
 
             <div className="space-y-4 pl-8">

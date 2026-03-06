@@ -90,7 +90,7 @@ export default function ReviewPage() {
     <div className="max-w-4xl mx-auto space-y-10 p-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold mb-2 embossed-text tracking-tight">Weekly Review</h1>
+        <h1 className="text-3xl font-black text-white tracking-tight mb-2">Weekly Review</h1>
         <p className="text-zinc-300 text-lg">Reflect on your progress and plan ahead</p>
       </div>
 
@@ -107,7 +107,7 @@ export default function ReviewPage() {
             </div>
             <span className="text-base font-medium text-zinc-400">Total Focus Hours</span>
           </div>
-          <p className="text-4xl font-bold embossed-text text-white mt-4 tracking-tight">{review?.totalFocusHours.toFixed(1) || '0.0'}h</p>
+          <p className="text-4xl font-black text-white mt-4 tracking-tight">{review?.totalFocusHours.toFixed(1) || '0.0'}h</p>
         </motion.div>
 
         <motion.div
@@ -122,7 +122,7 @@ export default function ReviewPage() {
             </div>
             <span className="text-base font-medium text-zinc-400">Tasks Completed</span>
           </div>
-          <p className="text-4xl font-bold embossed-text text-white mt-4 tracking-tight">{review?.tasksCompleted || 0}</p>
+          <p className="text-4xl font-black text-white mt-4 tracking-tight">{review?.tasksCompleted || 0}</p>
         </motion.div>
 
         <motion.div
@@ -137,7 +137,7 @@ export default function ReviewPage() {
             </div>
             <span className="text-base font-medium text-zinc-400">Current Streak</span>
           </div>
-          <p className="text-4xl font-bold embossed-text text-white mt-4 tracking-tight">{review?.streak || 0} days</p>
+          <p className="text-4xl font-black text-white mt-4 tracking-tight">{review?.streak || 0} days</p>
         </motion.div>
       </div>
 
@@ -152,7 +152,7 @@ export default function ReviewPage() {
             <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
               <TrendingUp className="w-5 h-5 text-green-400" />
             </div>
-            <h2 className="text-xl font-bold embossed-text">Top Achievements</h2>
+            <h2 className="text-xl font-black text-white tracking-tight">Top Achievements</h2>
           </div>
           <ul className="space-y-3">
             {review?.topAchievements.map((achievement, i) => (
@@ -173,7 +173,7 @@ export default function ReviewPage() {
             <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
               <Target className="w-5 h-5 text-orange-400" />
             </div>
-            <h2 className="text-xl font-bold embossed-text">Missed Goals</h2>
+            <h2 className="text-xl font-black text-white tracking-tight">Missed Goals</h2>
           </div>
           <ul className="space-y-3">
             {review?.missedGoals.map((goal, i) => (
@@ -192,7 +192,7 @@ export default function ReviewPage() {
         animate={{ opacity: 1, y: 0 }}
         className="skeuo-panel p-8"
       >
-        <h2 className="text-xl font-bold mb-6 embossed-text">Your Reflection</h2>
+        <h2 className="text-xl font-black text-white tracking-tight mb-6">Your Reflection</h2>
         <textarea
           value={reflection}
           onChange={(e) => setReflection(e.target.value)}
@@ -214,7 +214,7 @@ export default function ReviewPage() {
             <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <h2 className="text-xl font-bold embossed-text">AI-Generated Summary</h2>
+            <h2 className="text-xl font-black text-white tracking-tight">AI-Generated Summary</h2>
           </div>
           <button
             onClick={generateAISummary}

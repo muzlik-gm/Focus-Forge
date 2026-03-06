@@ -6,10 +6,10 @@ import { Shield, Lock, Server, Terminal, Sparkles, Database } from 'lucide-react
 
 export default function SecurityPage() {
   const protocols = [
-    { name: 'Hardware_Hardening', icon: Server, desc: 'Bare-metal telemetry clusters with direct focus integration.' },
-    { name: 'Node_Encryption', icon: Lock, desc: 'End-to-end focus path encryption with Node-A1 standard.' },
-    { name: 'Zero_Trust_Auth', icon: Terminal, desc: 'Every sync request is verified across the global grid.' },
-    { name: 'Telemetry_Shield', icon: Shield, desc: 'Real-time monitoring and prevention of cognitive leaks.' },
+    { name: 'Hardware Hardening', icon: Server, desc: 'Enterprise-grade servers with direct focus tracking integration.' },
+    { name: 'Data Encryption', icon: Lock, desc: 'End-to-end encryption for all your data and sessions.' },
+    { name: 'Zero Trust Auth', icon: Terminal, desc: 'Every request is verified across all our infrastructure.' },
+    { name: 'Threat Monitoring', icon: Shield, desc: 'Real-time monitoring and prevention of security threats.' },
   ];
 
   return (
@@ -21,7 +21,7 @@ export default function SecurityPage() {
           <div className="text-center mb-16 border-b-4 border-black pb-12">
             <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
               <Database className="w-4 h-4 text-emerald-600" />
-              <span>Hardened_Infra</span>
+              <span>Hardened Infrastructure</span>
             </div>
             <h1 className="text-5xl lg:text-7xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight italic">
               Security<br />Standard.
@@ -37,7 +37,7 @@ export default function SecurityPage() {
                 <h3 className="text-2xl font-black uppercase tracking-tighter italic mb-3 border-b-2 border-black inline-block pb-0.5">{p.name}</h3>
                 <p className="text-sm font-bold text-black/60 leading-relaxed uppercase">{p.desc}</p>
                 <div className="mt-10 pt-8 border-t-2 border-black flex justify-between items-center opacity-40">
-                  <span className="text-[10px] font-black uppercase italic">Protocol_V4.2</span>
+                  <span className="text-[10px] font-black uppercase italic">Security Protocol</span>
                   <Sparkles className="w-4 h-4" />
                 </div>
               </div>
@@ -45,12 +45,12 @@ export default function SecurityPage() {
           </div>
 
           <div className="mt-24 skeuo-panel p-16 bg-[#09090b] text-white border-4 border-black shadow-[15px_15px_0px_black] ring-4 ring-black text-center">
-            <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter italic border-b-4 border-white inline-block pb-2 mb-8">Vulnerability_Sync</h2>
+            <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter italic border-b-4 border-white inline-block pb-2 mb-8">Vulnerability Updates</h2>
             <p className="max-w-xl mx-auto text-white/50 font-bold mb-10 uppercase text-sm">
-              If you encounter a telemetry leak or a protocol bug, please establish a priority transmission with our engineering cluster.
+              If you encounter a security vulnerability or a bug, please contact our security team immediately.
             </p>
             <button className="skeuo-button bg-white text-black px-12 py-5 font-black uppercase text-sm shadow-[8px_8px_0px_blue] transition-transform hover:scale-110">
-              REPORT_SYNC_LEAK
+              REPORT VULNERABILITY
             </button>
           </div>
         </section>

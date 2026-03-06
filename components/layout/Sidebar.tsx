@@ -58,7 +58,11 @@ export function Sidebar() {
 
   const navigation = isDesktop
     ? [...baseNavigation.slice(0, 1), ...desktopOnlyNavigation, ...baseNavigation.slice(1)]
-    : baseNavigation;
+    : [...baseNavigation];
+
+  if (process.env.NODE_ENV === 'development') {
+    navigation.push({ name: 'Dev Controls', href: '/dev-settings', icon: Settings });
+  }
 
   return (
     <>

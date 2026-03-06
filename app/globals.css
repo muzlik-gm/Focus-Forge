@@ -46,11 +46,10 @@
   /* Universal Neo-Brutalist Typography */
   .neo-text-h1 {
     font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.05em;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
-    font-style: italic;
   }
 
   .neo-text-h2 {
@@ -93,30 +92,22 @@
 /* Prevent any tailwind utilities from setting transparent/glass effects */
 @layer utilities {
 
-  .backdrop-blur,
-  .backdrop-blur-sm,
-  .backdrop-blur-md,
-  .backdrop-blur-lg,
-  .backdrop-blur-xl {
-    backdrop-filter: none !important;
-  }
-
-  /* Replace typical semi-transparent classes with solid dark equivalents */
-  .bg-black\/20,
-  .bg-black\/40,
-  .bg-black\/50,
-  .bg-black\/60 {
+  /* Only apply forced-solid overrides inside the landing page, NOT the dashboard */
+  .neo-landing .bg-black\/20,
+  .neo-landing .bg-black\/40,
+  .neo-landing .bg-black\/50,
+  .neo-landing .bg-black\/60 {
     background-color: #0b0b0c !important;
   }
 
-  .bg-white\/5,
-  .bg-white\/10,
-  .bg-white\/20 {
+  .neo-landing .bg-white\/5,
+  .neo-landing .bg-white\/10,
+  .neo-landing .bg-white\/20 {
     background-color: #1a1a1d !important;
   }
 
-  .border-white\/5,
-  .border-white\/10 {
+  .neo-landing .border-white\/5,
+  .neo-landing .border-white\/10 {
     border-color: #27272a !important;
   }
 }
@@ -126,9 +117,7 @@
  * Mixture of Neo Brutalism (hard shadows, pure black borders) and Skeuomorphism (rounded corners, subtle gradients)
  * Solid dark background, no transparency.
  */
-.skeuo-card,
-.skeuo-panel,
-[class*="skeuo-card"] {
+.skeuo-card {
   background-color: var(--surface-card);
   border: 2px solid var(--border-strong);
   box-shadow: 4px 4px 0px var(--border-strong);
@@ -136,6 +125,16 @@
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   position: relative;
   overflow: hidden;
+}
+
+.skeuo-panel {
+  background-color: var(--surface-card);
+  border: 2px solid var(--border-strong);
+  box-shadow: 4px 4px 0px var(--border-strong);
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  /* NO overflow: hidden on panels to allow dropdowns/modals to break out */
 }
 
 .skeuo-card::after {
@@ -148,8 +147,7 @@
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
 }
 
-.skeuo-card:hover,
-.skeuo-panel:hover {
+.skeuo-card:hover {
   transform: translate(-1px, -1px);
   box-shadow: 6px 6px 0px var(--border-strong);
   background-color: #16161a;
@@ -196,15 +194,57 @@
   font-size: 0.875rem;
 }
 
+.skeuo-chip {
+  background-color: #27272a;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  color: #a1a1aa;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 5px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.skeuo-chip:hover {
+  background-color: #3f3f46;
+  color: #f4f4f5;
+  border-color: #52525b;
+}
+
+.skeuo-progress {
+  height: 6px;
+  background-color: #27272a;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.skeuo-progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Better text contrast for dark backgrounds */
 .text-zinc-400,
 .text-zinc-500 {
   color: #a1a1aa !important;
-  /* Brighter zinc for better readability on dark bg */
 }
 
 .text-zinc-300 {
   color: #d4d4d8 !important;
 }
+
+/* Prevent zinc-600 from being used directly — too dark for dark bg */
+.text-zinc-600 {
+  color: #a1a1aa !important;
+}
+
+/* Note: text-black/40,50,60 are intentionally left to work naturally via Tailwind opacity.
+   Do NOT override globally — white-bg panels need dark text, dark-bg panels use zinc-* classes. */
 
 .skeuo-input:focus {
   border-color: #3b82f6 !important;
@@ -235,15 +275,26 @@
 }
 
 .skeuo-avatar {
-  background-color: #27272a !important;
-  border: 2px solid #000000 !important;
-  box-shadow: 2px 2px 0px #000000 !important;
-  border-radius: 50% !important;
-  background-image: none !important;
+  background: var(--surface-card);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: 2px 2px 0px var(--border-strong), inset 1px 1px 0px rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.skeuo-icon-container {
+  background: #09090b;
+  border: 1.5px solid var(--border-strong);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .skeuo-modal {
@@ -321,9 +372,8 @@
 
 /* Base text strokes / decorations */
 .embossed-text {
-  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
-  font-weight: 900;
-  letter-spacing: -0.05em;
+  /* Removed glow/shadow effects as per user request */
+  color: var(--text-primary);
 }
 
 

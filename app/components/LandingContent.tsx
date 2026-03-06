@@ -93,7 +93,7 @@ export function LandingContent() {
                         <div className="w-4 h-4 rounded-full bg-yellow-500 border-2 border-black" />
                         <div className="w-4 h-4 rounded-full bg-green-500 border-2 border-black" />
                       </div>
-                      <div className="skeuo-badge bg-zinc-100 px-4 py-1 text-[10px] font-black">FORGRIN_DASHBOARD_v1.0</div>
+                      <div className="skeuo-badge bg-zinc-100 px-4 py-1 text-[10px] font-black">FORGRIN DASHBOARD</div>
                     </div>
 
                     <div className="flex-grow space-y-8">
@@ -237,7 +237,7 @@ export function LandingContent() {
                       <div className="w-40 h-40 rounded-full border-[10px] border-blue-500 flex items-center justify-center border-t-zinc-200">
                         <div className="text-4xl font-black italic">25:00</div>
                       </div>
-                      <div className="absolute bottom-4 left-0 right-0 text-center font-black uppercase text-[10px] tracking-widest opacity-80">ACTIVE_SESSION_01</div>
+                      <div className="absolute bottom-4 left-0 right-0 text-center font-black uppercase text-[10px] tracking-widest opacity-80">ACTIVE SESSION</div>
                     </div>
                   </div>
                 </div>
@@ -480,7 +480,7 @@ export function LandingContent() {
               {/* Free Plan */}
               <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-2 border-black shadow-[6px_6px_0px_black] text-black ring-2 ring-black">
                 <div className="mb-4">
-                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Lite_Node</h3>
+                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Free Plan</h3>
                   <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
                     <span className="text-3xl font-black tracking-tighter">$0</span>
                     <span className="text-black/40 ml-1 font-bold uppercase text-[8px]">/month</span>
@@ -502,10 +502,10 @@ export function LandingContent() {
               {/* Pro Plan - Featured */}
               <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-4 border-black shadow-[10px_10px_0px_black] relative z-20 overflow-visible text-black md:scale-105">
                 <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-fit bg-[#ff91e0] border-2 border-black px-4 py-0.5 shadow-[2px_2px_0px_black] z-30">
-                  <span className="font-black uppercase tracking-tight text-[8px] italic">OPTIMAL_PATH</span>
+                  <span className="font-black uppercase tracking-tight text-[8px] italic">POPULAR CHOICE</span>
                 </div>
                 <div className="mb-4 pt-2">
-                  <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter italic">Pro_Core</h3>
+                  <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter italic">Pro Plan</h3>
                   <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
                     <span className="text-4xl font-black tracking-tighter">$12</span>
                     <span className="text-black/40 ml-1 font-black uppercase text-[8px]">/month</span>
@@ -527,7 +527,7 @@ export function LandingContent() {
               {/* Team Plan */}
               <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-2 border-black shadow-[6px_6px_0px_black] text-black ring-2 ring-black">
                 <div className="mb-4">
-                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Team_Grid</h3>
+                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Team Plan</h3>
                   <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
                     <span className="text-3xl font-black tracking-tighter">$29</span>
                     <span className="text-black/40 ml-1 font-bold uppercase text-[8px]">/month</span>

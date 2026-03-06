@@ -41,7 +41,7 @@ export default function PressPage() {
               Press &<br />Publicity.
             </h1>
             <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
-              The official source for Forgrin telemetry news and institutional updates.
+              The official source for Forgrin news and updates.
             </p>
           </div>
 
@@ -49,14 +49,14 @@ export default function PressPage() {
             <div className="lg:col-span-2 skeuo-panel p-10 bg-white border-2 border-black shadow-[8px_8px_0px_black]">
               <h2 className="text-3xl font-black mb-6 uppercase tracking-tighter border-b-2 border-black pb-2 text-blue-600">Institutional Profile</h2>
               <p className="text-sm font-bold text-black/70 leading-relaxed mb-6">
-                Forgrin is a high-density productivity cluster engineering deep work environments for the next generation of digital professionals. Founded in 2025, we specialize in focus telemetry and cognitive session orchestration.
+                Forgrin is a productivity platform built for deep work and focus. Founded in 2025, we help people track, improve, and sustain meaningful work habits.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {[
                   { label: 'Founded', value: '2025' },
                   { label: 'H.Q.', value: 'Remote-First' },
-                  { label: 'Telemetry Nodes', value: 'Global' },
-                  { label: 'Protocol', value: 'Neo-Brutalist' }
+                  { label: 'Users', value: 'Global' },
+                  { label: 'Platform', value: 'Forgrin' }
                 ].map((fact, i) => (
                   <div key={i} className="skeuo-panel p-4 bg-zinc-50 border-2 border-black">
                     <p className="text-[9px] font-black uppercase text-black/40">{fact.label}</p>
@@ -69,14 +69,14 @@ export default function PressPage() {
             <div className="flex flex-col gap-6">
               <div className="skeuo-panel p-8 bg-blue-50 border-2 border-black shadow-[6px_6px_0px_black] text-center">
                 <Download className="w-8 h-8 mx-auto mb-4" />
-                <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Protocol Assets</h3>
-                <p className="text-[10px] font-bold text-black/70 mb-6">Logos, diagrams, and telemetry visualization kits.</p>
+                <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Media Assets</h3>
+                <p className="text-[10px] font-bold text-black/70 mb-6">Logos, screenshots, and brand visuals.</p>
                 <button className="skeuo-button bg-black text-white px-6 py-3 font-black uppercase text-[9px] w-full">Fetch Kit</button>
               </div>
               <div className="skeuo-panel p-8 bg-pink-50 border-2 border-black shadow-[6px_6px_0px_black] text-center">
                 <Mail className="w-8 h-8 mx-auto mb-4" />
                 <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Media Inquiry</h3>
-                <p className="text-[10px] font-bold text-black/70 mb-6">Institutional requests and interview orchestration.</p>
+                <p className="text-[10px] font-bold text-black/70 mb-6">Press requests and interview enquiries.</p>
                 <a href="mailto:press@forgrin.app" className="text-[11px] font-black uppercase text-blue-600 underline">press@forgrin.app</a>
               </div>
             </div>
@@ -84,7 +84,7 @@ export default function PressPage() {
 
           {!loading && releases.length > 0 && (
             <div className="mb-16">
-              <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4">Latest Transmissions</h2>
+              <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter border-b-4 border-black pb-4">Latest News</h2>
               <div className="grid gap-6">
                 {releases.map((release: any) => (
                   <div key={release.id} className="skeuo-panel p-8 bg-white border-2 border-black shadow-[6px_6px_0px_black] group transition-all">

@@ -18,10 +18,10 @@ export default function CommunityPage() {
               <span>Global Network</span>
             </div>
             <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
-              Synchronized<br />Nodes.
+              Connect &<br />Grow Together.
             </h1>
             <p className="text-base font-bold text-black/70 max-w-xl mx-auto uppercase">
-              Connect with thousands of focused individuals optimizing their cognitive output.
+              Connect with thousands of focused people working on their best work.
             </p>
           </div>
 
@@ -30,15 +30,15 @@ export default function CommunityPage() {
               {
                 icon: MessageCircle,
                 title: 'Discord Server',
-                text: 'Real-time telemetry discussion and focus squads.',
-                btn: 'Join Cluster',
+                text: 'Real-time discussion and focus communities.',
+                btn: 'Join Discord',
                 href: 'https://discord.gg/forgrin',
                 bg: 'bg-blue-50'
               },
               {
                 icon: BookOpen,
                 title: 'Developer API',
-                text: 'Integrate the Forgrin telemetry cluster into your custom workflow.',
+                text: 'Integrate Forgrin into your custom workflow.',
                 btn: 'View Docs',
                 href: '/docs/api',
                 bg: 'bg-zinc-100'
@@ -81,13 +81,13 @@ export default function CommunityPage() {
           </div>
 
           <div className="skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black]">
-            <h2 className="text-3xl font-black mb-6 uppercase tracking-tighter border-b-4 border-black pb-4 text-center">Network Protocols</h2>
+            <h2 className="text-3xl font-black mb-6 uppercase tracking-tighter border-b-4 border-black pb-4 text-center">Community Standards</h2>
             <div className="grid md:grid-cols-2 gap-8">
               {[
                 'Radical transparency in focus sharing.',
-                'Supportive interaction across all nodes.',
-                'Constructive feedback on telemetry bugs.',
-                'Zero tolerance for non-productive noise.',
+                'Supportive interaction across all members.',
+                'Constructive feedback and bug reports.',
+                'Zero tolerance for spam or disruptive behavior.',
                 'Collaborative optimization of work habits.'
               ].map((protocol, i) => (
                 <div key={i} className="flex items-center gap-4 group">

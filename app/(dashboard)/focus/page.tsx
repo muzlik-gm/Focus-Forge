@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Play, Pause, Square, Plus, Loader2, Clock } from 'lucide-react';
+import { Play, Pause, Square, Plus, Loader2, Clock, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import { post, get } from '@/lib/api-client';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -29,6 +29,9 @@ export default function FocusPage() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [autoDetectDistractions, setAutoDetectDistractions] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAllSessions, setShowAllSessions] = useState(false);
+  const MAX_SESSIONS = 10;
+  const INITIAL_SESSIONS = 4;
 
   const isFreeUser = session?.user?.subscriptionTier === 'FREE';
   const maxDuration = isFreeUser ? 180 : 480; // 3 hours for free, 8 hours for paid
@@ -78,10 +81,21 @@ export default function FocusPage() {
 
   const fetchSessions = async () => {
     try {
-      const res = await get('/api/sessions?limit=10');
+      // Fetch up to MAX_SESSIONS + extras so we can auto-delete overflow
+      const res = await get(`/api/sessions?limit=20`);
       if (res.ok) {
         const data = await res.json();
-        setSessions(data.sessions || []);
+        const all: Session[] = data.sessions || [];
+        // Auto-delete sessions beyond MAX_SESSIONS
+        if (all.length > MAX_SESSIONS) {
+          const toDelete = all.slice(MAX_SESSIONS);
+          await Promise.all(toDelete.map(s =>
+            fetch(`/api/sessions/${s.id}`, { method: 'DELETE' }).catch(() => { })
+          ));
+          setSessions(all.slice(0, MAX_SESSIONS));
+        } else {
+          setSessions(all);
+        }
       }
     } catch (error) {
       console.error('Error fetching sessions:', error);
@@ -290,7 +304,10 @@ export default function FocusPage() {
           </div>
 
           <div className="skeuo-panel p-6">
-            <h2 className="text-lg font-bold mb-4 embossed-text">Recent Sessions</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold embossed-text">Recent Sessions</h2>
+              <span className="text-xs text-zinc-500 font-medium">{sessions.length} total</span>
+            </div>
             {loading ? (
               <div className="flex items-center justify-center py-6">
                 <Loader2 className="w-5 h-5 text-zinc-600 animate-spin" />
@@ -299,17 +316,48 @@ export default function FocusPage() {
               <p className="text-xs text-zinc-500 text-center py-6">No sessions yet</p>
             ) : (
               <div className="space-y-3">
-                {sessions.map((session) => (
-                  <div key={session.id} className="skeuo-card p-4">
+                {(showAllSessions ? sessions : sessions.slice(0, INITIAL_SESSIONS)).map((session) => (
+                  <div key={session.id} className="skeuo-card p-4 group relative pr-10">
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-sm font-semibold text-zinc-200">{formatSessionDuration(session.durationMinutes)}</span>
                       <span className="text-xs text-zinc-500">{formatRelativeTime(session.createdAt)}</span>
                     </div>
-                    <div className="text-xs text-zinc-400 bg-black/20 inline-block px-2 py-0.5 rounded">
+                    <div className="text-xs text-zinc-400 bg-zinc-800/60 inline-block px-2 py-0.5 rounded">
                       {session.distractionCount} distraction{session.distractionCount !== 1 ? 's' : ''}
                     </div>
+                    <button
+                      onClick={async () => {
+                        if (confirm('Delete this record?')) {
+                          try {
+                            const res = await fetch(`/api/sessions/${session.id}`, { method: 'DELETE' });
+                            if (res.ok) {
+                              setSessions(s => s.filter(x => x.id !== session.id));
+                            }
+                          } catch (e) {
+                            console.error(e);
+                          }
+                        }
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500/50 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Delete"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 ))}
+
+                {sessions.length > INITIAL_SESSIONS && (
+                  <button
+                    onClick={() => setShowAllSessions(v => !v)}
+                    className="w-full flex items-center justify-center gap-1.5 py-2 text-xs text-zinc-400 hover:text-white font-medium transition-colors border border-zinc-800 rounded-lg hover:border-zinc-600"
+                  >
+                    {showAllSessions ? (
+                      <><ChevronUp className="w-3.5 h-3.5" /> Show less</>
+                    ) : (
+                      <><ChevronDown className="w-3.5 h-3.5" /> Show more ({sessions.length - INITIAL_SESSIONS} more)</>
+                    )}
+                  </button>
+                )}
               </div>
             )}
           </div>

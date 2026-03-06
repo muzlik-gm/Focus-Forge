@@ -7,10 +7,10 @@ import Link from 'next/link';
 
 export default function LegalPage() {
     const sections = [
-        { name: 'Terms_of_Service', icon: Scroll, desc: 'Operational protocols and user agreements.' },
-        { name: 'Privacy_Policy', icon: Eye, desc: 'How we engineer and protect your focal telemetry.' },
-        { name: 'GDPR_Compliance', icon: Lock, desc: 'European data sovereignty protocols.' },
-        { name: 'Security_Architecture', icon: Shield, desc: 'Hardened infrastructure for deep thinkers.' },
+        { name: 'Terms of Service', slug: 'terms', icon: Scroll, desc: 'Operational protocols and user agreements.' },
+        { name: 'Privacy Policy', slug: 'privacy', icon: Eye, desc: 'How we protect your data.' },
+        { name: 'GDPR Compliance', slug: 'gdpr', icon: Lock, desc: 'European data sovereignty protocols.' },
+        { name: 'Security Architecture', slug: 'security', icon: Shield, desc: 'Hardened infrastructure for our users.' },
     ];
 
     function Eye({ className }: { className?: string }) {
@@ -29,13 +29,13 @@ export default function LegalPage() {
                     <div className="text-center mb-16 border-b-4 border-black pb-12">
                         <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
                             <Shield className="w-4 h-4 text-emerald-600" />
-                            <span>Full Compliance Cluster</span>
+                            <span>Legal & Compliance</span>
                         </div>
                         <h1 className="text-5xl lg:text-7xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
-                            Legal<br />Protocols.
+                            Legal<br />Information.
                         </h1>
                         <p className="text-sm font-black uppercase text-black/40 max-w-xl mx-auto">
-                            Our legal framework is designed with the same precision as our focus engine.
+                            Our legal framework is designed with your privacy in mind.
                         </p>
                     </div>
 
@@ -49,8 +49,8 @@ export default function LegalPage() {
                                     <h3 className="text-2xl font-black uppercase tracking-tighter italic mb-1 border-b-2 border-black inline-block pb-0.5">{section.name}</h3>
                                     <p className="text-xs font-bold text-black/60 mt-2">{section.desc}</p>
                                 </div>
-                                <Link href={`/${section.name.toLowerCase().replace(/_/g, '-')}`} className="skeuo-button bg-black text-white px-8 py-3 font-black uppercase text-[10px] shadow-[4px_4px_0px_white] ring-2 ring-black">
-                                    READ_DOCUMENT
+                                <Link href={`/${section.slug}`} className="skeuo-button bg-black text-white px-8 py-3 font-black uppercase text-[10px] shadow-[4px_4px_0px_white] ring-2 ring-black">
+                                    READ DOCUMENT
                                 </Link>
                             </div>
                         ))}
@@ -62,11 +62,11 @@ export default function LegalPage() {
                                 <FileText className="w-10 h-10" />
                             </div>
                             <div className="flex-grow text-center md:text-left">
-                                <h4 className="text-xl font-black uppercase tracking-tighter italic">Questions regarding our stack?</h4>
-                                <p className="text-xs font-bold text-black/70 mt-1">Our legal telemetry team can provide additional technical documentation.</p>
+                                <h4 className="text-xl font-black uppercase tracking-tighter italic">Questions regarding our policies?</h4>
+                                <p className="text-xs font-bold text-black/70 mt-1">Our team can provide additional documentation.</p>
                             </div>
                             <Link href="/contact" className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-xs shadow-[6px_6px_0px_white] ring-2 ring-black">
-                                REQUEST_DOCS
+                                REQUEST INFO
                             </Link>
                         </div>
                     </div>

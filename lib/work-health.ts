@@ -24,12 +24,12 @@ export interface HealthThresholds {
   dailyHealthy: number;
   dailyWarning: number;
   dailyDanger: number;
-  
+
   // Weekly thresholds (hours)
   weeklyHealthy: number;
   weeklyWarning: number;
   weeklyDanger: number;
-  
+
   // Deep focus thresholds (hours per day)
   focusOptimal: number;
   focusMinimum: number;
@@ -53,42 +53,40 @@ export function calculateWorkHealth(
 ): WorkHealthMetrics {
   const todayHours = todayMinutes / 60;
   const weekHours = weekMinutes / 60;
-  
+
   // Estimate deep focus time (assuming 40-50% of work time is deep focus)
   const deepFocusToday = todayHours * 0.45;
   const deepFocusWeek = weekHours * 0.45;
-  
+
   // Determine status based on multiple factors
   let status: WorkHealthMetrics['status'] = 'healthy';
   let message = '';
   const recommendations: string[] = [];
   let color = '#10b981'; // green
-  
+
   // Check for overwork (highest priority)
   if (weekHours >= thresholds.weeklyDanger || todayHours >= thresholds.dailyDanger) {
     status = 'danger';
     color = '#ef4444'; // red
-    message = '⚠️ Critical: You\'re working too much!';
-    recommendations.push('🛑 Stop working immediately and take a break');
-    recommendations.push('😴 Get proper sleep (7-9 hours)');
-    recommendations.push('🚶 Take a walk or do light exercise');
-    recommendations.push('📅 Review your workload and delegate tasks');
-    
+    message = 'Critical: You\'re working too much!';
+    recommendations.push('Stop working immediately and take a break');
+    recommendations.push('Get proper sleep (7-9 hours)');
+    recommendations.push('Take a walk or do light exercise');
+    recommendations.push('Review your workload and delegate tasks');
+
     if (weekHours >= 60) {
-      recommendations.push('🏥 Consider talking to a manager about burnout risk');
+      recommendations.push('Consider talking to a manager about burnout risk');
     }
   }
-  // Check for warning signs
   else if (weekHours >= thresholds.weeklyWarning || todayHours >= thresholds.dailyWarning) {
     status = 'warning';
     color = '#f59e0b'; // orange
-    message = '⚡ Warning: Approaching overwork threshold';
-    recommendations.push('⏸️ Take regular breaks (Pomodoro technique)');
-    recommendations.push('🌙 Ensure you get 7-8 hours of sleep tonight');
-    recommendations.push('💧 Stay hydrated and eat healthy meals');
-    recommendations.push('📊 Track your hours to avoid burnout');
+    message = 'Warning: Approaching overwork threshold';
+    recommendations.push('Take regular breaks (Pomodoro technique)');
+    recommendations.push('Ensure you get 7-8 hours of sleep tonight');
+    recommendations.push('Stay hydrated and eat healthy meals');
+    recommendations.push('Track your hours to avoid burnout');
   }
-  // Check for excellent performance
   else if (
     deepFocusToday >= thresholds.focusOptimal - 0.5 &&
     deepFocusToday <= thresholds.focusOptimal + 1 &&
@@ -97,38 +95,37 @@ export function calculateWorkHealth(
   ) {
     status = 'excellent';
     color = '#3b82f6'; // blue
-    message = '🌟 Excellent! Optimal work-life balance';
-    recommendations.push('✨ You\'re in the sweet spot for productivity');
-    recommendations.push('🎯 Maintain this pace for sustainable performance');
-    recommendations.push('🧘 Keep taking breaks and staying healthy');
+    message = 'Excellent! Optimal work-life balance';
+    recommendations.push('You\'re in the sweet spot for productivity');
+    recommendations.push('Maintain this pace for sustainable performance');
+    recommendations.push('Keep taking breaks and staying healthy');
   }
-  // Healthy range
   else if (todayHours <= thresholds.dailyHealthy && weekHours <= thresholds.weeklyHealthy) {
     status = 'healthy';
     color = '#10b981'; // green
-    message = '✅ Healthy work pace';
-    
+    message = 'Healthy work pace';
+
     if (deepFocusToday < thresholds.focusMinimum) {
-      recommendations.push('🎯 Try to get 2-4 hours of deep focus work');
-      recommendations.push('🔕 Minimize distractions during focus sessions');
+      recommendations.push('Try to get 2-4 hours of deep focus work');
+      recommendations.push('Minimize distractions during focus sessions');
     } else {
-      recommendations.push('👍 Keep up the good work!');
-      recommendations.push('⏰ Remember to take breaks every 90 minutes');
+      recommendations.push('Keep up the good work!');
+      recommendations.push('Remember to take breaks every 90 minutes');
     }
   }
-  
+
   // Add general recommendations based on time of day
   const hour = new Date().getHours();
   if (hour >= 22 || hour <= 5) {
-    recommendations.push('🌙 It\'s late! Consider wrapping up for better sleep');
+    recommendations.push('It\'s late! Consider wrapping up for better sleep');
   }
-  
+
   // Add focus-specific recommendations
   if (deepFocusToday < thresholds.focusMinimum && todayHours > 4) {
-    recommendations.push('⚠️ Low deep focus ratio - too many meetings/distractions?');
-    recommendations.push('📅 Block time for uninterrupted deep work');
+    recommendations.push('Low deep focus ratio - too many meetings/distractions?');
+    recommendations.push('Block time for uninterrupted deep work');
   }
-  
+
   return {
     todayHours,
     weekHours,
@@ -176,16 +173,16 @@ export function calculateProductivityScore(
   totalMinutes: number
 ): number {
   if (totalMinutes === 0) return 0;
-  
+
   const focusRatio = focusMinutes / totalMinutes;
   const focusHours = focusMinutes / 60;
-  
+
   // Optimal focus is 3-4 hours per day
   let score = 0;
-  
+
   // Base score from focus ratio (0-60 points)
   score += focusRatio * 60;
-  
+
   // Bonus for optimal focus hours (0-40 points)
   if (focusHours >= 3 && focusHours <= 5) {
     score += 40;
@@ -197,6 +194,6 @@ export function calculateProductivityScore(
     // Penalty for too much focus (burnout risk)
     score += Math.max(0, 40 - (focusHours - 5) * 5);
   }
-  
+
   return Math.min(100, Math.round(score));
 }
