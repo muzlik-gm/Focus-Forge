@@ -62,7 +62,7 @@ export default function PricingPage() {
               {/* Free Plan */}
               <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-2 border-black shadow-[6px_6px_0px_black] text-black">
                 <div className="mb-4">
-                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Lite_Node</h3>
+                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Free Plan</h3>
                   <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
                     <span className="text-3xl font-black tracking-tighter text-black">$0</span>
                     <span className="text-black/40 ml-1 font-bold uppercase text-[8px]">/month</span>
@@ -87,10 +87,10 @@ export default function PricingPage() {
               {/* Pro Plan - Featured */}
               <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-4 border-black shadow-[10px_10px_0px_black] relative z-20 overflow-visible text-black md:scale-105">
                 <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-fit bg-[#ff91e0] border-2 border-black px-4 py-0.5 shadow-[2px_2px_0px_black] z-30">
-                  <span className="font-black uppercase tracking-tight text-[8px] italic">OPTIMAL_PATH</span>
+                  <span className="font-black uppercase tracking-tight text-[8px] italic">POPULAR CHOICE</span>
                 </div>
                 <div className="mb-4 pt-2">
-                  <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter italic">Pro_Core</h3>
+                  <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter italic">Pro Plan</h3>
                   <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
                     <span className="text-4xl font-black tracking-tighter text-black">$12</span>
                     <span className="text-black/40 ml-1 font-black uppercase text-[8px]">/month</span>
@@ -115,7 +115,7 @@ export default function PricingPage() {
               {/* Team Plan */}
               <div className="skeuo-panel p-5 flex flex-col h-full bg-white border-2 border-black shadow-[6px_6px_0px_black] text-black">
                 <div className="mb-4">
-                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Team_Grid</h3>
+                  <h3 className="text-xl font-black mb-1 uppercase tracking-tighter italic">Team Plan</h3>
                   <div className="flex items-baseline mb-2 border-b-2 border-black/10 pb-2">
                     <span className="text-3xl font-black tracking-tighter text-black">$29</span>
                     <span className="text-black/40 ml-1 font-bold uppercase text-[8px]">/month</span>

@@ -35,10 +35,10 @@ export default function StatusPage() {
 
           <div className="skeuo-panel bg-white border-4 border-black shadow-[12px_12px_0px_black] ring-4 ring-black p-0 overflow-hidden mb-12">
             <div className="bg-black text-white p-4 flex justify-between items-center">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] italic">Telemetry_Logs</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] italic">System Logs</span>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-[8px] font-black uppercase">LIVE_FEED</span>
+                <span className="text-[8px] font-black uppercase">LIVE FEED</span>
               </div>
             </div>
             <div className="divide-y-2 divide-black">
@@ -50,7 +50,7 @@ export default function StatusPage() {
                   </div>
                   <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
                     <div className="flex flex-col items-end">
-                      <span className="text-[8px] font-black uppercase text-black/40 mb-1">UPTIME_90D</span>
+                      <span className="text-[8px] font-black uppercase text-black/40 mb-1">90 DAY UPTIME</span>
                       <span className="text-[10px] font-black">{s.uptime}</span>
                     </div>
                     <div className={`skeuo-badge bg-white border-2 border-black ${s.color} text-[8px] font-black px-4 py-1 shadow-[2px_2px_0px_black]`}>
@@ -64,7 +64,7 @@ export default function StatusPage() {
 
           {/* Past Incidents */}
           <div className="mt-20">
-            <h2 className="text-2xl font-black uppercase tracking-tighter italic mb-8 border-b-2 border-black inline-block pb-1">Past_Incidents</h2>
+            <h2 className="text-2xl font-black uppercase tracking-tighter italic mb-8 border-b-2 border-black inline-block pb-1">Past Incidents</h2>
             <div className="space-y-6">
               {[
                 { date: 'MAR_02_2026', title: 'Analysis Cache Rebuild', desc: 'Brief latency spike during global cache optimization.', status: 'RESOLVED' },

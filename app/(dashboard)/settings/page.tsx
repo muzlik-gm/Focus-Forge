@@ -94,7 +94,7 @@ export default function SettingsPage() {
 
   return (
     <div className="w-full max-w-6xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">Settings</h1>
+      <h1 className="text-3xl font-bold mb-8 text-white tracking-tight">Settings</h1>
 
       <div className="grid md:grid-cols-[240px_1fr] gap-8">
         {/* Sidebar Tabs */}
@@ -196,8 +196,8 @@ function ProfileTab({ userSettings, onUpdate }: ProfileTabProps) {
       className="space-y-4"
     >
       <div>
-        <h2 className="text-2xl font-bold mb-1 embossed-text text-white">Profile Settings</h2>
-        <p className="text-sm text-zinc-400">Manage your personal information</p>
+        <h2 className="text-2xl font-bold mb-1 text-white tracking-tight">Profile Settings</h2>
+        <p className="text-sm text-zinc-500 font-medium">Manage your personal information</p>
       </div>
 
       {message && (
@@ -294,8 +294,8 @@ function WorkspaceTab({ userSettings, onUpdate }: WorkspaceTabProps) {
       className="space-y-4"
     >
       <div>
-        <h2 className="text-2xl font-bold mb-1 embossed-text text-white">Workspace Settings</h2>
-        <p className="text-sm text-zinc-400">Manage your workspace and team</p>
+        <h2 className="text-2xl font-bold mb-1 text-white tracking-tight">Workspace Settings</h2>
+        <p className="text-sm text-zinc-500 font-medium">Manage your workspace and team</p>
       </div>
 
       {message && (
@@ -391,8 +391,8 @@ function NotificationsTab({ preferences, onUpdate }: NotificationsTabProps) {
       className="space-y-4"
     >
       <div>
-        <h2 className="text-2xl font-bold mb-1 embossed-text text-white">Notification Preferences</h2>
-        <p className="text-sm text-zinc-400">Choose how you want to be notified</p>
+        <h2 className="text-2xl font-bold mb-1 text-white tracking-tight">Notification Preferences</h2>
+        <p className="text-sm text-zinc-500 font-medium">Choose how you want to be notified</p>
       </div>
 
       {message && (
@@ -410,7 +410,7 @@ function NotificationsTab({ preferences, onUpdate }: NotificationsTabProps) {
         ].map((item) => (
           <div key={item.key} className="flex items-center justify-between p-4 skeuo-card">
             <div>
-              <p className="font-bold text-white embossed-text mb-0.5 text-sm">{item.label}</p>
+              <p className="font-bold text-white mb-0.5 text-sm">{item.label}</p>
               <p className="text-xs text-zinc-400">{item.desc}</p>
             </div>
             <button
@@ -465,19 +465,19 @@ function BillingTab({ userSettings }: BillingTabProps) {
       className="space-y-4"
     >
       <div>
-        <h2 className="text-2xl font-bold mb-1 embossed-text text-white">Billing & Subscription</h2>
-        <p className="text-sm text-zinc-400">Manage your subscription and payment methods</p>
+        <h2 className="text-2xl font-bold mb-1 text-white tracking-tight">Billing & Subscription</h2>
+        <p className="text-sm text-zinc-500 font-medium">Manage your subscription and payment methods</p>
       </div>
 
       <div className="p-6 skeuo-card bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/20">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <p className="text-xs font-bold text-zinc-400 mb-1 tracking-wide uppercase">Current Plan</p>
-            <p className="text-3xl font-black text-white embossed-text">{tier}</p>
+            <p className="text-xs font-bold text-zinc-400 mb-1 tracking-tight uppercase">Current Plan</p>
+            <p className="text-3xl font-bold text-white tracking-tight">{tier}</p>
           </div>
           <div className="text-right">
-            <p className="text-xs font-bold text-zinc-400 mb-1 tracking-wide uppercase">Next billing date</p>
-            <p className="text-base font-semibold text-white">{nextBillingDate}</p>
+            <p className="text-xs font-bold text-zinc-400 mb-1 tracking-tight uppercase">Next billing date</p>
+            <p className="text-base font-bold text-white tracking-tight">{nextBillingDate}</p>
           </div>
         </div>
         <button onClick={handleManageSubscription} disabled={loading} className="skeuo-button w-full px-6 py-3 font-bold text-sm text-white shadow-lg transition-all">
@@ -486,7 +486,7 @@ function BillingTab({ userSettings }: BillingTabProps) {
       </div>
 
       <div className="p-6 skeuo-card">
-        <h3 className="text-base font-bold text-white embossed-text mb-1">Billing History</h3>
+        <h3 className="text-base font-bold text-white mb-1">Billing History</h3>
         <p className="text-xs text-zinc-400 mb-4 font-medium">View and download invoices from the Stripe billing portal.</p>
         <button onClick={handleManageSubscription} disabled={loading} className="skeuo-card px-6 py-2.5 w-fit font-bold text-xs text-zinc-300 hover:text-white transition-all hover:bg-white/5 disabled:opacity-50">
           View Billing History
@@ -573,8 +573,8 @@ function APITab({ subscriptionTier }: APITabProps) {
       className="space-y-4"
     >
       <div>
-        <h2 className="text-2xl font-bold mb-1 embossed-text text-white">API Keys</h2>
-        <p className="text-sm text-zinc-400">Manage API keys for custom integrations</p>
+        <h2 className="text-2xl font-bold mb-1 text-white tracking-tight">API Keys</h2>
+        <p className="text-sm text-zinc-500 font-medium">Manage API keys for custom integrations</p>
       </div>
 
       {!isPro ? (
@@ -610,7 +610,7 @@ function APITab({ subscriptionTier }: APITabProps) {
               apiKeys.map((key) => (
                 <div key={key.id} className="flex items-center justify-between p-4 skeuo-card hover:bg-zinc-800/50 transition-all">
                   <div>
-                    <p className="font-bold text-white embossed-text mb-0.5 text-sm">{toSafeString(key.name)}</p>
+                    <p className="font-bold text-white mb-0.5 text-sm">{toSafeString(key.name)}</p>
                     <div className="flex items-center gap-3 text-xs text-zinc-500">
                       <span>Created {new Date(key.createdAt).toLocaleDateString()}</span>
                       {key.lastUsed && (
@@ -646,9 +646,9 @@ function APITab({ subscriptionTier }: APITabProps) {
             className="relative z-[210] w-full max-w-md mx-4 skeuo-panel p-6 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-black embossed-text text-white mb-1">Generate New API Key</h3>
+            <h3 className="text-lg font-bold text-white tracking-tight mb-1">Generate New API Key</h3>
             <p className="text-xs text-zinc-400 mb-4">Give your API key a descriptive name.</p>
-            
+
             <label className="block text-xs font-bold text-zinc-300 mb-2">Key Name</label>
             <input
               type="text"
@@ -659,7 +659,7 @@ function APITab({ subscriptionTier }: APITabProps) {
               className="skeuo-input w-full px-4 py-2.5 text-sm text-white focus:outline-none placeholder:text-zinc-600 mb-4"
               autoFocus
             />
-            
+
             <div className="flex items-center gap-3">
               <button
                 onClick={generateKey}
@@ -689,12 +689,12 @@ function APITab({ subscriptionTier }: APITabProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className="relative z-[210] w-full max-w-md mx-4 skeuo-panel p-6 overflow-hidden border-rose-500/20"
           >
-            <h3 className="text-lg font-black text-rose-400 mb-1">Revoke API Key?</h3>
+            <h3 className="text-lg font-bold text-rose-400 mb-1 tracking-tight">Revoke API Key?</h3>
             <p className="text-xs text-zinc-400 mb-4">
               Revoking <strong className="text-white">&ldquo;{toSafeString(revokeTarget.name)}&rdquo;</strong> is permanent.
               Any apps using this key will lose access.
             </p>
-            
+
             <div className="flex items-center gap-3">
               <button
                 onClick={() => revokeKey(toSafeString(revokeTarget.id))}

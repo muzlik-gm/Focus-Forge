@@ -24,13 +24,13 @@ export default function IntegrationsPage() {
           <div className="text-center mb-16 border-b-4 border-black pb-12">
             <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
               <Share2 className="w-4 h-4 text-blue-600" />
-              <span>Network Extensions</span>
+              <span>App Integrations</span>
             </div>
             <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
               Universal<br />Connectivity.
             </h1>
             <p className="text-base font-bold text-black/70 max-w-xl mx-auto">
-              Sync your focus telemetry across the entire node network.
+              Sync Forgrin with the tools you already use every day.
             </p>
           </div>
 
@@ -58,14 +58,14 @@ export default function IntegrationsPage() {
           <div className="mt-20 skeuo-panel p-12 text-center bg-white border-4 border-black shadow-[10px_10px_0px_black]">
             <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter italic border-b-2 border-black inline-block pb-1">Missing a Link?</h2>
             <p className="text-base font-bold text-black/70 mb-10 max-w-2xl mx-auto">
-              Our Open Interface (API) allows you to construct custom integration logic for any telemetry stack.
+              Our Open API allows you to build custom integrations with any tool.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/docs/api"
                 className="skeuo-button bg-black text-white px-10 py-5 font-black uppercase text-sm flex items-center gap-3 group"
               >
-                <span>Construct Plugin</span>
+                <span>Build a Plugin</span>
                 <Globe className="w-5 h-5" />
               </Link>
               <Link

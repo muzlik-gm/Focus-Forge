@@ -18,7 +18,7 @@ export default function ContactPage() {
             {/* Form Section */}
             <div className="skeuo-panel p-10 bg-white border-4 border-black shadow-[12px_12px_0px_black] ring-4 ring-black">
               <div className="mb-10 text-center lg:text-left">
-                <h1 className="text-4xl font-black mb-1 uppercase tracking-tighter italic border-b-4 border-black inline-block pb-2">Direct_Link</h1>
+                <h1 className="text-4xl font-black mb-1 uppercase tracking-tighter italic border-b-4 border-black inline-block pb-2">Contact Us</h1>
                 <p className="text-[10px] font-black uppercase text-black/50 mt-4 leading-relaxed">
                   Establish a high-priority telemetry connection with our support cluster.
                 </p>
@@ -26,19 +26,19 @@ export default function ContactPage() {
 
               <form className="space-y-6">
                 <div>
-                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Access_Name</label>
-                  <input className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black uppercase placeholder:text-black/20" placeholder="ENTER_IDENTITY" />
+                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Your Name</label>
+                  <input className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black uppercase placeholder:text-black/20" placeholder="ENTER YOUR NAME" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Telemetry_Address (Email)</label>
-                  <input className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black uppercase placeholder:text-black/20" placeholder="YOU@GRID.COM" />
+                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Email Address</label>
+                  <input className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black uppercase placeholder:text-black/20" placeholder="YOU@EXAMPLE.COM" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Transmission_Body</label>
-                  <textarea rows={5} className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black placeholder:text-black/20" placeholder="DESCRIBE_YOUR_SYNC_NEEDS..." />
+                  <label className="text-[10px] font-black uppercase mb-1 block tracking-tight">Message</label>
+                  <textarea rows={5} className="skeuo-input w-full bg-zinc-50 border-2 border-black p-4 text-xs font-black placeholder:text-black/20" placeholder="HOW CAN WE HELP YOU?" />
                 </div>
                 <button type="button" onClick={() => setLoading(true)} className="skeuo-button bg-black text-white w-full py-5 font-black uppercase text-sm shadow-[8px_8px_0px_white] ring-4 ring-black hover:bg-zinc-800 transition-all">
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'INITIATE_TRANSMISSION'}
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'SEND MESSAGE'}
                 </button>
               </form>
             </div>
@@ -51,7 +51,7 @@ export default function ContactPage() {
                     <MessageCircle className="w-8 h-8 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-black uppercase tracking-tighter italic mb-1">Live_Node_Support</h3>
+                    <h3 className="text-xl font-black uppercase tracking-tighter italic mb-1">Live Support</h3>
                     <p className="text-[9px] font-black uppercase opacity-40">Cluster Active 24/7</p>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-4">
                     <MapPin className="w-5 h-5 text-black" />
-                    <span className="text-[10px] font-black uppercase italic">DECENTRALIZED_INFRASTRUCTURE</span>
+                    <span className="text-[10px] font-black uppercase italic">GLOBAL INFRASTRUCTURE</span>
                   </div>
                 </div>
               </div>

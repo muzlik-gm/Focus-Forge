@@ -7,9 +7,9 @@ import Link from 'next/link';
 
 export default function CompanyPage() {
     const sections = [
-        { name: 'Mission', icon: Heart, desc: 'Engineering the next-gen focus architecture.', color: 'bg-red-50' },
-        { name: 'Team', icon: Users, desc: 'A node network of decentralized thinkers.', color: 'bg-blue-50' },
-        { name: 'Careers', icon: Briefcase, desc: 'Join the telemetry cluster.', color: 'bg-green-50' },
+        { name: 'Mission', icon: Heart, desc: 'Building the next generation productivity platform.', color: 'bg-red-50' },
+        { name: 'Team', icon: Users, desc: 'A passionate team of remote thinkers.', color: 'bg-blue-50' },
+        { name: 'Careers', icon: Briefcase, desc: 'Join our growing team.', color: 'bg-green-50' },
         { name: 'Press', icon: Sparkles, desc: 'Media coverage and brand assets.', color: 'bg-indigo-50' },
     ];
 
@@ -22,7 +22,7 @@ export default function CompanyPage() {
                     <div className="text-center mb-16 border-b-4 border-black pb-12">
                         <div className="skeuo-badge mb-4 inline-flex items-center gap-3 bg-white border-2 border-black font-black uppercase tracking-tight text-[10px]">
                             <Building2 className="w-4 h-4 text-blue-600" />
-                            <span>Forgrin Node_A1</span>
+                            <span>Forgrin</span>
                         </div>
                         <h1 className="text-4xl lg:text-6xl font-black mb-4 embossed-text tracking-tighter uppercase leading-tight">
                             One Core.<br />Global Distribution.
@@ -41,7 +41,7 @@ export default function CompanyPage() {
                                     </div>
                                     <div>
                                         <h3 className="text-3xl font-black mb-1 uppercase tracking-tighter italic border-b-2 border-black inline-block pb-1">{app.name}</h3>
-                                        <p className="text-[10px] font-black uppercase text-black/40 mt-2">Telemetry Cluster Active</p>
+                                        <p className="text-[10px] font-black uppercase text-black/40 mt-2">Active</p>
                                     </div>
                                 </div>
                                 <p className="text-base font-bold text-zinc-600 leading-snug mb-8">{app.desc}</p>
@@ -57,14 +57,14 @@ export default function CompanyPage() {
                     <div className="mt-20 skeuo-panel p-12 text-center bg-[#09090b] text-white border-4 border-black shadow-[10px_10px_0px_black] ring-4 ring-black">
                         <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter italic border-b-2 border-white inline-block pb-1">Our Origins.</h2>
                         <p className="text-base font-bold text-white/70 mb-10 max-w-2xl mx-auto">
-                            Synthesized in 2024 to bridge the gap between human focus and machine telemetry.
+                            Founded in 2024 to help people build better focus habits and accomplish meaningful work.
                         </p>
                         <div className="flex justify-center">
                             <Link
                                 href="/about"
                                 className="skeuo-button bg-white text-black border-2 border-black px-10 py-5 font-black uppercase text-sm flex items-center gap-3 transition-transform hover:scale-105"
                             >
-                                <span>Full Protocol History</span>
+                                <span>Our Story</span>
                                 <Users className="w-5 h-5" />
                             </Link>
                         </div>

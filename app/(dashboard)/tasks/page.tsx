@@ -240,7 +240,7 @@ export default function TasksPage() {
     <div className="w-full p-4 md:p-6 overflow-hidden">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1 embossed-text tracking-tight">Tasks</h1>
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Tasks</h1>
           <p className="text-zinc-300 text-sm">Organize and track your work</p>
         </div>
         <button
@@ -270,10 +270,10 @@ export default function TasksPage() {
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="skeuo-avatar w-7 h-7 bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+                  <div className="skeuo-icon-container w-7 h-7">
                     <StatusIcon className="w-3.5 h-3.5 text-zinc-400" />
                   </div>
-                  <h2 className="font-semibold text-sm embossed-text">{getStatusLabel(status)}</h2>
+                  <h2 className="font-semibold text-sm text-white">{getStatusLabel(status)}</h2>
                 </div>
                 <span className="skeuo-badge scale-75 origin-right">
                   {items.length}
@@ -376,7 +376,7 @@ export default function TasksPage() {
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100]" onClick={() => setShowCreateModal(false)}>
           <div className="skeuo-modal p-6 w-full max-w-md mx-4" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-xl font-bold mb-5 embossed-text">Create New Task</h2>
+            <h2 className="text-xl font-bold text-white tracking-tight mb-5">Create New Task</h2>
 
             <div className="space-y-4">
               <div>

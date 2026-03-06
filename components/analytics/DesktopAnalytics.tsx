@@ -185,7 +185,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
       <div className="mb-8 flex gap-3">
         <button
           onClick={() => setTimeRange('today')}
-          className={`skeuo-button px-6 py-3 font-medium transition-all ${timeRange === 'today'
+          className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'today'
             ? 'text-white shadow-lg'
             : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
             }`}
@@ -194,7 +194,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
         </button>
         <button
           onClick={() => setTimeRange('week')}
-          className={`skeuo-button px-6 py-3 font-medium transition-all ${timeRange === 'week'
+          className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'week'
             ? 'text-white shadow-lg'
             : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
             }`}
@@ -203,7 +203,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
         </button>
         <button
           onClick={() => setTimeRange('month')}
-          className={`skeuo-button px-6 py-3 font-medium transition-all ${timeRange === 'month'
+          className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'month'
             ? 'text-white shadow-lg'
             : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
             }`}
@@ -231,48 +231,48 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+                <div className="skeuo-icon-container w-10 h-10">
                   <Clock className="w-5 h-5 text-blue-400" />
                 </div>
                 <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">TOTAL TIME</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
                 {formatDuration(totalDuration)}
               </div>
             </div>
 
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+                <div className="skeuo-icon-container w-10 h-10">
                   <TrendingUp className="w-5 h-5 text-green-400" />
                 </div>
                 <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">PRODUCTIVITY</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
                 {productivityScore.toFixed(0)}%
               </div>
             </div>
 
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-green-400" />
+                <div className="skeuo-icon-container w-10 h-10">
+                  <Zap className="w-5 h-5 text-emerald-400" />
                 </div>
                 <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">PRODUCTIVE</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
                 {formatDuration(productiveDuration)}
               </div>
             </div>
 
             <div className="skeuo-panel p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="skeuo-avatar w-10 h-10 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center">
+                <div className="skeuo-icon-container w-10 h-10">
                   <BarChart3 className="w-5 h-5 text-red-400" />
                 </div>
                 <span className="text-zinc-400 text-sm font-bold uppercase tracking-wider">DISTRACTIONS</span>
               </div>
-              <div className="text-4xl font-bold text-white embossed-text tracking-tight mt-2">
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
                 {formatDuration(distractingDuration)}
               </div>
             </div>
@@ -280,8 +280,8 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* Application Usage Chart */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
-              <h2 className="font-medium text-white mb-6">Top Applications</h2>
+            <div className="skeuo-panel p-6">
+              <h2 className="text-xl font-bold text-white tracking-tight mb-6">Top Applications</h2>
               <div className="space-y-3">
                 {topApplications.slice(0, 10).map((app, index) => (
                   <div key={index} className="flex items-center gap-3">
@@ -312,7 +312,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
             {/* Daily Breakdown Chart (for weekly view) */}
             {timeRange === 'week' && weeklyStats?.daily_breakdown && (
               <div className="skeuo-panel p-8">
-                <h2 className="font-bold text-xl text-white mb-8 embossed-text">Daily Breakdown</h2>
+                <h2 className="text-xl font-bold text-white tracking-tight mb-8">Daily Breakdown</h2>
                 <div className="flex items-end justify-between gap-2 h-64">
                   {weeklyStats.daily_breakdown.map((day, index) => {
                     const maxDuration = Math.max(
@@ -350,12 +350,12 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
             {/* Time Distribution (for today view) */}
             {timeRange === 'today' && dailyStats && (
               <div className="skeuo-panel p-8">
-                <h2 className="font-bold text-xl text-white mb-8 embossed-text">Time Distribution</h2>
+                <h2 className="text-xl font-bold text-white tracking-tight mb-8">Time Distribution</h2>
                 <div className="space-y-6">
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-base font-bold text-zinc-300">Productive</span>
-                      <span className="text-base font-bold text-zinc-400 embossed-text">
+                      <span className="text-base font-bold text-zinc-400">
                         {formatDuration(dailyStats.productive_duration)}
                       </span>
                     </div>
@@ -374,7 +374,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-base font-bold text-zinc-300">Neutral</span>
-                      <span className="text-base font-bold text-zinc-400 embossed-text">
+                      <span className="text-base font-bold text-zinc-400">
                         {formatDuration(dailyStats.neutral_duration)}
                       </span>
                     </div>
@@ -393,7 +393,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-base font-bold text-zinc-300">Distracting</span>
-                      <span className="text-base font-bold text-zinc-400 embossed-text">
+                      <span className="text-base font-bold text-zinc-400">
                         {formatDuration(dailyStats.distracting_duration)}
                       </span>
                     </div>
@@ -417,7 +417,7 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
           {/* Focus Session Trends */}
           {sessionTrends.length > 0 && (
             <div className="skeuo-panel p-8 mb-8">
-              <h2 className="font-bold text-xl text-white mb-8 embossed-text">Focus Session Trends</h2>
+              <h2 className="font-bold text-xl text-white mb-8 tracking-tight">Focus Session Trends</h2>
               <div className="flex items-end justify-between gap-2 h-48">
                 {sessionTrends.map((trend, index) => {
                   const maxScore = Math.max(

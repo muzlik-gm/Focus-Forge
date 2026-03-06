@@ -84,7 +84,7 @@ export default function AnalyticsPage() {
     return (
       <div className="w-full max-w-7xl mx-auto p-8">
         <div className="mb-10">
-          <h1 className="text-3xl font-bold mb-2 embossed-text tracking-tight">Analytics</h1>
+          <h1 className="text-3xl font-bold text-white tracking-tight mb-2">Analytics</h1>
           <p className="text-zinc-300 text-lg">Desktop app analytics with local data tracking</p>
         </div>
         <DesktopAnalytics />
@@ -108,36 +108,36 @@ export default function AnalyticsPage() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold mb-1 embossed-text tracking-tight">Analytics</h1>
+        <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Analytics</h1>
         <p className="text-zinc-400 text-sm">Understand your productivity patterns</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="skeuo-panel p-4">
           <div className="text-zinc-400 text-xs font-medium mb-2">TOTAL FOCUS</div>
-          <div className="text-2xl font-bold mb-1 embossed-text tracking-tight">{formatTime(analytics?.totalFocusMinutes || 0)}</div>
+          <div className="text-2xl font-bold text-white tracking-tight mb-1">{formatTime(analytics?.totalFocusMinutes || 0)}</div>
           <div className="text-zinc-500 text-xs font-medium">{analytics?.totalSessions || 0} sessions</div>
         </div>
         <div className="skeuo-panel p-4">
           <div className="text-zinc-400 text-xs font-medium mb-2">AVG SESSION</div>
-          <div className="text-2xl font-bold mb-1 embossed-text tracking-tight">{formatTime(analytics?.avgSessionMinutes || 0)}</div>
+          <div className="text-2xl font-bold text-white tracking-tight mb-1">{formatTime(analytics?.avgSessionMinutes || 0)}</div>
           <div className="text-zinc-500 text-xs font-medium">Per session</div>
         </div>
         <div className="skeuo-panel p-4">
           <div className="text-zinc-400 text-xs font-medium mb-2">PEAK HOUR</div>
-          <div className="text-2xl font-bold mb-1 embossed-text tracking-tight">{getPeakHour()}</div>
+          <div className="text-2xl font-bold text-white tracking-tight mb-1">{getPeakHour()}</div>
           <div className="text-zinc-500 text-xs font-medium">Most productive</div>
         </div>
         <div className="skeuo-panel p-4">
           <div className="text-zinc-400 text-xs font-medium mb-2">STREAK</div>
-          <div className="text-2xl font-bold mb-1 embossed-text tracking-tight">{analytics?.streak || 0}d</div>
+          <div className="text-2xl font-bold text-white tracking-tight mb-1">{analytics?.streak || 0}d</div>
           <div className="text-zinc-500 text-xs font-medium">Keep it going</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div className="skeuo-panel p-6">
-          <h2 className="text-lg font-bold mb-6 embossed-text">Weekly Breakdown</h2>
+          <h2 className="text-lg font-bold text-white tracking-tight mb-6">Weekly Breakdown</h2>
           <div className="flex items-end justify-between gap-3 h-64 px-2">
             {analytics?.dailyBreakdown && analytics.dailyBreakdown.length > 0 ? (
               analytics.dailyBreakdown.map((day, i) => {
@@ -179,7 +179,7 @@ export default function AnalyticsPage() {
         </div>
 
         <div className="skeuo-panel p-6">
-          <h2 className="text-lg font-bold mb-6 embossed-text">Focus by Hour</h2>
+          <h2 className="text-lg font-bold text-white tracking-tight mb-6">Focus by Hour</h2>
           <div className="flex items-end justify-between gap-1 h-64">
             {analytics?.focusByTimeOfDay && analytics.focusByTimeOfDay.length > 0 ? (
               analytics.focusByTimeOfDay.map((item, i) => {
@@ -225,21 +225,21 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      <div className="skeuo-panel p-6">
-        <div className="flex items-start gap-4">
-          <div className="skeuo-avatar w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0">
-            <Zap className="w-6 h-6 text-white" />
+      <div className="skeuo-panel p-6 mb-6">
+        <div className="flex items-center gap-4">
+          <div className="skeuo-icon-container w-12 h-12 flex-shrink-0">
+            <Zap className="w-5 h-5 text-indigo-400" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-bold mb-2 embossed-text">Insights</h3>
-            <div className="space-y-2 text-sm text-zinc-300">
+            <h3 className="text-xl font-bold text-white tracking-tight mb-3">Insights</h3>
+            <div className="space-y-3 text-sm font-medium text-zinc-300">
               {analytics?.streak && analytics.streak > 0 ? (
                 <p>{analytics.streak}-day streak maintained</p>
               ) : (
                 <p>Start your focus journey today</p>
               )}
               {analytics?.totalFocusMinutes && analytics.totalFocusMinutes > 0 && (
-                <p>Peak productivity around <strong className="text-white">{getPeakHour()}</strong></p>
+                <p>Peak productivity around <strong className="text-indigo-400">{getPeakHour()}</strong></p>
               )}
             </div>
           </div>

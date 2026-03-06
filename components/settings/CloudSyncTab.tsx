@@ -81,22 +81,22 @@ export function CloudSyncTab() {
         >
             {/* Header */}
             <div>
-                <h2 className="text-2xl font-bold mb-2 embossed-text text-white">Cloud Sync</h2>
+                <h2 className="text-2xl font-black mb-2 text-white tracking-tight">Cloud Sync</h2>
                 <p className="text-base text-zinc-400">
                     Sync your focus sessions and tasks across all your devices in real-time.
                 </p>
             </div>
 
             {/* Connection Status Card */}
-            <div className={`p-8 skeuo-card ${status.authenticated
-                ? 'bg-gradient-to-br from-emerald-500/10 to-transparent border-emerald-500/20 shadow-[inset_0_0_80px_rgba(16,185,129,0.03)]'
-                : 'bg-gradient-to-br from-zinc-800/50 to-transparent'
+            <div className={`p-8 skeuo-panel ${status.authenticated
+                ? 'border-emerald-500/30'
+                : 'border-zinc-800'
                 }`}>
                 <div className="flex items-start justify-between">
                     <div className="flex items-center gap-5">
                         <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 ${status.authenticated
-                                ? 'bg-emerald-500/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_0_30px_rgba(16,185,129,0.2)] border border-emerald-500/30'
-                                : 'bg-black/40 shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] border border-transparent'
+                            ? 'bg-emerald-500/10 border border-emerald-500/30'
+                            : 'bg-zinc-800 border border-zinc-700'
                             }`}>
                             {status.authenticated
                                 ? <Cloud className="w-8 h-8 text-emerald-400" strokeWidth={1.5} />
@@ -104,7 +104,7 @@ export function CloudSyncTab() {
                             }
                         </div>
                         <div>
-                            <p className="text-xl font-bold text-white embossed-text mb-1">
+                            <p className="text-xl font-bold text-white mb-1">
                                 {status.authenticated ? 'Cloud Sync Active' : 'Cloud Sync Unavailable'}
                             </p>
                             <p className="text-sm font-medium text-zinc-400">
@@ -116,11 +116,10 @@ export function CloudSyncTab() {
                         </div>
                     </div>
 
-                    {/* Status indicator dot */}
                     <div className="flex items-center gap-2 mt-1">
                         <div className={`w-3 h-3 rounded-full ${status.authenticated
-                                ? 'bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.6)]'
-                                : 'bg-zinc-600'
+                            ? 'bg-emerald-400'
+                            : 'bg-zinc-600'
                             }`} />
                         <span className={`text-sm font-semibold ${status.authenticated ? 'text-emerald-400' : 'text-zinc-500'}`}>
                             {status.authenticated ? 'Connected' : 'Offline'}
@@ -154,11 +153,11 @@ export function CloudSyncTab() {
                     ].map((stat) => {
                         const Icon = stat.icon;
                         return (
-                            <div key={stat.label} className="p-6 skeuo-card text-center group">
+                            <div key={stat.label} className="p-6 skeuo-panel text-center group">
                                 <div className={`w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center bg-${stat.color}-500/10 border border-${stat.color}-500/20`}>
                                     <Icon className={`w-6 h-6 text-${stat.color}-400`} strokeWidth={1.5} />
                                 </div>
-                                <p className="text-3xl font-black text-white embossed-text mb-1">{stat.value}</p>
+                                <p className="text-3xl font-black text-white mb-1">{stat.value}</p>
                                 <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest">{stat.label}</p>
                             </div>
                         );
@@ -168,7 +167,7 @@ export function CloudSyncTab() {
 
             {/* Last Sync Info */}
             {status.authenticated && (
-                <div className="flex items-center justify-between p-6 skeuo-card">
+                <div className="flex items-center justify-between p-6 skeuo-panel">
                     <div className="flex items-center gap-4">
                         <Clock className="w-5 h-5 text-zinc-500" strokeWidth={1.5} />
                         <div>
@@ -186,7 +185,7 @@ export function CloudSyncTab() {
 
             {/* Error Message */}
             {status.error && (
-                <div className="flex items-start gap-4 p-5 skeuo-card border border-red-500/20 bg-red-500/5">
+                <div className="flex items-start gap-4 p-5 skeuo-panel border-red-500/30 bg-red-500/5">
                     <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                     <div>
                         <p className="text-sm font-bold text-red-400 mb-1">Sync Error</p>
@@ -197,7 +196,7 @@ export function CloudSyncTab() {
 
             {/* Success Action Feedback */}
             {lastAction && !status.error && (
-                <div className="flex items-center gap-4 p-5 skeuo-card border border-emerald-500/20 bg-emerald-500/5">
+                <div className="flex items-center gap-4 p-5 skeuo-panel border-emerald-500/30 bg-emerald-500/5">
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" strokeWidth={1.5} />
                     <p className="text-sm font-bold text-emerald-400">{lastAction}</p>
                 </div>
@@ -206,7 +205,7 @@ export function CloudSyncTab() {
             {/* Sync Actions */}
             {status.authenticated && (
                 <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-white embossed-text">Sync Controls</h3>
+                    <h3 className="text-lg font-bold text-white">Sync Controls</h3>
 
                     <div className="grid sm:grid-cols-3 gap-4">
                         {/* Full Sync */}
@@ -226,7 +225,7 @@ export function CloudSyncTab() {
                         <button
                             onClick={handlePush}
                             disabled={status.isSyncing || !isDesktop}
-                            className="flex flex-col items-center gap-3 p-6 skeuo-card text-zinc-300 hover:text-white disabled:opacity-40 transition-all hover:bg-white/5 group"
+                            className="flex flex-col items-center gap-3 p-6 skeuo-panel text-zinc-300 hover:text-white disabled:opacity-40 transition-all hover:bg-zinc-800 group"
                         >
                             <Upload className="w-7 h-7 group-hover:-translate-y-1 transition-transform" strokeWidth={1.5} />
                             <div className="text-center">
@@ -239,7 +238,7 @@ export function CloudSyncTab() {
                         <button
                             onClick={handlePull}
                             disabled={status.isSyncing}
-                            className="flex flex-col items-center gap-3 p-6 skeuo-card text-zinc-300 hover:text-white disabled:opacity-40 transition-all hover:bg-white/5 group"
+                            className="flex flex-col items-center gap-3 p-6 skeuo-panel text-zinc-300 hover:text-white disabled:opacity-40 transition-all hover:bg-zinc-800 group"
                         >
                             <Download className="w-7 h-7 transition-transform" strokeWidth={1.5} />
                             <div className="text-center">
@@ -253,10 +252,10 @@ export function CloudSyncTab() {
 
             {/* Auto-Sync Info */}
             {status.authenticated && (
-                <div className="p-6 skeuo-card">
+                <div className="p-6 skeuo-panel">
                     <div className="flex items-center gap-4 mb-4">
                         <Wifi className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
-                        <p className="font-bold text-white embossed-text">Auto-Sync</p>
+                        <p className="font-bold text-white">Auto-Sync</p>
                         <span className="ml-auto text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/20">
                             Active
                         </span>
@@ -269,7 +268,7 @@ export function CloudSyncTab() {
             )}
 
             {/* Security Note */}
-            <div className="p-6 skeuo-card">
+            <div className="p-6 skeuo-panel">
                 <div className="flex items-center gap-4 mb-3">
                     <ShieldCheck className="w-5 h-5 text-zinc-400" strokeWidth={1.5} />
                     <p className="font-bold text-zinc-300 text-sm">Data & Privacy</p>
@@ -282,9 +281,9 @@ export function CloudSyncTab() {
 
             {/* Not authenticated CTA */}
             {!status.authenticated && (
-                <div className="p-10 skeuo-card text-center">
+                <div className="p-10 skeuo-panel text-center">
                     <Cloud className="w-16 h-16 mx-auto mb-6 text-zinc-600" strokeWidth={1} />
-                    <h3 className="text-xl font-bold text-white embossed-text mb-3">Sign in to Enable Cloud Sync</h3>
+                    <h3 className="text-xl font-bold text-white mb-3">Sign in to Enable Cloud Sync</h3>
                     <p className="text-zinc-400 font-medium mb-8 max-w-sm mx-auto">
                         Access your productivity data from any device. Your focus sessions, tasks,
                         and analytics will sync automatically.
