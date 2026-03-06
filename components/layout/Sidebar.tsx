@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Monitor,
+  Flame,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -35,6 +36,8 @@ const baseNavigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Focus Sessions', href: '/focus', icon: Clock },
   { name: 'Tasks', href: '/tasks', icon: CheckSquare },
+  { name: 'Projects', href: '/projects', icon: FileText },
+  { name: 'Achievements', href: '/achievements', icon: Flame },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Team', href: '/team', icon: Users },
   { name: 'Settings', href: '/settings', icon: Settings },

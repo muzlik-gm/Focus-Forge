@@ -40,6 +40,8 @@ model User {
   workspaceId             String?                  @db.ObjectId
   workspace               Workspace?               @relation(fields: [workspaceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tasks                   Task[]
+  projects                Project[]
+  achievements            UserAchievement[]
   focusSessions           FocusSession[]
   weeklyReviews           WeeklyReview[]
   apiKeys                 ApiKey[]
@@ -47,6 +49,41 @@ model User {
   taskStates              String[]                 @default(["BACKLOG", "IN_PROGRESS", "DONE"])
   createdAt               DateTime                 @default(now())
   updatedAt               DateTime                 @updatedAt
+}
+
+model Project {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  type        String   @default("General")
+  apps        String[] @default([])
+  color       String   @default("#3b82f6")
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Achievement {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  icon        String
+  points      Int      @default(10)
+  category    String   @default("General")
+  criteria    Json
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String      @db.ObjectId
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String      @db.ObjectId
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  unlockedAt    DateTime    @default(now())
+
+  @@unique([userId, achievementId])
 }
 
 model Workspace {

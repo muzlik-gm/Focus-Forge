@@ -1,228 +1,292 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { Flame, Trophy, Crown, Star, Zap, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface PremiumStreakCardProps {
   currentStreak: number;
   className?: string;
 }
 
-/**
- * PremiumStreakCard - Apple-inspired, ultra-premium design
- * 
- * Design: Clean, minimal, data-focused, premium feel
- * NO bouncing, NO scaling, NO cringe animations
- */
 export function PremiumStreakCard({ currentStreak, className = '' }: PremiumStreakCardProps) {
+  const [mounted, setMounted] = useState(false);
+  const controls = useAnimation();
+
   useEffect(() => {
+    setMounted(true);
     if (currentStreak > 0 && currentStreak % 7 === 0) {
       confetti({
-        particleCount: 30,
-        spread: 50,
-        origin: { y: 0.7 },
-        colors: ['#3b82f6', '#8b5cf6'],
-        ticks: 100,
+        particleCount: 80,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#000000', '#ffffff', '#3b82f6', '#fbbf24'],
+        ticks: 200,
+        shapes: ['square']
       });
     }
-  }, [currentStreak]);
+
+    if (currentStreak >= 14) {
+      controls.start({
+        rotate: [0, -2, 2, -2, 0],
+        transition: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+      });
+    }
+  }, [currentStreak, controls]);
 
   const getTier = (streak: number) => {
     if (streak >= 100) return {
-      name: 'Legendary',
+      name: 'Legendary_Node',
       icon: Crown,
       color: '#fbbf24',
-      gradient: 'from-yellow-400 to-orange-500',
-      bg: 'rgba(251, 191, 36, 0.05)',
+      bgClass: 'bg-yellow-400',
+      textClass: 'text-black',
+      borderClass: 'border-yellow-400',
+      shadowClass: 'shadow-[8px_8px_0px_#fbbf24]',
+      level: 6
     };
     if (streak >= 50) return {
-      name: 'Master',
+      name: 'Master_Core',
       icon: Trophy,
       color: '#a855f7',
-      gradient: 'from-purple-500 to-pink-500',
-      bg: 'rgba(168, 85, 247, 0.05)',
+      bgClass: 'bg-purple-500',
+      textClass: 'text-white',
+      borderClass: 'border-purple-500',
+      shadowClass: 'shadow-[8px_8px_0px_#a855f7]',
+      level: 5
     };
     if (streak >= 30) return {
-      name: 'Expert',
+      name: 'Expert_Link',
       icon: Sparkles,
       color: '#3b82f6',
-      gradient: 'from-blue-500 to-cyan-500',
-      bg: 'rgba(59, 130, 246, 0.05)',
+      bgClass: 'bg-blue-500',
+      textClass: 'text-white',
+      borderClass: 'border-blue-500',
+      shadowClass: 'shadow-[8px_8px_0px_#3b82f6]',
+      level: 4
     };
     if (streak >= 14) return {
-      name: 'Committed',
+      name: 'Committed_Array',
       icon: Zap,
       color: '#10b981',
-      gradient: 'from-green-500 to-emerald-500',
-      bg: 'rgba(16, 185, 129, 0.05)',
+      bgClass: 'bg-green-500',
+      textClass: 'text-black',
+      borderClass: 'border-green-500',
+      shadowClass: 'shadow-[8px_8px_0px_#10b981]',
+      level: 3
     };
     if (streak >= 7) return {
-      name: 'Building',
+      name: 'Building_Block',
       icon: Star,
       color: '#f59e0b',
-      gradient: 'from-orange-500 to-amber-500',
-      bg: 'rgba(245, 158, 11, 0.05)',
+      bgClass: 'bg-orange-500',
+      textClass: 'text-black',
+      borderClass: 'border-orange-500',
+      shadowClass: 'shadow-[8px_8px_0px_#f59e0b]',
+      level: 2
     };
     if (streak >= 3) return {
-      name: 'Starting',
+      name: 'Ignition',
       icon: Flame,
       color: '#ef4444',
-      gradient: 'from-red-500 to-orange-500',
-      bg: 'rgba(239, 68, 68, 0.05)',
+      bgClass: 'bg-red-500',
+      textClass: 'text-white',
+      borderClass: 'border-red-500',
+      shadowClass: 'shadow-[8px_8px_0px_#ef4444]',
+      level: 1
     };
     return {
-      name: 'New',
+      name: 'Offline',
       icon: Flame,
-      color: '#6b7280',
-      gradient: 'from-gray-500 to-gray-600',
-      bg: 'rgba(107, 114, 128, 0.05)',
+      color: '#ffffff',
+      bgClass: 'bg-zinc-100',
+      textClass: 'text-black',
+      borderClass: 'border-white',
+      shadowClass: 'shadow-[8px_8px_0px_white]',
+      level: 0
     };
-  };
-
-  const getNextMilestone = (streak: number) => {
-    if (streak < 3) return 3;
-    if (streak < 7) return 7;
-    if (streak < 14) return 14;
-    if (streak < 30) return 30;
-    if (streak < 50) return 50;
-    if (streak < 100) return 100;
-    return streak + 50;
   };
 
   const tier = getTier(currentStreak);
   const Icon = tier.icon;
-  const nextMilestone = getNextMilestone(currentStreak);
+  const nextMilestone = currentStreak < 3 ? 3 : currentStreak < 7 ? 7 : currentStreak < 14 ? 14 : currentStreak < 30 ? 30 : currentStreak < 50 ? 50 : currentStreak < 100 ? 100 : currentStreak + 50;
   const progress = currentStreak > 0 ? (currentStreak / nextMilestone) * 100 : 0;
   const daysLeft = nextMilestone - currentStreak;
 
+  // Animation intensities based on level
+  const NumberAnimation = mounted && tier.level >= 2 ? {
+    scale: [1, 1.05, 1],
+    transition: { duration: 1.5, repeat: Infinity }
+  } : {};
+
+  const IconAnimation = mounted && tier.level >= 1 ? {
+    rotate: [0, 15, -15, 0],
+    scale: [1, 1.2, 1],
+    transition: { duration: 1, repeat: Infinity }
+  } : {};
+
+  const ParticleWrapper: any = mounted && tier.level >= 4 ? {
+    backgroundPosition: ['0% 0%', '100% 100%'],
+    transition: { duration: 5, repeat: Infinity, ease: "linear" }
+  } : {};
+
   return (
-    <div className={className}>
-      {/* Main Container */}
-      <div 
-        className="relative rounded-[32px] p-10 overflow-hidden"
+    <motion.div
+      className={cn("w-full h-full", className)}
+      animate={controls}
+    >
+      {/* Neo-Brutalist Main Container */}
+      <motion.div
+        className={cn(
+          "relative p-8 overflow-hidden border-4 border-black ring-2 ring-black bg-black",
+          tier.shadowClass
+        )}
+        animate={ParticleWrapper}
         style={{
-          background: 'rgba(255, 255, 255, 0.02)',
-          backdropFilter: 'blur(40px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
-          boxShadow: `
-            0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-            0 20px 60px -10px rgba(0, 0, 0, 0.4),
-            0 0 80px -20px ${tier.color}20
-          `,
+          backgroundImage: tier.level >= 4 ? `repeating-linear-gradient(45deg, ${tier.color}20 0px, ${tier.color}20 2px, transparent 2px, transparent 10px)` : 'none'
         }}
       >
-        {/* Subtle gradient background */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            background: `radial-gradient(circle at 30% 20%, ${tier.color}, transparent 60%)`,
-          }}
-        />
-
         <div className="relative z-10">
           {/* Top Bar */}
-          <div className="flex items-center justify-between mb-10">
-            {/* Icon */}
-            <div 
-              className="w-14 h-14 rounded-2xl flex items-center justify-center"
-              style={{
-                background: tier.bg,
-                border: `1px solid ${tier.color}20`,
-              }}
-            >
-              <Icon className="w-7 h-7" style={{ color: tier.color }} strokeWidth={2} />
-            </div>
-
-            {/* Badge */}
-            <div 
-              className="px-4 py-1.5 rounded-full text-xs font-bold tracking-wider"
-              style={{
-                background: tier.bg,
-                color: tier.color,
-                border: `1px solid ${tier.color}20`,
-              }}
-            >
-              {tier.name.toUpperCase()}
-            </div>
-          </div>
-
-          {/* Streak Number - CLEAN, NO ANIMATIONS */}
-          <div className="mb-10">
-            <div className="flex items-baseline gap-3 mb-3">
-              <span 
-                className="text-[120px] font-black leading-none tracking-tighter"
-                style={{ 
-                  color: tier.color,
-                  fontFeatureSettings: '"tnum"',
-                }}
+          <div className="flex items-center justify-between mb-8 pb-4 border-b-4 border-white">
+            <div className="flex items-center gap-4">
+              <motion.div
+                className={cn(
+                  "w-16 h-16 border-4 border-black flex items-center justify-center",
+                  tier.bgClass
+                )}
+                animate={IconAnimation}
               >
-                {currentStreak}
-              </span>
+                <Icon className={cn("w-8 h-8", tier.textClass)} strokeWidth={3} />
+              </motion.div>
+              <div>
+                <h3 className="text-white text-2xl font-black uppercase tracking-tighter italic">Gamification_Drive</h3>
+                <div className="flex gap-2 mt-1 relative cursor-pointer group">
+                  <div className={cn("px-2 py-0.5 border-2 border-black text-[10px] font-black uppercase shadow-[2px_2px_0px_black]", tier.bgClass, tier.textClass)}>
+                    {tier.name}
+                  </div>
+                  <div className="bg-white text-black px-2 py-0.5 border-2 border-black text-[10px] font-black uppercase shadow-[2px_2px_0px_black]">
+                    LVL {tier.level}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="text-zinc-400 text-lg font-medium">
-              {currentStreak === 0 && 'Start your streak today'}
-              {currentStreak === 1 && 'One day down, keep going'}
-              {currentStreak > 1 && `${currentStreak} days in a row`}
+
+            <div className="hidden sm:block">
+              <motion.div
+                className={cn(
+                  "text-[10px] font-black uppercase tracking-widest border-2 border-black px-4 py-2",
+                  currentStreak > 0 ? "bg-green-400 text-black" : "bg-red-500 text-white"
+                )}
+                animate={mounted && currentStreak > 0 ? { opacity: [1, 0.5, 1], transition: { duration: 1, repeat: Infinity } } : {}}
+              >
+                {currentStreak > 0 ? 'STATUS: SUSTAINING' : 'STATUS: CRITICAL FAIL'}
+              </motion.div>
             </div>
           </div>
 
-          {/* Progress Section */}
-          {currentStreak > 0 && daysLeft > 0 && (
-            <div className="space-y-4 mb-8">
-              {/* Progress Bar */}
-              <div className="relative h-2 bg-white/5 rounded-full overflow-hidden">
-                <motion.div
-                  className="absolute inset-y-0 left-0 rounded-full"
-                  style={{ 
-                    background: `linear-gradient(90deg, ${tier.gradient.replace('from-', '').replace('to-', ', ')})`,
+          {/* Streak Display & Intense Typography */}
+          <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-6">
+            <div className="flex-1 text-center md:text-left">
+              <motion.div
+                className="flex items-baseline justify-center md:justify-start gap-3 mb-2"
+                animate={NumberAnimation}
+              >
+                <span
+                  className="text-[120px] lg:text-[180px] font-black leading-none tracking-tighter"
+                  style={{
+                    WebkitTextStroke: `4px white`,
+                    color: tier.level >= 3 ? tier.color : 'black',
+                    textShadow: tier.level >= 5 ? `10px 10px 0px ${tier.color}` : 'none'
                   }}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.min(progress, 100)}%` }}
-                  transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-                />
-              </div>
-
-              {/* Progress Info */}
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-zinc-500 font-medium">
-                  {daysLeft} {daysLeft === 1 ? 'day' : 'days'} to {nextMilestone}
+                >
+                  {currentStreak}
                 </span>
-                <span className="font-bold text-white">
-                  {Math.round(progress)}%
-                </span>
+                <span className="text-4xl lg:text-5xl font-black uppercase text-white tracking-tighter italic" style={{ WebkitTextStroke: '2px black' }}>Days</span>
+              </motion.div>
+              <div className="text-white font-black uppercase tracking-widest text-sm bg-black border-2 border-white inline-block px-4 py-2 shadow-[4px_4px_0px_white]">
+                {currentStreak === 0 && 'INITIALIZE LINK NOW'}
+                {currentStreak === 1 && 'UPLINK ESTABLISHED'}
+                {currentStreak > 1 && `MAINTAINING SUCCESSFUL CHAIN`}
               </div>
             </div>
-          )}
 
-          {/* Milestones */}
-          <div className="pt-8 border-t border-white/5">
-            <div className="flex items-center justify-between">
-              {[3, 7, 14, 30, 50, 100].map((milestone, i) => (
-                <div key={milestone} className="flex flex-col items-center gap-2">
-                  <div 
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-500`}
-                    style={{
-                      backgroundColor: currentStreak >= milestone ? tier.color : 'rgba(255,255,255,0.1)',
-                      boxShadow: currentStreak >= milestone ? `0 0 12px ${tier.color}` : 'none',
-                      opacity: currentStreak >= milestone ? 1 : 0.3,
-                    }}
-                  />
-                  <span 
-                    className={`text-[11px] font-bold transition-colors duration-300 ${
-                      currentStreak >= milestone ? 'text-white' : 'text-zinc-600'
-                    }`}
-                  >
-                    {milestone}
-                  </span>
+            {/* Progress Visualizer Matrix */}
+            {currentStreak > 0 && daysLeft > 0 && (
+              <div className="flex-1 w-full bg-white border-4 border-black p-6 shadow-[8px_8px_0px_black] transform rotate-1">
+                <div className="flex justify-between items-end mb-4 border-b-2 border-black pb-2">
+                  <span className="text-black font-black uppercase text-xl italic">Upload_Status</span>
+                  <span className="text-black font-black text-3xl">{Math.round(progress)}%</span>
                 </div>
-              ))}
-            </div>
+
+                {/* Neo-brutalist Progress Bar */}
+                <div className="h-10 w-full bg-zinc-200 border-4 border-black relative overflow-hidden mb-2">
+                  <motion.div
+                    className={cn("h-full border-r-4 border-black", tier.bgClass)}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${Math.min(progress, 100)}%` }}
+                    transition={{ duration: 1.5, ease: "circOut" }}
+                  />
+                  {/* Glitch Overlay for high levels */}
+                  {tier.level >= 4 && (
+                    <motion.div
+                      className="absolute inset-0 bg-white/30 mix-blend-overlay"
+                      animate={{ x: ['-100%', '100%'] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                  )}
+                </div>
+                <div className="text-right text-[10px] font-black uppercase text-black">
+                  {daysLeft} DAYS CYCLE TO TIER [{nextMilestone}]
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Milestones Track */}
+          <div className="pt-6 border-t-4 border-white mt-4 bg-zinc-900 -mx-8 -mb-8 px-8 py-6 flex justify-between">
+            {[3, 7, 14, 30, 50, 100].map((milestone) => (
+              <div key={milestone} className="flex flex-col items-center gap-2 relative">
+                <motion.div
+                  className={cn(
+                    "w-8 h-8 border-2 border-black flex items-center justify-center text-[10px] font-black z-10 transition-colors duration-500",
+                    currentStreak >= milestone ? tier.bgClass : "bg-black text-white"
+                  )}
+                  animate={currentStreak >= milestone && tier.level >= 3 ? { rotate: [0, 90, 180, 270, 360], transition: { duration: 4, repeat: Infinity, ease: 'linear' } } : {}}
+                >
+                  {currentStreak >= milestone ? <Check className="w-4 h-4 text-black" /> : milestone}
+                </motion.div>
+
+                {/* Connecting Line */}
+                <div className={cn(
+                  "absolute top-4 left-4 w-[10vw] max-w-[80px] h-1 border-t-2 border-dashed z-0",
+                  milestone === 100 ? "hidden" : "",
+                  currentStreak >= milestone ? "border-white" : "border-zinc-700"
+                )} />
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
+
+// Ensure Check icon is local if not imported from lucide-react in parent scope
+function Check(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24" height="24"
+      viewBox="0 0 24 24"
+      fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+    >
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
