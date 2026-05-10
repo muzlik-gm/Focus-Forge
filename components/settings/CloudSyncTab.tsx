@@ -272,7 +272,11 @@ export function CloudSyncTab() {
                 <div className="p-6 skeuo-panel">
                     <div className="flex items-center gap-4 mb-4">
                         <Wifi className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
+<<<<<<< HEAD
                         <p className="font-bold text-white">Real-time Auto-Sync</p>
+=======
+                        <p className="font-bold text-white">Auto-Sync</p>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                         <span className="ml-auto text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/20">
                             Live
                         </span>

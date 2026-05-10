@@ -186,8 +186,13 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
         <button
           onClick={() => setTimeRange('today')}
           className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'today'
+<<<<<<< HEAD
             ? 'text-on-surface shadow-lg'
             : 'bg-surface-container-highest text-on-surface-variant hover:text-on-surface hover:bg-zinc-700 !shadow-none'
+=======
+            ? 'text-white shadow-lg'
+            : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
             }`}
         >
           Today
@@ -195,8 +200,13 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
         <button
           onClick={() => setTimeRange('week')}
           className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'week'
+<<<<<<< HEAD
             ? 'text-on-surface shadow-lg'
             : 'bg-surface-container-highest text-on-surface-variant hover:text-on-surface hover:bg-zinc-700 !shadow-none'
+=======
+            ? 'text-white shadow-lg'
+            : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
             }`}
         >
           This Week
@@ -204,8 +214,13 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
         <button
           onClick={() => setTimeRange('month')}
           className={`skeuo-button px-6 py-3 font-semibold transition-all ${timeRange === 'month'
+<<<<<<< HEAD
             ? 'text-on-surface shadow-lg'
             : 'bg-surface-container-highest text-on-surface-variant hover:text-on-surface hover:bg-zinc-700 !shadow-none'
+=======
+            ? 'text-white shadow-lg'
+            : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 !shadow-none'
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
             }`}
         >
           This Month
@@ -236,7 +251,11 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                 </div>
                 <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">TOTAL TIME</span>
               </div>
+<<<<<<< HEAD
               <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
+=======
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                 {formatDuration(totalDuration)}
               </div>
             </div>
@@ -248,7 +267,11 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                 </div>
                 <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">PRODUCTIVITY</span>
               </div>
+<<<<<<< HEAD
               <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
+=======
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                 {productivityScore.toFixed(0)}%
               </div>
             </div>
@@ -260,7 +283,11 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                 </div>
                 <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">PRODUCTIVE</span>
               </div>
+<<<<<<< HEAD
               <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
+=======
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                 {formatDuration(productiveDuration)}
               </div>
             </div>
@@ -272,7 +299,11 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                 </div>
                 <span className="text-on-surface-variant text-sm font-bold uppercase tracking-wider">DISTRACTIONS</span>
               </div>
+<<<<<<< HEAD
               <div className="text-4xl font-bold font-heading text-on-surface tracking-tight mt-2">
+=======
+              <div className="text-4xl font-bold text-white tracking-tight mt-2">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                 {formatDuration(distractingDuration)}
               </div>
             </div>
@@ -281,7 +312,11 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* Application Usage Chart */}
             <div className="skeuo-panel p-6">
+<<<<<<< HEAD
               <h2 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-6">Top Applications</h2>
+=======
+              <h2 className="text-xl font-bold text-white tracking-tight mb-6">Top Applications</h2>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
               <div className="space-y-3">
                 {topApplications.slice(0, 10).map((app, index) => (
                   <div key={index} className="flex items-center gap-3">
@@ -312,7 +347,11 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
             {/* Daily Breakdown Chart (for weekly view) */}
             {timeRange === 'week' && weeklyStats?.daily_breakdown && (
               <div className="skeuo-panel p-8">
+<<<<<<< HEAD
                 <h2 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-8">Daily Breakdown</h2>
+=======
+                <h2 className="text-xl font-bold text-white tracking-tight mb-8">Daily Breakdown</h2>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                 <div className="flex items-end justify-between gap-2 h-64">
                   {weeklyStats.daily_breakdown.map((day, index) => {
                     const maxDuration = Math.max(
@@ -350,12 +389,21 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
             {/* Time Distribution (for today view) */}
             {timeRange === 'today' && dailyStats && (
               <div className="skeuo-panel p-8">
+<<<<<<< HEAD
                 <h2 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-8">Time Distribution</h2>
                 <div className="space-y-6">
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-base font-bold font-heading text-on-surface-variant">Productive</span>
                       <span className="text-base font-bold font-heading text-on-surface-variant">
+=======
+                <h2 className="text-xl font-bold text-white tracking-tight mb-8">Time Distribution</h2>
+                <div className="space-y-6">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-base font-bold text-zinc-300">Productive</span>
+                      <span className="text-base font-bold text-zinc-400">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                         {formatDuration(dailyStats.productive_duration)}
                       </span>
                     </div>
@@ -373,8 +421,13 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-3">
+<<<<<<< HEAD
                       <span className="text-base font-bold font-heading text-on-surface-variant">Neutral</span>
                       <span className="text-base font-bold font-heading text-on-surface-variant">
+=======
+                      <span className="text-base font-bold text-zinc-300">Neutral</span>
+                      <span className="text-base font-bold text-zinc-400">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                         {formatDuration(dailyStats.neutral_duration)}
                       </span>
                     </div>
@@ -392,8 +445,13 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-3">
+<<<<<<< HEAD
                       <span className="text-base font-bold font-heading text-on-surface-variant">Distracting</span>
                       <span className="text-base font-bold font-heading text-on-surface-variant">
+=======
+                      <span className="text-base font-bold text-zinc-300">Distracting</span>
+                      <span className="text-base font-bold text-zinc-400">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                         {formatDuration(dailyStats.distracting_duration)}
                       </span>
                     </div>
@@ -417,7 +475,11 @@ export function DesktopAnalytics({ className = '' }: DesktopAnalyticsProps) {
           {/* Focus Session Trends */}
           {sessionTrends.length > 0 && (
             <div className="skeuo-panel p-8 mb-8">
+<<<<<<< HEAD
               <h2 className="font-bold font-heading text-xl text-on-surface mb-8 tracking-tight">Focus Session Trends</h2>
+=======
+              <h2 className="font-bold text-xl text-white mb-8 tracking-tight">Focus Session Trends</h2>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
               <div className="flex items-end justify-between gap-2 h-48">
                 {sessionTrends.map((trend, index) => {
                   const maxScore = Math.max(

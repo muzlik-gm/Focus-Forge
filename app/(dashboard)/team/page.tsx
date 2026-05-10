@@ -91,6 +91,7 @@ export default function TeamPage() {
     return (
       <div className="max-w-7xl mx-auto p-4 md:p-6">
         <div className="mb-6">
+<<<<<<< HEAD
           <h1 className="text-2xl font-bold font-heading text-on-surface tracking-tight mb-1">Team</h1>
           <p className="text-on-surface-variant text-sm">Collaborate with your team</p>
         </div>
@@ -100,6 +101,17 @@ export default function TeamPage() {
           </div>
           <h3 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-3">Team Collaboration Not Available</h3>
           <p className="text-on-surface-variant text-sm mb-6 max-w-md mx-auto">
+=======
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Team</h1>
+          <p className="text-zinc-300 text-sm">Collaborate with your team</p>
+        </div>
+        <div className="skeuo-panel p-8 text-center max-w-2xl mx-auto">
+          <div className="skeuo-icon-container w-16 h-16 mx-auto mb-4">
+            <Users className="w-8 h-8 text-zinc-400" />
+          </div>
+          <h3 className="text-xl font-bold text-white tracking-tight mb-3">Team Collaboration Not Available</h3>
+          <p className="text-zinc-300 text-sm mb-6 max-w-md mx-auto">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
             Upgrade to the Team plan to enable collaboration features and work with your team.
           </p>
           <Link
@@ -118,6 +130,7 @@ export default function TeamPage() {
     return (
       <div className="max-w-7xl mx-auto p-4 md:p-6">
         <div className="mb-6">
+<<<<<<< HEAD
           <h1 className="text-2xl font-bold font-heading text-on-surface tracking-tight mb-1">Team</h1>
           <p className="text-on-surface-variant text-sm">Collaborate with your team</p>
         </div>
@@ -127,6 +140,17 @@ export default function TeamPage() {
           </div>
           <h3 className="text-xl font-bold font-heading text-on-surface tracking-tight mb-3">Unable to Load Team Members</h3>
           <p className="text-on-surface-variant text-sm mb-6 max-w-md mx-auto">{error}</p>
+=======
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Team</h1>
+          <p className="text-zinc-300 text-sm">Collaborate with your team</p>
+        </div>
+        <div className="skeuo-panel p-8 text-center max-w-2xl mx-auto">
+          <div className="skeuo-icon-container w-16 h-16 mx-auto mb-4">
+            <Users className="w-8 h-8 text-zinc-400" />
+          </div>
+          <h3 className="text-xl font-bold text-white tracking-tight mb-3">Unable to Load Team Members</h3>
+          <p className="text-zinc-300 text-sm mb-6 max-w-md mx-auto">{error}</p>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
           <button
             onClick={fetchTeamMembers}
             className="skeuo-card hover:bg-surface-container-highest inline-block px-6 py-2.5 text-on-surface font-medium text-sm transition-all"
@@ -142,8 +166,13 @@ export default function TeamPage() {
     <div className="max-w-7xl mx-auto p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
+<<<<<<< HEAD
           <h1 className="text-2xl font-bold font-heading text-on-surface tracking-tight mb-1">Team</h1>
           <p className="text-on-surface-variant text-sm">Collaborate with your team</p>
+=======
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Team</h1>
+          <p className="text-zinc-300 text-sm">Collaborate with your team</p>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
         </div>
         <button
           onClick={() => setShowInviteModal(true)}
@@ -162,7 +191,11 @@ export default function TeamPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="col-span-2 skeuo-panel p-6">
+<<<<<<< HEAD
           <h2 className="text-lg font-bold font-heading text-on-surface tracking-tight mb-5">Weekly Leaderboard</h2>
+=======
+          <h2 className="text-lg font-bold text-white tracking-tight mb-5">Weekly Leaderboard</h2>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
           {sortedMembers.length === 0 ? (
             <p className="text-xs text-outline text-center py-6">No team members yet</p>
           ) : (
@@ -170,8 +203,13 @@ export default function TeamPage() {
               {sortedMembers.map((member, i) => (
                 <div key={member.id} className="skeuo-card p-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
+<<<<<<< HEAD
                     <div className="text-xs font-bold text-outline w-5 text-center">{i + 1}</div>
                     <div className="skeuo-avatar w-10 h-10 font-bold text-base text-on-surface-variant">
+=======
+                    <div className="text-xs font-bold text-zinc-500 w-5 text-center">{i + 1}</div>
+                    <div className="skeuo-avatar w-10 h-10 font-bold text-base text-zinc-300">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                       {toSafeString(member.name).charAt(0)}
                     </div>
                     <div>
@@ -179,7 +217,11 @@ export default function TeamPage() {
                       <div className="text-xs text-on-surface-variant mt-0.5">{toSafeString(member.email)}</div>
                     </div>
                   </div>
+<<<<<<< HEAD
                   <div className="text-base font-bold font-heading text-on-surface">{formatFocusTime(member.totalFocusMinutes)}</div>
+=======
+                  <div className="text-base font-bold text-white">{formatFocusTime(member.totalFocusMinutes)}</div>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                 </div>
               ))}
             </div>
@@ -187,7 +229,11 @@ export default function TeamPage() {
         </div>
 
         <div className="skeuo-panel p-6">
+<<<<<<< HEAD
           <h2 className="text-lg font-bold font-heading text-on-surface tracking-tight mb-5">Team Status</h2>
+=======
+          <h2 className="text-lg font-bold text-white tracking-tight mb-5">Team Status</h2>
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
           {sortedMembers.length === 0 ? (
             <p className="text-xs text-outline text-center py-6">No team members</p>
           ) : (
@@ -195,7 +241,11 @@ export default function TeamPage() {
               {sortedMembers.map((member) => (
                 <div key={member.id} className="skeuo-card p-3 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
+<<<<<<< HEAD
                     <div className="skeuo-avatar w-9 h-9 font-bold text-sm text-on-surface-variant">
+=======
+                    <div className="skeuo-avatar w-9 h-9 font-bold text-sm text-zinc-300">
+>>>>>>> ffdba67be8dc3f10a5ea82ff4642602cf4f87f65
                       {toSafeString(member.name).charAt(0)}
                     </div>
                     <span className="text-sm font-medium">{toSafeString(member.name).split(' ')[0]}</span>
